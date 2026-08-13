@@ -2,7 +2,8 @@ import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import type { CityNode, LibyanRegion, Stage } from '../../types/map';
 import { useMapStore } from '../../store/useMapStore';
-import { MAP_IMAGE, projectToMap, projectToMapPercent, buildRoutePath } from './projection';
+import { MAP_IMAGE, projectToMap, buildRoutePath } from './projection';
+import { declutterPins } from './pinLayout';
 import {
   layoutStageNodes,
   PIN_CLEARANCE,
@@ -22,6 +23,7 @@ import {
   Sun,
   Flame,
   Anchor,
+  Leaf,
   Sparkles
 } from 'lucide-react';
 
@@ -40,12 +42,25 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
 }) => {
   const { cities } = useMapStore();
 
-  const cityPoints = useMemo(
+  /**
+   * True projected positions, then the drawn positions after decluttering.
+   * `cityPoints` is what everything on the map aligns to — pins, labels,
+   * routes and stage fans — so they never disagree about where a city is.
+   */
+  const placedPins = useMemo(
     () =>
-      new Map(
-        cities.map((c) => [c.id, projectToMap(c.coordinates.latitude, c.coordinates.longitude)])
+      declutterPins(
+        cities.map((c) => ({
+          id: c.id,
+          point: projectToMap(c.coordinates.latitude, c.coordinates.longitude),
+        }))
       ),
     [cities]
+  );
+
+  const cityPoints = useMemo(
+    () => new Map([...placedPins].map(([id, placed]) => [id, placed.display])),
+    [placedPins]
   );
 
   /**
@@ -91,8 +106,11 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
   // at the wrong places when it did.
   const routePaths = useMemo(() => {
     const segments: { id: string; from: string; to: string; curvature: number }[] = [
-      // 1. Coastal Highway (Tripoli -> Leptis -> Misrata -> Benghazi -> Cyrene -> Derna)
-      { id: 'coastal_1', from: 'tripoli', to: 'leptis_magna', curvature: 0.1 },
+      // 1. Coastal Highway (Tripoli -> Msallata -> Leptis -> Misrata -> Benghazi
+      //    -> Cyrene -> Derna). Msallata sits inland between Tripoli and Leptis,
+      //    so the chain threads through it rather than bypassing it.
+      { id: 'coastal_1', from: 'tripoli', to: 'msallata', curvature: 0.12 },
+      { id: 'coastal_1b', from: 'msallata', to: 'leptis_magna', curvature: 0.12 },
       { id: 'coastal_2', from: 'leptis_magna', to: 'misrata', curvature: 0.1 },
       // Bows deep enough to follow the shore of the Gulf of Sirte instead of
       // cutting straight across open water.
@@ -112,22 +130,21 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
       { id: 'cross_desert', from: 'sabha_fezzan', to: 'jalu_awjila', curvature: -0.08 },
     ];
 
-    const pointOf = (cityId: string) => {
-      const city = cities.find((c) => c.id === cityId);
-      return city ? projectToMap(city.coordinates.latitude, city.coordinates.longitude) : null;
-    };
-
+    // Drawn positions, not true ones: a route has to meet the pin the player
+    // actually sees, otherwise decluttering leaves the roads hanging in space.
     return segments.flatMap(({ id, from, to, curvature }) => {
-      const a = pointOf(from);
-      const b = pointOf(to);
+      const a = cityPoints.get(from);
+      const b = cityPoints.get(to);
       if (!a || !b) return [];
       return [{ id, d: buildRoutePath(a, b, curvature), isUnlocked: true }];
     });
-  }, [cities]);
+  }, [cityPoints]);
 
   // Custom Icon Selector for High-Craft Aesthetics across all 12 cities
   const getCityIcon = (cityId: string, isSelected: boolean, isUnlocked: boolean) => {
-    const iconClass = `w-4 h-4 sm:w-5 sm:h-5 transition-transform ${
+    // Smaller symbols mean less displacement is needed to separate the coastal
+    // cluster, so pins stay closer to their true positions.
+    const iconClass = `w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform ${
       isSelected ? 'text-[#0B0F19]' : isUnlocked ? 'text-[#FCD34D]' : 'text-[#64748B]'
     }`;
 
@@ -136,6 +153,8 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
         return <Castle className={iconClass} />;
       case 'leptis_magna':
         return <Landmark className={iconClass} />;
+      case 'msallata':
+        return <Leaf className={iconClass} />;
       case 'misrata':
         return <Anchor className={iconClass} />;
       case 'nalut_nafusa':
@@ -220,6 +239,33 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
           />
         ))}
 
+        {/* Leader lines for pins the declutter had to move: a dot marks the
+            true location and a hairline ties it to the drawn pin, so a
+            displaced symbol still states where the city actually is. */}
+        {[...placedPins].map(([id, placed]) =>
+          placed.isDisplaced ? (
+            <g key={`leader_${id}`} opacity={0.65}>
+              <line
+                x1={placed.anchor.x}
+                y1={placed.anchor.y}
+                x2={placed.display.x}
+                y2={placed.display.y}
+                stroke="rgba(252, 211, 77, 0.55)"
+                strokeWidth={0.8}
+                strokeDasharray="2, 2"
+              />
+              <circle
+                cx={placed.anchor.x}
+                cy={placed.anchor.y}
+                r={1.6}
+                fill="#FCD34D"
+                stroke="rgba(11, 15, 25, 0.8)"
+                strokeWidth={0.5}
+              />
+            </g>
+          ) : null
+        )}
+
         {/* Spurs from the selected city out to each of its stage nodes. */}
         {expanded?.nodes.map(({ stage, point }) => {
           const isPlayable = stage.isUnlocked;
@@ -255,10 +301,12 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
           // the city.
           const isLabelHidden = expanded !== null && expanded.city.id === city.id;
 
-          const pin = projectToMapPercent(
-            city.coordinates.latitude,
-            city.coordinates.longitude
-          );
+          const placed = placedPins.get(city.id);
+          if (!placed) return null;
+          const pin = {
+            left: (placed.display.x / MAP_IMAGE.width) * 100,
+            top: (placed.display.y / MAP_IMAGE.height) * 100,
+          };
           const offset = city.labelOffset ?? { x: 0, y: 20 };
           const label = {
             left: pin.left + (offset.x / MAP_IMAGE.width) * 100,
@@ -296,7 +344,7 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
 
               {/* Pin Beacon Icon Button */}
               <div
-                className={`relative flex items-center justify-center rounded-full p-2.5 sm:p-3 transition-all shadow-xl ${
+                className={`relative flex items-center justify-center rounded-full p-2 sm:p-2.5 transition-all shadow-xl ${
                   isSelected
                     ? isUnlocked
                       ? 'bg-gradient-to-br from-[#FCD34D] to-[#E5A93B] ring-4 ring-[#E5A93B]/60 scale-110 shadow-[0_0_25px_#E5A93B]'

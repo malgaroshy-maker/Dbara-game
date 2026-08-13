@@ -91,6 +91,28 @@ export const geographyQuestions: TriviaQuestion[] = [
 
   // ── جغرافيا العالم ───────────────────────────────────────────────────────
   {
+    id: 'geo_msl_01',
+    category: 'geography',
+    cityId: 'msallata',
+    difficulty: 'medium',
+    question: 'بزراعة أي محصول تشتهر مرتفعات مسلاتة ومنطقتها؟',
+    options: ['النخيل', 'الزيتون', 'الحمضيات', 'القطن'],
+    correctIndex: 1,
+    funFact: 'تنتشر بساتين الزيتون ومعاصره في مسلاتة وجبلها، وزيت الزيتون من أبرز منتجات المنطقة منذ القدم.',
+    rewardDinars: 30,
+  },
+  {
+    id: 'geo_msl_02',
+    category: 'geography',
+    cityId: 'msallata',
+    difficulty: 'hard',
+    question: 'إلى أي منطقة إدارية تتبع مدينة مسلاتة؟',
+    options: ['الزاوية', 'الجفارة', 'المرقب', 'سرت'],
+    correctIndex: 2,
+    funFact: 'تقع مسلاتة ضمن منطقة المرقب في شمال غرب ليبيا، ومركزها مدينة الخمس على الساحل.',
+    rewardDinars: 40,
+  },
+  {
     id: 'geog_09',
     category: 'geography',
     difficulty: 'medium',

@@ -24,6 +24,17 @@ export const wordScramblePuzzles: LetterScramblePuzzle[] = [
     rewardDinars: 45,
   },
   {
+    id: 'scramble_msl_01',
+    cityId: 'msallata',
+    category: 'landmark',
+    prompt: 'ما اسم المكان الذي يُعصر فيه الزيتون لاستخراج زيته؟',
+    answer: 'المعصرة',
+    scrambledLetters: ['ا', 'ل', 'م', 'ع', 'ص', 'ر', 'ة'],
+    hint: 'مبنى تقليدي يضم حجر الرحى وأدوات العصر',
+    funFact: 'انتشرت المعاصر الحجرية التقليدية في مرتفعات مسلاتة والجبل، وكان بعضها يُدار بالدواب قبل دخول المعاصر الحديثة.',
+    rewardDinars: 40,
+  },
+  {
     id: 'scramble_ben_01',
     cityId: 'benghazi',
     category: 'proverb',

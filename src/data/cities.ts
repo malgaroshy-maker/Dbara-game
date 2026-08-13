@@ -35,7 +35,7 @@ export const initialCities: CityNode[] = [
     icon: '🏛️',
     coordinates: { latitude: 32.6386, longitude: 14.2903 }, // لبدة الكبرى (الخمس)
     mapLabel: 'لبدة',
-    labelOffset: { x: 0, y: 18 },
+    labelOffset: { x: 14, y: -16 },
     stagesCount: 4,
     unlockedByDefault: false,
     requiredStarsToUnlock: 3,
@@ -44,6 +44,28 @@ export const initialCities: CityNode[] = [
       { id: 'leptis_2', stageNumber: 2, title: 'مسرح صبراتة والفسيفساء الفينيقية', type: 'multiple_choice', questionId: 'hist_lep_02', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
       { id: 'leptis_3', stageNumber: 3, title: 'رتب الحروف: شخصيات تاريخية', type: 'letter_scramble', puzzleId: 'scramble_lep_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
       { id: 'leptis_4', stageNumber: 4, title: 'تحدي تاريخ الآثار الليبية', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
+    ],
+  },
+  {
+    id: 'msallata',
+    name: 'Msallata',
+    arabicName: 'مسلاتة',
+    titleBadge: 'جبل الزيتون',
+    region: 'tripolitania',
+    description: 'مدينة الجبل والزيتون في المرقب، تطل على السهل الساحلي شرق طرابلس.',
+    historicalLore: 'تقوم مسلاتة على مرتفعات الجبل الشرقي وتشتهر منذ القدم بزراعة الزيتون ومعاصره، وكانت محطة على الطريق الرابط بين طرابلس والساحل الشرقي.',
+    icon: '🫒',
+    coordinates: { latitude: 32.6167, longitude: 14.0167 }, // مسلاتة
+    mapLabel: 'مسلاتة',
+    labelOffset: { x: 0, y: 20 },
+    stagesCount: 4,
+    unlockedByDefault: false,
+    requiredStarsToUnlock: 5,
+    stages: [
+      { id: 'msallata_1', stageNumber: 1, title: 'جبل مسلاتة وزراعة الزيتون', type: 'multiple_choice', questionId: 'geo_msl_01', starsEarned: 0, isUnlocked: false, rewardDinars: 35 },
+      { id: 'msallata_2', stageNumber: 2, title: 'رتب الحروف: عصر الزيتون', type: 'letter_scramble', puzzleId: 'scramble_msl_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
+      { id: 'msallata_3', stageNumber: 3, title: 'مسلاتة وموقعها في المرقب', type: 'multiple_choice', questionId: 'geo_msl_02', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
+      { id: 'msallata_4', stageNumber: 4, title: 'سباق سرعة: الساحل الشرقي لطرابلس', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
     ],
   },
   {
@@ -57,7 +79,7 @@ export const initialCities: CityNode[] = [
     icon: '🏰',
     coordinates: { latitude: 31.8683, longitude: 10.9800 }, // نالوت
     mapLabel: 'نالوت',
-    labelOffset: { x: 0, y: 20 },
+    labelOffset: { x: 8, y: 20 },
     stagesCount: 4,
     unlockedByDefault: false,
     requiredStarsToUnlock: 6,
@@ -79,7 +101,7 @@ export const initialCities: CityNode[] = [
     icon: '⚓',
     coordinates: { latitude: 32.3754, longitude: 15.0925 }, // مصراتة
     mapLabel: 'مصراتة',
-    labelOffset: { x: 22, y: -20 },
+    labelOffset: { x: 18, y: 16 },
     stagesCount: 4,
     unlockedByDefault: false,
     requiredStarsToUnlock: 9,
