@@ -13,9 +13,17 @@ interface LetterScrambleProps {
   cityId: string;
   puzzle: LetterScramblePuzzle;
   onFinish: () => void;
+  /** Fired once when the puzzle is solved, so hosts can record completion. */
+  onSolved?: () => void;
 }
 
-export const LetterScramble: React.FC<LetterScrambleProps> = ({ stage, cityId, puzzle, onFinish }) => {
+export const LetterScramble: React.FC<LetterScrambleProps> = ({
+  stage,
+  cityId,
+  puzzle,
+  onFinish,
+  onSolved,
+}) => {
   const { addDinars } = useGameStore();
   const { completeStage } = useMapStore();
 
@@ -54,8 +62,9 @@ export const LetterScramble: React.FC<LetterScrambleProps> = ({ stage, cityId, p
         // Victory!
         sfx.playVictory();
         setIsCompleted(true);
-        addDinars(puzzle.rewardDinars);
+        addDinars(stage.rewardDinars);
         completeStage(cityId, stage.id, 3);
+        onSolved?.();
         confetti({
           particleCount: 60,
           spread: 70,
@@ -259,7 +268,7 @@ export const LetterScramble: React.FC<LetterScrambleProps> = ({ stage, cityId, p
               </p>
 
               <div className="p-2.5 rounded-2xl bg-[#E5A93B]/10 border border-[#E5A93B]/20 text-[#FCD34D] font-extrabold text-xs mb-4">
-                +{puzzle.rewardDinars} دينار ليبي مكافأة 💰
+                +{stage.rewardDinars} دينار ليبي مكافأة 💰
               </div>
 
               <button

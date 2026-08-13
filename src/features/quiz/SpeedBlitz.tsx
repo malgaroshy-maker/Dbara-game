@@ -14,9 +14,11 @@ interface SpeedBlitzProps {
   stage: Stage;
   cityId: string;
   onFinish: () => void;
+  /** Fired once when the round settles, so hosts can record completion. */
+  onSettled?: (score: number) => void;
 }
 
-export const SpeedBlitz: React.FC<SpeedBlitzProps> = ({ stage, cityId, onFinish }) => {
+export const SpeedBlitz: React.FC<SpeedBlitzProps> = ({ stage, cityId, onFinish, onSettled }) => {
   const { profile, addDinars, recordSpeedScore } = useGameStore();
   const { completeStage } = useMapStore();
 
@@ -57,6 +59,7 @@ export const SpeedBlitz: React.FC<SpeedBlitzProps> = ({ stage, cityId, onFinish 
     const stars = finalScore >= 6 ? 3 : finalScore >= 3 ? 2 : 1;
     addDinars(finalScore * 15 + stage.rewardDinars);
     completeStage(cityId, stage.id, stars);
+    onSettled?.(finalScore);
 
     confetti({
       particleCount: 60,
@@ -64,7 +67,7 @@ export const SpeedBlitz: React.FC<SpeedBlitzProps> = ({ stage, cityId, onFinish 
       origin: { y: 0.6 },
       colors: ['#E5A93B', '#FCD34D', '#10B981', '#38BDF8'],
     });
-  }, [addDinars, cityId, completeStage, recordSpeedScore, stage.id, stage.rewardDinars]);
+  }, [addDinars, cityId, completeStage, recordSpeedScore, stage.id, stage.rewardDinars, onSettled]);
 
   const { timeLeft, addTime } = useCountdown({
     initialSeconds: 45,

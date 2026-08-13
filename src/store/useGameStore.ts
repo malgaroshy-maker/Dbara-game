@@ -11,6 +11,8 @@ interface GameState {
   stats: GameStats;
   unlockedBadges: string[];
   activeCategory: string | null;
+  /** Local date the daily challenge was last completed, or null. */
+  dailyChallengeCompletedDate: string | null;
 
   // Actions
   setMode: (mode: GameMode) => void;
@@ -28,10 +30,29 @@ interface GameState {
   checkBadgeUnlocks: (totalStars: number) => string[];
   claimDailyStreak: () => { streakUpdated: boolean; bonusGranted: number };
   isDailyRewardAvailable: () => boolean;
+  completeDailyChallenge: () => void;
+  isDailyChallengeAvailable: () => boolean;
   resetAllProgress: () => void;
 }
 
-const todayKey = () => new Date().toISOString().split('T')[0];
+/**
+ * Today's date as YYYY-MM-DD in the player's own timezone.
+ *
+ * `toISOString()` would give the UTC date, which rolls over at 02:00 local
+ * time in Libya — so the daily reward and the daily challenge would reset in
+ * the small hours of the wrong day.
+ */
+export const todayKey = (date: Date = new Date()): string => {
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+};
+
+/** Yesterday's local date key, for streak continuity checks. */
+export const yesterdayKey = (): string => {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  return todayKey(d);
+};
 
 const initialProfile: PlayerProfile = {
   name: 'مستكشف دبارة',
@@ -74,6 +95,7 @@ export const useGameStore = create<GameState>()(
       stats: initialStats,
       unlockedBadges: ['welcome_badge'],
       activeCategory: null,
+      dailyChallengeCompletedDate: null,
 
       setMode: (mode) => {
         sfx.playTap();
@@ -217,6 +239,14 @@ export const useGameStore = create<GameState>()(
 
       isDailyRewardAvailable: () => get().profile.lastLoginDate !== todayKey(),
 
+      isDailyChallengeAvailable: () => get().dailyChallengeCompletedDate !== todayKey(),
+
+      /**
+       * Marks today's challenge as done so it pays out once. Without this the
+       * challenge could be replayed indefinitely, minting dinars every run.
+       */
+      completeDailyChallenge: () => set({ dailyChallengeCompletedDate: todayKey() }),
+
       claimDailyStreak: () => {
         const today = todayKey();
         const lastLogin = get().profile.lastLoginDate;
@@ -224,7 +254,7 @@ export const useGameStore = create<GameState>()(
           return { streakUpdated: false, bonusGranted: 0 };
         }
 
-        const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+        const yesterday = yesterdayKey();
         let newStreak = 1;
         if (lastLogin === yesterday) {
           newStreak = get().profile.streakDays + 1;
@@ -257,6 +287,7 @@ export const useGameStore = create<GameState>()(
           audio: initialAudio,
           stats: initialStats,
           unlockedBadges: ['welcome_badge'],
+          dailyChallengeCompletedDate: null,
         });
       },
     }),
@@ -270,6 +301,7 @@ export const useGameStore = create<GameState>()(
         audio: state.audio,
         stats: state.stats,
         unlockedBadges: state.unlockedBadges,
+        dailyChallengeCompletedDate: state.dailyChallengeCompletedDate,
       }),
       onRehydrateStorage: () => (state) => {
         // The sound engine is a plain singleton; without this the saved mute and

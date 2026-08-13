@@ -174,7 +174,7 @@ export const MiniCrossword: React.FC<MiniCrosswordProps> = ({ stage, cityId, puz
     // Solved completely!
     sfx.playVictory();
     setIsCompleted(true);
-    addDinars(puzzle.rewardDinars);
+    addDinars(stage.rewardDinars);
     completeStage(cityId, stage.id, 3);
     confetti({
       particleCount: 70,
@@ -379,7 +379,7 @@ export const MiniCrossword: React.FC<MiniCrosswordProps> = ({ stage, cityId, puz
               </p>
 
               <div className="p-2.5 rounded-2xl bg-[#E5A93B]/10 border border-[#E5A93B]/20 text-[#FCD34D] font-extrabold text-xs mb-4">
-                +{puzzle.rewardDinars} دينار ليبي مكافأة 💰
+                +{stage.rewardDinars} دينار ليبي مكافأة 💰
               </div>
 
               <button

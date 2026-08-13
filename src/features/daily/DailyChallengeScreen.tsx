@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { dailyChallenges } from '../../data/puzzles/dailyPuzzles';
 import { dialectQuestions } from '../../data/questions/dialects';
 import { wordScramblePuzzles } from '../../data/puzzles/wordScramble';
-import { useGameStore } from '../../store/useGameStore';
+import { useGameStore, todayKey, yesterdayKey } from '../../store/useGameStore';
 import { QuizScreen } from '../quiz/QuizScreen';
 import { LetterScramble } from '../puzzles/LetterScramble';
 import { SpeedBlitz } from '../quiz/SpeedBlitz';
@@ -10,23 +10,29 @@ import { ShareResultModal } from '../../components/ShareResultModal';
 import { Flame, Gift, Calendar, Sparkles, CheckCircle2, Play, Share2 } from 'lucide-react';
 
 export const DailyChallengeScreen: React.FC = () => {
-  const { profile, claimDailyStreak, isDailyRewardAvailable } = useGameStore();
+  const {
+    profile,
+    claimDailyStreak,
+    isDailyRewardAvailable,
+    completeDailyChallenge,
+    isDailyChallengeAvailable,
+  } = useGameStore();
   const [activeChallenge, setActiveChallenge] = useState<typeof dailyChallenges[0] | null>(null);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
 
   // Derived from the persisted claim date rather than local state, so the
   // button tells the truth after a reload instead of resetting to "claimable".
   const streakClaimed = !isDailyRewardAvailable();
+  const challengeDone = !isDailyChallengeAvailable();
 
   // Mirrors the streak maths in the store so the button promises what it pays:
   // a consecutive day continues the streak, a gap restarts it at one.
-  const yesterdayStr = new Date(Date.now() - 86400000).toISOString().split('T')[0];
   const projectedStreak =
-    profile.lastLoginDate === yesterdayStr ? profile.streakDays + 1 : 1;
+    profile.lastLoginDate === yesterdayKey() ? profile.streakDays + 1 : 1;
   const projectedBonus = Math.min(projectedStreak * 25, 200);
 
-  // Dynamic daily challenge determination based on current date
-  const todayStr = new Date().toISOString().split('T')[0];
+  // Local date, not UTC: the challenge must roll over at the player's midnight.
+  const todayStr = todayKey();
   const dateHash = todayStr.split('-').reduce((acc, part) => acc + parseInt(part, 10), 0);
   const todayChallenge =
     dailyChallenges.find((c) => c.date === todayStr) ||
@@ -35,6 +41,13 @@ export const DailyChallengeScreen: React.FC = () => {
   const handleClaimStreak = () => {
     claimDailyStreak();
   };
+
+  /**
+   * The challenge pays once a day. It is marked done only when the player
+   * actually clears it, so a wrong answer still allows another attempt — but
+   * a cleared challenge cannot be replayed for more dinars.
+   */
+  const handleChallengeCleared = () => completeDailyChallenge();
 
   if (activeChallenge) {
     if (activeChallenge.type === 'trivia') {
@@ -53,6 +66,9 @@ export const DailyChallengeScreen: React.FC = () => {
           cityId="daily"
           question={q}
           onFinish={() => setActiveChallenge(null)}
+          onResolved={({ isCorrect, stars }) => {
+            if (isCorrect || stars > 0) handleChallengeCleared();
+          }}
         />
       );
     }
@@ -73,6 +89,7 @@ export const DailyChallengeScreen: React.FC = () => {
           cityId="daily"
           puzzle={puzzle}
           onFinish={() => setActiveChallenge(null)}
+          onSolved={handleChallengeCleared}
         />
       );
     }
@@ -91,6 +108,7 @@ export const DailyChallengeScreen: React.FC = () => {
           }}
           cityId="daily"
           onFinish={() => setActiveChallenge(null)}
+          onSettled={handleChallengeCleared}
         />
       );
     }
@@ -178,9 +196,16 @@ export const DailyChallengeScreen: React.FC = () => {
             <Calendar className="w-4 h-4 text-[#E5A93B]" />
             <span className="text-xs font-bold text-[#E5A93B]">لغز اليوم الحصري</span>
           </div>
-          <span className="text-xs font-extrabold px-2.5 py-0.5 rounded-full bg-[#10B981]/20 text-[#10B981] border border-[#10B981]/30">
-            مكافأة x{todayChallenge.multiplier}
-          </span>
+          {challengeDone ? (
+            <span className="text-xs font-extrabold px-2.5 py-0.5 rounded-full bg-[#10B981]/20 text-[#10B981] border border-[#10B981]/30 flex items-center gap-1">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              تم إنجازه اليوم
+            </span>
+          ) : (
+            <span className="text-xs font-extrabold px-2.5 py-0.5 rounded-full bg-[#E5A93B]/20 text-[#FCD34D] border border-[#E5A93B]/30">
+              مكافأة مضاعفة 🎁
+            </span>
+          )}
         </div>
 
         <div>
@@ -189,16 +214,21 @@ export const DailyChallengeScreen: React.FC = () => {
         </div>
 
         <div className="flex items-center justify-between pt-2 border-t border-white/10">
-          <div className="flex items-center gap-1.5 text-xs text-[#FCD34D] font-bold">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>+{todayChallenge.rewardDinars} دينار ليبي</span>
+          <div className="flex items-center gap-1.5 text-xs font-bold">
+            <Sparkles className={`w-3.5 h-3.5 ${challengeDone ? 'text-[#64748B]' : 'text-[#FCD34D]'}`} />
+            <span className={challengeDone ? 'text-[#64748B]' : 'text-[#FCD34D]'}>
+              {challengeDone
+                ? 'استلمت مكافأة اليوم — عُد غداً لتحدٍ جديد'
+                : `+${todayChallenge.rewardDinars} دينار ليبي`}
+            </span>
           </div>
 
           <button
             onClick={() => setActiveChallenge(todayChallenge)}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-[#E5A93B] text-[#0B0F19] font-black text-xs shadow-md transition-transform active:scale-95"
+            disabled={challengeDone}
+            className="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-[#E5A93B] text-[#0B0F19] font-black text-xs shadow-md transition-transform active:scale-95 disabled:opacity-40 disabled:pointer-events-none"
           >
-            <span>ابدأ التحدي</span>
+            <span>{challengeDone ? 'مكتمل' : 'ابدأ التحدي'}</span>
             <Play className="w-3.5 h-3.5 fill-current" />
           </button>
         </div>

@@ -36,6 +36,11 @@ export interface DailyChallengeItem {
   type: 'trivia' | 'scramble' | 'blitz';
   questionId?: string;
   scrambleId?: string;
+  /**
+   * What clearing the challenge pays, and the only source of truth for it —
+   * the screen that runs the challenge awards exactly this. There used to be a
+   * separate `multiplier` that the UI advertised ("مكافأة x2") but nothing
+   * ever applied, so the card promised 75 and paid 30.
+   */
   rewardDinars: number;
-  multiplier: number;
 }

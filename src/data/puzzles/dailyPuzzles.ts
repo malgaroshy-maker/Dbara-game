@@ -8,7 +8,6 @@ export const dailyChallenges: DailyChallengeItem[] = [
     type: 'trivia',
     questionId: 'dia_03',
     rewardDinars: 75,
-    multiplier: 2,
   },
   {
     date: '2026-08-14',
@@ -17,7 +16,6 @@ export const dailyChallenges: DailyChallengeItem[] = [
     type: 'scramble',
     scrambleId: 'scramble_ghad_01',
     rewardDinars: 100,
-    multiplier: 2.5,
   },
   {
     date: '2026-08-15',
@@ -25,6 +23,5 @@ export const dailyChallenges: DailyChallengeItem[] = [
     description: 'اختبر سرعتك في معلومات كرة القدم الليبية والتاريخ الوطني!',
     type: 'blitz',
     rewardDinars: 120,
-    multiplier: 3,
   },
 ];

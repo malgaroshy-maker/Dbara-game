@@ -96,7 +96,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
       else if (timeLeft >= 8) stars = 2;
 
       setEarnedStars(stars);
-      addDinars(question.rewardDinars);
+      addDinars(stage.rewardDinars);
 
       // Trigger Golden Confetti
       confetti({
@@ -381,7 +381,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
               <div className="p-3 rounded-2xl bg-[#E5A93B]/10 border border-[#E5A93B]/20 text-[#FCD34D] font-extrabold text-sm mb-4">
                 {wasSkipped
                   ? 'لا توجد مكافأة دنانير عند التخطي 🎟️'
-                  : `+${question.rewardDinars} دينار ليبي مكافأة 💰`}
+                  : `+${stage.rewardDinars} دينار ليبي مكافأة 💰`}
               </div>
 
               <div className="flex flex-col gap-2">
@@ -415,7 +415,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
         playerTitle={profile.title}
         scoreOrStars={{
           stars: earnedStars,
-          dinarsEarned: wasSkipped ? 0 : question.rewardDinars,
+          dinarsEarned: wasSkipped ? 0 : stage.rewardDinars,
           streakDays: profile.streakDays,
         }}
         contextType={cityId === 'daily' ? 'daily' : 'quiz'}
