@@ -1,9 +1,14 @@
-export type QuizCategory = 
-  | 'history' 
-  | 'dialects' 
-  | 'sports' 
-  | 'food_traditions' 
-  | 'geography' 
+export type QuizCategory =
+  // ليبية
+  | 'history'
+  | 'dialects'
+  | 'sports'
+  | 'food_traditions'
+  // عامة
+  | 'geography'
+  | 'islamic'
+  | 'literature'
+  | 'science'
   | 'general_arab';
 
 export type DifficultyLevel = 'easy' | 'medium' | 'hard' | 'expert';

@@ -5,13 +5,32 @@ import { dialectQuestions } from '../../data/questions/dialects';
 import { sportsQuestions } from '../../data/questions/sports';
 import { foodTraditionsQuestions } from '../../data/questions/foodTraditions';
 import { generalArabQuestions } from '../../data/questions/generalArab';
+import { geographyQuestions } from '../../data/questions/geography';
+import { islamicQuestions } from '../../data/questions/islamic';
+import { literatureQuestions } from '../../data/questions/literature';
+import { scienceQuestions } from '../../data/questions/science';
 import type { QuizCategory, TriviaQuestion } from '../../types/quiz';
 import { QuizScreen } from '../quiz/QuizScreen';
 import { PassAndPlayScreen } from '../multiplayer/PassAndPlayScreen';
 import { useGameStore } from '../../store/useGameStore';
 import { sfx } from '../../audio/soundEffects';
 import confetti from 'canvas-confetti';
-import { BookOpen, MessageSquareQuote, Trophy, Utensils, Globe, Sparkles, Play, Star, RotateCcw, Swords } from 'lucide-react';
+import {
+  BookOpen,
+  MessageSquareQuote,
+  Trophy,
+  Utensils,
+  Globe,
+  Sparkles,
+  Play,
+  Star,
+  RotateCcw,
+  Swords,
+  Map as MapIcon,
+  Moon,
+  Feather,
+  FlaskConical,
+} from 'lucide-react';
 
 const QUESTIONS_PER_ROUND = 5;
 
@@ -72,9 +91,41 @@ const categories: CategoryConfig[] = [
       questions: foodTraditionsQuestions,
     },
     {
+      id: 'geography',
+      title: 'جغرافيا ليبيا والعالم',
+      description: 'الأقاليم والحدود والجبال والبحار والقارات',
+      icon: <MapIcon className="w-6 h-6 text-[#38BDF8]" />,
+      color: 'border-[#38BDF8]/40 hover:border-[#38BDF8]',
+      questions: geographyQuestions,
+    },
+    {
+      id: 'islamic',
+      title: 'دين وحضارة إسلامية',
+      description: 'القرآن والسيرة والخلفاء وحواضر الإسلام',
+      icon: <Moon className="w-6 h-6 text-[#22C55E]" />,
+      color: 'border-[#22C55E]/40 hover:border-[#22C55E]',
+      questions: islamicQuestions,
+    },
+    {
+      id: 'literature',
+      title: 'لغة وأدب عربي',
+      description: 'الشعراء والمعاجم والنحو وأعلام الأدب الليبي',
+      icon: <Feather className="w-6 h-6 text-[#EC4899]" />,
+      color: 'border-[#EC4899]/40 hover:border-[#EC4899]',
+      questions: literatureQuestions,
+    },
+    {
+      id: 'science',
+      title: 'علوم وطبيعة',
+      description: 'الفلك والكيمياء وجسم الإنسان وعلماء الحضارة',
+      icon: <FlaskConical className="w-6 h-6 text-[#0EA5E9]" />,
+      color: 'border-[#0EA5E9]/40 hover:border-[#0EA5E9]',
+      questions: scienceQuestions,
+    },
+    {
       id: 'general_arab',
-      title: 'ثقافة عامة وإسلامية',
-      description: 'جغرافيا، معالم إسلامية، علوم، وأدب عربي',
+      title: 'ثقافة عامة ومنوعات',
+      description: 'ليبيا في محيطها ومعلومات عامة متنوعة',
       icon: <Globe className="w-6 h-6 text-[#A855F7]" />,
       color: 'border-[#A855F7]/40 hover:border-[#A855F7]',
       questions: generalArabQuestions,
@@ -238,7 +289,9 @@ export const CategoryHub: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4 pb-20 max-w-lg mx-auto w-full px-3 pt-1 select-none">
+    // pb-28 rather than pb-20: with nine categories the last card ended up
+    // only a few pixels clear of the floating tab bar.
+    <div className="flex flex-col gap-4 pb-28 max-w-lg mx-auto w-full px-3 pt-1 select-none">
       <div>
         <h2 className="text-xl font-extrabold text-white flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-[#E5A93B]" />

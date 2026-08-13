@@ -12,6 +12,10 @@ import { dialectQuestions } from './data/questions/dialects';
 import { sportsQuestions } from './data/questions/sports';
 import { foodTraditionsQuestions } from './data/questions/foodTraditions';
 import { generalArabQuestions } from './data/questions/generalArab';
+import { geographyQuestions } from './data/questions/geography';
+import { islamicQuestions } from './data/questions/islamic';
+import { literatureQuestions } from './data/questions/literature';
+import { scienceQuestions } from './data/questions/science';
 import { wordScramblePuzzles } from './data/puzzles/wordScramble';
 import { miniCrosswords } from './data/puzzles/crosswords';
 
@@ -49,6 +53,10 @@ const questionsById = new Map(
     ...sportsQuestions,
     ...foodTraditionsQuestions,
     ...generalArabQuestions,
+    ...geographyQuestions,
+    ...islamicQuestions,
+    ...literatureQuestions,
+    ...scienceQuestions,
   ].map((q) => [q.id, q])
 );
 const scramblesById = new Map(wordScramblePuzzles.map((p) => [p.id, p]));

@@ -5,6 +5,10 @@ import { dialectQuestions } from '../../data/questions/dialects';
 import { sportsQuestions } from '../../data/questions/sports';
 import { foodTraditionsQuestions } from '../../data/questions/foodTraditions';
 import { generalArabQuestions } from '../../data/questions/generalArab';
+import { geographyQuestions } from '../../data/questions/geography';
+import { islamicQuestions } from '../../data/questions/islamic';
+import { literatureQuestions } from '../../data/questions/literature';
+import { scienceQuestions } from '../../data/questions/science';
 import type { TriviaQuestion } from '../../types/quiz';
 import { useCountdown } from '../../hooks/useCountdown';
 import { sfx } from '../../audio/soundEffects';
@@ -51,25 +55,30 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
 
   const avatars = ['🧭', '🦅', '🦁', '⚔️', '🌴', '🏛️', '🛡️', '⚡'];
 
-  const allQuestions = useMemo(() => [
-    ...historyQuestions,
-    ...dialectQuestions,
-    ...sportsQuestions,
-    ...foodTraditionsQuestions,
-    ...generalArabQuestions,
-  ], []);
+  // Every bank the duel can draw from, keyed by the selector's value.
+  const banksByCategory = useMemo(
+    () => ({
+      history: historyQuestions,
+      dialects: dialectQuestions,
+      sports: sportsQuestions,
+      food: foodTraditionsQuestions,
+      geography: geographyQuestions,
+      islamic: islamicQuestions,
+      literature: literatureQuestions,
+      science: scienceQuestions,
+      general: generalArabQuestions,
+    }),
+    []
+  );
+
+  const allQuestions = useMemo(
+    () => Object.values(banksByCategory).flat(),
+    [banksByCategory]
+  );
 
   const handleStartDuel = () => {
     const sourceBank =
-      selectedCategory === 'history'
-        ? historyQuestions
-        : selectedCategory === 'dialects'
-        ? dialectQuestions
-        : selectedCategory === 'sports'
-        ? sportsQuestions
-        : selectedCategory === 'food'
-        ? foodTraditionsQuestions
-        : allQuestions;
+      banksByCategory[selectedCategory as keyof typeof banksByCategory] ?? allQuestions;
 
     // Always shuffle a copy — shuffling the imported bank in place would
     // permanently reorder the question data for every other screen.
@@ -301,11 +310,16 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="w-full p-2.5 rounded-xl bg-[#1E293B] border border-white/10 text-xs text-white font-bold"
             >
-              <option value="all">مزيج من كافة المجالات (تاريخ، لهجات، كورة، تراث)</option>
+              <option value="all">مزيج من كافة المجالات</option>
               <option value="history">تاريخ وآثار ليبيا</option>
               <option value="dialects">لهجات وأمثال شعبية</option>
               <option value="sports">كورة ورياضة ليبية</option>
               <option value="food">المطبخ والعادات التراثية</option>
+              <option value="geography">جغرافيا ليبيا والعالم</option>
+              <option value="islamic">دين وحضارة إسلامية</option>
+              <option value="literature">لغة وأدب عربي</option>
+              <option value="science">علوم وطبيعة</option>
+              <option value="general">ثقافة عامة ومنوعات</option>
             </select>
           </div>
         </div>
