@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-13T20:30:00Z",
+  "title": "Design System: دبارة (Dbara)",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "ذهب الصحراء (Sahara Gold)",
+        "canonical": "#E5A93B",
+        "tonalRamp": ["#FEF3C7", "#FDE68A", "#FCD34D", "#F59E0B", "#E5A93B", "#D97706", "#B45309"]
+      },
+      "secondary": {
+        "role": "secondary",
+        "displayName": "أزرق المتوسط (Mediterranean Teal)",
+        "canonical": "#0EA5E9",
+        "tonalRamp": ["#E0F2FE", "#BAE6FD", "#7DD3FC", "#38BDF8", "#0EA5E9", "#0284C7", "#0369A1"]
+      },
+      "accent-emerald": {
+        "role": "tertiary",
+        "displayName": "أخضر الواحات (Oasis Emerald)",
+        "canonical": "#10B981",
+        "tonalRamp": ["#D1FAE5", "#A7F3D0", "#6EE7B7", "#34D399", "#10B981", "#059669", "#047857"]
+      },
+      "accent-crimson": {
+        "role": "error",
+        "displayName": "عنابي فزان (Fezzan Crimson)",
+        "canonical": "#F43F5E",
+        "tonalRamp": ["#FFE4E6", "#FECDD3", "#FDA4AF", "#FB7185", "#F43F5E", "#E11D48", "#BE123C"]
+      },
+      "neutral-bg": {
+        "role": "neutral-bg",
+        "displayName": "سواد الفضاء السبجي (Obsidian Space)",
+        "canonical": "#0B0F19",
+        "tonalRamp": ["#F8FAFC", "#94A3B8", "#64748B", "#334155", "#1E293B", "#131C2E", "#0B0F19"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display Hero",
+        "purpose": "Main hero titles, level completion announcements, and victory milestones."
+      },
+      "headline": {
+        "displayName": "Question Headline",
+        "purpose": "Primary trivia questions and interactive puzzle prompts."
+      },
+      "title": {
+        "displayName": "Option & Node Title",
+        "purpose": "Answer card labels, city names on map, and category headers."
+      },
+      "body": {
+        "displayName": "Fun Fact & Description Body",
+        "purpose": "Educational trivia stories and 'معلومة ع الماشي' cards."
+      }
+    },
+    "shadows": [
+      {
+        "name": "gold-glow",
+        "value": "0 0 25px rgba(229, 169, 59, 0.35)",
+        "purpose": "Primary interactive action buttons and earned star highlights."
+      },
+      {
+        "name": "emerald-glow",
+        "value": "0 0 30px rgba(16, 185, 129, 0.4)",
+        "purpose": "Correct trivia answer reveal and victory states."
+      },
+      {
+        "name": "glass-card",
+        "value": "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
+        "purpose": "Elevated frosted glass content cards."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Smooth entrance of cards, modals, and option reveals."
+      },
+      {
+        "name": "haptic-spring",
+        "value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "purpose": "Letter tile placement and button bounce feedback."
+      }
+    ],
+    "breakpoints": [
+      { "name": "mobile-sm", "value": "360px" },
+      { "name": "mobile-md", "value": "414px" },
+      { "name": "tablet", "value": "768px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Trivia Option Card",
+      "kind": "card",
+      "refersTo": "answer-card",
+      "description": "Interactive multiple-choice option card with frosted glass styling and gold borders.",
+      "html": "<button class=\"dbara-option-btn\"><span class=\"dbara-option-idx\">أ</span><span class=\"dbara-option-text\">قلعة السرايا الحمراء</span></button>",
+      "css": ".dbara-option-btn { display: flex; align-items: center; gap: 14px; width: 100%; padding: 16px 20px; background: rgba(19, 28, 46, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(229, 169, 59, 0.18); border-radius: 16px; color: #F8FAFC; font-family: Rubik, sans-serif; font-size: 1.1rem; cursor: pointer; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); text-align: right; direction: rtl; } .dbara-option-btn:hover { border-color: #E5A93B; transform: translateY(-2px); box-shadow: 0 4px 20px rgba(229, 169, 59, 0.15); } .dbara-option-idx { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: rgba(229, 169, 59, 0.12); color: #E5A93B; border-radius: 9999px; font-weight: 700; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Sahara & Mediterranean Majlis",
+    "overview": "A luxury, modern Libyan Neo-Heritage design system uniting deep obsidian glassmorphism, Sahara Gold accents, Mediterranean teal and emerald tones, and crisp Arabic typography.",
+    "keyCharacteristics": [
+      "Arabic-First RTL Native",
+      "Ergonomic Mobile Thumb-Zone",
+      "Layered Frosted Glass & Gold Filigree",
+      "Instant 60fps Micro-interactions & Haptic Web Audio"
+    ],
+    "rules": [
+      {
+        "name": "The Gold Rarity Rule",
+        "body": "Sahara Gold is reserved for items of true value (rewards, stars, primary CTAs) and never used on large text or neutral backgrounds.",
+        "section": "colors"
+      },
+      {
+        "name": "The Arabic Leading Rule",
+        "body": "Line heights for Arabic body and question texts are increased by at least 15% to accommodate diacritics and ascending characters.",
+        "section": "typography"
+      }
+    ],
+    "dos": [
+      "Use crisp Rubik and Cairo typography with RTL direction.",
+      "Ensure all touch targets are at least 48x48px with generous spacing.",
+      "Implement instant Web Audio synthesizer feedback for correct/incorrect answers."
+    ],
+    "donts": [
+      "Never use gradient text for question titles.",
+      "Do not use generic emojis in place of styled SVG icons.",
+      "Avoid harsh opaque card borders or generic gray placeholder styling."
+    ]
+  }
+}

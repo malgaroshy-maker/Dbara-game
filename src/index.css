@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-primary: #E5A93B;
+    --color-primary-light: #FCD34D;
+    --color-primary-dark: #B45309;
+    --color-secondary: #0EA5E9;
+    --color-secondary-light: #38BDF8;
+    --color-emerald: #10B981;
+    --color-crimson: #F43F5E;
+    --color-obsidian: #0B0F19;
+    --color-slate-surface: #131C2E;
+    --color-slate-elevated: #1E293B;
+  }
+
+  body {
+    font-family: 'Rubik', 'Tajawal', system-ui, -apple-system, sans-serif;
+    background-color: #0B0F19;
+    color: #F8FAFC;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+
+/* Glassmorphism & UI Accents */
+.glass-panel {
+  background: rgba(19, 28, 46, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(229, 169, 59, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-card {
+  background: rgba(19, 28, 46, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-card-interactive {
+  background: rgba(19, 28, 46, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(229, 169, 59, 0.18);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-interactive:hover,
+.glass-card-interactive:active {
+  border-color: rgba(229, 169, 59, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(229, 169, 59, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.gold-glow {
+  box-shadow: 0 0 25px rgba(229, 169, 59, 0.35);
+}
+
+.emerald-glow {
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.35);
+}
+
+.crimson-glow {
+  box-shadow: 0 0 25px rgba(244, 63, 94, 0.35);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #FCD34D 0%, #E5A93B 50%, #D97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.teal-gradient-text {
+  background: linear-gradient(135deg, #38BDF8 0%, #0EA5E9 50%, #0284C7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Background Cultural Geometric Pattern */
+.bg-libyan-pattern {
+  background-image: radial-gradient(rgba(229, 169, 59, 0.08) 1px, transparent 1px), radial-gradient(rgba(14, 165, 233, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+}
+
+/* Safe Area Insets for Mobile PWA */
+.safe-top {
+  padding-top: max(env(safe-area-inset-top), 12px);
+}
+
+.safe-bottom {
+  padding-bottom: max(env(safe-area-inset-bottom), 16px);
+}
+
+/* Custom Scrollbar for Arabic Content */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(11, 15, 25, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(229, 169, 59, 0.25);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(229, 169, 59, 0.5);
+}
