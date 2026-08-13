@@ -16,9 +16,12 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
 
   const selectedCity = cities.find((c) => c.id === selectedCityId) || cities[0];
 
+  // Tapping a pin expands that city's stages on the map. The full detail card
+  // (lore, rewards, lock requirements) stays one tap away via "استكشف" below —
+  // previously the pin opened that card immediately, which left no way to see
+  // a city's stages in place on the map.
   const handlePinClick = (city: CityNode) => {
     selectCity(city.id);
-    setActiveModalCity(city);
   };
 
   const filteredCities = regionFilter === 'all' ? cities : cities.filter((c) => c.region === regionFilter);
@@ -101,6 +104,7 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
       {/* Main Libya Map Component with Stitch Artwork */}
       <LibyaVectorMap
         onSelectCity={handlePinClick}
+        onStartStage={onStartStage}
         selectedCityId={selectedCityId}
         regionFilter={regionFilter}
       />

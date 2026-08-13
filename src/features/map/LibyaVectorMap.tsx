@@ -1,8 +1,14 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import type { CityNode, LibyanRegion } from '../../types/map';
+import type { CityNode, LibyanRegion, Stage } from '../../types/map';
 import { useMapStore } from '../../store/useMapStore';
 import { MAP_IMAGE, projectToMap, projectToMapPercent, buildRoutePath } from './projection';
+import {
+  layoutStageNodes,
+  PIN_CLEARANCE,
+  LABEL_CLEARANCE,
+  type Obstacle,
+} from './stageLayout';
 import { 
   Lock, 
   Star, 
@@ -21,16 +27,63 @@ import {
 
 interface LibyaVectorMapProps {
   onSelectCity: (city: CityNode) => void;
+  onStartStage: (cityId: string, stage: Stage) => void;
   selectedCityId: string | null;
   regionFilter?: LibyanRegion | 'all';
 }
 
 export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
   onSelectCity,
+  onStartStage,
   selectedCityId,
   regionFilter = 'all',
 }) => {
   const { cities } = useMapStore();
+
+  const cityPoints = useMemo(
+    () =>
+      new Map(
+        cities.map((c) => [c.id, projectToMap(c.coordinates.latitude, c.coordinates.longitude)])
+      ),
+    [cities]
+  );
+
+  /**
+   * The selected city expands into its stages, fanned around its pin. Only
+   * unlocked cities expand — a locked city has nothing playable to show, and
+   * the reason it is locked belongs in the detail card, not on the map.
+   */
+  const expanded = useMemo(() => {
+    const city = cities.find((c) => c.id === selectedCityId);
+    if (!city) return null;
+    const isUnlocked = city.unlockedByDefault || city.stages.some((s) => s.isUnlocked);
+    if (!isUnlocked) return null;
+
+    const origin = cityPoints.get(city.id);
+    if (!origin) return null;
+
+    // Stage nodes steer clear of the other cities' pins and of their labels —
+    // a fan that lands on a neighbour's name is as unreadable as one that
+    // lands on its pin.
+    const obstacles: Obstacle[] = cities
+      .filter((c) => c.id !== city.id)
+      .flatMap((c) => {
+        const p = cityPoints.get(c.id);
+        if (!p) return [];
+        const o = c.labelOffset ?? { x: 0, y: 20 };
+        return [
+          { ...p, clearance: PIN_CLEARANCE },
+          { x: p.x + o.x, y: p.y + o.y, clearance: LABEL_CLEARANCE },
+        ];
+      });
+
+    const { positions } = layoutStageNodes(origin, city.stages.length, obstacles);
+    return {
+      city,
+      origin,
+      nodes: city.stages.map((stage, i) => ({ stage, point: positions[i] })),
+    };
+  }, [cities, selectedCityId, cityPoints]);
 
   // Caravan routes as city pairs plus a bow, so they always terminate exactly
   // on the projected pins. Previously these were hand-written path coordinates
@@ -166,6 +219,24 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
             className={route.isUnlocked ? 'filter drop-shadow-[0_0_5px_rgba(229,169,59,0.6)]' : ''}
           />
         ))}
+
+        {/* Spurs from the selected city out to each of its stage nodes. */}
+        {expanded?.nodes.map(({ stage, point }) => {
+          const isPlayable = stage.isUnlocked;
+          return (
+            <line
+              key={`spur_${stage.id}`}
+              x1={expanded.origin.x}
+              y1={expanded.origin.y}
+              x2={point.x}
+              y2={point.y}
+              stroke={isPlayable ? 'rgba(252, 211, 77, 0.75)' : 'rgba(255, 255, 255, 0.18)'}
+              strokeWidth={1.4}
+              strokeLinecap="round"
+              strokeDasharray={isPlayable ? 'none' : '3, 3'}
+            />
+          );
+        })}
       </svg>
 
       {/* Interactive Map Overlay Pins */}
@@ -176,6 +247,13 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
           const isUnlocked = city.unlockedByDefault || city.stages.some((s) => s.isUnlocked);
           const isAllStagesCompleted = city.stages.every((s) => (s.starsEarned || 0) >= 1);
           const isRegionMatched = regionFilter === 'all' || city.region === regionFilter;
+          // While one city is expanded, the others step back so the stage
+          // constellation has room to read on a crowded coastline.
+          const isBackgrounded = expanded !== null && expanded.city.id !== city.id;
+          // The expanded city's own label would sit inside its fan, and it is
+          // redundant anyway — the pin is highlighted and the card below names
+          // the city.
+          const isLabelHidden = expanded !== null && expanded.city.id === city.id;
 
           const pin = projectToMapPercent(
             city.coordinates.latitude,
@@ -193,8 +271,12 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
               type="button"
               data-city-id={city.id}
               aria-label={city.arabicName}
-              className={`absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-opacity duration-300 ${
-                isRegionMatched ? 'opacity-100' : 'opacity-35 pointer-events-none'
+              className={`absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 ${
+                !isRegionMatched
+                  ? 'opacity-35 pointer-events-none'
+                  : isBackgrounded
+                  ? 'opacity-45 scale-75'
+                  : 'opacity-100'
               }`}
               style={{ left: `${pin.left}%`, top: `${pin.top}%` }}
               whileHover={{ scale: 1.15 }}
@@ -255,7 +337,13 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
               onClick={() => onSelectCity(city)}
               style={{ left: `${label.left}%`, top: `${label.top}%` }}
               className={`absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap transition-opacity duration-300 ${
-                isRegionMatched ? 'opacity-100' : 'opacity-35 pointer-events-none'
+                isLabelHidden
+                  ? 'opacity-0 pointer-events-none'
+                  : !isRegionMatched
+                  ? 'opacity-35 pointer-events-none'
+                  : isBackgrounded
+                  ? 'opacity-30'
+                  : 'opacity-100'
               } ${isSelected ? 'z-30' : 'z-20'}`}
             >
               <span
@@ -273,6 +361,55 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
               </span>
             </button>
             </React.Fragment>
+          );
+        })}
+
+        {/* Stage constellation for the selected city */}
+        {expanded?.nodes.map(({ stage, point }) => {
+          const isPlayable = stage.isUnlocked;
+          const stars = stage.starsEarned || 0;
+
+          return (
+            <motion.button
+              key={stage.id}
+              type="button"
+              data-stage-id={stage.id}
+              disabled={!isPlayable}
+              aria-label={`${stage.title} — ${
+                isPlayable ? `${stars} من 3 نجوم` : 'مرحلة مقفلة'
+              }`}
+              title={stage.title}
+              onClick={() => isPlayable && onStartStage(expanded.city.id, stage)}
+              initial={{ opacity: 0, scale: 0.4 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ type: 'spring', stiffness: 320, damping: 22, delay: stage.stageNumber * 0.04 }}
+              whileHover={isPlayable ? { scale: 1.18 } : undefined}
+              whileTap={isPlayable ? { scale: 0.92 } : undefined}
+              style={{
+                left: `${(point.x / MAP_IMAGE.width) * 100}%`,
+                top: `${(point.y / MAP_IMAGE.height) * 100}%`,
+              }}
+              className={`absolute -translate-x-1/2 -translate-y-1/2 z-40 w-8 h-8 sm:w-9 sm:h-9 rounded-full flex flex-col items-center justify-center font-black text-[11px] shadow-lg transition-colors ${
+                !isPlayable
+                  ? 'bg-[#0B0F19]/90 border border-white/15 text-[#64748B] cursor-not-allowed'
+                  : stars > 0
+                  ? 'bg-gradient-to-br from-[#FCD34D] to-[#E5A93B] border-2 border-[#FCD34D] text-[#0B0F19] shadow-[0_0_14px_rgba(229,169,59,0.55)]'
+                  : 'bg-[#131C2E] border-2 border-[#E5A93B] text-[#FCD34D] shadow-[0_0_12px_rgba(229,169,59,0.4)] cursor-pointer'
+              }`}
+            >
+              {isPlayable ? (
+                <>
+                  <span className="leading-none">{stage.stageNumber}</span>
+                  {stars > 0 && (
+                    <span className="leading-none text-[7px] tracking-[-0.5px] mt-0.5">
+                      {'★'.repeat(stars)}
+                    </span>
+                  )}
+                </>
+              ) : (
+                <Lock className="w-3 h-3" />
+              )}
+            </motion.button>
           );
         })}
       </div>
