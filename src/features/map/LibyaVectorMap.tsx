@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import type { CityNode, LibyanRegion } from '../../types/map';
 import { useMapStore } from '../../store/useMapStore';
+import { MAP_IMAGE, projectToMap, projectToMapPercent, buildRoutePath } from './projection';
 import { 
   Lock, 
   Star, 
@@ -31,26 +32,45 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
 }) => {
   const { cities } = useMapStore();
 
-  // Natural curved geographic paths across all 12 Libyan nodes
-  const routePaths: { id: string; d: string; isUnlocked: boolean }[] = [
-    // 1. Coastal Highway (Tripoli -> Leptis -> Misrata -> Benghazi -> Cyrene -> Derna)
-    { id: 'coastal_1', d: 'M 23,27 Q 28,29 33,31', isUnlocked: true },
-    { id: 'coastal_2', d: 'M 33,31 Q 36,33 39,34', isUnlocked: true },
-    { id: 'coastal_3', d: 'M 39,34 Q 48,42 60,36', isUnlocked: true },
-    { id: 'coastal_4', d: 'M 60,36 Q 67,28 74,24', isUnlocked: true },
-    { id: 'coastal_5', d: 'M 74,24 Q 77,25 81,26', isUnlocked: true },
+  // Caravan routes as city pairs plus a bow, so they always terminate exactly
+  // on the projected pins. Previously these were hand-written path coordinates
+  // that had to be re-drawn by hand whenever a pin moved — and silently pointed
+  // at the wrong places when it did.
+  const routePaths = useMemo(() => {
+    const segments: { id: string; from: string; to: string; curvature: number }[] = [
+      // 1. Coastal Highway (Tripoli -> Leptis -> Misrata -> Benghazi -> Cyrene -> Derna)
+      { id: 'coastal_1', from: 'tripoli', to: 'leptis_magna', curvature: 0.1 },
+      { id: 'coastal_2', from: 'leptis_magna', to: 'misrata', curvature: 0.1 },
+      // Bows deep enough to follow the shore of the Gulf of Sirte instead of
+      // cutting straight across open water.
+      { id: 'coastal_3', from: 'misrata', to: 'benghazi', curvature: 0.85 },
+      { id: 'coastal_4', from: 'benghazi', to: 'cyrene_green_mountain', curvature: -0.1 },
+      { id: 'coastal_5', from: 'cyrene_green_mountain', to: 'derna', curvature: 0.1 },
 
-    // 2. Western Mountain & Desert (Tripoli -> Nalut -> Ghadames -> Sabha -> Ghat)
-    { id: 'west_1', d: 'M 23,27 Q 18,31 14,35', isUnlocked: true },
-    { id: 'west_2', d: 'M 14,35 Q 11,42 10,49', isUnlocked: true },
-    { id: 'west_3', d: 'M 10,49 Q 22,59 38,67', isUnlocked: true },
-    { id: 'west_4', d: 'M 38,67 Q 24,75 15,81', isUnlocked: true },
+      // 2. Western Mountain & Desert (Tripoli -> Nalut -> Ghadames -> Sabha -> Ghat)
+      { id: 'west_1', from: 'tripoli', to: 'nalut_nafusa', curvature: 0.12 },
+      { id: 'west_2', from: 'nalut_nafusa', to: 'ghadames', curvature: 0.12 },
+      { id: 'west_3', from: 'ghadames', to: 'sabha_fezzan', curvature: -0.1 },
+      { id: 'west_4', from: 'sabha_fezzan', to: 'ghat_akakus', curvature: -0.12 },
 
-    // 3. Eastern Oases & Desert (Benghazi -> Jalu -> Kufra & Sabha -> Jalu)
-    { id: 'east_1', d: 'M 60,36 Q 64,45 68,55', isUnlocked: true },
-    { id: 'east_2', d: 'M 68,55 Q 73,66 78,77', isUnlocked: true },
-    { id: 'cross_desert', d: 'M 38,67 Q 53,60 68,55', isUnlocked: true },
-  ];
+      // 3. Eastern Oases & Desert (Benghazi -> Jalu -> Kufra, and Sabha -> Jalu)
+      { id: 'east_1', from: 'benghazi', to: 'jalu_awjila', curvature: 0.1 },
+      { id: 'east_2', from: 'jalu_awjila', to: 'kufra_desert', curvature: 0.1 },
+      { id: 'cross_desert', from: 'sabha_fezzan', to: 'jalu_awjila', curvature: -0.08 },
+    ];
+
+    const pointOf = (cityId: string) => {
+      const city = cities.find((c) => c.id === cityId);
+      return city ? projectToMap(city.coordinates.latitude, city.coordinates.longitude) : null;
+    };
+
+    return segments.flatMap(({ id, from, to, curvature }) => {
+      const a = pointOf(from);
+      const b = pointOf(to);
+      if (!a || !b) return [];
+      return [{ id, d: buildRoutePath(a, b, curvature), isUnlocked: true }];
+    });
+  }, [cities]);
 
   // Custom Icon Selector for High-Craft Aesthetics across all 12 cities
   const getCityIcon = (cityId: string, isSelected: boolean, isUnlocked: boolean) => {
@@ -106,11 +126,25 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
         <div className="absolute inset-0 bg-gradient-to-t from-[#06080C] via-transparent to-[#06080C]/40" />
       </div>
 
+      {/*
+        Overlay tracking the artwork, not the container.
+
+        The image is `object-cover` inside a container whose aspect ratio is
+        wider than the artwork's, so it is scaled to the container's width and
+        centre-cropped vertically. This box reproduces that exactly — full
+        width, the artwork's own aspect ratio, centred — which means everything
+        inside it can be positioned in plain artwork coordinates and stays
+        aligned however the container is sized. `scale-[1.02]` mirrors the
+        image's own scale so the two never drift apart.
+      */}
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full scale-[1.02] pointer-events-none z-10"
+        style={{ aspectRatio: `${MAP_IMAGE.width} / ${MAP_IMAGE.height}` }}
+      >
       {/* SVG Naturally Curved Connecting Routes */}
       <svg
-        className="absolute inset-0 w-full h-full pointer-events-none z-10"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        viewBox={`0 0 ${MAP_IMAGE.width} ${MAP_IMAGE.height}`}
       >
         <defs>
           <linearGradient id="goldRouteGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -126,15 +160,16 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
             d={route.d}
             fill="none"
             stroke={route.isUnlocked ? 'url(#goldRouteGradient)' : 'rgba(255, 255, 255, 0.12)'}
-            strokeWidth={route.isUnlocked ? '0.75' : '0.4'}
-            strokeDasharray={route.isUnlocked ? 'none' : '1.5, 1.5'}
+            strokeLinecap="round"
+            strokeWidth={route.isUnlocked ? 2.2 : 1.2}
+            strokeDasharray={route.isUnlocked ? 'none' : '4.5, 4.5'}
             className={route.isUnlocked ? 'filter drop-shadow-[0_0_5px_rgba(229,169,59,0.6)]' : ''}
           />
         ))}
       </svg>
 
       {/* Interactive Map Overlay Pins */}
-      <div className="relative w-full h-full z-20">
+      <div className="absolute inset-0 z-20 pointer-events-auto">
         {cities.map((city) => {
           const isSelected = selectedCityId === city.id;
           const totalStars = city.stages.reduce((acc, s) => acc + (s.starsEarned || 0), 0);
@@ -142,16 +177,26 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
           const isAllStagesCompleted = city.stages.every((s) => (s.starsEarned || 0) >= 1);
           const isRegionMatched = regionFilter === 'all' || city.region === regionFilter;
 
+          const pin = projectToMapPercent(
+            city.coordinates.latitude,
+            city.coordinates.longitude
+          );
+          const offset = city.labelOffset ?? { x: 0, y: 20 };
+          const label = {
+            left: pin.left + (offset.x / MAP_IMAGE.width) * 100,
+            top: pin.top + (offset.y / MAP_IMAGE.height) * 100,
+          };
+
           return (
-            <motion.div
-              key={city.id}
+            <React.Fragment key={city.id}>
+            <motion.button
+              type="button"
+              data-city-id={city.id}
+              aria-label={city.arabicName}
               className={`absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-opacity duration-300 ${
                 isRegionMatched ? 'opacity-100' : 'opacity-35 pointer-events-none'
               }`}
-              style={{
-                left: `${city.coordinates.xPercent}%`,
-                top: `${city.coordinates.yPercent}%`,
-              }}
+              style={{ left: `${pin.left}%`, top: `${pin.top}%` }}
               whileHover={{ scale: 1.15 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => onSelectCity(city)}
@@ -198,26 +243,39 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
                 </div>
               </div>
 
-              {/* City Label Below Pin — part of the pin's tap target, so the
-                  name is tappable too and not just the small circle. */}
-              <div className="absolute top-full mt-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                <span
-                  className={`text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-full shadow-lg backdrop-blur-md transition-all ${
-                    isSelected
-                      ? isUnlocked
-                        ? 'bg-[#E5A93B] text-[#0B0F19] border border-[#FCD34D] shadow-[0_0_12px_rgba(229,169,59,0.5)]'
-                        : 'bg-[#1E293B] text-white border border-white/30'
-                      : isUnlocked
-                      ? 'bg-[#0B0F19]/90 text-[#F8FAFC] border border-[#E5A93B]/35 hover:border-[#E5A93B]'
-                      : 'bg-[#0B0F19]/80 text-[#94A3B8] border border-white/10'
-                  }`}
-                >
-                  {city.arabicName}
-                </span>
-              </div>
-            </motion.div>
+            </motion.button>
+
+            {/* City label, hand-placed via labelOffset and rendered as a sibling
+                so it lives in the same artwork coordinate space as the pin.
+                Also a tap target, so the name works as well as the small dot. */}
+            <button
+              type="button"
+              tabIndex={-1}
+              aria-hidden="true"
+              onClick={() => onSelectCity(city)}
+              style={{ left: `${label.left}%`, top: `${label.top}%` }}
+              className={`absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap transition-opacity duration-300 ${
+                isRegionMatched ? 'opacity-100' : 'opacity-35 pointer-events-none'
+              } ${isSelected ? 'z-30' : 'z-20'}`}
+            >
+              <span
+                className={`text-[10px] sm:text-[11px] font-black px-2 py-0.5 rounded-full shadow-lg backdrop-blur-md transition-all ${
+                  isSelected
+                    ? isUnlocked
+                      ? 'bg-[#E5A93B] text-[#0B0F19] border border-[#FCD34D] shadow-[0_0_12px_rgba(229,169,59,0.5)]'
+                      : 'bg-[#1E293B] text-white border border-white/30'
+                    : isUnlocked
+                    ? 'bg-[#0B0F19]/90 text-[#F8FAFC] border border-[#E5A93B]/35 hover:border-[#E5A93B]'
+                    : 'bg-[#0B0F19]/80 text-[#94A3B8] border border-white/10'
+                }`}
+              >
+                {city.mapLabel ?? city.arabicName}
+              </span>
+            </button>
+            </React.Fragment>
           );
         })}
+      </div>
       </div>
     </div>
   );
