@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { LetterScramblePuzzle } from '../../types/puzzle';
 import type { Stage } from '../../types/map';
@@ -25,8 +25,18 @@ export const LetterScramble: React.FC<LetterScrambleProps> = ({ stage, cityId, p
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [isWrongShake, setIsWrongShake] = useState<boolean>(false);
 
-  const tiles = puzzle.scrambledLetters.map((char, id) => ({ id, char }));
+  // Target answer without spaces for comparison
   const targetAnswer = puzzle.answer.replace(/\s+/g, '');
+
+  // Shuffled tiles generated randomly on puzzle load
+  const tiles = useMemo(() => {
+    const chars = [...puzzle.scrambledLetters];
+    for (let i = chars.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [chars[i], chars[j]] = [chars[j], chars[i]];
+    }
+    return chars.map((char, id) => ({ id, char }));
+  }, [puzzle]);
 
   const handleTapTile = (tile: { id: number; char: string }) => {
     if (usedTileIds.includes(tile.id) || isCompleted) return;
@@ -53,10 +63,15 @@ export const LetterScramble: React.FC<LetterScrambleProps> = ({ stage, cityId, p
           colors: ['#E5A93B', '#FCD34D', '#10B981', '#38BDF8'],
         });
       } else {
-        // Wrong assembly
+        // Wrong assembly: shake, then hand the tiles back. Previously the
+        // filled row just sat there and the player had to backspace it clear.
         sfx.playWrong();
         setIsWrongShake(true);
-        setTimeout(() => setIsWrongShake(false), 500);
+        setTimeout(() => {
+          setIsWrongShake(false);
+          setSelectedLetters([]);
+          setUsedTileIds([]);
+        }, 500);
       }
     }
   };
@@ -77,7 +92,7 @@ export const LetterScramble: React.FC<LetterScrambleProps> = ({ stage, cityId, p
   };
 
   return (
-    <div className="flex flex-col gap-4 pb-20 max-w-lg mx-auto w-full px-3 pt-2">
+    <div className="flex flex-col gap-4 pb-20 max-w-lg mx-auto w-full px-3 pt-2 select-none">
       {/* Header */}
       <div className="flex items-center justify-between">
         <button
@@ -165,7 +180,7 @@ export const LetterScramble: React.FC<LetterScrambleProps> = ({ stage, cityId, p
       {/* Scrambled Letter Tiles Grid */}
       <div className="glass-card p-4 rounded-3xl">
         <p className="text-xs text-[#94A3B8] font-bold text-center mb-3">
-          اضغط على الحروف بالترتيب الصحيح:
+          اضغط على الحروف بالترتيب لتكوين الكلمة:
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-2.5">

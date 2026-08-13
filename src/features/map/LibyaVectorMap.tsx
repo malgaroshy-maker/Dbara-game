@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import type { CityNode } from '../../types/map';
+import type { CityNode, LibyanRegion } from '../../types/map';
 import { useMapStore } from '../../store/useMapStore';
 import { 
   Lock, 
@@ -13,65 +13,46 @@ import {
   Palmtree, 
   Mountain, 
   Sun,
-  Flame
+  Flame,
+  Anchor,
+  Sparkles
 } from 'lucide-react';
 
 interface LibyaVectorMapProps {
   onSelectCity: (city: CityNode) => void;
   selectedCityId: string | null;
+  regionFilter?: LibyanRegion | 'all';
 }
 
-export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({ onSelectCity, selectedCityId }) => {
+export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
+  onSelectCity,
+  selectedCityId,
+  regionFilter = 'all',
+}) => {
   const { cities } = useMapStore();
 
-  // Natural curved geographic paths across Libya firmly on the landmass
+  // Natural curved geographic paths across all 12 Libyan nodes
   const routePaths: { id: string; d: string; isUnlocked: boolean }[] = [
-    // 1. Coastal Highway (curves around Gulf of Sidra): Tripoli -> Leptis -> Benghazi -> Cyrene
-    {
-      id: 'coastal_1',
-      d: 'M 23,27 Q 28,29 33,32', // Tripoli to Leptis
-      isUnlocked: true,
-    },
-    {
-      id: 'coastal_2',
-      d: 'M 33,32 Q 46,42 60,36', // Leptis to Benghazi (around Gulf of Sidra)
-      isUnlocked: true,
-    },
-    {
-      id: 'coastal_3',
-      d: 'M 60,36 Q 67,29 74,24', // Benghazi to Cyrene (Green Mountain)
-      isUnlocked: true,
-    },
-    // 2. Western Desert Route: Tripoli -> Ghadames -> Sabha -> Ghat
-    {
-      id: 'desert_west_1',
-      d: 'M 23,27 Q 15,38 10,49', // Tripoli to Ghadames
-      isUnlocked: true,
-    },
-    {
-      id: 'desert_west_2',
-      d: 'M 10,49 Q 22,59 38,67', // Ghadames to Sabha
-      isUnlocked: true,
-    },
-    {
-      id: 'desert_west_3',
-      d: 'M 38,67 Q 24,75 15,81', // Sabha to Ghat
-      isUnlocked: false,
-    },
-    // 3. Eastern Desert Route: Benghazi -> Sabha -> Kufra
-    {
-      id: 'desert_east_1',
-      d: 'M 60,36 Q 50,52 38,67', // Benghazi to Sabha
-      isUnlocked: true,
-    },
-    {
-      id: 'desert_east_2',
-      d: 'M 38,67 Q 58,72 78,77', // Sabha to Kufra
-      isUnlocked: false,
-    },
+    // 1. Coastal Highway (Tripoli -> Leptis -> Misrata -> Benghazi -> Cyrene -> Derna)
+    { id: 'coastal_1', d: 'M 23,27 Q 28,29 33,31', isUnlocked: true },
+    { id: 'coastal_2', d: 'M 33,31 Q 36,33 39,34', isUnlocked: true },
+    { id: 'coastal_3', d: 'M 39,34 Q 48,42 60,36', isUnlocked: true },
+    { id: 'coastal_4', d: 'M 60,36 Q 67,28 74,24', isUnlocked: true },
+    { id: 'coastal_5', d: 'M 74,24 Q 77,25 81,26', isUnlocked: true },
+
+    // 2. Western Mountain & Desert (Tripoli -> Nalut -> Ghadames -> Sabha -> Ghat)
+    { id: 'west_1', d: 'M 23,27 Q 18,31 14,35', isUnlocked: true },
+    { id: 'west_2', d: 'M 14,35 Q 11,42 10,49', isUnlocked: true },
+    { id: 'west_3', d: 'M 10,49 Q 22,59 38,67', isUnlocked: true },
+    { id: 'west_4', d: 'M 38,67 Q 24,75 15,81', isUnlocked: true },
+
+    // 3. Eastern Oases & Desert (Benghazi -> Jalu -> Kufra & Sabha -> Jalu)
+    { id: 'east_1', d: 'M 60,36 Q 64,45 68,55', isUnlocked: true },
+    { id: 'east_2', d: 'M 68,55 Q 73,66 78,77', isUnlocked: true },
+    { id: 'cross_desert', d: 'M 38,67 Q 53,60 68,55', isUnlocked: true },
   ];
 
-  // Custom Icon Selector for High-Craft Aesthetics
+  // Custom Icon Selector for High-Craft Aesthetics across all 12 cities
   const getCityIcon = (cityId: string, isSelected: boolean, isUnlocked: boolean) => {
     const iconClass = `w-4 h-4 sm:w-5 sm:h-5 transition-transform ${
       isSelected ? 'text-[#0B0F19]' : isUnlocked ? 'text-[#FCD34D]' : 'text-[#64748B]'
@@ -82,10 +63,18 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({ onSelectCity, se
         return <Castle className={iconClass} />;
       case 'leptis_magna':
         return <Landmark className={iconClass} />;
+      case 'misrata':
+        return <Anchor className={iconClass} />;
+      case 'nalut_nafusa':
+        return <Castle className={iconClass} />;
       case 'benghazi':
         return <Waves className={iconClass} />;
       case 'cyrene_green_mountain':
         return <Trees className={iconClass} />;
+      case 'derna':
+        return <Sparkles className={iconClass} />;
+      case 'jalu_awjila':
+        return <Palmtree className={iconClass} />;
       case 'ghadames':
         return <Palmtree className={iconClass} />;
       case 'sabha_fezzan':
@@ -137,7 +126,7 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({ onSelectCity, se
             d={route.d}
             fill="none"
             stroke={route.isUnlocked ? 'url(#goldRouteGradient)' : 'rgba(255, 255, 255, 0.12)'}
-            strokeWidth={route.isUnlocked ? '0.85' : '0.45'}
+            strokeWidth={route.isUnlocked ? '0.75' : '0.4'}
             strokeDasharray={route.isUnlocked ? 'none' : '1.5, 1.5'}
             className={route.isUnlocked ? 'filter drop-shadow-[0_0_5px_rgba(229,169,59,0.6)]' : ''}
           />
@@ -151,11 +140,14 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({ onSelectCity, se
           const totalStars = city.stages.reduce((acc, s) => acc + (s.starsEarned || 0), 0);
           const isUnlocked = city.unlockedByDefault || city.stages.some((s) => s.isUnlocked);
           const isAllStagesCompleted = city.stages.every((s) => (s.starsEarned || 0) >= 1);
+          const isRegionMatched = regionFilter === 'all' || city.region === regionFilter;
 
           return (
             <motion.div
               key={city.id}
-              className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer"
+              className={`absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-opacity duration-300 ${
+                isRegionMatched ? 'opacity-100' : 'opacity-35 pointer-events-none'
+              }`}
               style={{
                 left: `${city.coordinates.xPercent}%`,
                 top: `${city.coordinates.yPercent}%`,
@@ -206,8 +198,9 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({ onSelectCity, se
                 </div>
               </div>
 
-              {/* City Label Below Pin */}
-              <div className="absolute top-full mt-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap pointer-events-none">
+              {/* City Label Below Pin — part of the pin's tap target, so the
+                  name is tappable too and not just the small circle. */}
+              <div className="absolute top-full mt-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap">
                 <span
                   className={`text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-full shadow-lg backdrop-blur-md transition-all ${
                     isSelected

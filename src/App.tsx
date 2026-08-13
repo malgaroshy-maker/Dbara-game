@@ -1,17 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { Suspense, lazy, useMemo, useState, useEffect } from 'react';
 import { useGameStore } from './store/useGameStore';
 import { useMapStore } from './store/useMapStore';
 import { HeaderHUD } from './components/HeaderHUD';
 import { BottomNav } from './components/BottomNav';
 import { SettingsModal } from './components/SettingsModal';
 import { MapScreen } from './features/map/MapScreen';
-import { CategoryHub } from './features/quickplay/CategoryHub';
-import { DailyChallengeScreen } from './features/daily/DailyChallengeScreen';
-import { BadgesScreen } from './features/badges/BadgesScreen';
-import { QuizScreen } from './features/quiz/QuizScreen';
-import { LetterScramble } from './features/puzzles/LetterScramble';
-import { MiniCrossword } from './features/puzzles/MiniCrossword';
-import { SpeedBlitz } from './features/quiz/SpeedBlitz';
 
 // Question & Puzzle Banks
 import { historyQuestions } from './data/questions/history';
@@ -22,92 +15,106 @@ import { generalArabQuestions } from './data/questions/generalArab';
 import { wordScramblePuzzles } from './data/puzzles/wordScramble';
 import { miniCrosswords } from './data/puzzles/crosswords';
 
-export const App: React.FC = () => {
-  const { currentMode, checkDailyStreak } = useGameStore();
-  const { activeStage, startStage, clearActiveStage } = useMapStore();
-  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+// The map is the landing screen and stays in the entry chunk. Everything else
+// is split out so first paint doesn't pay for the crossword keyboard, the
+// duel screen, or the share-card canvas.
+const CategoryHub = lazy(() =>
+  import('./features/quickplay/CategoryHub').then((m) => ({ default: m.CategoryHub }))
+);
+const DailyChallengeScreen = lazy(() =>
+  import('./features/daily/DailyChallengeScreen').then((m) => ({ default: m.DailyChallengeScreen }))
+);
+const BadgesScreen = lazy(() =>
+  import('./features/badges/BadgesScreen').then((m) => ({ default: m.BadgesScreen }))
+);
+const QuizScreen = lazy(() =>
+  import('./features/quiz/QuizScreen').then((m) => ({ default: m.QuizScreen }))
+);
+const LetterScramble = lazy(() =>
+  import('./features/puzzles/LetterScramble').then((m) => ({ default: m.LetterScramble }))
+);
+const MiniCrossword = lazy(() =>
+  import('./features/puzzles/MiniCrossword').then((m) => ({ default: m.MiniCrossword }))
+);
+const SpeedBlitz = lazy(() =>
+  import('./features/quiz/SpeedBlitz').then((m) => ({ default: m.SpeedBlitz }))
+);
 
-  // Check Daily Streak on Mount
-  useEffect(() => {
-    checkDailyStreak();
-  }, [checkDailyStreak]);
-
-  // Combine all questions for stage lookups
-  const allQuestions = [
+// Built once at module load: stage lookups were previously concatenating five
+// banks into a fresh array on every render and then scanning it linearly.
+const questionsById = new Map(
+  [
     ...historyQuestions,
     ...dialectQuestions,
     ...sportsQuestions,
     ...foodTraditionsQuestions,
     ...generalArabQuestions,
-  ];
+  ].map((q) => [q.id, q])
+);
+const scramblesById = new Map(wordScramblePuzzles.map((p) => [p.id, p]));
+const crosswordsById = new Map(miniCrosswords.map((p) => [p.id, p]));
 
-  const renderActiveStage = () => {
+const ScreenFallback: React.FC = () => (
+  <div className="flex items-center justify-center py-24" role="status" aria-live="polite">
+    <div className="w-10 h-10 rounded-full border-2 border-[#E5A93B]/30 border-t-[#E5A93B] animate-spin" />
+    <span className="sr-only">جارٍ التحميل…</span>
+  </div>
+);
+
+export const App: React.FC = () => {
+  const { currentMode, checkBadgeUnlocks } = useGameStore();
+  const { activeStage, startStage, clearActiveStage, getTotalStars } = useMapStore();
+  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+
+  const totalStars = getTotalStars();
+
+  useEffect(() => {
+    checkBadgeUnlocks(totalStars);
+  }, [totalStars, checkBadgeUnlocks]);
+
+  const activeStageView = useMemo(() => {
     if (!activeStage) return null;
     const { cityId, stage } = activeStage;
 
-    if (stage.type === 'multiple_choice') {
-      const q = allQuestions.find((item) => item.id === stage.questionId) || historyQuestions[0];
-      return (
-        <QuizScreen
-          stage={stage}
-          cityId={cityId}
-          question={q}
-          onFinish={clearActiveStage}
-        />
-      );
+    switch (stage.type) {
+      case 'multiple_choice': {
+        const question =
+          (stage.questionId && questionsById.get(stage.questionId)) || historyQuestions[0];
+        return (
+          <QuizScreen stage={stage} cityId={cityId} question={question} onFinish={clearActiveStage} />
+        );
+      }
+      case 'letter_scramble': {
+        const puzzle =
+          (stage.puzzleId && scramblesById.get(stage.puzzleId)) || wordScramblePuzzles[0];
+        return (
+          <LetterScramble stage={stage} cityId={cityId} puzzle={puzzle} onFinish={clearActiveStage} />
+        );
+      }
+      case 'crossword': {
+        const puzzle = (stage.puzzleId && crosswordsById.get(stage.puzzleId)) || miniCrosswords[0];
+        return (
+          <MiniCrossword stage={stage} cityId={cityId} puzzle={puzzle} onFinish={clearActiveStage} />
+        );
+      }
+      case 'speed_blitz':
+        return <SpeedBlitz stage={stage} cityId={cityId} onFinish={clearActiveStage} />;
+      default:
+        return null;
     }
-
-    if (stage.type === 'letter_scramble') {
-      const puzzle = wordScramblePuzzles.find((p) => p.id === stage.puzzleId) || wordScramblePuzzles[0];
-      return (
-        <LetterScramble
-          stage={stage}
-          cityId={cityId}
-          puzzle={puzzle}
-          onFinish={clearActiveStage}
-        />
-      );
-    }
-
-    if (stage.type === 'crossword') {
-      const puzzle = miniCrosswords.find((p) => p.id === stage.puzzleId) || miniCrosswords[0];
-      return (
-        <MiniCrossword
-          stage={stage}
-          cityId={cityId}
-          puzzle={puzzle}
-          onFinish={clearActiveStage}
-        />
-      );
-    }
-
-    if (stage.type === 'speed_blitz') {
-      return (
-        <SpeedBlitz
-          stage={stage}
-          cityId={cityId}
-          onFinish={clearActiveStage}
-        />
-      );
-    }
-
-    return null;
-  };
+  }, [activeStage, clearActiveStage]);
 
   const renderMainContent = () => {
-    if (activeStage) {
-      return renderActiveStage();
-    }
+    if (activeStageView) return activeStageView;
 
     switch (currentMode) {
-      case 'map':
-        return <MapScreen onStartStage={startStage} />;
       case 'quickplay':
         return <CategoryHub />;
       case 'daily':
         return <DailyChallengeScreen />;
       case 'badges':
         return <BadgesScreen />;
+      case 'map':
       default:
         return <MapScreen onStartStage={startStage} />;
     }
@@ -120,17 +127,14 @@ export const App: React.FC = () => {
 
       {/* Main View Area */}
       <main className="flex-1 w-full max-w-lg mx-auto py-2">
-        {renderMainContent()}
+        <Suspense fallback={<ScreenFallback />}>{renderMainContent()}</Suspense>
       </main>
 
       {/* Floating Bottom Navigation */}
       {!activeStage && <BottomNav />}
 
       {/* Settings & Backup Modal */}
-      <SettingsModal
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
-      />
+      <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
     </div>
   );
 };

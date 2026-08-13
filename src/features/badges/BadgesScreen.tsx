@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { badgesList } from '../../data/badges';
 import { useGameStore } from '../../store/useGameStore';
-import { Trophy, ShoppingBag, CheckCircle2, Coins, HelpCircle, PlusCircle, FastForward, Lightbulb } from 'lucide-react';
+import { LeaderboardTab } from './LeaderboardTab';
+import { Trophy, ShoppingBag, CheckCircle2, Coins, HelpCircle, PlusCircle, FastForward, Lightbulb, Shield } from 'lucide-react';
 
 export const BadgesScreen: React.FC = () => {
   const { profile, unlockedBadges, buyLifeline } = useGameStore();
-  const [tab, setTab] = useState<'badges' | 'shop'>('badges');
+  const [tab, setTab] = useState<'badges' | 'shop' | 'leaderboard'>('badges');
 
   const shopItems = [
     {
@@ -27,7 +28,7 @@ export const BadgesScreen: React.FC = () => {
     {
       id: 'skip',
       title: 'تخطي السؤال',
-      description: 'تجاوز السؤال الصعب واحتساب النجاح مباشرة',
+      description: 'تجاوز السؤال الصعب واجتياز المرحلة بنجمة واحدة',
       cost: 40,
       icon: <FastForward className="w-6 h-6 text-[#10B981]" />,
       current: profile.lifelines.skip,
@@ -49,10 +50,10 @@ export const BadgesScreen: React.FC = () => {
         <div>
           <h2 className="text-xl font-extrabold text-white flex items-center gap-2">
             <Trophy className="w-5 h-5 text-[#E5A93B]" />
-            الأوسمة والمتجر
+            الأوسمة ولوحة الشرف
           </h2>
           <p className="text-xs text-[#94A3B8] mt-0.5">
-            استعرض إنجازاتك واشترِ وسائل المساعدة بالدنانير
+            استعرض إنجازاتك، تصنيفك الأسبوعي، والمساعدات
           </p>
         </div>
 
@@ -63,32 +64,47 @@ export const BadgesScreen: React.FC = () => {
         </div>
       </div>
 
-      {/* Switcher Tabs */}
-      <div className="grid grid-cols-2 p-1 rounded-2xl bg-[#131C2E] border border-white/10 text-xs font-bold">
+      {/* Switcher 3 Tabs */}
+      <div className="grid grid-cols-3 p-1 rounded-2xl bg-[#131C2E] border border-white/10 text-xs font-bold gap-1">
         <button
           onClick={() => setTab('badges')}
-          className={`py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 ${
+          className={`py-2 rounded-xl transition-all flex items-center justify-center gap-1 text-[11px] font-black ${
             tab === 'badges'
               ? 'bg-[#E5A93B] text-[#0B0F19] shadow-md'
               : 'text-[#94A3B8] hover:text-white'
           }`}
         >
-          <Trophy className="w-4 h-4" />
-          <span>مجلس الأوسمة ({unlockedBadges.length}/{badgesList.length})</span>
+          <Trophy className="w-3.5 h-3.5" />
+          <span>الأوسمة ({unlockedBadges.length})</span>
+        </button>
+
+        <button
+          onClick={() => setTab('leaderboard')}
+          className={`py-2 rounded-xl transition-all flex items-center justify-center gap-1 text-[11px] font-black ${
+            tab === 'leaderboard'
+              ? 'bg-[#E5A93B] text-[#0B0F19] shadow-md'
+              : 'text-[#94A3B8] hover:text-white'
+          }`}
+        >
+          <Shield className="w-3.5 h-3.5" />
+          <span>لوحة الشرف</span>
         </button>
 
         <button
           onClick={() => setTab('shop')}
-          className={`py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 ${
+          className={`py-2 rounded-xl transition-all flex items-center justify-center gap-1 text-[11px] font-black ${
             tab === 'shop'
               ? 'bg-[#E5A93B] text-[#0B0F19] shadow-md'
               : 'text-[#94A3B8] hover:text-white'
           }`}
         >
-          <ShoppingBag className="w-4 h-4" />
-          <span>متجر المساعدات</span>
+          <ShoppingBag className="w-3.5 h-3.5" />
+          <span>المتجر</span>
         </button>
       </div>
+
+      {/* Leaderboard Tab Content */}
+      {tab === 'leaderboard' && <LeaderboardTab />}
 
       {/* Badges Tab Content */}
       {tab === 'badges' && (

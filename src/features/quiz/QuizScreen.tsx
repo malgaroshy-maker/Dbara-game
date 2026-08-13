@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { TriviaQuestion } from '../../types/quiz';
 import type { Stage } from '../../types/map';
 import { useGameStore } from '../../store/useGameStore';
 import { useMapStore } from '../../store/useMapStore';
+import { useCountdown } from '../../hooks/useCountdown';
 import { sfx } from '../../audio/soundEffects';
 import confetti from 'canvas-confetti';
 import { 
@@ -17,57 +18,74 @@ import {
   XCircle, 
   Trophy, 
   ArrowRight,
-  Star
+  Star,
+  Share2
 } from 'lucide-react';
+import { ShareResultModal } from '../../components/ShareResultModal';
 
 interface QuizScreenProps {
   stage: Stage;
   cityId: string;
   question: TriviaQuestion;
   onFinish: () => void;
+  /** Reports how the question went, once, so round hosts can tally a score. */
+  onResolved?: (result: { isCorrect: boolean; stars: number }) => void;
 }
 
-export const QuizScreen: React.FC<QuizScreenProps> = ({ stage, cityId, question, onFinish }) => {
+export const QuizScreen: React.FC<QuizScreenProps> = ({
+  stage,
+  cityId,
+  question,
+  onFinish,
+  onResolved,
+}) => {
   const { profile, useLifeline, spendDinars, addDinars, recordQuestionAnswer } = useGameStore();
   const { completeStage } = useMapStore();
 
-  const [timeLeft, setTimeLeft] = useState<number>(25);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState<boolean>(false);
+  const [wasSkipped, setWasSkipped] = useState<boolean>(false);
   const [disabledOptions, setDisabledOptions] = useState<number[]>([]);
   const [showFactModal, setShowFactModal] = useState<boolean>(false);
   const [earnedStars, setEarnedStars] = useState<number>(0);
   const [isVictoryModal, setIsVictoryModal] = useState<boolean>(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
 
-  // Countdown timer
-  useEffect(() => {
-    if (isAnswered || timeLeft <= 0) return;
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 4 && prev > 1) sfx.playTick();
-        if (prev <= 1) {
-          handleTimeOut();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [isAnswered, timeLeft]);
+  // Dynamically shuffle options on question load (Fisher-Yates Shuffle)
+  const shuffledOptions = useMemo(() => {
+    const opts = question.options.map((text, originalIndex) => ({ text, originalIndex }));
+    for (let i = opts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [opts[i], opts[j]] = [opts[j], opts[i]];
+    }
+    return opts;
+  }, [question]);
 
-  const handleTimeOut = () => {
+  const handleTimeOut = useCallback(() => {
     setIsAnswered(true);
     sfx.playWrong();
     recordQuestionAnswer(false);
+    onResolved?.({ isCorrect: false, stars: 0 });
     setShowFactModal(true);
-  };
+  }, [recordQuestionAnswer, onResolved]);
 
-  const handleSelectOption = (index: number) => {
-    if (isAnswered || disabledOptions.includes(index)) return;
-    setSelectedOption(index);
+  const handleTick = useCallback((secondsLeft: number) => {
+    if (secondsLeft <= 4) sfx.playTick();
+  }, []);
+
+  const { timeLeft, addTime } = useCountdown({
+    initialSeconds: 25,
+    running: !isAnswered,
+    onExpire: handleTimeOut,
+    onTick: handleTick,
+  });
+
+  const handleSelectOption = (visualIndex: number) => {
+    if (isAnswered || disabledOptions.includes(visualIndex)) return;
+    setSelectedOption(visualIndex);
     setIsAnswered(true);
 
-    const isCorrect = index === question.correctIndex;
+    const isCorrect = shuffledOptions[visualIndex].originalIndex === question.correctIndex;
     recordQuestionAnswer(isCorrect);
 
     if (isCorrect) {
@@ -92,6 +110,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({ stage, cityId, question,
       setEarnedStars(0);
     }
 
+    onResolved?.({ isCorrect, stars: isCorrect ? (timeLeft >= 15 ? 3 : timeLeft >= 8 ? 2 : 1) : 0 });
     setShowFactModal(true);
   };
 
@@ -104,11 +123,13 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({ stage, cityId, question,
       if (!spendDinars(20)) return;
     }
 
-    // Eliminate 2 wrong answers
-    const wrongIndices = question.options
-      .map((_, i) => i)
-      .filter((i) => i !== question.correctIndex);
-    const toDisable = wrongIndices.slice(0, 2);
+    // Eliminate 2 wrong answers from visual shuffled array
+    const wrongVisualIndices = shuffledOptions
+      .map((item, idx) => ({ idx, isWrong: item.originalIndex !== question.correctIndex }))
+      .filter((item) => item.isWrong)
+      .map((item) => item.idx);
+
+    const toDisable = wrongVisualIndices.slice(0, 2);
     setDisabledOptions(toDisable);
     sfx.playTap();
   };
@@ -120,7 +141,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({ stage, cityId, question,
     } else {
       if (!spendDinars(25)) return;
     }
-    setTimeLeft((prev) => prev + 15);
+    addTime(15);
     sfx.playTap();
   };
 
@@ -131,12 +152,26 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({ stage, cityId, question,
     } else {
       if (!spendDinars(40)) return;
     }
-    handleSelectOption(question.correctIndex);
+
+    // A skip clears the stage but only at one star, and never counts as an
+    // answer the player got right — otherwise it would be the cheapest and
+    // most accuracy-inflating way to farm a perfect run.
+    setIsAnswered(true);
+    setWasSkipped(true);
+    setEarnedStars(1);
+    sfx.playTap();
+    onResolved?.({ isCorrect: false, stars: 1 });
+    setShowFactModal(true);
   };
 
   const handleFactContinue = () => {
     setShowFactModal(false);
-    if (selectedOption === question.correctIndex) {
+    const isPlayerCorrect =
+      wasSkipped ||
+      (selectedOption !== null &&
+        shuffledOptions[selectedOption]?.originalIndex === question.correctIndex);
+
+    if (isPlayerCorrect) {
       completeStage(cityId, stage.id, earnedStars);
       setIsVictoryModal(true);
     } else {
@@ -195,12 +230,12 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({ stage, cityId, question,
         </h2>
       </motion.div>
 
-      {/* 4 Answer Options */}
+      {/* 4 Shuffled Answer Options */}
       <div className="space-y-3">
-        {question.options.map((opt, idx) => {
-          const isSelected = selectedOption === idx;
-          const isCorrect = idx === question.correctIndex;
-          const isDisabled = disabledOptions.includes(idx);
+        {shuffledOptions.map((opt, visualIdx) => {
+          const isSelected = selectedOption === visualIdx;
+          const isCorrect = opt.originalIndex === question.correctIndex;
+          const isDisabled = disabledOptions.includes(visualIdx);
 
           let optionStyle = 'glass-card-interactive border-white/10 text-[#F8FAFC]';
 
@@ -218,17 +253,17 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({ stage, cityId, question,
 
           return (
             <motion.button
-              key={idx}
+              key={visualIdx}
               whileTap={!isAnswered && !isDisabled ? { scale: 0.98 } : {}}
               disabled={isAnswered || isDisabled}
-              onClick={() => handleSelectOption(idx)}
+              onClick={() => handleSelectOption(visualIdx)}
               className={`w-full p-4 rounded-2xl flex items-center justify-between text-right transition-all font-bold ${optionStyle}`}
             >
               <div className="flex items-center gap-3">
                 <span className="w-7 h-7 rounded-full bg-[#E5A93B]/15 text-[#FCD34D] border border-[#E5A93B]/30 flex items-center justify-center text-xs font-black shrink-0">
-                  {optionLabels[idx]}
+                  {optionLabels[visualIdx]}
                 </span>
-                <span className="text-sm sm:text-base leading-snug">{opt}</span>
+                <span className="text-sm sm:text-base leading-snug">{opt.text}</span>
               </div>
 
               {isAnswered && isCorrect && <CheckCircle className="w-5 h-5 text-[#10B981] shrink-0" />}
@@ -320,8 +355,14 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({ stage, cityId, question,
                 <Trophy className="w-8 h-8" />
               </div>
 
-              <h3 className="text-xl font-black text-white">أحسنت يا بطل! 🎉</h3>
-              <p className="text-xs text-[#94A3B8] mt-1">أجبت بشكل صحيح واجتزت المرحلة بنجاح</p>
+              <h3 className="text-xl font-black text-white">
+                {wasSkipped ? 'تجاوزت المرحلة! ✨' : 'أحسنت يا بطل! 🎉'}
+              </h3>
+              <p className="text-xs text-[#94A3B8] mt-1">
+                {wasSkipped
+                  ? 'استخدمت مساعدة التخطي واجتزت المرحلة بنجمة واحدة'
+                  : 'أجبت بشكل صحيح واجتزت المرحلة بنجاح'}
+              </p>
 
               {/* 3 Stars Rating */}
               <div className="flex items-center justify-center gap-2 my-4">
@@ -337,20 +378,48 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({ stage, cityId, question,
                 ))}
               </div>
 
-              <div className="p-3 rounded-2xl bg-[#E5A93B]/10 border border-[#E5A93B]/20 text-[#FCD34D] font-extrabold text-sm mb-5">
-                +{question.rewardDinars} دينار ليبي مكافأة 💰
+              <div className="p-3 rounded-2xl bg-[#E5A93B]/10 border border-[#E5A93B]/20 text-[#FCD34D] font-extrabold text-sm mb-4">
+                {wasSkipped
+                  ? 'لا توجد مكافأة دنانير عند التخطي 🎟️'
+                  : `+${question.rewardDinars} دينار ليبي مكافأة 💰`}
               </div>
 
-              <button
-                onClick={onFinish}
-                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#10B981] to-[#059669] text-white font-black text-sm shadow-[0_0_20px_rgba(16,185,129,0.35)] transition-transform active:scale-95"
-              >
-                العودة للخريطة 🗺️
-              </button>
+              <div className="flex flex-col gap-2">
+                <button
+                  onClick={() => setIsShareModalOpen(true)}
+                  className="w-full py-3 rounded-2xl bg-[#0EA5E9] hover:bg-[#0284C7] text-[#0B0F19] font-black text-xs shadow-md flex items-center justify-center gap-1.5 transition-transform active:scale-95"
+                >
+                  <Share2 className="w-4 h-4" />
+                  <span>مشاركة الإنجاز 🏅</span>
+                </button>
+
+                <button
+                  onClick={onFinish}
+                  className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#10B981] to-[#059669] text-white font-black text-sm shadow-[0_0_20px_rgba(16,185,129,0.35)] transition-transform active:scale-95"
+                >
+                  العودة للخريطة 🗺️
+                </button>
+              </div>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
+
+      <ShareResultModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        title={`اجتياز ${stage.title}`}
+        subtitle={`محطة ${cityId === 'daily' ? 'التحدي اليومي' : cityId === 'quickplay' ? 'اللعب السريع' : 'خريطة ليبيا'}`}
+        playerName={profile.name}
+        playerAvatar={profile.avatar}
+        playerTitle={profile.title}
+        scoreOrStars={{
+          stars: earnedStars,
+          dinarsEarned: wasSkipped ? 0 : question.rewardDinars,
+          streakDays: profile.streakDays,
+        }}
+        contextType={cityId === 'daily' ? 'daily' : 'quiz'}
+      />
     </div>
   );
 };

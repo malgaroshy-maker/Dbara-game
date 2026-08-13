@@ -1,0 +1,45 @@
+{
+  "name": "دبارة | رحلة التحدي والمعرفة الليبية",
+  "short_name": "دبارة",
+  "description": "لعبة الأسئلة والألغاز الثقافية والتراثية الليبية الأولى. خوض مغامرة تفاعلية عبر 12 محطة تراثية من طرابلس وبنغازي إلى غات والكفرة.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0B0F19",
+  "theme_color": "#0B0F19",
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["games", "trivia", "education"],
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "تحدي اليوم",
+      "short_name": "اليومي",
+      "description": "حل لغز اليوم وحافظ على سلسلة الأيام",
+      "url": "./#daily",
+      "icons": [{ "src": "./favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "خريطة ليبيا",
+      "short_name": "الخريطة",
+      "description": "استكشف معالم ومدن ليبيا",
+      "url": "./#map",
+      "icons": [{ "src": "./favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "لعب سريع",
+      "short_name": "سريع",
+      "description": "جولة ثقافية سريعة حسب مجالك المفضل",
+      "url": "./#quickplay",
+      "icons": [{ "src": "./favicon.svg", "sizes": "any" }]
+    }
+  ]
+}

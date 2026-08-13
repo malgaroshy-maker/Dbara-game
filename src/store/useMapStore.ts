@@ -18,6 +18,30 @@ interface MapState {
   resetMapProgress: () => void;
 }
 
+// Helper to merge stored cities with newly updated initialCities.
+// Exported so restored backups go through the same reconciliation as a
+// rehydrated save — otherwise an old backup would drop cities added since.
+export const mergeCitiesWithInitial = (savedCities: CityNode[]): CityNode[] => {
+  if (!Array.isArray(savedCities) || savedCities.length === 0) return initialCities;
+
+  return initialCities.map((initCity) => {
+    const saved = savedCities.find((c) => c.id === initCity.id);
+    if (!saved) return initCity;
+
+    const mergedStages = initCity.stages.map((initStg) => {
+      const savedStg = saved.stages?.find((s) => s.id === initStg.id);
+      return savedStg
+        ? { ...initStg, starsEarned: savedStg.starsEarned || 0, isUnlocked: savedStg.isUnlocked ?? initStg.isUnlocked }
+        : initStg;
+    });
+
+    return {
+      ...initCity,
+      stages: mergedStages,
+    };
+  });
+};
+
 export const useMapStore = create<MapState>()(
   persist(
     (set, get) => ({
@@ -45,7 +69,7 @@ export const useMapStore = create<MapState>()(
         const updatedCities = state.cities.map((city) => {
           if (city.id !== cityId) return city;
 
-          const updatedStages = city.stages.map((stg, idx) => {
+          const updatedStages = city.stages.map((stg) => {
             if (stg.id === stageId) {
               const previousStars = stg.starsEarned || 0;
               const awardedStars = Math.max(previousStars, stars);
@@ -104,8 +128,19 @@ export const useMapStore = create<MapState>()(
       },
     }),
     {
-      name: 'dbara_map_save_v1',
+      name: 'dbara_map_save_v2',
       storage: createJSONStorage(() => localStorage),
+      // `activeStage` is transient: persisting it drops the player back into a
+      // half-played stage with a fresh timer after any reload.
+      partialize: (state) => ({
+        cities: state.cities,
+        selectedCityId: state.selectedCityId,
+      }),
+      onRehydrateStorage: () => (state) => {
+        if (state && state.cities) {
+          state.cities = mergeCitiesWithInitial(state.cities);
+        }
+      },
     }
   )
 );

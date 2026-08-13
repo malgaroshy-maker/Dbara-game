@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { PlayerProfile, AudioSettings, GameStats, GameMode } from '../types/game';
+import { badgesList } from '../data/badges';
 import { sfx } from '../audio/soundEffects';
 
 interface GameState {
@@ -24,11 +25,13 @@ interface GameState {
   recordQuestionAnswer: (isCorrect: boolean) => void;
   recordSpeedScore: (score: number) => void;
   unlockBadge: (badgeId: string) => void;
-  checkDailyStreak: () => { streakUpdated: boolean; bonusGranted: number };
-  exportSaveData: () => string;
-  importSaveData: (jsonString: string) => boolean;
+  checkBadgeUnlocks: (totalStars: number) => string[];
+  claimDailyStreak: () => { streakUpdated: boolean; bonusGranted: number };
+  isDailyRewardAvailable: () => boolean;
   resetAllProgress: () => void;
 }
+
+const todayKey = () => new Date().toISOString().split('T')[0];
 
 const initialProfile: PlayerProfile = {
   name: 'مستكشف دبارة',
@@ -37,7 +40,8 @@ const initialProfile: PlayerProfile = {
   dinars: 150, // Starting bonus
   totalStars: 0,
   streakDays: 1,
-  lastLoginDate: new Date().toISOString().split('T')[0],
+  // Empty rather than today's date so a brand new player can claim day one.
+  lastLoginDate: '',
   lifelines: {
     fiftyFifty: 3,
     revealLetter: 3,
@@ -147,8 +151,11 @@ export const useGameStore = create<GameState>()(
       },
 
       toggleHaptics: () => {
+        const nextState = !get().audio.hapticsEnabled;
+        sfx.setHapticsEnabled(nextState);
+        sfx.playTap();
         set((state) => ({
-          audio: { ...state.audio, hapticsEnabled: !state.audio.hapticsEnabled },
+          audio: { ...state.audio, hapticsEnabled: nextState },
         }));
       },
 
@@ -173,15 +180,45 @@ export const useGameStore = create<GameState>()(
 
       unlockBadge: (badgeId) => {
         if (!get().unlockedBadges.includes(badgeId)) {
+          const badge = badgesList.find((b) => b.id === badgeId);
           sfx.playVictory();
           set((state) => ({
             unlockedBadges: [...state.unlockedBadges, badgeId],
+            profile: {
+              ...state.profile,
+              dinars: state.profile.dinars + (badge?.rewardDinars || 50),
+            },
           }));
         }
       },
 
-      checkDailyStreak: () => {
-        const today = new Date().toISOString().split('T')[0];
+      checkBadgeUnlocks: (totalStars: number) => {
+        const state = get();
+        const newlyUnlocked: string[] = [];
+
+        // Check Grand Jahbadh (20+ stars)
+        if (totalStars >= 20 && !state.unlockedBadges.includes('grand_jahbadh')) {
+          newlyUnlocked.push('grand_jahbadh');
+        }
+
+        // Check Streak Warrior (7+ days)
+        if (state.profile.streakDays >= 7 && !state.unlockedBadges.includes('streak_warrior')) {
+          newlyUnlocked.push('streak_warrior');
+        }
+
+        // Check Dialect Expert (15+ questions answered)
+        if (state.stats.correctAnswers >= 15 && !state.unlockedBadges.includes('dialect_expert')) {
+          newlyUnlocked.push('dialect_expert');
+        }
+
+        newlyUnlocked.forEach((bId) => state.unlockBadge(bId));
+        return newlyUnlocked;
+      },
+
+      isDailyRewardAvailable: () => get().profile.lastLoginDate !== todayKey(),
+
+      claimDailyStreak: () => {
+        const today = todayKey();
         const lastLogin = get().profile.lastLoginDate;
         if (lastLogin === today) {
           return { streakUpdated: false, bonusGranted: 0 };
@@ -210,33 +247,9 @@ export const useGameStore = create<GameState>()(
         return { streakUpdated: true, bonusGranted: bonus };
       },
 
-      exportSaveData: () => {
-        const state = get();
-        return JSON.stringify({
-          profile: state.profile,
-          stats: state.stats,
-          unlockedBadges: state.unlockedBadges,
-          savedAt: new Date().toISOString(),
-        });
-      },
-
-      importSaveData: (jsonString) => {
-        try {
-          const parsed = JSON.parse(jsonString);
-          if (parsed.profile && parsed.stats) {
-            set({
-              profile: parsed.profile,
-              stats: parsed.stats,
-              unlockedBadges: parsed.unlockedBadges || ['welcome_badge'],
-            });
-            sfx.playVictory();
-            return true;
-          }
-        } catch {
-          // parse failed
-        }
-        return false;
-      },
+      // Backup/restore lives in SettingsModal, which is the only caller and the
+      // only place that also knows about map progress. Two partial
+      // implementations of the same save format was one too many.
 
       resetAllProgress: () => {
         set({
@@ -250,6 +263,21 @@ export const useGameStore = create<GameState>()(
     {
       name: 'dbara_game_save_v1',
       storage: createJSONStorage(() => localStorage),
+      // `currentMode` and `activeCategory` are view state, not progress — leaving
+      // them out keeps a reload landing on the map instead of a half-open screen.
+      partialize: (state) => ({
+        profile: state.profile,
+        audio: state.audio,
+        stats: state.stats,
+        unlockedBadges: state.unlockedBadges,
+      }),
+      onRehydrateStorage: () => (state) => {
+        // The sound engine is a plain singleton; without this the saved mute and
+        // haptics preferences are shown in the UI but never actually applied.
+        if (!state) return;
+        sfx.setMuted(!state.audio.soundEnabled);
+        sfx.setHapticsEnabled(state.audio.hapticsEnabled);
+      },
     }
   )
 );

@@ -7,6 +7,10 @@
     <meta name="theme-color" content="#0B0F19" />
     <meta name="description" content="دبارة - لعبة المسابقات والألغاز الليبية التفاعلية واستكشاف خريطة المدن والتراث" />
     <title>دبارة | لغز ومعرفة ليبية</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="دبارة" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <!-- Google Fonts for Arabic Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,5 +19,22 @@
   <body class="bg-[#0B0F19] text-[#F8FAFC] antialiased selection:bg-[#E5A93B]/30 selection:text-[#FCD34D] overflow-x-hidden min-h-screen">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script type="module">
+      // Production builds only. On the Vite dev server a service worker
+      // intercepts the module graph and serves stale code, so edits silently
+      // stop applying — and any worker left over from a previous run is undone.
+      if ('serviceWorker' in navigator) {
+        if (import.meta.env.PROD) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js').catch(() => {});
+          });
+        } else {
+          navigator.serviceWorker
+            .getRegistrations()
+            .then((regs) => regs.forEach((reg) => reg.unregister()))
+            .catch(() => {});
+        }
+      }
+    </script>
   </body>
 </html>

@@ -24,7 +24,7 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
   const filteredCities = regionFilter === 'all' ? cities : cities.filter((c) => c.region === regionFilter);
 
   return (
-    <div className="flex flex-col gap-3 pb-36 max-w-lg mx-auto w-full px-3">
+    <div className="flex flex-col gap-3 pb-36 max-w-lg mx-auto w-full px-3 select-none">
       {/* Title & Region Banner */}
       <div className="flex items-center justify-between pt-1">
         <div>
@@ -54,7 +54,7 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
               : 'bg-[#131C2E] text-[#94A3B8] border border-white/10 hover:text-white'
           }`}
         >
-          كافة أرجاء ليبيا
+          كافة أرجاء ليبيا ({cities.length})
         </button>
         <button
           onClick={() => setRegionFilter('tripolitania')}
@@ -102,6 +102,7 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
       <LibyaVectorMap
         onSelectCity={handlePinClick}
         selectedCityId={selectedCityId}
+        regionFilter={regionFilter}
       />
 
       {/* Selected City Bottom Inspection Card */}

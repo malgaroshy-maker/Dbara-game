@@ -5,18 +5,35 @@ import { wordScramblePuzzles } from '../../data/puzzles/wordScramble';
 import { useGameStore } from '../../store/useGameStore';
 import { QuizScreen } from '../quiz/QuizScreen';
 import { LetterScramble } from '../puzzles/LetterScramble';
-import { Flame, Gift, Calendar, Sparkles, CheckCircle2, Play } from 'lucide-react';
+import { SpeedBlitz } from '../quiz/SpeedBlitz';
+import { ShareResultModal } from '../../components/ShareResultModal';
+import { Flame, Gift, Calendar, Sparkles, CheckCircle2, Play, Share2 } from 'lucide-react';
 
 export const DailyChallengeScreen: React.FC = () => {
-  const { profile, checkDailyStreak } = useGameStore();
+  const { profile, claimDailyStreak, isDailyRewardAvailable } = useGameStore();
   const [activeChallenge, setActiveChallenge] = useState<typeof dailyChallenges[0] | null>(null);
-  const [streakClaimed, setStreakClaimed] = useState<boolean>(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
 
-  const todayChallenge = dailyChallenges[0];
+  // Derived from the persisted claim date rather than local state, so the
+  // button tells the truth after a reload instead of resetting to "claimable".
+  const streakClaimed = !isDailyRewardAvailable();
+
+  // Mirrors the streak maths in the store so the button promises what it pays:
+  // a consecutive day continues the streak, a gap restarts it at one.
+  const yesterdayStr = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+  const projectedStreak =
+    profile.lastLoginDate === yesterdayStr ? profile.streakDays + 1 : 1;
+  const projectedBonus = Math.min(projectedStreak * 25, 200);
+
+  // Dynamic daily challenge determination based on current date
+  const todayStr = new Date().toISOString().split('T')[0];
+  const dateHash = todayStr.split('-').reduce((acc, part) => acc + parseInt(part, 10), 0);
+  const todayChallenge =
+    dailyChallenges.find((c) => c.date === todayStr) ||
+    dailyChallenges[dateHash % dailyChallenges.length];
 
   const handleClaimStreak = () => {
-    checkDailyStreak();
-    setStreakClaimed(true);
+    claimDailyStreak();
   };
 
   if (activeChallenge) {
@@ -59,10 +76,28 @@ export const DailyChallengeScreen: React.FC = () => {
         />
       );
     }
+
+    if (activeChallenge.type === 'blitz') {
+      return (
+        <SpeedBlitz
+          stage={{
+            id: 'daily_blitz',
+            stageNumber: 1,
+            title: activeChallenge.title,
+            type: 'speed_blitz',
+            starsEarned: 0,
+            isUnlocked: true,
+            rewardDinars: activeChallenge.rewardDinars,
+          }}
+          cityId="daily"
+          onFinish={() => setActiveChallenge(null)}
+        />
+      );
+    }
   }
 
   return (
-    <div className="flex flex-col gap-4 pb-20 max-w-lg mx-auto w-full px-3 pt-1">
+    <div className="flex flex-col gap-4 pb-20 max-w-lg mx-auto w-full px-3 pt-1 select-none">
       <div>
         <h2 className="text-xl font-extrabold text-white flex items-center gap-2">
           <Flame className="w-5 h-5 text-[#F59E0B]" />
@@ -106,23 +141,34 @@ export const DailyChallengeScreen: React.FC = () => {
           })}
         </div>
 
-        <button
-          onClick={handleClaimStreak}
-          disabled={streakClaimed}
-          className="w-full py-3 rounded-2xl bg-gradient-to-r from-[#F59E0B] to-[#D97706] text-[#0B0F19] font-black text-xs shadow-lg flex items-center justify-center gap-2 transition-transform active:scale-95 disabled:opacity-50"
-        >
-          {streakClaimed ? (
-            <>
-              <CheckCircle2 className="w-4 h-4" />
-              <span>تم استلام مكافأة الدخول لليوم!</span>
-            </>
-          ) : (
-            <>
-              <Gift className="w-4 h-4" />
-              <span>استلم مكافأة اليوم (+{profile.streakDays * 25} د.ل)</span>
-            </>
-          )}
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={handleClaimStreak}
+            disabled={streakClaimed}
+            className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-[#F59E0B] to-[#D97706] text-[#0B0F19] font-black text-xs shadow-lg flex items-center justify-center gap-2 transition-transform active:scale-95 disabled:opacity-50"
+          >
+            {streakClaimed ? (
+              <>
+                <CheckCircle2 className="w-4 h-4" />
+                <span>تم استلام مكافأة اليوم!</span>
+              </>
+            ) : (
+              <>
+                <Gift className="w-4 h-4" />
+                <span>استلم مكافأة اليوم (+{projectedBonus} د.ل)</span>
+              </>
+            )}
+          </button>
+
+          <button
+            onClick={() => setIsShareModalOpen(true)}
+            className="px-3.5 py-3 rounded-2xl bg-[#1E293B] hover:bg-[#2A374D] border border-white/10 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-transform active:scale-95 shrink-0"
+            title="مشاركة سلسلة الأيام"
+          >
+            <Share2 className="w-4 h-4 text-[#E5A93B]" />
+            <span className="hidden sm:inline">مشاركة</span>
+          </button>
+        </div>
       </div>
 
       {/* Today's Special Challenge Banner */}
@@ -157,6 +203,21 @@ export const DailyChallengeScreen: React.FC = () => {
           </button>
         </div>
       </div>
+
+      <ShareResultModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        title={`سلسلة دخول أسطورية: ${profile.streakDays} أيام`}
+        subtitle="تحدي الاستكشاف اليومي في لعبة دبارة"
+        playerName={profile.name}
+        playerAvatar={profile.avatar}
+        playerTitle={profile.title}
+        scoreOrStars={{
+          streakDays: profile.streakDays,
+          dinarsEarned: profile.streakDays * 25,
+        }}
+        contextType="daily"
+      />
     </div>
   );
 };

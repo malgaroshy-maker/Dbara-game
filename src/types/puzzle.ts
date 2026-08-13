@@ -1,7 +1,7 @@
 export interface LetterScramblePuzzle {
   id: string;
   cityId?: string;
-  category: 'proverb' | 'slang' | 'dish' | 'landmark';
+  category: 'proverb' | 'slang' | 'dish' | 'landmark' | 'sports';
   prompt: string;
   answer: string; // Arabic word or proverb completion
   scrambledLetters: string[];
