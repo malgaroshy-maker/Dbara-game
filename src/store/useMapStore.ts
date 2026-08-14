@@ -15,6 +15,13 @@ interface MapState {
   clearActiveStage: () => void;
   completeStage: (cityId: string, stageId: string, stars: number) => { newStarsEarned: number; newlyUnlockedCities: string[] };
   getTotalStars: () => number;
+  /**
+   * Opens a city without the stars, for a player who pays instead.
+   *
+   * Only the first stage opens, exactly as reaching the star threshold would,
+   * so buying your way in skips the queue rather than the game.
+   */
+  purchaseCityUnlock: (cityId: string) => boolean;
   resetMapProgress: () => void;
 }
 
@@ -110,6 +117,23 @@ export const useMapStore = create<MapState>()(
 
         set({ cities: finalizedCities });
         return { newStarsEarned, newlyUnlockedCities };
+      },
+
+      purchaseCityUnlock: (cityId) => {
+        const city = get().cities.find((c) => c.id === cityId);
+        if (!city) return false;
+        const alreadyOpen = city.unlockedByDefault || city.stages.some((s) => s.isUnlocked);
+        if (alreadyOpen) return false;
+
+        sfx.playVictory();
+        set((state) => ({
+          cities: state.cities.map((c) =>
+            c.id === cityId
+              ? { ...c, stages: c.stages.map((s, idx) => ({ ...s, isUnlocked: idx === 0 })) }
+              : c
+          ),
+        }));
+        return true;
       },
 
       getTotalStars: () => {

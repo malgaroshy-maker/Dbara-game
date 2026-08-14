@@ -11,7 +11,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['قرابة 1,100 كم', 'قرابة 1,770 كم', 'قرابة 2,400 كم', 'قرابة 3,100 كم'],
     correctIndex: 1,
     funFact: 'يمتد الساحل الليبي نحو 1,770 كم، وهو أطول ساحل لدولة أفريقية على البحر المتوسط.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا الموسوعة الحرة (مقال: قوات البحرية الليبية)',
   },
   {
@@ -22,7 +22,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['جبل العوينات', 'قمة بتة في تيبستي', 'جبل نفوسة', 'جبل الحساونة'],
     correctIndex: 1,
     funFact: 'ترتفع قمة بتة نحو 2,267 متراً في أقصى الجنوب على الحدود مع تشاد، ضمن سلسلة تيبستي البركانية.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'ويكيبيديا الموسوعة الحرة (مقال: قمة بتة)',
   },
   {
@@ -33,7 +33,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['ست دول', 'خمس دول', 'أربع دول', 'سبع دول'],
     correctIndex: 0,
     funFact: 'تحد ليبيا ست دول: مصر والسودان شرقاً، وتشاد والنيجر جنوباً، والجزائر وتونس غرباً.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'geog_04',
@@ -43,7 +43,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['الثانية', 'الثالثة', 'السادسة', 'الرابعة'],
     correctIndex: 3,
     funFact: 'تأتي ليبيا رابعة بمساحة نحو 1.76 مليون كم² بعد الجزائر ثم السعودية ثم السودان.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا الموسوعة الحرة (مقال: ليبيا)',
   },
   {
@@ -59,7 +59,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     ],
     correctIndex: 1,
     funFact: 'الأقاليم الثلاثة هي طرابلس (غرباً) وبرقة (شرقاً) وفزان (جنوباً)، وقد ظهرت الأقاليم الثلاثة في علم الاستقلال ورمزيته.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'geog_06',
@@ -69,7 +69,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['برقة', 'طرابلس', 'فزان', 'الجفارة'],
     correctIndex: 2,
     funFact: 'سبها أكبر مدن الجنوب الليبي ومركز إقليم فزان، وكانت محطة رئيسية على طرق قوافل الصحراء.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'geog_07',
@@ -80,7 +80,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['خليج قابس', 'خليج سرت', 'خليج السلوم', 'خليج البمبة'],
     correctIndex: 1,
     funFact: 'يشكل خليج سرت انحناءة كبيرة في وسط الساحل الليبي، وتطل عليه مدن سرت وأجدابيا ورأس لانوف.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'geog_08',
@@ -90,7 +90,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['بنغازي', 'طرابلس', 'مصراتة', 'الزاوية'],
     correctIndex: 1,
     funFact: 'طرابلس العاصمة وأكبر مدن ليبيا سكاناً، تليها بنغازي حاضرة الشرق ثم مصراتة.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
 
   // ── جغرافيا العالم ───────────────────────────────────────────────────────
@@ -103,7 +103,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['النخيل', 'القطن', 'الحمضيات', 'الزيتون'],
     correctIndex: 3,
     funFact: 'تنتشر بساتين الزيتون ومعاصره في مسلاتة وجبلها، وزيت الزيتون من أبرز منتجات المنطقة منذ القدم.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'geo_msl_02',
@@ -114,7 +114,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['الزاوية', 'الجفارة', 'المرقب', 'سرت'],
     correctIndex: 2,
     funFact: 'تقع مسلاتة ضمن منطقة المرقب في شمال غرب ليبيا، ومركزها مدينة الخمس على الساحل.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا العربية (مقال: مسلاتة)',
   },
   // ── مدن ومحطات الخريطة ───────────────────────────────────────────────────
@@ -127,7 +127,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['الأمازيغية', 'التباوية', 'الطوارقية', 'الإيطالية'],
     correctIndex: 0,
     funFact: 'زوارة من أبرز المدن الأمازيغية في ليبيا، وتحتفظ بلغتها وتقاليدها إلى جانب العربية.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'geo_zwr_02',
@@ -138,7 +138,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['صيد الأسماك', 'تعدين الحديد', 'زراعة القطن', 'صناعة الورق'],
     correctIndex: 0,
     funFact: 'يشكل الصيد البحري ركيزة اقتصاد زوارة، وسواحلها من أنشط مناطق الصيد على الساحل الغربي.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'geo_gry_01',
@@ -149,7 +149,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['البيوت الجوفية المحفورة في الأرض', 'المنازل الخشبية المرتفعة', 'الأبراج الحجرية الدائرية', 'الخيام الثابتة'],
     correctIndex: 0,
     funFact: 'الدور الجوفية في غريان تُحفر تحت الأرض حول فناء دائري مكشوف، فتوفر برودة في الصيف ودفئاً في الشتاء.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'geo_gry_02',
@@ -160,7 +160,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['النسيج', 'الحدادة', 'الفخار', 'دباغة الجلود'],
     correctIndex: 2,
     funFact: 'تشتهر غريان بصناعة الفخار وأوانيه التقليدية، وهي من أعرق الحرف اليدوية في الجبل الغربي.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'geo_srt_01',
@@ -171,7 +171,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['طرابلس وبنغازي', 'مصراتة ودرنة', 'الزاوية وطبرق', 'سبها والكفرة'],
     correctIndex: 0,
     funFact: 'موقع سرت في منتصف الساحل جعلها نقطة وصل بين إقليمي طرابلس وبرقة عبر التاريخ.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'geo_ajd_01',
@@ -182,7 +182,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['جبل نفوسة', 'الجبل الأخضر', 'واحات جالو والكفرة', 'ساحل زوارة'],
     correctIndex: 2,
     funFact: 'من أجدابيا تنطلق الطرق الصحراوية جنوباً نحو واحات جالو وأوجلة ثم الكفرة في أقصى الجنوب الشرقي.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'geo_tbk_01',
@@ -193,7 +193,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['مصب نهر كبير', 'شلالات ساحلية', 'جزيرة مواجهة للمدينة', 'مرفأ طبيعي عميق ومحمي'],
     correctIndex: 3,
     funFact: 'مرفأ طبرق الطبيعي العميق من أفضل المرافئ على الساحل الليبي، ولهذا كان هدفاً استراتيجياً في الحروب.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'geo_mzq_01',
@@ -204,7 +204,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['أوباري', 'الشاطئ', 'براك', 'مرزق'],
     correctIndex: 3,
     funFact: 'كانت مرزق عاصمة فزان ومركز تجارة القوافل العابرة للصحراء نحو وسط أفريقيا لقرون طويلة.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا الموسوعة الحرة (مقال: سلطنة أولاد محمد)',
   },
   {
@@ -216,7 +216,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['الجغبوب', 'أوجلة', 'تازربو', 'الجالو'],
     correctIndex: 0,
     funFact: 'أسس السنوسيون في الجغبوب زاوية ومعهداً علمياً صار مركزاً للحركة قبل انتقالها إلى الكفرة.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا الموسوعة الحرة (مقال: محمد بن علي السنوسي)',
   },
   {
@@ -228,7 +228,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['تازربو', 'ربيانة', 'الجوف', 'بزيمة'],
     correctIndex: 2,
     funFact: 'الجوف هي كبرى واحات الكفرة ومركزها الإداري، وتحيط بها مشاريع الري المحوري الشهيرة.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'ويكيبيديا الموسوعة الحرة (مقال: الجوف (ليبيا))',
   },
   {
@@ -239,7 +239,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['السعودية', 'ليبيا', 'السودان', 'الجزائر'],
     correctIndex: 3,
     funFact: 'تبلغ مساحة الجزائر نحو 2.38 مليون كم²، وهي أكبر دولة في أفريقيا والعالم العربي.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'geog_10',
@@ -249,7 +249,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['صحراء كالاهاري', 'صحراء أتاكاما', 'صحراء الربع الخالي', 'الصحراء الكبرى'],
     correctIndex: 3,
     funFact: 'تغطي الصحراء الكبرى نحو 9 ملايين كم² عبر شمال أفريقيا، وتشكل الأراضي الليبية جزءاً كبيراً منها.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'geog_11',
@@ -259,7 +259,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['نهر النيل', 'نهر النيجر', 'نهر الكونغو', 'نهر الزمبيزي'],
     correctIndex: 0,
     funFact: 'يمتد نهر النيل أكثر من 6,600 كم عبر إحدى عشرة دولة ويصب في البحر المتوسط.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'geog_12',
@@ -269,7 +269,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['البحر الأحمر', 'بحر العرب', 'الخليج العربي', 'بحر قزوين'],
     correctIndex: 0,
     funFact: 'افتُتحت قناة السويس سنة 1869 لتربط المتوسط بالبحر الأحمر، فاختصرت طريق التجارة بين أوروبا وآسيا.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'geog_13',
@@ -279,7 +279,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['قبرص', 'كريت', 'سردينيا', 'صقلية'],
     correctIndex: 3,
     funFact: 'صقلية أكبر جزر المتوسط، ولها صلات تاريخية قديمة بالسواحل الليبية عبر التجارة والهجرات.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'موسوعة المعرفة (مقال: صقلية)',
   },
   {
@@ -290,7 +290,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['المحيط الأطلسي', 'المحيط الهادئ', 'المحيط الهندي', 'المحيط المتجمد الشمالي'],
     correctIndex: 1,
     funFact: 'يغطي المحيط الهادئ نحو ثلث سطح الأرض، وهو أكبر وأعمق محيطات العالم.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'geog_15',
@@ -300,7 +300,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['قمة كي 2', 'جبل كليمنجارو', 'قمة إيفرست', 'جبل مون بلان'],
     correctIndex: 2,
     funFact: 'ترتفع قمة إيفرست في سلسلة الهيمالايا نحو 8,849 متراً فوق سطح البحر.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'geog_16',
@@ -310,7 +310,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['وادي الموت', 'منخفض القطارة', 'البحر الميت', 'بحر قزوين'],
     correctIndex: 2,
     funFact: 'يقع سطح البحر الميت على نحو 430 متراً تحت مستوى سطح البحر، وملوحته الشديدة تجعل الأجسام تطفو فوقه.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'geog_17',
@@ -320,7 +320,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['اليمن', 'السودان', 'المغرب', 'مصر'],
     correctIndex: 3,
     funFact: 'تفصل قناة السويس بين الجزء الأفريقي من مصر وشبه جزيرة سيناء الواقعة في آسيا.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'geog_18',
@@ -330,7 +330,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['جبال الهيمالايا', 'جبال روكي', 'جبال الأنديز', 'جبال الأطلس'],
     correctIndex: 2,
     funFact: 'تمتد جبال الأنديز نحو 7,000 كم على طول الساحل الغربي لأمريكا الجنوبية عبر سبع دول.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'موسوعة المعرفة (مقال: جبال الأنديز)',
   },
   {
@@ -341,7 +341,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['أفريقيا', 'آسيا', 'أمريكا الشمالية', 'أوروبا'],
     correctIndex: 1,
     funFact: 'تغطي آسيا نحو 30% من مساحة اليابسة وتضم أكثر من نصف سكان العالم.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'geog_20',
@@ -351,7 +351,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['نواذيبو', 'نواكشوط', 'أطار', 'روصو'],
     correctIndex: 1,
     funFact: 'نواكشوط عاصمة موريتانيا وأكبر مدنها، وتقع على ساحل المحيط الأطلسي.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'موسوعة المعرفة (مقال: نواكشوط)',
   },
   {
@@ -362,7 +362,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['قبرص', 'كورسيكا', 'كريت', 'مالطا'],
     correctIndex: 3,
     funFact: 'مالطا أقرب دولة أوروبية إلى ليبيا، ولا يفصلها عن سواحلها سوى نحو 350 كيلومتراً من البحر.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'geog_22',
@@ -372,7 +372,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['الفرات', 'النيل', 'الأردن', 'السند'],
     correctIndex: 0,
     funFact: 'سُميت بلاد الرافدين بهذا الاسم لجريان نهري دجلة والفرات فيها، وعلى ضفافهما قامت بابل وأور ونينوى.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'geog_23',
@@ -382,7 +382,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['المحيط الهندي', 'المحيط الأطلسي', 'المحيط الهادئ', 'المحيط المتجمد الشمالي'],
     correctIndex: 1,
     funFact: 'يفصل المحيط الأطلسي بين أفريقيا وأوروبا من جهة والأمريكتين من جهة أخرى، وعلى سواحله تقع موريتانيا والمغرب.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'geog_24',
@@ -392,7 +392,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['مضيق هرمز', 'مضيق باب المندب', 'مضيق البوسفور', 'مضيق جبل طارق'],
     correctIndex: 3,
     funFact: 'لا يتجاوز عرض مضيق جبل طارق 14 كيلومتراً في أضيق نقطة، ومنه عبر طارق بن زياد إلى الأندلس.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'geog_25',
@@ -402,7 +402,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['جرينلاند', 'مدغشقر', 'بورنيو', 'أستراليا'],
     correctIndex: 0,
     funFact: 'أستراليا أكبر من جرينلاند لكنها تُصنّف قارة لا جزيرة، ولذلك تأتي جرينلاند في المرتبة الأولى بين الجزر.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'geog_26',
@@ -412,7 +412,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['خندق بورتوريكو', 'خندق ماريانا', 'خندق جاوة', 'البحر الأحمر'],
     correctIndex: 1,
     funFact: 'يتجاوز عمق خندق ماريانا في المحيط الهادئ أحد عشر كيلومتراً، أي أعمق من ارتفاع إيفرست فوق سطح البحر.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'geog_27',
@@ -422,7 +422,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['النفود الكبير', 'صحراء نيجيف', 'الربع الخالي', 'الدهناء'],
     correctIndex: 2,
     funFact: 'تمتد رمال الربع الخالي على أكثر من 600 ألف كم² بين السعودية وعُمان واليمن والإمارات.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'geog_28',
@@ -432,7 +432,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['موناكو', 'سان مارينو', 'ناورو', 'الفاتيكان'],
     correctIndex: 3,
     funFact: 'لا تتجاوز مساحة دولة الفاتيكان نصف كيلومتر مربع، وتقع بالكامل داخل مدينة روما الإيطالية.',
-    rewardDinars: 50,
+    rewardDinars: 60,
   },
   // ── مدن أضيفت إلى الخريطة ────────────────────────────────────────────────
   {
@@ -444,7 +444,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['صناعة الأسمنت', 'تكرير النفط', 'صناعة الحديد والصلب', 'تعليب الأسماك'],
     correctIndex: 1,
     funFact: 'مصفاة الزاوية من أكبر مصافي النفط في ليبيا، وتغذي السوق المحلي إلى جانب التصدير من ميناء الزاوية.',
-    rewardDinars: 35,
+    rewardDinars: 20,
     source: 'ويكيبيديا العربية (مقال: الزاوية (ليبيا)) — المصفاة والميناء النفطي',
   },
   {
@@ -456,7 +456,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['جالو وأوجلة وجخرة', 'هون وودان وسوكنة', 'براك والقرضة وأدري', 'تازربو وربيانة وبزيمة'],
     correctIndex: 1,
     funFact: 'تتوسط الجفرة البلاد بين الساحل والجنوب، فكانت المحطة التي ينزل بها المسافر من طرابلس إلى فزان.',
-    rewardDinars: 35,
+    rewardDinars: 20,
     source: 'ويكيبيديا العربية (مقال: الجفرة) — هون وودان وسوكنة',
   },
   {
@@ -468,7 +468,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['العواقير', 'المغاربة', 'ورفلة', 'القذاذفة'],
     correctIndex: 2,
     funFact: 'تمتد بيوت بني وليد على ضفاف أودية عميقة تنتشر فيها بساتين النخيل والزيتون بين الهضاب.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'geo_mrj_01',
@@ -479,7 +479,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['الجبل الأخضر', 'جبل نفوسة', 'جبل الحساونة', 'جبال أكاكوس'],
     correctIndex: 0,
     funFact: 'سهول المرج من أخصب أراضي ليبيا، وتُزرع فيها الحبوب والأشجار المثمرة اعتماداً على أمطار الشتاء.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'geo_ubr_01',
@@ -490,7 +490,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['وادي الشاطئ', 'وادي الحياة', 'وادي زمزم', 'وادي الآجال الأعلى'],
     correctIndex: 1,
     funFact: 'عُرف الوادي قديماً باسم وادي الأجال، وتصطف فيه القرى على حافة بحر الرمال الكبير.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا العربية (مقال: وادي الحياة) — الاسم القديم وادي الأجال',
   },
   // ── تعميق المدن قليلة الأسئلة ────────────────────────────────────────────
@@ -503,7 +503,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['سهل بنغازي', 'سهل الجفارة', 'سهل المرج', 'سهل سرت'],
     correctIndex: 1,
     funFact: 'على هذا السهل تقوم أكثف زراعة في شمال غرب ليبيا، وفيه أغلب بساتين الزيتون والحمضيات وأكبر تجمع سكاني في البلاد.',
-    rewardDinars: 35,
+    rewardDinars: 20,
     source: 'ويكيبيديا العربية (مقال: سهل الجفارة)',
   },
   {
@@ -515,7 +515,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     options: ['إدهان أوباري', 'العرق الشرقي الكبير', 'صحراء كلانشيو', 'رمال تنيري'],
     correctIndex: 0,
     funFact: 'تتغذى بحيراته من الخزان الجوفي لا من المطر، ولذلك بقيت وسط الرمال بينما جفّ ما حولها.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا العربية (مقال: إدهان أوباري)',
   },
 ];

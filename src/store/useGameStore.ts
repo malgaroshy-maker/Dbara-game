@@ -30,6 +30,22 @@ interface GameState {
    * (the speed round) still record the tally.
    */
   recordQuestionAnswer: (isCorrect: boolean, questionId?: string) => void;
+  /** Cosmetics the player has bought, so dinars buy something that lasts. */
+  ownedAvatars: string[];
+  ownedTitles: string[];
+  /**
+   * A bought title, which outranks the earned one.
+   *
+   * `refreshRank` writes the rank into `profile.title`, so without somewhere
+   * separate to keep a purchase it would be overwritten the next time the
+   * player earned a star.
+   */
+  customTitle: string | null;
+  buyAvatar: (avatar: string, cost: number) => boolean;
+  equipAvatar: (avatar: string) => void;
+  buyTitle: (title: string, cost: number) => boolean;
+  /** Pass null to go back to wearing the rank the player earned. */
+  equipTitle: (title: string | null) => void;
   /** Ids the player has been shown, so a round can prefer fresh questions. */
   seenQuestionIds: string[];
   /** Ids answered wrong and not yet re-answered correctly. */
@@ -112,6 +128,9 @@ export const useGameStore = create<GameState>()(
       hasOnboarded: false,
       seenQuestionIds: [],
       missedQuestionIds: [],
+      ownedAvatars: [],
+      ownedTitles: [],
+      customTitle: null,
 
       setMode: (mode) => {
         sfx.playTap();
@@ -224,6 +243,44 @@ export const useGameStore = create<GameState>()(
 
       clearQuestionHistory: () => set({ seenQuestionIds: [], missedQuestionIds: [] }),
 
+      buyAvatar: (avatar, cost) => {
+        if (get().ownedAvatars.includes(avatar)) return false;
+        if (!get().spendDinars(cost)) return false;
+        sfx.playVictory();
+        set((state) => ({
+          ownedAvatars: [...state.ownedAvatars, avatar],
+          profile: { ...state.profile, avatar },
+        }));
+        return true;
+      },
+
+      equipAvatar: (avatar) => {
+        if (!get().ownedAvatars.includes(avatar)) return;
+        sfx.playTap();
+        set((state) => ({ profile: { ...state.profile, avatar } }));
+      },
+
+      buyTitle: (title, cost) => {
+        if (get().ownedTitles.includes(title)) return false;
+        if (!get().spendDinars(cost)) return false;
+        sfx.playVictory();
+        set((state) => ({
+          ownedTitles: [...state.ownedTitles, title],
+          customTitle: title,
+          profile: { ...state.profile, title },
+        }));
+        return true;
+      },
+
+      equipTitle: (title) => {
+        if (title !== null && !get().ownedTitles.includes(title)) return;
+        sfx.playTap();
+        set((state) => ({
+          customTitle: title,
+          profile: { ...state.profile, title: title ?? state.profile.title },
+        }));
+      },
+
       recordSpeedScore: (score) => {
         set((state) => ({
           stats: {
@@ -296,6 +353,8 @@ export const useGameStore = create<GameState>()(
        */
       refreshRank: (totalStars) => {
         const state = get();
+        // A bought title is the player's choice and outranks the earned one.
+        if (state.customTitle) return;
         const rank = rankForScore(
           competitiveScore({
             totalStars,
@@ -326,7 +385,7 @@ export const useGameStore = create<GameState>()(
           newStreak = get().profile.streakDays + 1;
         }
 
-        const bonus = Math.min(newStreak * 25, 200);
+        const bonus = Math.min(newStreak * 10, 80);
         sfx.playCoin();
         set((state) => ({
           profile: {
@@ -357,6 +416,9 @@ export const useGameStore = create<GameState>()(
           hasOnboarded: false,
           seenQuestionIds: [],
           missedQuestionIds: [],
+          ownedAvatars: [],
+          ownedTitles: [],
+          customTitle: null,
         });
       },
     }),
@@ -375,6 +437,9 @@ export const useGameStore = create<GameState>()(
         // Shaped to sync to a server later without a rebuild, per PRODUCT.md.
         seenQuestionIds: state.seenQuestionIds,
         missedQuestionIds: state.missedQuestionIds,
+        ownedAvatars: state.ownedAvatars,
+        ownedTitles: state.ownedTitles,
+        customTitle: state.customTitle,
       }),
       onRehydrateStorage: () => (state) => {
         // The sound engine is a plain singleton; without this the saved mute and

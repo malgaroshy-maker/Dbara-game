@@ -11,7 +11,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['الرشتة المسقية', 'المبكبكة', 'الكسكسي بالبصلة', 'العصيدة'],
     correctIndex: 1,
     funFact: 'المبكبكة من أكثر الأطباق اليومية حضوراً في البيوت الليبية، وسميت بذلك من صوت غليان الصلصة "تبكبك".',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'food_ben_01',
@@ -22,7 +22,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['الغريبة باللوز', 'المقروض', 'الكعك المالح', 'السفنز'],
     correctIndex: 1,
     funFact: 'يتميز المقروض الليبي بنقش سطحه بأداة خاصة ورشه بالسمسم المحمص بعد تغطيسه في العسل وماء الزهر.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'food_ghad_01',
@@ -33,7 +33,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['البازين', 'الثريد', 'الدويدة', 'الفتات'],
     correctIndex: 0,
     funFact: 'البازين طبق الأعياد وتجمعات الجمعة، ويُعرك بعصا خشبية صلبة تسمى "المغرف" حتى يتماسك قوامه.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'food_bazin_02',
@@ -43,7 +43,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['دقيق القمح', 'السميد', 'دقيق الشعير', 'الأرز المطحون'],
     correctIndex: 2,
     funFact: 'يُعجن البازين من دقيق الشعير بالماء المغلي، وهو من أقدم الأطباق الليبية وأكثرها ارتباطاً بالمناسبات.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'food_mis_01',
@@ -54,7 +54,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['الكعك المصراتي', 'الغريبة', 'المقروض', 'المعمول'],
     correctIndex: 0,
     funFact: 'يُقدم الكعك المصراتي مع شاي الصباح أو جلسة العالة، وهو من رموز الضيافة في المدينة.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'food_nal_01',
@@ -65,7 +65,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['الفتات (الشرشي)', 'العصيدة', 'الدويدة', 'البازين'],
     correctIndex: 0,
     funFact: 'الفتات طبق أمازيغي عريق في جبل نفوسة ويُعرف أيضاً بالشرشي، ويُرصّ طبقات من رقائق الخبز والمرق واللحم والحمص، ويُقدم في الجنوب ومصراتة كذلك.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا العربية (مقال: شرشي) وبوابة الوسط — قسم المطبخ: الفتات',
   },
   {
@@ -77,7 +77,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['المقروض', 'البقلاوة', 'الغريبة', 'الزلابية'],
     correctIndex: 1,
     funFact: 'تشتهر درنة بحلوياتها الشرقية الدقيقة، وخاصة البقلاوة المورقة بالسمن البلدي واللوز.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'food_jal_01',
@@ -88,7 +88,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['خبزة المَلّة', 'الخبز التنوري', 'خبز الشعير', 'الرغيف البلدي'],
     correctIndex: 0,
     funFact: 'خبزة الملة زاد أهل الصحراء والقوافل، تُدفن في الرماد الساخن ثم تُنفض وتُؤكل مع التمر وزيت الزيتون.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'بوابة الوسط — وصف خبزة الملة: عجين الدقيق يُطمر تحت رماد الحطب بعد إخماد النار',
   },
   {
@@ -99,7 +99,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['البسيسة', 'الزلابية', 'العصيدة', 'المهلبية'],
     correctIndex: 2,
     funFact: 'تُعد العصيدة في صباح المولد النبوي وتُزين بحفرة وسطى يُسكب فيها "الرب" (دبس التمر) وزيت الزيتون البكر.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'food_trad_05',
@@ -109,7 +109,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['شاي كرك', 'شاي مغربي', 'شاي عدني', 'شاهي العالة'],
     correctIndex: 3,
     funFact: 'تمر "العالة" بعدة تحضيرات متتالية للشاي الأحمر والأخضر مع الفول السوداني أو اللوز، والرغوة الكثيفة دليل إتقانها.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'food_trad_06',
@@ -119,7 +119,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['القفطان', 'الزبون', 'البشت', 'الجرد'],
     correctIndex: 3,
     funFact: 'الجرد الصوفي الأبيض رمز الوقار الليبي، وهو اللباس الذي عُرف به شيخ الشهداء عمر المختار.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'food_trad_07',
@@ -129,7 +129,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['المبكبكة', 'الكسكسي', 'الدويدة', 'الرشتة'],
     correctIndex: 3,
     funFact: 'الرشتة من أرقى أطباق المناسبات والأعراس الليبية، وتُصنع عجينتها منزلياً وتُقطع شرائط رقيقة جداً.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'food_trad_08',
@@ -139,7 +139,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['السفنز', 'المقروض', 'البسيسة', 'الغريبة'],
     correctIndex: 0,
     funFact: 'السفنز سيد إفطار الشتاء الليبي، ويُقلى سادة مع العسل أو بإضافة بيضة في وسطه أثناء القلي.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'food_trad_09',
@@ -150,7 +150,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact:
       'تُعد في المناسبات وتُقدَّم مع اللبن الطازج، وما يُضاف إليها يتبع عادة كل منطقة: تمر أو بيض مسلوق أو لحم.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا العربية (مقال: مثرودة)، ومراجعة محمد الجروشي للاستعمال المحلي',
   },
   {
@@ -161,7 +161,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['الهريسة', 'المرقة البيضاء', 'المثرودة', 'الشوربة الليبية'],
     correctIndex: 3,
     funFact: 'الشوربة الليبية تُطهى بالطماطم واللحم والحمص وتُنكه بالنعناع الجاف، وتُقدم يومياً على مائدة الإفطار في رمضان.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'food_trad_12',
@@ -171,7 +171,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['الناي', 'الزكرة', 'المزمار', 'الربابة'],
     correctIndex: 1,
     funFact: 'الزكرة آلة نفخ جلدية تشبه القربة، ترافق الرقصات الشعبية والأعراس في مناطق واسعة من ليبيا.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'الموسوعة العربية: الزُّكرة — مزمار قربة ليبي من قصبتين ينتهي بقرني بقرة',
   },
   {
@@ -182,7 +182,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['الدويدة', 'الرشتة', 'الكسكسي', 'المبكبكة'],
     correctIndex: 2,
     funFact: 'الكسكسي طبق مغاربي عريق، سُجلت معارفه وتقاليده في قائمة اليونسكو للتراث غير المادي سنة 2020 بملف مشترك بين الجزائر وموريتانيا والمغرب وتونس.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'food_trad_14',
@@ -192,7 +192,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['نوع من الخبز', 'صلصة حارة', 'لحم مملح ومجفف', 'حلوى بالتمر'],
     correctIndex: 2,
     funFact: 'القديد لحم يُملّح ويُجفف في الشمس ليُحفظ شهوراً، ويُستخدم في الفتات وأطباق الشتاء الجبلية.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'food_trad_15',
@@ -202,7 +202,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['القهوة', 'الشاي', 'العصير', 'الحليب'],
     correctIndex: 1,
     funFact: 'الشاي الليبي المركز أساس مجالس الضيافة، ويُقدم غالباً على ثلاث مراحل مع الفول السوداني أو اللوز.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'food_trad_16',
@@ -212,7 +212,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['الطنجرة', 'الدلة', 'البراد', 'الكانون'],
     correctIndex: 2,
     funFact: 'البراد إناء صغير يُغلى فيه الشاي مراراً حتى يتركز، ويُصب من ارتفاع لتتكون الرغوة المطلوبة.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'food_trad_17',
@@ -222,7 +222,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['شجرة الزيتون', 'شجرة النخيل', 'شجرة التين', 'شجرة الرمان'],
     correctIndex: 1,
     funFact: 'النخلة عماد اقتصاد الواحات الليبية، ويُستفاد من ثمرها وسعفها وجذعها وليفها في كل شؤون الحياة.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'food_trad_18',
@@ -232,7 +232,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['الدقة', 'الطحينة', 'الهريسة', 'الزعتر'],
     correctIndex: 2,
     funFact: 'الهريسة معجون من الفلفل الأحمر والثوم والتوابل، وتُضاف للشوربة والمبكبكة وتُقدم جانبية مع الخبز.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'food_trad_19',
@@ -242,7 +242,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['جبل نفوسة', 'الكفرة', 'مرزق', 'الجغبوب'],
     correctIndex: 0,
     funFact: 'تنتشر في جبل نفوسة معاصر الزيتون الحجرية القديمة، وما زال زيت الزيتون الجبلي من أجود أنواعه في ليبيا.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا العربية (مقال: جبل نفوسة) — زراعة الزيتون والحبوب في الأودية',
   },
   {
@@ -254,6 +254,6 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     options: ['السميط', 'رُبّ التمر', 'المحلب', 'الطحينة'],
     correctIndex: 1,
     funFact: 'يُغلى عصير التمر حتى يثخن ويسودّ، فيحفظ حلاوة الموسم كله ويُؤكل بالزيت أو يُحشى به العجين.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
 ];

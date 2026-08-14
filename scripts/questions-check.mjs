@@ -25,7 +25,9 @@ const fail = (id, msg) => errors.push(`✗ ${id}: ${msg}`);
 const warn = (id, msg) => warnings.push(`⚠ ${id}: ${msg}`);
 
 const missingSource = [];
-const REWARD_BAND = { easy: [25], medium: [30, 35], hard: [40, 45], expert: [50] };
+// A six-fold spread from easy to expert. It used to be two-fold, which is why
+// a hard question never felt worth reaching for.
+const REWARD_BAND = { easy: [10], medium: [20], hard: [35], expert: [60] };
 const ROUND_LENGTH = 5; // QUESTIONS_PER_ROUND in CategoryHub
 
 const mcq = bank.items.filter((i) => i.kind === 'mcq');

@@ -36,15 +36,24 @@ import {
   FlaskConical,
 } from 'lucide-react';
 
-/** Flat completion bonus plus 10 dinars for every question actually answered right. */
-const roundCompletionBonus = (correctCount: number) => 25 + correctCount * 10;
+/**
+ * Completion bonus. Deliberately small next to the questions themselves: it is
+ * a nudge to finish the round, not the reason to play it.
+ */
+const roundCompletionBonus = (correctCount: number) => 5 + correctCount * 4;
 
-/** Round summary stars: 5/5 earns three, a clear majority two, anything else one. */
+/**
+ * Round summary stars: only a clean sweep earns three.
+ *
+ * Three used to mean five right and two meant three right, so a player who got
+ * a bare majority walked away with most of the marks and the rating stopped
+ * saying anything about how the round went.
+ */
 const roundStars = (correctCount: number, total: number) => {
   if (total === 0) return 1;
   const ratio = correctCount / total;
   if (ratio >= 1) return 3;
-  if (ratio >= 0.6) return 2;
+  if (ratio >= 0.8) return 2;
   return 1;
 };
 

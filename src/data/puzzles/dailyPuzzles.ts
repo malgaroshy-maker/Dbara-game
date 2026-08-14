@@ -46,10 +46,10 @@ const WEEK_PATTERN: DailyChallengeItem['type'][] = [
 
 /** What clearing each type pays. Puzzles pay more than a single question. */
 const REWARD: Record<DailyChallengeItem['type'], number> = {
-  trivia: 75,
-  scramble: 100,
-  blitz: 120,
-  crossword: 130,
+  trivia: 30,
+  scramble: 45,
+  blitz: 55,
+  crossword: 60,
 };
 
 const CATEGORY_LABEL: Record<QuizCategory, string> = {

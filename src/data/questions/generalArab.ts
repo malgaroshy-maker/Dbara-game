@@ -22,7 +22,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['بنغازي', 'مصراتة', 'طرابلس', 'سبها'],
     correctIndex: 2,
     funFact: 'طرابلس عاصمة ليبيا وأكبر مدنها، وتضم المدينة القديمة والسرايا الحمراء وميناءً من أنشط موانئ المتوسط.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'gen_13',
@@ -32,7 +32,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['الدينار', 'الدرهم', 'الريال', 'الجنيه'],
     correctIndex: 0,
     funFact: 'الدينار الليبي هو العملة الرسمية، ويُقسم إلى 1000 درهم.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'gen_29',
@@ -42,7 +42,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['السياحة', 'النفط والغاز', 'صيد الأسماك', 'التعدين'],
     correctIndex: 1,
     funFact: 'تمتلك ليبيا أكبر احتياطي نفطي مؤكد في أفريقيا، ويشكل النفط والغاز الجزء الأكبر من إيراداتها.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'gen_30',
@@ -52,7 +52,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['منظمة التجارة العالمية', 'منظمة أوبك', 'مجموعة العشرين', 'الوكالة الدولية للطاقة'],
     correctIndex: 1,
     funFact: 'انضمت ليبيا إلى منظمة الدول المصدرة للبترول (أوبك) سنة 1962، بعد سنوات قليلة من اكتشاف النفط في أراضيها.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'gen_05',
@@ -62,7 +62,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['قناة السرير الكبرى', 'مشروع وادي الحياة', 'مشروع النهر الصناعي العظيم', 'مشروع الجفارة المائي'],
     correctIndex: 2,
     funFact: 'ينقل النهر الصناعي العظيم المياه من أحواض السرير والكفرة وفزان إلى طرابلس وبنغازي وسرت عبر آلاف الكيلومترات من الأنابيب.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'gen_07',
@@ -72,7 +72,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['واحة غدامس', 'واحة الجغبوب', 'واحة مرزق', 'واحات جالو وأوجلة'],
     correctIndex: 3,
     funFact: 'تعد واحات جالو وأوجلة وإجخرة من أقدم مراكز زراعة النخيل وتجارة القوافل في شمال أفريقيا.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'هيرودوت (القرن الخامس ق.م) عن جني التمور في أوجلة',
   },
   {
@@ -83,7 +83,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['18 دولة', '20 دولة', '22 دولة', '25 دولة'],
     correctIndex: 2,
     funFact: 'تأسست الجامعة العربية سنة 1945 بسبع دول، وانضمت إليها ليبيا سنة 1953 ليصل العدد اليوم إلى 22 دولة.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'gen_31',
@@ -98,7 +98,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     ],
     correctIndex: 3,
     funFact: 'يتكون العلم الليبي من الأحمر والأسود والأخضر مع الهلال والنجمة، وترمز أشرطته إلى أقاليم البلاد التاريخية.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'gen_32',
@@ -108,7 +108,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['1951', '1955', '1960', '1969'],
     correctIndex: 1,
     funFact: 'نالت ليبيا استقلالها سنة 1951 عبر الأمم المتحدة، وانضمت إليها عضواً كامل العضوية سنة 1955.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'قرار مجلس الأمن التابع للأمم المتحدة رقم 109، المعتمد في 14 ديسمبر 1955',
   },
   {
@@ -119,7 +119,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['الفرنسية', 'الإنجليزية', 'الإيطالية', 'العربية'],
     correctIndex: 3,
     funFact: 'العربية هي اللغة الرسمية، وتُستخدم إلى جانبها الأمازيغية والتباوية والطوارقية في مناطق من البلاد.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'gen_34',
@@ -129,7 +129,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['خمس', 'ست', 'ثماني', 'سبع'],
     correctIndex: 3,
     funFact: 'القارات السبع هي: آسيا وأفريقيا وأوروبا وأمريكا الشمالية وأمريكا الجنوبية وأستراليا والقارة القطبية الجنوبية.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'gen_35',
@@ -139,7 +139,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['خمسة أيام', 'عشرون يوماً', 'أحد عشر يوماً', 'ثلاثون يوماً'],
     correctIndex: 2,
     funFact: 'السنة الهجرية قمرية ومدتها نحو 354 يوماً، لذا تتقدم المناسبات الإسلامية 11 يوماً كل عام ميلادي.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'gen_36',
@@ -149,7 +149,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['سبعة', 'ستة', 'خمسة', 'تسعة'],
     correctIndex: 0,
     funFact: 'ألوان الطيف السبعة هي الأحمر والبرتقالي والأصفر والأخضر والأزرق والنيلي والبنفسجي.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'gen_37',
@@ -159,7 +159,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['364 يوماً', '366 يوماً', '365 يوماً', '367 يوماً'],
     correctIndex: 1,
     funFact: 'تأتي السنة الكبيسة كل أربع سنوات فيصير شهر فبراير 29 يوماً بدل 28.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'gen_38',
@@ -169,7 +169,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['بنغازي', 'درنة', 'طبرق', 'أجدابيا'],
     correctIndex: 0,
     funFact: 'بنغازي حاضرة برقة وثاني أكبر مدن ليبيا، ولها تاريخ يمتد إلى المدينة الإغريقية برنيق.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'gen_39',
@@ -180,7 +180,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['حقل الشرارة', 'حقل السرير', 'حقل الواحة', 'حقل البوري'],
     correctIndex: 0,
     funFact: 'حقل الشرارة في حوض مرزق جنوب غرب ليبيا أكبر حقولها إنتاجاً، ويبلغ نحو 240 ألف برميل يومياً أي قرابة ربع إنتاج البلاد. اكتُشف سنة 1980 وبدأ الإنتاج سنة 1996.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'بوابة الوسط نقلاً عن بيانات المؤسسة الوطنية للنفط — الشرارة الأكبر في ليبيا بنحو 240 ألف برميل يومياً',
   },
   {
@@ -191,7 +191,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['نينوى', 'بابل', 'أور', 'ماري'],
     correctIndex: 1,
     funFact: 'نُقشت شريعة حمورابي على مسلة من حجر الديوريت في نحو 282 مادة، وهي من أقدم القوانين المكتوبة التي وصلتنا كاملة.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'موسوعة المعرفة (مقالة: بابل)',
   },
   {
@@ -202,7 +202,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['تدمر', 'سبأ', 'الأنباط', 'كندة'],
     correctIndex: 2,
     funFact: 'نحت الأنباط مدينتهم في الصخر الوردي جنوب الأردن، وسيطروا على طرق قوافل البخور والتوابل بين الجزيرة والشام.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'الأنباط وعاصمتهم البتراء — الموسوعة العربية',
   },
   {
@@ -213,7 +213,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['التضخم', 'الاحتكار', 'الفائدة', 'الكساد'],
     correctIndex: 3,
     funFact: 'أشهر كساد في التاريخ الحديث هو "الكساد الكبير" الذي بدأ سنة 1929 وامتد أثره إلى اقتصادات العالم كلها.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'gen_43',
@@ -223,7 +223,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['المصرف', 'المتجر', 'الديوان', 'المخزن'],
     correctIndex: 0,
     funFact: 'تستعمل دول عربية كثيرة كلمة "مصرف" في التسميات الرسمية، ومنها مصرف ليبيا المركزي الذي يصدر الدينار الليبي.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'gen_44',
@@ -233,7 +233,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['قازان', 'غروزني', 'مخاتشكالا', 'فلاديقوقاز'],
     correctIndex: 1,
     funFact: 'أعيد بناء غروزني بالكامل تقريباً بعد دمار واسع لحق بها في حربي التسعينيات ومطلع الألفية.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'غروزني عاصمة الشيشان على نهر سونجا — الموسوعة العربية',
   },
   {
@@ -244,7 +244,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['الترام', 'التلفريك', 'المترو', 'القطار السريع'],
     correctIndex: 2,
     funFact: 'افتُتح أول خط مترو في العالم بلندن سنة 1863، وكان أول مترو في العالم العربي وأفريقيا هو مترو القاهرة سنة 1987.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'gen_46',
@@ -254,7 +254,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['اليورو', 'الجنيه الإسترليني', 'الدولار', 'الفرنك'],
     correctIndex: 0,
     funFact: 'بدأ التعامل باليورو نقداً سنة 2002، ويستخدمه اليوم عشرون دولة من دول الاتحاد الأوروبي.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'gen_47',
@@ -264,7 +264,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['حلف الناتو', 'الأمم المتحدة', 'الاتحاد الأفريقي', 'مجموعة العشرين'],
     correctIndex: 1,
     funFact: 'تأسست الأمم المتحدة سنة 1945 بعد الحرب العالمية الثانية، خلفاً لعصبة الأمم التي عجزت عن منعها.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'gen_48',
@@ -274,7 +274,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['جنيف', 'باريس', 'نيويورك', 'فيينا'],
     correctIndex: 2,
     funFact: 'المقر الرئيسي في نيويورك، ولها مكاتب كبرى في جنيف وفيينا ونيروبي.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'gen_49',
@@ -284,7 +284,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['بغداد', 'دمشق', 'الرباط', 'القاهرة'],
     correctIndex: 3,
     funFact: 'المقر في القاهرة منذ التأسيس سنة 1945، عدا فترة انتقل فيها إلى تونس بين 1979 و1990.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'gen_50',
@@ -294,7 +294,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['روسيا', 'كندا', 'الصين', 'الولايات المتحدة'],
     correctIndex: 0,
     funFact: 'تمتد روسيا على أكثر من 17 مليون كم² عبر إحدى عشرة منطقة زمنية، أي نحو عُشر يابسة الأرض.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'gen_51',
@@ -304,7 +304,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['الإنجليزية', 'الصينية', 'الإسبانية', 'الهندية'],
     correctIndex: 1,
     funFact: 'الصينية الأولى بعدد الناطقين بها كلغة أم، بينما الإنجليزية الأوسع انتشاراً كلغة ثانية.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'gen_52',
@@ -314,7 +314,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['الوون', 'اليوان', 'الين', 'الروبية'],
     correctIndex: 2,
     funFact: 'الين الياباني من أكثر العملات تداولاً في أسواق الصرف العالمية بعد الدولار واليورو.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'gen_53',
@@ -324,7 +324,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['اليونيسف', 'منظمة الصحة العالمية', 'الفاو', 'اليونسكو'],
     correctIndex: 3,
     funFact: 'اليونسكو هي التي تسجل مواقع التراث العالمي، ولليبيا فيها خمسة مواقع مسجلة.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'gen_54',
@@ -334,7 +334,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['نيجيريا', 'مصر', 'إثيوبيا', 'جنوب أفريقيا'],
     correctIndex: 0,
     funFact: 'يتجاوز سكان نيجيريا مئتي مليون نسمة، وتضم أكثر من خمسمئة لغة محلية.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'gen_55',
@@ -344,7 +344,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['أبولو', 'سبوتنيك', 'فوستوك', 'إكسبلورر'],
     correctIndex: 1,
     funFact: 'أطلق الاتحاد السوفييتي سبوتنيك 1 فبدأ عصر الفضاء وأشعل سباق الفضاء مع الولايات المتحدة.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'gen_56',
@@ -354,7 +354,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['نيل أرمسترونغ', 'جون غلين', 'يوري غاغارين', 'ألان شيبرد'],
     correctIndex: 2,
     funFact: 'دار غاغارين حول الأرض دورة كاملة في 12 أبريل 1961 واستغرقت رحلته 108 دقائق.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'gen_57',
@@ -364,7 +364,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['1957', '1961', '1975', '1969'],
     correctIndex: 3,
     funFact: 'هبطت أبولو 11 في 20 يوليو 1969، وكان نيل أرمسترونغ أول من وطئت قدمه سطح القمر.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'وكالة ناسا — مهمة أبولو 11، يوليو 1969',
   },
   {
@@ -375,7 +375,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['الجنيه الليبي', 'الريال الليبي', 'الفرنك الليبي', 'الدرهم الليبي'],
     correctIndex: 0,
     funFact: 'تداول الليبيون الجنيه الليبي منذ الاستقلال، ثم حل الدينار محله في مطلع سبعينيات القرن الماضي.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'gen_59',
@@ -385,7 +385,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['البحيرات العظمى', 'بحر قزوين', 'بحيرة فيكتوريا', 'البحر الميت'],
     correctIndex: 1,
     funFact: 'يُسمى بحر قزوين بحراً لاتساعه وملوحته، لكنه في الحقيقة أكبر بحيرة مغلقة على وجه الأرض.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'gen_60',
@@ -395,7 +395,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['مضيق هرمز', 'مضيق ملقا', 'مضيق باب المندب', 'مضيق البوسفور'],
     correctIndex: 2,
     funFact: 'يمر عبر باب المندب جزء كبير من تجارة النفط العالمية في طريقها إلى قناة السويس.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'gen_61',
@@ -405,7 +405,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['معاهدة روما', 'معاهدة باريس', 'معاهدة لشبونة', 'معاهدة ماستريخت'],
     correctIndex: 3,
     funFact: 'وُقّعت معاهدة ماستريخت في هولندا، وأرست أساس العملة الموحدة والمواطنة الأوروبية.',
-    rewardDinars: 45,
+    rewardDinars: 35,
   },
   {
     id: 'gen_62',
@@ -415,7 +415,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['الليرة الإيطالية', 'الجنيه المصري', 'الفرنك الفرنسي', 'الليرة العثمانية'],
     correctIndex: 0,
     funFact: 'تعاقبت على ليبيا عملات عدة في نصف قرن: الليرة العثمانية ثم الإيطالية ثم عملات الإدارة العسكرية، حتى استقر الأمر على الدينار.',
-    rewardDinars: 50,
+    rewardDinars: 60,
   },
   {
     id: 'gen_63',
@@ -425,7 +425,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     options: ['151 دولة', '193 دولة', '176 دولة', '205 دول'],
     correctIndex: 1,
     funFact: 'آخر من انضم إلى الأمم المتحدة دولة جنوب السودان سنة 2011، ليصل العدد إلى 193 دولة.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'منظمة الأمم المتحدة — قائمة الدول الأعضاء',
   },
 ];

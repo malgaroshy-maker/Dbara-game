@@ -10,7 +10,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['عطارد', 'الزهرة', 'المريخ', 'الأرض'],
     correctIndex: 0,
     funFact: 'عطارد أصغر كواكب المجموعة الشمسية وأقربها للشمس، ويكمل دورته حولها في 88 يوماً أرضياً فقط.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'sci_02',
@@ -20,7 +20,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['سبعة', 'تسعة', 'ثمانية', 'عشرة'],
     correctIndex: 2,
     funFact: 'أصبحت الكواكب ثمانية بعد أن أعاد الاتحاد الفلكي الدولي تصنيف بلوتو ككوكب قزم سنة 2006.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'sci_03',
@@ -30,7 +30,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['زحل', 'أورانوس', 'نبتون', 'المشتري'],
     correctIndex: 3,
     funFact: 'المشتري عملاق غازي تتسع كتلته لأكثر من ألف أرض، ويشتهر ببقعته الحمراء العظيمة وهي عاصفة مستمرة منذ قرون.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'sci_04',
@@ -40,7 +40,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['نجم القطب', 'قلب العقرب', 'الشعرى اليمانية', 'الشمس'],
     correctIndex: 3,
     funFact: 'الشمس نجم متوسط الحجم يبعد عن الأرض نحو 150 مليون كيلومتر، ويصلنا ضوؤه في ثماني دقائق تقريباً.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'sci_05',
@@ -50,7 +50,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['النيتروجين', 'ثاني أكسيد الكربون', 'الأكسجين', 'الهيدروجين'],
     correctIndex: 0,
     funFact: 'يشكل النيتروجين نحو 78% من الغلاف الجوي، بينما لا يتجاوز الأكسجين 21%.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'sci_06',
@@ -60,7 +60,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['القصدير', 'الرصاص', 'الألمنيوم', 'الزئبق'],
     correctIndex: 3,
     funFact: 'الزئبق معدن سائل لامع كان يُستخدم في موازين الحرارة قديماً قبل أن يُقيَّد استخدامه لسميته.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'sci_07',
@@ -70,7 +70,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['الأكسجين', 'النيتروجين', 'الميثان', 'ثاني أكسيد الكربون'],
     correctIndex: 3,
     funFact: 'في عملية البناء الضوئي تمتص النباتات ثاني أكسيد الكربون وتطلق الأكسجين الذي نتنفسه.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'sci_08',
@@ -80,7 +80,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['الكربون والأكسجين', 'الهيدروجين والأكسجين', 'النيتروجين والهيدروجين', 'الكالسيوم والأكسجين'],
     correctIndex: 1,
     funFact: 'صيغة الماء H₂O أي ذرتا هيدروجين وذرة أكسجين، وهو المذيب الأشهر في الطبيعة.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'sci_09',
@@ -90,7 +90,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['80 مئوية', '90 مئوية', '100 مئوية', '120 مئوية'],
     correctIndex: 2,
     funFact: 'يغلي الماء عند 100 درجة مئوية عند الضغط الجوي العادي، وتنخفض درجة الغليان كلما ارتفعنا عن سطح البحر.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'sci_10',
@@ -100,7 +100,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['186 عظمة', '206 عظمة', '256 عظمة', '306 عظمة'],
     correctIndex: 1,
     funFact: 'يولد الإنسان بنحو 300 عظمة يلتحم بعضها مع النمو حتى تستقر عند 206 عظمات في سن البلوغ.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'sci_11',
@@ -110,7 +110,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['الكبد', 'الرئتان', 'الجلد', 'الأمعاء'],
     correctIndex: 2,
     funFact: 'الجلد أكبر أعضاء الجسم مساحةً ووزناً، ويقوم بدور الحاجز الواقي وتنظيم حرارة الجسم.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'sci_12',
@@ -120,7 +120,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['الكبد', 'القلب', 'الرئتان', 'الكلى'],
     correctIndex: 1,
     funFact: 'ينبض قلب الإنسان نحو 100 ألف نبضة في اليوم، ويضخ آلاف اللترات من الدم عبر الأوعية الدموية.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'sci_13',
@@ -130,7 +130,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['إسحاق نيوتن', 'ألبرت أينشتاين', 'غاليليو غاليلي', 'نيكولا تسلا'],
     correctIndex: 0,
     funFact: 'صاغ إسحاق نيوتن قانون الجذب العام في القرن السابع عشر، وهو أساس فهمنا لحركة الكواكب والأجسام.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'sci_14',
@@ -140,7 +140,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['ابن الهيثم', 'ابن سينا', 'الخوارزمي', 'جابر بن حيان'],
     correctIndex: 0,
     funFact: 'وضع ابن الهيثم أسس المنهج التجريبي وفسّر آلية الإبصار تفسيراً علمياً سبق أوروبا بقرون.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'موسوعة المعرفة (مقال: ابن الهيثم)',
   },
   {
@@ -151,7 +151,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['ابن النفيس', 'الرازي', 'ابن سينا', 'الزهراوي'],
     correctIndex: 2,
     funFact: 'ظل "القانون في الطب" لابن سينا مرجعاً أساسياً في الجامعات الأوروبية لأكثر من ستة قرون.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'موسوعة المعرفة (مقال: القانون في الطب)',
   },
   {
@@ -162,7 +162,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['30 ألف كم/ث', '300 ألف كم/ث', '3 ملايين كم/ث', '30 مليون كم/ث'],
     correctIndex: 1,
     funFact: 'تبلغ سرعة الضوء نحو 299,792 كيلومتراً في الثانية، وهي السرعة القصوى في الكون وفق النسبية الخاصة.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا الموسوعة الحرة (مقال: سرعة الضوء)',
   },
   {
@@ -173,7 +173,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['المريخ', 'الزهرة', 'المشتري', 'عطارد'],
     correctIndex: 0,
     funFact: 'يكتسب المريخ لونه الأحمر من أكاسيد الحديد المنتشرة على سطحه، وهو أكثر الكواكب استقطاباً لبعثات الفضاء.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'sci_18',
@@ -183,7 +183,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['البيروني', 'الخوارزمي', 'الكندي', 'ثابت بن قرة'],
     correctIndex: 1,
     funFact: 'وضع محمد بن موسى الخوارزمي كتاب "الجبر والمقابلة"، ومنه انتقلت كلمة "الجبر" إلى اللغات الأوروبية، بينما جاءت كلمة "algorithm" من اسمه هو.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا الموسوعة الحرة (مقال: محمد بن موسى الخوارزمي)',
   },
   {
@@ -199,7 +199,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     ],
     correctIndex: 1,
     funFact: 'يحدث البرق والرعد في اللحظة نفسها، لكن الصوت يحتاج نحو ثلاث ثوانٍ ليقطع كيلومتراً واحداً بينما يقطعه الضوء في جزء من مليون من الثانية.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'sci_20',
@@ -209,7 +209,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['السكري', 'الربو', 'السرطان', 'فقر الدم'],
     correctIndex: 2,
     funFact: 'تنقسم خلايا الجسم السليمة وفق نظام دقيق، وحين يختل هذا النظام تتكاثر الخلايا بلا ضابط فتتكوّن الأورام.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'sci_21',
@@ -219,7 +219,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['المحيط', 'القطر', 'الوتر', 'المساحة'],
     correctIndex: 3,
     funFact: 'المساحة تقيس ما بداخل الشكل، بينما المحيط يقيس طول حدوده الخارجية — ولهذا يُقاس الأول بالوحدات المربعة.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'sci_22',
@@ -229,7 +229,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['الوباء', 'الحساسية', 'الالتهاب', 'الورم'],
     correctIndex: 0,
     funFact: 'يفرّق الأطباء بين الوباء الذي ينتشر في إقليم محدود، والجائحة التي تعبر القارات وتصيب العالم كله.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'sci_23',
@@ -239,7 +239,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['خمس', 'ثلاث', 'أربع', 'ست'],
     correctIndex: 0,
     funFact: 'الحواس الخمس هي البصر والسمع والشم والذوق واللمس، ولكل منها عضو متخصص.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'sci_24',
@@ -249,7 +249,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['الشمس', 'القمر', 'الزهرة', 'المريخ'],
     correctIndex: 1,
     funFact: 'يبعد القمر عن الأرض نحو 384 ألف كيلومتر، ويدور حولها مرة كل شهر قمري تقريباً.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'sci_25',
@@ -259,7 +259,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['النيتروجين', 'ثاني أكسيد الكربون', 'الأكسجين', 'الهيليوم'],
     correctIndex: 2,
     funFact: 'يدخل الأكسجين إلى الدم عبر الحويصلات الهوائية في الرئتين، ويخرج ثاني أكسيد الكربون في المقابل.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'sci_26',
@@ -269,7 +269,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['16 سناً', '24 سناً', '32 سناً', '20 سناً'],
     correctIndex: 3,
     funFact: 'تبدأ الأسنان اللبنية العشرون بالتساقط نحو السادسة، لتحل محلها الأسنان الدائمة الاثنتان والثلاثون.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'sci_27',
@@ -279,7 +279,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['البنكرياس', 'الكبد', 'الطحال', 'الغدة الدرقية'],
     correctIndex: 0,
     funFact: 'ينظم الأنسولين مستوى السكر في الدم، وقصوره أو ضعف الاستجابة له هو أساس مرض السكري.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'sci_28',
@@ -289,7 +289,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['الجول', 'النيوتن', 'الواط', 'الباسكال'],
     correctIndex: 1,
     funFact: 'سُميت وحدة القوة باسم إسحاق نيوتن، وتعادل القوة اللازمة لتسريع كيلوغرام واحد متراً في الثانية المربعة.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'sci_29',
@@ -299,7 +299,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['التكاثف', 'التجمد', 'التبخر', 'الانصهار'],
     correctIndex: 2,
     funFact: 'التبخر أساس دورة الماء في الطبيعة: يتبخر من البحار ثم يتكاثف سحاباً ثم يعود مطراً.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'sci_30',
@@ -309,7 +309,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['المريخ', 'عطارد', 'الزهرة', 'زحل'],
     correctIndex: 3,
     funFact: 'تتكون حلقات زحل من مليارات القطع الجليدية والصخرية، وهي أوضح حلقات كوكبية تُرى بالمقراب.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'sci_31',
@@ -319,7 +319,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['الأكسجين', 'الحديد', 'السيليكون', 'الألمنيوم'],
     correctIndex: 0,
     funFact: 'يشكل الأكسجين نحو نصف كتلة القشرة الأرضية، لأنه داخل في تركيب معظم الصخور والمعادن.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'sci_32',
@@ -329,7 +329,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['23', '46', '48', '64'],
     correctIndex: 1,
     funFact: 'الكروموسومات 46 في 23 زوجاً، يأتي نصفها من الأب ونصفها من الأم، وآخر زوج يحدد الجنس.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'sci_33',
@@ -339,7 +339,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['الشريان التاجي', 'الشريان السباتي', 'الأبهر (الأورطي)', 'الشريان الرئوي'],
     correctIndex: 2,
     funFact: 'يخرج الأبهر من القلب مباشرة ليوزع الدم المؤكسج على الجسم كله عبر فروعه.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'sci_34',
@@ -349,7 +349,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['الرازي', 'الزهراوي', 'البيروني', 'ابن النفيس'],
     correctIndex: 3,
     funFact: 'وصف ابن النفيس في القرن الثالث عشر مرور الدم من القلب إلى الرئتين، قبل وليم هارفي بنحو ثلاثة قرون.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'sci_35',
@@ -359,7 +359,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['مقياس ريختر', 'مقياس سلسيوس', 'مقياس بوفورت', 'مقياس ديسيبل'],
     correctIndex: 0,
     funFact: 'مقياس ريختر لوغاريتمي، فكل درجة تعني طاقة أكبر بنحو اثنتين وثلاثين مرة من الدرجة التي قبلها.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'sci_36',
@@ -369,7 +369,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['الهيليوم', 'النيون', 'الأرجون', 'الكريبتون'],
     correctIndex: 1,
     funFact: 'لافتات "النيون" سميت باسم هذا الغاز، ولكل غاز نبيل لون توهج مختلف عند تفريغ الكهرباء فيه.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'sci_37',
@@ -379,7 +379,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['Ag', 'Gd', 'Au', 'Go'],
     correctIndex: 2,
     funFact: 'الرمز Au مأخوذ من اسمه اللاتيني Aurum، بينما Ag هي الفضة من Argentum.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'الجدول الدوري للعناصر — الرمز Au من اللاتينية Aurum',
   },
   {
@@ -390,7 +390,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['92 عنصراً', '104 عناصر', '110 عناصر', '118 عنصراً'],
     correctIndex: 3,
     funFact: 'آخر أربعة عناصر اعتُمدت رسمياً سنة 2016 لتكتمل الدورة السابعة من الجدول الدوري.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'الاتحاد الدولي للكيمياء البحتة والتطبيقية (IUPAC) — الجدول الدوري',
   },
   {
@@ -401,7 +401,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['غريغور مندل', 'تشارلز داروين', 'لويس باستور', 'روبرت هوك'],
     correctIndex: 0,
     funFact: 'نشر مندل نتائجه سنة 1866 فمرت دون اهتمام، ولم يُعرف قدرها إلا بعد وفاته بعقود.',
-    rewardDinars: 50,
+    rewardDinars: 60,
   },
   {
     id: 'sci_40',
@@ -411,6 +411,6 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['الاحتراق الكيميائي', 'الاندماج النووي', 'الانشطار النووي', 'التحلل الإشعاعي'],
     correctIndex: 1,
     funFact: 'تندمج نوى الهيدروجين في قلب الشمس لتكوّن الهيليوم، فتتحول فروق الكتلة إلى طاقة هائلة.',
-    rewardDinars: 50,
+    rewardDinars: 60,
   },
 ];

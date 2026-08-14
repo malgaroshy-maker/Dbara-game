@@ -10,7 +10,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['أربعة', 'ستة', 'خمسة', 'سبعة'],
     correctIndex: 2,
     funFact: 'أركان الإسلام خمسة: الشهادتان وإقام الصلاة وإيتاء الزكاة وصوم رمضان وحج البيت لمن استطاع إليه سبيلاً.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'isl_02',
@@ -20,7 +20,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['114 سورة', '104 سور', '124 سورة', '99 سورة'],
     correctIndex: 0,
     funFact: 'القرآن الكريم 114 سورة، أطولها سورة البقرة وأقصرها سورة الكوثر.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'isl_03',
@@ -30,7 +30,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['20 جزءاً', '30 جزءاً', '40 جزءاً', '60 جزءاً'],
     correctIndex: 1,
     funFact: 'قُسّم القرآن إلى ثلاثين جزءاً لتيسير قراءته وختمه في شهر رمضان.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'isl_04',
@@ -40,7 +40,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['الكعبة المشرفة', 'المسجد الأقصى', 'المسجد النبوي', 'مسجد قباء'],
     correctIndex: 1,
     funFact: 'صلى المسلمون تجاه المسجد الأقصى نحو ستة عشر شهراً قبل أن تُحوّل القبلة إلى الكعبة المشرفة.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'isl_05',
@@ -50,7 +50,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['الطائف', 'خيبر', 'يثرب (المدينة المنورة)', 'نجران'],
     correctIndex: 2,
     funFact: 'سُميت يثرب بعد الهجرة "المدينة المنورة"، ومن الهجرة بدأ التقويم الهجري في عهد عمر بن الخطاب.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'isl_06',
@@ -60,7 +60,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['سلمان الفارسي', 'أبو ذر الغفاري', 'زيد بن حارثة', 'بلال بن رباح'],
     correctIndex: 3,
     funFact: 'بلال بن رباح الحبشي مؤذن رسول الله ﷺ، ومن أوائل من أسلم وصبر على الأذى في مكة.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'isl_07',
@@ -70,7 +70,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['عمر بن الخطاب', 'عثمان بن عفان', 'أبو بكر الصديق', 'علي بن أبي طالب'],
     correctIndex: 2,
     funFact: 'تولى أبو بكر الصديق الخلافة بعد وفاة النبي ﷺ، ودامت خلافته نحو سنتين وثلاثة أشهر.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'isl_08',
@@ -80,7 +80,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['أبو بكر الصديق', 'علي بن أبي طالب', 'عثمان بن عفان', 'عمر بن الخطاب'],
     correctIndex: 3,
     funFact: 'فتح عمرو بن العاص برقة وطرابلس سنة 22 هجرية، ودُفن الصحابي رويفع بن ثابت الأنصاري لاحقاً في البيضاء.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'موسوعة المعرفة (مقال: الفتح الإسلامي للمغرب)',
   },
   {
@@ -91,7 +91,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['فاس', 'القيروان', 'تلمسان', 'مراكش'],
     correctIndex: 1,
     funFact: 'أسس عقبة بن نافع مدينة القيروان وجامعها الكبير سنة 50 هجرية، وكانت منطلق الفتوحات نحو المغرب والأندلس.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'isl_10',
@@ -101,7 +101,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['طارق بن زياد', 'موسى بن نصير', 'عقبة بن نافع', 'جوهر الصقلي'],
     correctIndex: 3,
     funFact: 'قاد جوهر الصقلي جيوش الفاطميين عبر الأراضي الليبية إلى مصر، وأسس القاهرة سنة 969م ومعها الجامع الأزهر.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'isl_11',
@@ -111,7 +111,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['سبتة', 'القيروان', 'تلمسان', 'المهدية'],
     correctIndex: 3,
     funFact: 'أسس عبيد الله المهدي مدينة المهدية على الساحل التونسي سنة 921م، ثم بنى الفاطميون المنصورية قرب القيروان.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'موسوعة المعرفة (مقال: الدولة الفاطمية)',
   },
   {
@@ -122,7 +122,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['جامعة الأزهر', 'جامعة بولونيا', 'جامعة القرويين', 'جامعة السوربون'],
     correctIndex: 2,
     funFact: 'أسست فاطمة الفهرية جامع القرويين في فاس سنة 859م، ويعده كتاب غينيس أقدم مؤسسة تعليمية عاملة تمنح الشهادات.',
-    rewardDinars: 45,
+    rewardDinars: 35,
     source: 'موسوعة المعرفة (مقال: جامعة القرويين)',
   },
   {
@@ -134,7 +134,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['الحركة السنوسية', 'الحركة المهدية', 'الحركة الإدريسية', 'الحركة القادرية'],
     correctIndex: 0,
     funFact: 'أسس محمد بن علي السنوسي الحركة السنوسية في القرن التاسع عشر، واتخذت من الجغبوب ثم الكفرة مركزاً لها.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'isl_14',
@@ -144,7 +144,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['ركعتان', 'ثلاث ركعات', 'أربع ركعات', 'خمس ركعات'],
     correctIndex: 1,
     funFact: 'المغرب ثلاث ركعات، وهي الصلاة الوترية الوحيدة بين الصلوات الخمس المفروضة.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'isl_15',
@@ -154,7 +154,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['السنة الثانية', 'السنة الأولى', 'السنة الخامسة', 'السنة الثامنة'],
     correctIndex: 0,
     funFact: 'وقعت غزوة بدر في رمضان من السنة الثانية للهجرة، وسُميت في القرآن "يوم الفرقان".',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'isl_16',
@@ -164,7 +164,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['سورة البقرة', 'سورة آل عمران', 'سورة النساء', 'سورة الأعراف'],
     correctIndex: 0,
     funFact: 'سورة البقرة أطول سور القرآن بـ 286 آية، وتضم آية الكرسي وأطول آية في القرآن وهي آية الدَّين.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'isl_17',
@@ -174,7 +174,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['الفاتحة', 'النمل', 'التوبة', 'الكوثر'],
     correctIndex: 1,
     funFact: 'وردت البسملة في مطلع سورة النمل، ثم مرة ثانية داخل آياتها ضمن كتاب سليمان عليه السلام إلى ملكة سبأ.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'القرآن الكريم (سورة النمل: الآية 30 ومطلع السورة)',
   },
   {
@@ -185,7 +185,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['الفتح', 'الأحزاب', 'الأنفال', 'النصر'],
     correctIndex: 2,
     funFact: 'سُميت سورة الأنفال بهذا الاسم لأن الأنفال هي الغنائم، وفيها سُمي يوم بدر "يوم الفرقان".',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'موسوعة المعرفة (مقال: سورة الأنفال)',
   },
   {
@@ -196,7 +196,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['أبو بكر الصديق', 'عمر بن الخطاب', 'بلال بن رباح', 'زيد بن حارثة'],
     correctIndex: 3,
     funFact: 'ورد اسم زيد بن حارثة في سورة الأحزاب، وكان يُدعى قبل الإسلام "زيد بن محمد" حتى نزل قوله تعالى "ادعوهم لآبائهم".',
-    rewardDinars: 45,
+    rewardDinars: 35,
     source: 'القرآن الكريم (سورة الأحزاب: الآية 37)',
   },
   {
@@ -207,7 +207,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['الكوثر', 'الماعون', 'الإخلاص', 'الضحى'],
     correctIndex: 0,
     funFact: 'سورة الكوثر أقصر سور القرآن، ونزلت تسلية للنبي ﷺ ورداً على من عيّره بانقطاع ولده.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'isl_21',
@@ -217,7 +217,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['قارون', 'السامري', 'هامان', 'آزر'],
     correctIndex: 1,
     funFact: 'وردت قصة السامري في سورة طه، وهو الذي أضل بني إسرائيل بعجل جسد له خوار بعد خروجهم من مصر.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'القرآن الكريم (سورة طه: الآية 96)',
   },
   {
@@ -228,7 +228,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['ستة', 'أربعة', 'خمسة', 'سبعة'],
     correctIndex: 0,
     funFact: 'أركان الإيمان ستة: الإيمان بالله وملائكته وكتبه ورسله واليوم الآخر وبالقدر خيره وشره.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'isl_23',
@@ -238,7 +238,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['البقرة', 'الفاتحة', 'العلق', 'الناس'],
     correctIndex: 1,
     funFact: 'تُسمى الفاتحة "أم الكتاب" و"السبع المثاني"، وتُقرأ في كل ركعة من ركعات الصلاة.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'isl_24',
@@ -248,7 +248,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['ثلاث', 'أربع', 'خمس', 'ست'],
     correctIndex: 2,
     funFact: 'الصلوات الخمس هي الفجر والظهر والعصر والمغرب والعشاء، وهي ثاني أركان الإسلام.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'isl_25',
@@ -258,7 +258,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['مكة المكرمة', 'الطائف', 'القدس', 'المدينة المنورة'],
     correctIndex: 3,
     funFact: 'بناه النبي ﷺ عند مقدمه المدينة، وتوسّع عبر القرون حتى صار من أكبر المساجد في العالم.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'isl_26',
@@ -273,7 +273,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     ],
     correctIndex: 0,
     funFact: 'نزلت أوائل سورة العلق في غار حراء، وكانت بداية الوحي بعد أربعين سنة من عمر النبي ﷺ.',
-    rewardDinars: 30,
+    rewardDinars: 20,
     source: 'القرآن الكريم (سورة العلق: الآيات 1-5)',
   },
   {
@@ -284,7 +284,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['الشام', 'الحبشة', 'اليمن', 'الطائف'],
     correctIndex: 1,
     funFact: 'هاجر المسلمون الأوائل إلى الحبشة فراراً من أذى قريش، وأجارهم ملكها النجاشي.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'isl_28',
@@ -299,7 +299,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     ],
     correctIndex: 2,
     funFact: 'كانت خديجة رضي الله عنها أول من صدّق النبي ﷺ وآزره، وظلت سنداً له حتى وفاتها قبل الهجرة.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'isl_29',
@@ -309,7 +309,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['عشر سنوات', 'عشرون سنة', 'خمس سنوات', 'ثلاث عشرة سنة'],
     correctIndex: 3,
     funFact: 'دعا النبي ﷺ في مكة ثلاث عشرة سنة، ثم عشر سنوات في المدينة، فمجموع مدة الرسالة ثلاث وعشرون سنة.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'isl_30',
@@ -319,7 +319,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['دمشق', 'بغداد', 'القاهرة', 'الكوفة'],
     correctIndex: 0,
     funFact: 'اتخذ معاوية بن أبي سفيان دمشق عاصمة، وظلت مركز الخلافة الأموية حتى قيام الدولة العباسية.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'isl_31',
@@ -334,7 +334,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     ],
     correctIndex: 1,
     funFact: 'عبر طارق بن زياد المضيق الذي حمل اسمه لاحقاً "جبل طارق"، وكان والياً لموسى بن نصير على طنجة.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'isl_32',
@@ -344,7 +344,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['الفتح', 'النصر', 'الأحزاب', 'الحجرات'],
     correctIndex: 2,
     funFact: 'سُميت بالأحزاب لتحالف قبائل قريش وغطفان ويهود على المدينة، وحُفر الخندق بمشورة سلمان الفارسي.',
-    rewardDinars: 35,
+    rewardDinars: 20,
     source: 'القرآن الكريم (سورة الأحزاب)',
   },
   {
@@ -355,7 +355,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['أمين الأمة', 'ذو النورين', 'الفاروق', 'سيف الله المسلول'],
     correctIndex: 3,
     funFact: 'قاد خالد بن الوليد فتوح العراق والشام، ولم يُهزم في معركة قادها، وتوفي على فراشه بحمص.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'isl_34',
@@ -365,7 +365,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['مسجد قباء', 'المسجد النبوي', 'المسجد الحرام', 'المسجد الأقصى'],
     correctIndex: 0,
     funFact: 'بُني مسجد قباء عند مقدم النبي ﷺ إلى المدينة مهاجراً، قبل أن يبني مسجده الشريف.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'isl_35',
@@ -380,7 +380,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     ],
     correctIndex: 1,
     funFact: 'جُمع القرآن في صحف في عهد أبي بكر، ثم نُسخت المصاحف ووُحِّدت في عهد عثمان، ولذلك سُمي "جامع القرآن".',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'isl_36',
@@ -395,7 +395,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     ],
     correctIndex: 2,
     funFact: 'أبو عبيدة بن الجراح أحد العشرة المبشرين بالجنة، وقاد جيوش المسلمين في فتح الشام.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'isl_37',
@@ -405,7 +405,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['اليرموك', 'حطين', 'عين جالوت', 'القادسية'],
     correctIndex: 3,
     funFact: 'قاد سعد بن أبي وقاص المسلمين في القادسية، بينما كانت اليرموك في المقابل فاصلة مع الروم في الشام.',
-    rewardDinars: 45,
+    rewardDinars: 35,
   },
   {
     id: 'isl_38',
@@ -415,7 +415,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['الإخلاص', 'الفاتحة', 'يس', 'الملك'],
     correctIndex: 0,
     funFact: 'سورة الإخلاص أربع آيات فقط، وسُميت بذلك لأنها أخلصت وصف الله تعالى بالوحدانية.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'صحيح البخاري (كتاب فضائل القرآن)',
   },
   {
@@ -426,7 +426,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     options: ['الأنفال', 'التوبة', 'النمل', 'الفتح'],
     correctIndex: 1,
     funFact: 'سورة التوبة السورة الوحيدة التي لم تُفتتح بالبسملة، وتُعرف أيضاً بسورة براءة.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'المصحف الشريف — مطلع سورة التوبة',
   },
   {
@@ -442,6 +442,6 @@ export const islamicQuestions: TriviaQuestion[] = [
     ],
     correctIndex: 2,
     funFact: 'بُنيت قبة الصخرة في أواخر القرن الأول الهجري، وابنه الوليد هو من بنى المسجد الأموي بدمشق.',
-    rewardDinars: 50,
+    rewardDinars: 60,
   },
 ];

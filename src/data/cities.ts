@@ -17,12 +17,12 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: true,
     requiredStarsToUnlock: 0,
     stages: [
-      { id: 'tripoli_1', stageNumber: 1, title: 'السرايا الحمراء وزنقة الرقاع', type: 'multiple_choice', questionId: 'hist_trp_01', starsEarned: 0, isUnlocked: true, rewardDinars: 30 },
-      { id: 'tripoli_2', stageNumber: 2, title: 'أمثال ومفردات أهل العاصمة', type: 'letter_scramble', puzzleId: 'scramble_trp_01', starsEarned: 0, isUnlocked: false, rewardDinars: 35 },
-      { id: 'tripoli_3', stageNumber: 3, title: 'أكلات طرابلسية: الرشدة والمبكبكة', type: 'multiple_choice', questionId: 'food_trp_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'tripoli_4', stageNumber: 4, title: 'كلمات متقاطعة: معالم المدينة القديمة', type: 'crossword', puzzleId: 'cross_trp_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
-      { id: 'tripoli_5', stageNumber: 5, title: 'تحدي فرسان المتوسط والدربي', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 60 },
-      { id: 'tripoli_6', stageNumber: 6, title: 'قوس ماركوس أوريليوس', type: 'multiple_choice', questionId: 'hist_arch_trp_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
+      { id: 'tripoli_1', stageNumber: 1, title: 'السرايا الحمراء وزنقة الرقاع', type: 'multiple_choice', questionId: 'hist_trp_01', starsEarned: 0, isUnlocked: true, rewardDinars: 10 },
+      { id: 'tripoli_2', stageNumber: 2, title: 'أمثال ومفردات أهل العاصمة', type: 'letter_scramble', puzzleId: 'scramble_trp_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'tripoli_3', stageNumber: 3, title: 'أكلات طرابلسية: الرشدة والمبكبكة', type: 'multiple_choice', questionId: 'food_trp_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'tripoli_4', stageNumber: 4, title: 'كلمات متقاطعة: معالم المدينة القديمة', type: 'crossword', puzzleId: 'cross_trp_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'tripoli_5', stageNumber: 5, title: 'تحدي فرسان المتوسط والدربي', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 25 },
+      { id: 'tripoli_6', stageNumber: 6, title: 'قوس ماركوس أوريليوس', type: 'multiple_choice', questionId: 'hist_arch_trp_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
     ],
   },
   {
@@ -41,11 +41,11 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 3,
     stages: [
-      { id: 'leptis_1', stageNumber: 1, title: 'إمبراطورية لبدة وأقواس النصر', type: 'multiple_choice', questionId: 'hist_lep_01', starsEarned: 0, isUnlocked: false, rewardDinars: 35 },
-      { id: 'leptis_2', stageNumber: 2, title: 'مسرح صبراتة والفسيفساء الفينيقية', type: 'multiple_choice', questionId: 'hist_lep_02', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'leptis_3', stageNumber: 3, title: 'رتب الحروف: شخصيات تاريخية', type: 'letter_scramble', puzzleId: 'scramble_lep_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'leptis_4', stageNumber: 4, title: 'تحدي تاريخ الآثار الليبية', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
-      { id: 'leptis_5', stageNumber: 5, title: 'حمامات لبدة الرومانية', type: 'multiple_choice', questionId: 'hist_lep_03', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
+      { id: 'leptis_1', stageNumber: 1, title: 'إمبراطورية لبدة وأقواس النصر', type: 'multiple_choice', questionId: 'hist_lep_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'leptis_2', stageNumber: 2, title: 'مسرح صبراتة والفسيفساء الفينيقية', type: 'multiple_choice', questionId: 'hist_lep_02', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'leptis_3', stageNumber: 3, title: 'رتب الحروف: شخصيات تاريخية', type: 'letter_scramble', puzzleId: 'scramble_lep_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'leptis_4', stageNumber: 4, title: 'تحدي تاريخ الآثار الليبية', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'leptis_5', stageNumber: 5, title: 'حمامات لبدة الرومانية', type: 'multiple_choice', questionId: 'hist_lep_03', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
     ],
   },
   {
@@ -64,10 +64,10 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 5,
     stages: [
-      { id: 'msallata_1', stageNumber: 1, title: 'جبل مسلاتة وزراعة الزيتون', type: 'multiple_choice', questionId: 'geo_msl_01', starsEarned: 0, isUnlocked: false, rewardDinars: 35 },
-      { id: 'msallata_2', stageNumber: 2, title: 'رتب الحروف: عصر الزيتون', type: 'letter_scramble', puzzleId: 'scramble_msl_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'msallata_3', stageNumber: 3, title: 'مسلاتة وموقعها في المرقب', type: 'multiple_choice', questionId: 'geo_msl_02', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'msallata_4', stageNumber: 4, title: 'سباق سرعة: الساحل الشرقي لطرابلس', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
+      { id: 'msallata_1', stageNumber: 1, title: 'جبل مسلاتة وزراعة الزيتون', type: 'multiple_choice', questionId: 'geo_msl_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'msallata_2', stageNumber: 2, title: 'رتب الحروف: عصر الزيتون', type: 'letter_scramble', puzzleId: 'scramble_msl_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'msallata_3', stageNumber: 3, title: 'مسلاتة وموقعها في المرقب', type: 'multiple_choice', questionId: 'geo_msl_02', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'msallata_4', stageNumber: 4, title: 'سباق سرعة: الساحل الشرقي لطرابلس', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
     ],
   },
   {
@@ -86,9 +86,9 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 7,
     stages: [
-      { id: 'zuwara_1', stageNumber: 1, title: 'لسان زوارة وهويتها', type: 'multiple_choice', questionId: 'geo_zwr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 35 },
-      { id: 'zuwara_2', stageNumber: 2, title: 'رتب الحروف: أهل الساحل', type: 'letter_scramble', puzzleId: 'scramble_zwr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'zuwara_3', stageNumber: 3, title: 'بحر زوارة ورزق أهلها', type: 'multiple_choice', questionId: 'geo_zwr_02', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
+      { id: 'zuwara_1', stageNumber: 1, title: 'لسان زوارة وهويتها', type: 'multiple_choice', questionId: 'geo_zwr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'zuwara_2', stageNumber: 2, title: 'رتب الحروف: أهل الساحل', type: 'letter_scramble', puzzleId: 'scramble_zwr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'zuwara_3', stageNumber: 3, title: 'بحر زوارة ورزق أهلها', type: 'multiple_choice', questionId: 'geo_zwr_02', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
     ],
   },
   {
@@ -107,9 +107,9 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 8,
     stages: [
-      { id: 'gharyan_1', stageNumber: 1, title: 'الدور الجوفية وعمارة الجبل', type: 'multiple_choice', questionId: 'geo_gry_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'gharyan_2', stageNumber: 2, title: 'رتب الحروف: حرفة الطين', type: 'letter_scramble', puzzleId: 'scramble_gry_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'gharyan_3', stageNumber: 3, title: 'أفران غريان وصناعتها', type: 'multiple_choice', questionId: 'geo_gry_02', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
+      { id: 'gharyan_1', stageNumber: 1, title: 'الدور الجوفية وعمارة الجبل', type: 'multiple_choice', questionId: 'geo_gry_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'gharyan_2', stageNumber: 2, title: 'رتب الحروف: حرفة الطين', type: 'letter_scramble', puzzleId: 'scramble_gry_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'gharyan_3', stageNumber: 3, title: 'أفران غريان وصناعتها', type: 'multiple_choice', questionId: 'geo_gry_02', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
     ],
   },
   {
@@ -128,10 +128,10 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 6,
     stages: [
-      { id: 'nalut_1', stageNumber: 1, title: 'قصر نالوت ومعمار جبل نفوسة', type: 'multiple_choice', questionId: 'hist_nal_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'nalut_2', stageNumber: 2, title: 'رتب الحروف: معالم القلاع الجبلية', type: 'letter_scramble', puzzleId: 'scramble_nal_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'nalut_3', stageNumber: 3, title: 'المطبخ الجبلي: الفتات بالقديد والزيت', type: 'multiple_choice', questionId: 'food_nal_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'nalut_4', stageNumber: 4, title: 'سباق جبال الغرب وسلسلة نفوسة', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
+      { id: 'nalut_1', stageNumber: 1, title: 'قصر نالوت ومعمار جبل نفوسة', type: 'multiple_choice', questionId: 'hist_nal_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'nalut_2', stageNumber: 2, title: 'رتب الحروف: معالم القلاع الجبلية', type: 'letter_scramble', puzzleId: 'scramble_nal_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'nalut_3', stageNumber: 3, title: 'المطبخ الجبلي: الفتات بالقديد والزيت', type: 'multiple_choice', questionId: 'food_nal_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'nalut_4', stageNumber: 4, title: 'سباق جبال الغرب وسلسلة نفوسة', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
     ],
   },
   {
@@ -150,10 +150,10 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 9,
     stages: [
-      { id: 'misrata_1', stageNumber: 1, title: 'رأس الرمل وموانئ قصر أحمد', type: 'multiple_choice', questionId: 'hist_mis_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'misrata_2', stageNumber: 2, title: 'رتب الحروف: رياضة وكورة مصراتة', type: 'letter_scramble', puzzleId: 'scramble_mis_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'misrata_3', stageNumber: 3, title: 'حلويات مصراتة والكعك المالح', type: 'multiple_choice', questionId: 'food_mis_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'misrata_4', stageNumber: 4, title: 'سباق سرعة: الساحل الأوسط', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
+      { id: 'misrata_1', stageNumber: 1, title: 'رأس الرمل وموانئ قصر أحمد', type: 'multiple_choice', questionId: 'hist_mis_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'misrata_2', stageNumber: 2, title: 'رتب الحروف: رياضة وكورة مصراتة', type: 'letter_scramble', puzzleId: 'scramble_mis_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'misrata_3', stageNumber: 3, title: 'حلويات مصراتة والكعك المالح', type: 'multiple_choice', questionId: 'food_mis_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'misrata_4', stageNumber: 4, title: 'سباق سرعة: الساحل الأوسط', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
     ],
   },
   {
@@ -172,9 +172,9 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 11,
     stages: [
-      { id: 'sirte_1', stageNumber: 1, title: 'موقع سرت بين الإقليمين', type: 'multiple_choice', questionId: 'geo_srt_01', starsEarned: 0, isUnlocked: false, rewardDinars: 35 },
-      { id: 'sirte_2', stageNumber: 2, title: 'معركة القرضابية', type: 'multiple_choice', questionId: 'hist_qardabiya_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'sirte_3', stageNumber: 3, title: 'رتب الحروف: انحناءة الساحل', type: 'letter_scramble', puzzleId: 'scramble_srt_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
+      { id: 'sirte_1', stageNumber: 1, title: 'موقع سرت بين الإقليمين', type: 'multiple_choice', questionId: 'geo_srt_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'sirte_2', stageNumber: 2, title: 'معركة القرضابية', type: 'multiple_choice', questionId: 'hist_qardabiya_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'sirte_3', stageNumber: 3, title: 'رتب الحروف: انحناءة الساحل', type: 'letter_scramble', puzzleId: 'scramble_srt_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
     ],
   },
   {
@@ -193,11 +193,11 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 12,
     stages: [
-      { id: 'benghazi_1', stageNumber: 1, title: 'منارة بنغازي والبلدية التاريخية', type: 'multiple_choice', questionId: 'hist_ben_01', starsEarned: 0, isUnlocked: false, rewardDinars: 35 },
-      { id: 'benghazi_2', stageNumber: 2, title: 'الشعر الشعبي وأمثال برقة', type: 'letter_scramble', puzzleId: 'scramble_ben_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'benghazi_3', stageNumber: 3, title: 'المطبخ الشرقي: المقروض والمثرودة', type: 'multiple_choice', questionId: 'food_ben_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'benghazi_4', stageNumber: 4, title: 'كلمات متقاطعة: كورة وفن بنغازي', type: 'crossword', puzzleId: 'cross_ben_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
-      { id: 'benghazi_5', stageNumber: 5, title: 'سباق سرعة: لهجة الشرق', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 60 },
+      { id: 'benghazi_1', stageNumber: 1, title: 'منارة بنغازي والبلدية التاريخية', type: 'multiple_choice', questionId: 'hist_ben_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'benghazi_2', stageNumber: 2, title: 'الشعر الشعبي وأمثال برقة', type: 'letter_scramble', puzzleId: 'scramble_ben_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'benghazi_3', stageNumber: 3, title: 'المطبخ الشرقي: المقروض والمثرودة', type: 'multiple_choice', questionId: 'food_ben_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'benghazi_4', stageNumber: 4, title: 'كلمات متقاطعة: كورة وفن بنغازي', type: 'crossword', puzzleId: 'cross_ben_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'benghazi_5', stageNumber: 5, title: 'سباق سرعة: لهجة الشرق', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 25 },
     ],
   },
   {
@@ -216,12 +216,12 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 14,
     stages: [
-      { id: 'ajdabiya_1', stageNumber: 1, title: 'قصر أجدابيا الأثري', type: 'multiple_choice', questionId: 'hist_ajd_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
-      { id: 'ajdabiya_2', stageNumber: 2, title: 'أجدابيا وطرق الصحراء', type: 'multiple_choice', questionId: 'geo_ajd_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'ajdabiya_3', stageNumber: 3, title: 'سباق سرعة: دروب برقة', type: 'speed_blitz',  starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
+      { id: 'ajdabiya_1', stageNumber: 1, title: 'قصر أجدابيا الأثري', type: 'multiple_choice', questionId: 'hist_ajd_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'ajdabiya_2', stageNumber: 2, title: 'أجدابيا وطرق الصحراء', type: 'multiple_choice', questionId: 'geo_ajd_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'ajdabiya_3', stageNumber: 3, title: 'سباق سرعة: دروب برقة', type: 'speed_blitz',  starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
       // Appended rather than slotted before the blitz: renumbering an existing
       // stage id would orphan the progress players have already saved under it.
-      { id: 'ajdabiya_4', stageNumber: 4, title: 'رتب الحروف: أقاليم ليبيا التاريخية', type: 'letter_scramble', puzzleId: 'scramble_ajd_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
+      { id: 'ajdabiya_4', stageNumber: 4, title: 'رتب الحروف: أقاليم ليبيا التاريخية', type: 'letter_scramble', puzzleId: 'scramble_ajd_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
     ],
   },
   {
@@ -240,10 +240,10 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 15,
     stages: [
-      { id: 'cyrene_1', stageNumber: 1, title: 'نبات السيلفيوم ومعبد أبولو', type: 'multiple_choice', questionId: 'hist_cyr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'cyrene_2', stageNumber: 2, title: 'جغرافيا الجبل ووديانه وشلالاته', type: 'multiple_choice', questionId: 'geo_cyr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'cyrene_3', stageNumber: 3, title: 'رتب الحروف: الفلسفة القورينائية', type: 'letter_scramble', puzzleId: 'scramble_cyr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
-      { id: 'cyrene_4', stageNumber: 4, title: 'سباق جبال برقة الخضراء', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 60 },
+      { id: 'cyrene_1', stageNumber: 1, title: 'نبات السيلفيوم ومعبد أبولو', type: 'multiple_choice', questionId: 'hist_cyr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'cyrene_2', stageNumber: 2, title: 'جغرافيا الجبل ووديانه وشلالاته', type: 'multiple_choice', questionId: 'geo_cyr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'cyrene_3', stageNumber: 3, title: 'رتب الحروف: الفلسفة القورينائية', type: 'letter_scramble', puzzleId: 'scramble_cyr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'cyrene_4', stageNumber: 4, title: 'سباق جبال برقة الخضراء', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 25 },
     ],
   },
   {
@@ -262,10 +262,10 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 18,
     stages: [
-      { id: 'derna_1', stageNumber: 1, title: 'مدينة الصحابة وتاريخ مسرح درنة', type: 'multiple_choice', questionId: 'hist_der_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'derna_2', stageNumber: 2, title: 'رتب الحروف: معالم وادي الشلال', type: 'letter_scramble', puzzleId: 'scramble_der_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
-      { id: 'derna_3', stageNumber: 3, title: 'حلويات درنة وعسل الزعتر', type: 'multiple_choice', questionId: 'food_der_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'derna_4', stageNumber: 4, title: 'سباق درنة الفيحاء وسواحل الشرق', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 60 },
+      { id: 'derna_1', stageNumber: 1, title: 'مدينة الصحابة وتاريخ مسرح درنة', type: 'multiple_choice', questionId: 'hist_der_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'derna_2', stageNumber: 2, title: 'رتب الحروف: معالم وادي الشلال', type: 'letter_scramble', puzzleId: 'scramble_der_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'derna_3', stageNumber: 3, title: 'حلويات درنة وعسل الزعتر', type: 'multiple_choice', questionId: 'food_der_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'derna_4', stageNumber: 4, title: 'سباق درنة الفيحاء وسواحل الشرق', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 25 },
     ],
   },
   {
@@ -284,9 +284,9 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 20,
     stages: [
-      { id: 'tobruk_1', stageNumber: 1, title: 'طبرق في الحرب العالمية', type: 'multiple_choice', questionId: 'hist_tbk_01', starsEarned: 0, isUnlocked: false, rewardDinars: 35 },
-      { id: 'tobruk_2', stageNumber: 2, title: 'رتب الحروف: مرفأ المدينة', type: 'letter_scramble', puzzleId: 'scramble_tbk_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'tobruk_3', stageNumber: 3, title: 'سر موقع طبرق البحري', type: 'multiple_choice', questionId: 'geo_tbk_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
+      { id: 'tobruk_1', stageNumber: 1, title: 'طبرق في الحرب العالمية', type: 'multiple_choice', questionId: 'hist_tbk_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'tobruk_2', stageNumber: 2, title: 'رتب الحروف: مرفأ المدينة', type: 'letter_scramble', puzzleId: 'scramble_tbk_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'tobruk_3', stageNumber: 3, title: 'سر موقع طبرق البحري', type: 'multiple_choice', questionId: 'geo_tbk_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
     ],
   },
   {
@@ -305,10 +305,10 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 21,
     stages: [
-      { id: 'jalu_1', stageNumber: 1, title: 'مسجد العتيق وعمارة أوجلة', type: 'multiple_choice', questionId: 'hist_jal_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'jalu_2', stageNumber: 2, title: 'رتب الحروف: تمور الواحات الذهبية', type: 'letter_scramble', puzzleId: 'scramble_jal_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
-      { id: 'jalu_3', stageNumber: 3, title: 'خبزة الملة وتقاليد أهل الواحات', type: 'multiple_choice', questionId: 'food_jal_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
-      { id: 'jalu_4', stageNumber: 4, title: 'تحدي واحات الصحراء الشرقية', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 65 },
+      { id: 'jalu_1', stageNumber: 1, title: 'مسجد العتيق وعمارة أوجلة', type: 'multiple_choice', questionId: 'hist_jal_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'jalu_2', stageNumber: 2, title: 'رتب الحروف: تمور الواحات الذهبية', type: 'letter_scramble', puzzleId: 'scramble_jal_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'jalu_3', stageNumber: 3, title: 'خبزة الملة وتقاليد أهل الواحات', type: 'multiple_choice', questionId: 'food_jal_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'jalu_4', stageNumber: 4, title: 'تحدي واحات الصحراء الشرقية', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 25 },
     ],
   },
   {
@@ -327,11 +327,11 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 24,
     stages: [
-      { id: 'ghadames_1', stageNumber: 1, title: 'عين الفرس والعمارة الطينية', type: 'multiple_choice', questionId: 'hist_ghad_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'ghadames_2', stageNumber: 2, title: 'رتب الحروف: التراث والأزياء الغدامسية', type: 'letter_scramble', puzzleId: 'scramble_ghad_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'ghadames_3', stageNumber: 3, title: 'تقاليد الواحات والصحراء', type: 'multiple_choice', questionId: 'food_ghad_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
-      { id: 'ghadames_4', stageNumber: 4, title: 'كلمات متقاطعة: واحات غدامس', type: 'crossword', puzzleId: 'cross_ghad_01', starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
-      { id: 'ghadames_5', stageNumber: 5, title: 'لغز واحات الصحراء', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 60 },
+      { id: 'ghadames_1', stageNumber: 1, title: 'عين الفرس والعمارة الطينية', type: 'multiple_choice', questionId: 'hist_ghad_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'ghadames_2', stageNumber: 2, title: 'رتب الحروف: التراث والأزياء الغدامسية', type: 'letter_scramble', puzzleId: 'scramble_ghad_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'ghadames_3', stageNumber: 3, title: 'تقاليد الواحات والصحراء', type: 'multiple_choice', questionId: 'food_ghad_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'ghadames_4', stageNumber: 4, title: 'كلمات متقاطعة: واحات غدامس', type: 'crossword', puzzleId: 'cross_ghad_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'ghadames_5', stageNumber: 5, title: 'لغز واحات الصحراء', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 25 },
     ],
   },
   {
@@ -350,10 +350,10 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 23,
     stages: [
-      { id: 'jaghbub_1', stageNumber: 1, title: 'زاوية الجغبوب ومعهدها', type: 'multiple_choice', questionId: 'geo_jgb_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'jaghbub_2', stageNumber: 2, title: 'الحركة السنوسية', type: 'multiple_choice', questionId: 'isl_13', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'jaghbub_3', stageNumber: 3, title: 'سباق سرعة: دروب الواحات', type: 'speed_blitz',  starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
-      { id: 'jaghbub_4', stageNumber: 4, title: 'رتب الحروف: مدارس الصحراء', type: 'letter_scramble', puzzleId: 'scramble_jgb_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
+      { id: 'jaghbub_1', stageNumber: 1, title: 'زاوية الجغبوب ومعهدها', type: 'multiple_choice', questionId: 'geo_jgb_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'jaghbub_2', stageNumber: 2, title: 'الحركة السنوسية', type: 'multiple_choice', questionId: 'isl_13', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'jaghbub_3', stageNumber: 3, title: 'سباق سرعة: دروب الواحات', type: 'speed_blitz',  starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'jaghbub_4', stageNumber: 4, title: 'رتب الحروف: مدارس الصحراء', type: 'letter_scramble', puzzleId: 'scramble_jgb_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
     ],
   },
   {
@@ -372,10 +372,10 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 27,
     stages: [
-      { id: 'sabha_1', stageNumber: 1, title: 'حضارة الجرمنت وقصر لديد', type: 'multiple_choice', questionId: 'hist_sab_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'sabha_2', stageNumber: 2, title: 'بحيرات أوباري ونخيل قَبْر عَوْن', type: 'multiple_choice', questionId: 'geo_sab_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
-      { id: 'sabha_3', stageNumber: 3, title: 'رتب الحروف: تقاليد فزان والشاي العالة', type: 'letter_scramble', puzzleId: 'scramble_sab_01', starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
-      { id: 'sabha_4', stageNumber: 4, title: 'تحدي رمال الصحراء الكبرى', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 65 },
+      { id: 'sabha_1', stageNumber: 1, title: 'حضارة الجرمنت وقصر لديد', type: 'multiple_choice', questionId: 'hist_sab_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'sabha_2', stageNumber: 2, title: 'بحيرات أوباري ونخيل قَبْر عَوْن', type: 'multiple_choice', questionId: 'geo_sab_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'sabha_3', stageNumber: 3, title: 'رتب الحروف: تقاليد فزان والشاي العالة', type: 'letter_scramble', puzzleId: 'scramble_sab_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'sabha_4', stageNumber: 4, title: 'تحدي رمال الصحراء الكبرى', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 25 },
     ],
   },
   {
@@ -394,9 +394,9 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 29,
     stages: [
-      { id: 'murzuq_1', stageNumber: 1, title: 'مرزق حاضرة فزان', type: 'multiple_choice', questionId: 'geo_mzq_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'murzuq_2', stageNumber: 2, title: 'سباق سرعة: أعماق فزان', type: 'speed_blitz',  starsEarned: 0, isUnlocked: false, rewardDinars: 60 },
-      { id: 'murzuq_3', stageNumber: 3, title: 'رتب الحروف: تجارة الصحراء', type: 'letter_scramble', puzzleId: 'scramble_mzq_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
+      { id: 'murzuq_1', stageNumber: 1, title: 'مرزق حاضرة فزان', type: 'multiple_choice', questionId: 'geo_mzq_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'murzuq_2', stageNumber: 2, title: 'سباق سرعة: أعماق فزان', type: 'speed_blitz',  starsEarned: 0, isUnlocked: false, rewardDinars: 25 },
+      { id: 'murzuq_3', stageNumber: 3, title: 'رتب الحروف: تجارة الصحراء', type: 'letter_scramble', puzzleId: 'scramble_mzq_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
     ],
   },
   {
@@ -415,10 +415,10 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 30,
     stages: [
-      { id: 'ghat_1', stageNumber: 1, title: 'الرسومات الصخرية والصحراء الخضراء', type: 'multiple_choice', questionId: 'hist_ght_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
-      { id: 'ghat_2', stageNumber: 2, title: 'تراث الطوارق ومهرجان غات السياحي', type: 'multiple_choice', questionId: 'cult_ght_01', starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
-      { id: 'ghat_3', stageNumber: 3, title: 'رتب الحروف: معالم تاسيلي', type: 'letter_scramble', puzzleId: 'scramble_ght_01', starsEarned: 0, isUnlocked: false, rewardDinars: 60 },
-      { id: 'ghat_4', stageNumber: 4, title: 'تحدي أسرار الجنوب الأقصى', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 70 },
+      { id: 'ghat_1', stageNumber: 1, title: 'الرسومات الصخرية والصحراء الخضراء', type: 'multiple_choice', questionId: 'hist_ght_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'ghat_2', stageNumber: 2, title: 'تراث الطوارق ومهرجان غات السياحي', type: 'multiple_choice', questionId: 'cult_ght_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'ghat_3', stageNumber: 3, title: 'رتب الحروف: معالم تاسيلي', type: 'letter_scramble', puzzleId: 'scramble_ght_01', starsEarned: 0, isUnlocked: false, rewardDinars: 25 },
+      { id: 'ghat_4', stageNumber: 4, title: 'تحدي أسرار الجنوب الأقصى', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 30 },
     ],
   },
   {
@@ -437,10 +437,10 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 33,
     stages: [
-      { id: 'kufra_1', stageNumber: 1, title: 'جغرافيا الكفرة وبحيراتها المالحة', type: 'multiple_choice', questionId: 'geo_kuf_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
-      { id: 'kufra_2', stageNumber: 2, title: 'رتب الحروف: جبل العوينات والزجاج الصحراوي', type: 'letter_scramble', puzzleId: 'scramble_kuf_01', starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
-      { id: 'kufra_3', stageNumber: 3, title: 'واحات الكفرة ومركزها', type: 'multiple_choice', questionId: 'geo_kuf_02', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'kufra_4', stageNumber: 4, title: 'الامتحان الكبير: جهبذ ليبيا', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 100 },
+      { id: 'kufra_1', stageNumber: 1, title: 'جغرافيا الكفرة وبحيراتها المالحة', type: 'multiple_choice', questionId: 'geo_kuf_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'kufra_2', stageNumber: 2, title: 'رتب الحروف: جبل العوينات والزجاج الصحراوي', type: 'letter_scramble', puzzleId: 'scramble_kuf_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'kufra_3', stageNumber: 3, title: 'واحات الكفرة ومركزها', type: 'multiple_choice', questionId: 'geo_kuf_02', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'kufra_4', stageNumber: 4, title: 'الامتحان الكبير: جهبذ ليبيا', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
     ],
   },
   {
@@ -459,8 +459,8 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 4,
     stages: [
-      { id: 'zawiya_1', stageNumber: 1, title: 'الزاوية بين الزيتون والمصفاة', type: 'multiple_choice', questionId: 'geo_zaw_01', starsEarned: 0, isUnlocked: false, rewardDinars: 35 },
-      { id: 'zawiya_2', stageNumber: 2, title: 'سباق سرعة: الساحل الغربي', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
+      { id: 'zawiya_1', stageNumber: 1, title: 'الزاوية بين الزيتون والمصفاة', type: 'multiple_choice', questionId: 'geo_zaw_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'zawiya_2', stageNumber: 2, title: 'سباق سرعة: الساحل الغربي', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
     ],
   },
   {
@@ -479,9 +479,9 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 10,
     stages: [
-      { id: 'zliten_1', stageNumber: 1, title: 'زاوية زليتن وعلماؤها', type: 'multiple_choice', questionId: 'hist_zlt_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'zliten_2', stageNumber: 2, title: 'من خير النخيل: رُبّ التمر', type: 'multiple_choice', questionId: 'food_zlt_01', starsEarned: 0, isUnlocked: false, rewardDinars: 35 },
-      { id: 'zliten_3', stageNumber: 3, title: 'سباق سرعة: ساحل المرقب', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
+      { id: 'zliten_1', stageNumber: 1, title: 'زاوية زليتن وعلماؤها', type: 'multiple_choice', questionId: 'hist_zlt_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'zliten_2', stageNumber: 2, title: 'من خير النخيل: رُبّ التمر', type: 'multiple_choice', questionId: 'food_zlt_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'zliten_3', stageNumber: 3, title: 'سباق سرعة: ساحل المرقب', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
     ],
   },
   {
@@ -500,8 +500,8 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 13,
     stages: [
-      { id: 'bani_walid_1', stageNumber: 1, title: 'ورفلة وأودية بني وليد', type: 'multiple_choice', questionId: 'geo_bwl_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'bani_walid_2', stageNumber: 2, title: 'سباق سرعة: دروب الداخل', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
+      { id: 'bani_walid_1', stageNumber: 1, title: 'ورفلة وأودية بني وليد', type: 'multiple_choice', questionId: 'geo_bwl_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'bani_walid_2', stageNumber: 2, title: 'سباق سرعة: دروب الداخل', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
     ],
   },
   {
@@ -520,9 +520,9 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 16,
     stages: [
-      { id: 'al_marj_1', stageNumber: 1, title: 'سهول المرج ومزارعها', type: 'multiple_choice', questionId: 'geo_mrj_01', starsEarned: 0, isUnlocked: false, rewardDinars: 30 },
-      { id: 'al_marj_2', stageNumber: 2, title: 'زلزال 1963 والمدينة الجديدة', type: 'multiple_choice', questionId: 'hist_mrj_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'al_marj_3', stageNumber: 3, title: 'سباق سرعة: مروج برقة', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
+      { id: 'al_marj_1', stageNumber: 1, title: 'سهول المرج ومزارعها', type: 'multiple_choice', questionId: 'geo_mrj_01', starsEarned: 0, isUnlocked: false, rewardDinars: 10 },
+      { id: 'al_marj_2', stageNumber: 2, title: 'زلزال 1963 والمدينة الجديدة', type: 'multiple_choice', questionId: 'hist_mrj_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'al_marj_3', stageNumber: 3, title: 'سباق سرعة: مروج برقة', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
     ],
   },
   {
@@ -541,9 +541,9 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 22,
     stages: [
-      { id: 'jufrah_1', stageNumber: 1, title: 'واحات الجفرة الثلاث', type: 'multiple_choice', questionId: 'geo_jfr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
-      { id: 'jufrah_2', stageNumber: 2, title: 'ودان وطريق الفتح', type: 'multiple_choice', questionId: 'hist_jfr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
-      { id: 'jufrah_3', stageNumber: 3, title: 'سباق سرعة: وسط البلاد', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 60 },
+      { id: 'jufrah_1', stageNumber: 1, title: 'واحات الجفرة الثلاث', type: 'multiple_choice', questionId: 'geo_jfr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'jufrah_2', stageNumber: 2, title: 'ودان وطريق الفتح', type: 'multiple_choice', questionId: 'hist_jfr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'jufrah_3', stageNumber: 3, title: 'سباق سرعة: وسط البلاد', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 25 },
     ],
   },
   {
@@ -562,8 +562,8 @@ export const initialCities: CityNode[] = [
     unlockedByDefault: false,
     requiredStarsToUnlock: 27,
     stages: [
-      { id: 'ubari_1', stageNumber: 1, title: 'وادي الحياة ونخيله', type: 'multiple_choice', questionId: 'geo_ubr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
-      { id: 'ubari_2', stageNumber: 2, title: 'سباق سرعة: رمال فزان', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 60 },
+      { id: 'ubari_1', stageNumber: 1, title: 'وادي الحياة ونخيله', type: 'multiple_choice', questionId: 'geo_ubr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'ubari_2', stageNumber: 2, title: 'سباق سرعة: رمال فزان', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 25 },
     ],
   },
 ];

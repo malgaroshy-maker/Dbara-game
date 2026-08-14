@@ -10,7 +10,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['نسور قرطاج', 'فرسان المتوسط', 'أسود الأطلس', 'محاربو الصحراء'],
     correctIndex: 1,
     funFact: 'لقب "فرسان المتوسط" مستوحى من موقع ليبيا على أطول ساحل أفريقي على البحر الأبيض المتوسط.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'spo_02',
@@ -20,7 +20,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['2009', '2014', '2011', '2018'],
     correctIndex: 1,
     funFact: 'توج المنتخب الليبي باللقب في جنوب أفريقيا سنة 2014 بعد الفوز على غانا بركلات الترجيح في النهائي.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'spo_10',
@@ -30,7 +30,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['خافيير كليمنتي', 'عبد الحفيظ اربيش', 'محمد الطاهر', 'ماركوس باكيتا'],
     correctIndex: 0,
     funFact: 'الإسباني خافيير كليمنتي، المدرب السابق لمنتخب إسبانيا، قاد فرسان المتوسط إلى أول لقب قاري في تاريخهم.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'سيرة المدرب خافيير كليمنتي — قاد ليبيا للقب أمم أفريقيا للمحليين 2014 بجنوب أفريقيا',
   },
   {
@@ -41,7 +41,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['المدينة والوحدة', 'الشط والمجد', 'الترسانة واليرموك', 'الاتحاد والأهلي طرابلس'],
     correctIndex: 3,
     funFact: 'دربي الاتحاد والأهلي طرابلس من أقدم وأعرق الديربيات الكروية في شمال أفريقيا، وتمتد منافسته لعقود.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'spo_04',
@@ -51,7 +51,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['الأهلي بنغازي والنصر', 'النجمة والشمال', 'التحدي والهلال', 'الأخضر والصداقة'],
     correctIndex: 0,
     funFact: 'يجمع دربي بنغازي بين الأهلي بنغازي والنصر، وهو قمة الكرة في الشرق الليبي.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'spo_05',
@@ -61,7 +61,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['بهدف نظيف لغانا', 'في الوقت الإضافي', 'بركلات الترجيح', 'بإعادة المباراة'],
     correctIndex: 2,
     funFact: 'انتهى النهائي بالتعادل 1-1، وحسمت غانا اللقب بركلات الترجيح على ملعب 11 يونيو في طرابلس أمام جمهور ليبي غفير.',
-    rewardDinars: 45,
+    rewardDinars: 35,
     source: 'نهائي كأس الأمم الأفريقية 1982 — انتهى 1-1 وحسمته غانا 7-6 بركلات الترجيح',
   },
   {
@@ -72,7 +72,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['طارق التائب', 'حمدو الهوني', 'المعتصم المصراتي', 'مؤيد اللافي'],
     correctIndex: 0,
     funFact: 'طارق التائب من أمهر صانعي الألعاب في تاريخ الكرة الليبية والعربية، ولعب أيضاً في الدوري التركي.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'الجزيرة نت (2006): تعاقد الهلال السعودي مع الليبي طارق التائب',
   },
   {
@@ -83,7 +83,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['نادي التحدي', 'نادي الأهلي بنغازي', 'نادي النصر', 'نادي الهلال'],
     correctIndex: 2,
     funFact: 'نادي النصر من أعرق أندية بنغازي وله قاعدة جماهيرية كبيرة، وتوج بألقاب في الدوري والكأس.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'التسمية المتداولة إعلامياً وجماهيرياً، ومنها الحساب الرسمي للنادي (Fhama1954) وتغطية بوابة الوسط',
   },
   {
@@ -94,7 +94,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['سند الورفلي', 'المعتصم المصراتي', 'أنيس سلتو', 'أحمد بن علي'],
     correctIndex: 1,
     funFact: 'المعتصم المصراتي من أبرز لاعبي الوسط الليبيين المحترفين في أوروبا، وشارك في المسابقات القارية مع أنديته.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'spo_09',
@@ -104,7 +104,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['1974', '1998', '1990', '1982'],
     correctIndex: 3,
     funFact: 'أقيمت بطولة 1982 في طرابلس وبنغازي، وحل المنتخب الليبي وصيفاً بعد نهائي مثير أمام غانا.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'spo_11',
@@ -114,7 +114,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['الزاوية', 'الخمس', 'سرت', 'مصراتة'],
     correctIndex: 3,
     funFact: 'نادي السويحلي من أعرق أندية مصراتة، ويحمل اسم المجاهد رمضان السويحلي، وله حضور قوي في كرة القدم والكرة الطائرة.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'spo_12',
@@ -124,7 +124,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['ألعاب القوى', 'كرة السلة', 'كرة القدم', 'الكرة الطائرة'],
     correctIndex: 2,
     funFact: 'كرة القدم هي الرياضة الأولى في ليبيا جماهيرياً، ويليها كرة اليد والكرة الطائرة في الاهتمام والبطولات.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'spo_13',
@@ -134,7 +134,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['ملعب 11 يونيو', 'ملعب طرابلس البلدي', 'ملعب شهداء بنينا', 'ملعب مصراتة'],
     correctIndex: 0,
     funFact: 'ملعب 11 يونيو من أكبر ملاعب ليبيا، واحتضن مباريات البطولة الأفريقية 1982 بما فيها النهائي.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'spo_14',
@@ -144,7 +144,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['عشرة لاعبين', 'تسعة لاعبين', 'اثنا عشر لاعباً', 'أحد عشر لاعباً'],
     correctIndex: 3,
     funFact: 'يتكون الفريق من أحد عشر لاعباً بينهم حارس المرمى، ويُعد الفريق غير مكتمل إذا نقص عن سبعة.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'spo_15',
@@ -154,7 +154,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['60 دقيقة', '80 دقيقة', '120 دقيقة', '90 دقيقة'],
     correctIndex: 3,
     funFact: 'تُلعب المباراة شوطين مدة كل منهما 45 دقيقة، يفصل بينهما استراحة لا تتجاوز خمس عشرة دقيقة.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'spo_16',
@@ -164,7 +164,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['ألمانيا', 'إيطاليا', 'البرازيل', 'الأرجنتين'],
     correctIndex: 2,
     funFact: 'توجت البرازيل بكأس العالم خمس مرات، وهي المنتخب الوحيد الذي شارك في كل نسخات البطولة.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'spo_17',
@@ -174,7 +174,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['كل أربع سنوات', 'كل ثلاث سنوات', 'كل سنتين', 'كل خمس سنوات'],
     correctIndex: 0,
     funFact: 'تقام الألعاب الأولمبية الصيفية كل أربع سنوات، وتُعرف هذه الدورة الزمنية باسم "الأولمبياد".',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'spo_18',
@@ -184,7 +184,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['كل سنة', 'كل سنتين', 'كل ثلاث سنوات', 'كل أربع سنوات'],
     correctIndex: 1,
     funFact: 'تقام كأس الأمم الأفريقية كل سنتين منذ انطلاقها سنة 1957، وهي من أقدم البطولات القارية للمنتخبات بعد كوبا أمريكا وكأس آسيا.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'spo_19',
@@ -194,7 +194,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['أربعة', 'خمسة', 'ستة', 'سبعة'],
     correctIndex: 1,
     funFact: 'يتكون فريق كرة السلة من خمسة لاعبين داخل الملعب، وتُلعب المباراة أربع فترات.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'spo_20',
@@ -204,7 +204,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['المغرب', 'مصر', 'جنوب أفريقيا', 'نيجيريا'],
     correctIndex: 2,
     funFact: 'استضافت جنوب أفريقيا كأس العالم 2010، وهي أول وحتى الآن المرة الوحيدة التي أقيمت فيها البطولة على أرض أفريقية.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'spo_21',
@@ -214,7 +214,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['مرة واحدة', 'مرتين', 'ثلاث مرات', 'لم يتوّج بها قط'],
     correctIndex: 0,
     funFact: 'اللقب الوحيد جاء سنة 2014، وهو أول لقب قاري في تاريخ الكرة الليبية.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'spo_22',
@@ -224,7 +224,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['مصراتة', 'بنغازي', 'سرت', 'البيضاء'],
     correctIndex: 1,
     funFact: 'وزعت البطولة مبارياتها على ملعبي طرابلس وبنغازي، وأقيم النهائي في طرابلس.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'الاتحاد الأفريقي لكرة القدم (كاف) — سجل نسخة 1982',
   },
   {
@@ -235,7 +235,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['كأس الاتحاد', 'دوري النخبة', 'الدوري الليبي الممتاز', 'دوري الشمال'],
     correctIndex: 2,
     funFact: 'يتنافس في الدوري الليبي الممتاز أبرز أندية البلاد، ومنها الاتحاد والأهلي طرابلس والأهلي بنغازي والنصر والسويحلي.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'spo_24',
@@ -245,7 +245,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['خمسة', 'ستة', 'ثمانية', 'سبعة'],
     correctIndex: 3,
     funFact: 'يتكون فريق كرة اليد من سبعة لاعبين بينهم حارس المرمى، وكرة اليد من الرياضات التي تحظى بمتابعة جيدة في ليبيا.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'spo_25',
@@ -255,7 +255,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['جنوب أفريقيا', 'المغرب', 'كوت ديفوار', 'رواندا'],
     correctIndex: 0,
     funFact: 'أقيمت نسخة 2014 في جنوب أفريقيا، وحسم الليبيون النهائي أمام غانا بركلات الترجيح.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'الاتحاد الأفريقي لكرة القدم (كاف) — بطولة أمم أفريقيا للمحليين 2014',
   },
   {
@@ -266,7 +266,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['نقطتان', 'نقطة واحدة', 'ثلاث نقاط', 'نصف نقطة'],
     correctIndex: 1,
     funFact: 'الرمية الحرة نقطة واحدة، والتسديدة العادية نقطتان، وما جاء من خلف القوس ثلاث نقاط.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'spo_27',
@@ -276,7 +276,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['خمسة', 'سبعة', 'ستة', 'ثمانية'],
     correctIndex: 2,
     funFact: 'يتكون فريق الكرة الطائرة من ستة لاعبين، وللعبة حضور قوي في الأندية الليبية إلى جانب كرة القدم.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'spo_28',
@@ -286,7 +286,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['20 دقيقة', '25 دقيقة', '45 دقيقة', '30 دقيقة'],
     correctIndex: 3,
     funFact: 'تُلعب مباراة كرة اليد شوطين مدة كل منهما ثلاثون دقيقة، بينهما استراحة عشر دقائق.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'قوانين اللعبة — الاتحاد الدولي لكرة اليد (IHF)',
   },
   {
@@ -297,7 +297,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['أثينا', 'باريس', 'لندن', 'روما'],
     correctIndex: 0,
     funFact: 'عادت الألعاب الأولمبية للحياة في أثينا سنة 1896، إحياءً لتقليد إغريقي قديم توقف قروناً.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'spo_30',
@@ -307,7 +307,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['كل سنتين', 'كل أربع سنوات', 'كل ثلاث سنوات', 'كل خمس سنوات'],
     correctIndex: 1,
     funFact: 'تقام كأس العالم كل أربع سنوات منذ 1930، ولم تتوقف إلا بسبب الحرب العالمية الثانية.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'spo_31',
@@ -317,7 +317,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['16 منتخباً', '24 منتخباً', '32 منتخباً', '48 منتخباً'],
     correctIndex: 2,
     funFact: 'ظل عدد المنتخبات 32 منذ نسخة 1998، ويرتفع إلى 48 منتخباً ابتداءً من نسخة 2026.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'spo_32',
@@ -327,7 +327,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['الصفراء', 'الزرقاء', 'الخضراء', 'الحمراء'],
     correctIndex: 3,
     funFact: 'أُدخلت البطاقتان الصفراء والحمراء في كأس العالم 1970 لتجاوز حاجز اللغة بين الحكام واللاعبين.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'spo_33',
@@ -337,7 +337,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['التنس', 'الغولف', 'الرجبي', 'الكريكيت'],
     correctIndex: 0,
     funFact: 'ويمبلدون أقدم بطولات التنس الكبرى، وتُلعب على ملاعب عشبية في لندن منذ سنة 1877.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'spo_34',
@@ -347,7 +347,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['أربع', 'خمس', 'ست', 'سبع'],
     correctIndex: 1,
     funFact: 'ترمز الحلقات الخمس المتشابكة إلى القارات الخمس المشاركة، وألوانها مع الخلفية البيضاء تجمع ألوان أعلام العالم.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'spo_35',
@@ -357,7 +357,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['ثنائية', 'رباعية', 'هاتريك', 'ضربة معلم'],
     correctIndex: 2,
     funFact: '"الهاتريك" مصطلح انتقل إلى كرة القدم من لعبة الكريكيت، حيث كان يُكافأ صاحب الإنجاز الثلاثي بقبعة.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'spo_36',
@@ -367,7 +367,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['1500 متر', '3000 متر', '5000 متر', '10000 متر'],
     correctIndex: 3,
     funFact: 'سباق 10000 متر أطول سباقات المضمار الأولمبية، أما الماراثون فيُجرى على الطريق لا على المضمار.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'برنامج ألعاب القوى الأولمبي — الاتحاد الدولي لألعاب القوى (World Athletics)',
   },
   {
@@ -378,7 +378,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['42 كيلومتراً', '21 كيلومتراً', '30 كيلومتراً', '50 كيلومتراً'],
     correctIndex: 0,
     funFact: 'المسافة الرسمية 42.195 كيلومتراً، وقد ثُبتت عند هذا الرقم في أولمبياد لندن 1908.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'spo_38',
@@ -388,7 +388,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['البرازيل', 'الأوروغواي', 'إيطاليا', 'فرنسا'],
     correctIndex: 1,
     funFact: 'استضافت الأوروغواي النسخة الأولى وتوجت بلقبها، وشارك فيها ثلاثة عشر منتخباً فقط.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'الاتحاد الدولي لكرة القدم (فيفا) — سجل كأس العالم 1930',
   },
   {
@@ -404,7 +404,7 @@ export const sportsQuestions: TriviaQuestion[] = [
     ],
     correctIndex: 2,
     funFact: 'لم يبلغ فرسان المتوسط نهائيات كأس العالم حتى الآن، وأبرز إنجازاتهم وصافة أمم أفريقيا 1982 ولقب الشان 2014.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'spo_40',
@@ -414,6 +414,6 @@ export const sportsQuestions: TriviaQuestion[] = [
     options: ['السباحة', 'المصارعة', 'رفع الأثقال', 'ألعاب القوى'],
     correctIndex: 3,
     funFact: 'المضمار حلبة بيضاوية طول لفتها 400 متر، وعليه تُقام سباقات الجري القصيرة والطويلة.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
 ];

@@ -10,7 +10,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['26 حرفاً', '29 حرفاً', '28 حرفاً', '32 حرفاً'],
     correctIndex: 2,
     funFact: 'الأبجدية العربية 28 حرفاً، ويُعد بعض اللغويين الهمزة حرفاً مستقلاً فيصبح العدد 29.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'lit_02',
@@ -20,7 +20,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['المتنبي', 'أبو تمام', 'البحتري', 'أبو نواس'],
     correctIndex: 0,
     funFact: 'المتنبي من أعظم شعراء العربية، وبيته هذا من قصيدة في سيف الدولة الحمداني يفخر فيها بشجاعته وشهرته.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'lit_03',
@@ -30,7 +30,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['سيبويه', 'أبو الأسود الدؤلي', 'الخليل بن أحمد', 'ابن مالك'],
     correctIndex: 1,
     funFact: 'وضع أبو الأسود الدؤلي أسس النحو ونقط المصحف، ثم طوره الخليل بن أحمد وسيبويه من بعده.',
-    rewardDinars: 45,
+    rewardDinars: 35,
     source: 'موسوعة المعرفة (مقال: أبو الأسود الدؤلي)',
   },
   {
@@ -41,7 +41,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['ابن بطوطة', 'ابن خلدون', 'ابن رشد', 'ابن سينا'],
     correctIndex: 1,
     funFact: 'كتب ابن خلدون مقدمته في القرن الرابع عشر، ووضع فيها نظريات في العمران البشري سبقت علم الاجتماع الحديث بقرون.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'lit_05',
@@ -51,7 +51,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['ابن جبير', 'الإدريسي', 'ابن بطوطة', 'المسعودي'],
     correctIndex: 2,
     funFact: 'طاف ابن بطوطة نحو 120 ألف كيلومتر عبر أفريقيا وآسيا وأوروبا، ومرّ في رحلته بمدن ليبية منها طرابلس.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'lit_06',
@@ -61,7 +61,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['حافظ إبراهيم', 'بشارة الخوري', 'إيليا أبو ماضي', 'أحمد شوقي'],
     correctIndex: 3,
     funFact: 'بويع أحمد شوقي بإمارة الشعر سنة 1927 في حفل كبير بالقاهرة حضره شعراء العربية.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'lit_07',
@@ -71,7 +71,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['طه حسين', 'جبران خليل جبران', 'نجيب محفوظ', 'الطيب صالح'],
     correctIndex: 2,
     funFact: 'نال نجيب محفوظ جائزة نوبل في الأدب سنة 1988، وأشهر أعماله "الثلاثية" و"أولاد حارتنا".',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'lit_08',
@@ -81,7 +81,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['بديع الزمان الهمذاني', 'الجاحظ', 'ابن المقفع', 'أبو العلاء المعري'],
     correctIndex: 3,
     funFact: 'أبو العلاء المعري شاعر وفيلسوف فقد بصره صغيراً، ولُقب برهين المحبسين: العمى والعزلة.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'موسوعة المعرفة (مقال: أبو العلاء المعري)',
   },
   {
@@ -92,7 +92,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['الجاحظ', 'ابن المقفع', 'ابن قتيبة', 'الأصمعي'],
     correctIndex: 1,
     funFact: 'ترجم عبد الله بن المقفع "كليلة ودمنة" عن الفارسية في العصر العباسي، وهو من روائع أدب الحكمة على ألسنة الحيوانات.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'موسوعة المعرفة (مقال: ابن المقفع)',
   },
   {
@@ -103,7 +103,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['الفيروزآبادي', 'الزمخشري', 'الجوهري', 'ابن منظور'],
     correctIndex: 3,
     funFact: '"لسان العرب" لابن منظور من أضخم معاجم العربية، ويضم أكثر من ثمانين ألف مادة لغوية.',
-    rewardDinars: 45,
+    rewardDinars: 35,
     source: 'موسوعة المعرفة (مقال: لسان العرب)',
   },
   {
@@ -114,7 +114,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['عنترة بن شداد', 'طرفة بن العبد', 'زهير بن أبي سلمى', 'امرؤ القيس'],
     correctIndex: 3,
     funFact: 'معلقة امرئ القيس من أشهر المعلقات السبع، وقد لُقب بـ "الملك الضليل" ويُعد من رواد الشعر الجاهلي.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'lit_12',
@@ -124,7 +124,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['خليفة التليسي', 'الصادق النيهوم', 'إبراهيم الكوني', 'أحمد إبراهيم الفقيه'],
     correctIndex: 2,
     funFact: 'ترجمت أعمال إبراهيم الكوني إلى عشرات اللغات، وتدور معظمها في عوالم الصحراء الليبية وأساطير الطوارق.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'lit_13',
@@ -134,7 +134,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['شاعر الوطن', 'شاعر النيل', 'شاعر القطرين', 'شاعر الصحراء'],
     correctIndex: 0,
     funFact: 'أُطلق على أحمد رفيق المهدوي لقب "شاعر الوطن" سنة 1960م، وقبلها بعام أفرد له الناقد محمد الصادق عفيفي كتاباً بعنوان "رفيق شاعر الوطنيّة الليبيّة".',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'كتاب "رفيق شاعر الوطنيّة الليبيّة" لمحمد الصادق عفيفي (1959م)، وديوان "شاعر الوطن"',
   },
   {
@@ -145,7 +145,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['كتابات', 'كُتُب', 'كواتب', 'أكتبة'],
     correctIndex: 1,
     funFact: '"كُتُب" جمع تكسير لكلمة كتاب، وجموع التكسير من خصائص العربية التي تميزها عن كثير من اللغات.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'lit_15',
@@ -155,7 +155,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['شعر التفعيلة (الشعر الحر)', 'الشعر العمودي', 'الموشح', 'الزجل'],
     correctIndex: 0,
     funFact: 'ظهر شعر التفعيلة في منتصف القرن العشرين على يد نازك الملائكة وبدر شاكر السياب وغيرهما.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'lit_16',
@@ -165,7 +165,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['الخليل بن أحمد الفراهيدي', 'سيبويه', 'الأصمعي', 'ابن جني'],
     correctIndex: 0,
     funFact: 'وضع الخليل بن أحمد الفراهيدي علم العروض وبحور الشعر، كما ألف أول معجم عربي وهو "كتاب العين".',
-    rewardDinars: 45,
+    rewardDinars: 35,
     source: 'موسوعة المعرفة (مقال: علم العروض)',
   },
   {
@@ -176,7 +176,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['سهر طويل', 'تعب شديد', 'نوم عميق', 'قلق دائم'],
     correctIndex: 2,
     funFact: 'السُّبات هو النوم العميق الذي تسكن فيه الحركة، ومنه سُمي "السُّبات" في الطب لحالة فقدان الوعي الطويلة.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'lit_18',
@@ -186,7 +186,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['قواعد النحو', 'أوزان الشعر', 'خطب المنابر', 'غرائب الكلام وطرائفه'],
     correctIndex: 3,
     funFact: 'أفرد الأدباء العرب كتباً كاملة للنوادر، مثل "البخلاء" للجاحظ الذي جمع طرائف البخل وأخباره.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'lit_19',
@@ -196,7 +196,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['الإحسان والإنعام', 'الشدة والقسوة', 'الحيرة والتردد', 'السفر الطويل'],
     correctIndex: 0,
     funFact: 'المنّة هي العطاء والإحسان، ومنها قوله تعالى "بل الله يمن عليكم أن هداكم للإيمان".',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا الموسوعة الحرة (مقال: المنان (أسماء الله الحسنى))',
   },
   {
@@ -207,7 +207,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['إناء لحفظ الماء', 'جماعة من الناس تأتي معاً', 'طريق ضيق بين جبلين', 'نوع من السحاب'],
     correctIndex: 1,
     funFact: 'ومنها قوله تعالى "ورأيت الناس يدخلون في دين الله أفواجاً"، أي جماعات متتابعة.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'lit_21',
@@ -217,7 +217,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['الجراب', 'المزود', 'الصرة', 'الخرج'],
     correctIndex: 2,
     funFact: 'الصُّرّة كيس صغير تُشد فيه الدراهم، ومنه قولهم "صرّ الدراهم" أي جمعها وأحكم ربطها.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا الموسوعة الحرة (مقال: صرة نقود)',
   },
   {
@@ -228,7 +228,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['المطر', 'الضباب', 'الندى', 'السحاب'],
     correctIndex: 3,
     funFact: 'للسحاب في العربية أسماء كثيرة بحسب حاله: الغيم والغمام والمزن والعارض والركام.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'lit_23',
@@ -238,7 +238,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['أخذ المال جهراً وقهراً', 'الادخار للمستقبل', 'الإقراض بفائدة', 'التبرع للفقراء'],
     correctIndex: 0,
     funFact: 'تفرّق العربية بين النهب وهو الأخذ جهاراً، والسرقة وهي الأخذ خفية، والاختلاس وهو الأخذ على غفلة.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'lit_24',
@@ -248,7 +248,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['ثلاثة أقسام', 'قسمان', 'أربعة أقسام', 'خمسة أقسام'],
     correctIndex: 0,
     funFact: 'أقسام الكلام ثلاثة: اسم وفعل وحرف، وعلى هذا التقسيم بُني النحو العربي كله.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'lit_25',
@@ -258,7 +258,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['البرد', 'النور', 'الصمت', 'البعد'],
     correctIndex: 1,
     funFact: 'التضاد باب واسع في العربية، وقد أفرد له اللغويون كتباً في الأضداد ومعانيها.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'lit_26',
@@ -268,7 +268,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['قلمات', 'قوالم', 'أقلام', 'قلمون'],
     correctIndex: 2,
     funFact: '"أقلام" جمع تكسير، وقد ورد في القرآن الكريم في قوله تعالى "ولو أنما في الأرض من شجرة أقلام".',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'lit_27',
@@ -278,7 +278,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['المفضليات', 'الحماسة', 'المعلقات', 'المقامات'],
     correctIndex: 2,
     funFact: 'أشهر أصحاب المعلقات امرؤ القيس وعنترة وزهير وطرفة، وهي من أنفس ما وصلنا من الشعر الجاهلي.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'lit_28',
@@ -288,7 +288,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['البلاغة', 'العروض', 'الصرف', 'النحو'],
     correctIndex: 1,
     funFact: 'بحور الشعر العربي ستة عشر بحراً، لكل بحر تفعيلات ثابتة يُقاس عليها البيت.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'lit_29',
@@ -298,7 +298,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['أحمد شوقي', 'حافظ إبراهيم', 'إيليا أبو ماضي', 'خليل مطران'],
     correctIndex: 1,
     funFact: 'عاصر حافظ إبراهيم أحمد شوقي وجمعتهما صداقة ومنافسة، وعُرف شعره بالتصاقه بهموم الناس.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'lit_30',
@@ -308,7 +308,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['الطويل المسهب', 'الغامض', 'المختصر الموجز', 'المكرر'],
     correctIndex: 2,
     funFact: 'الإيجاز من أبواب البلاغة، ومنه قولهم "خير الكلام ما قلّ ودلّ".',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'lit_31',
@@ -318,7 +318,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['الكناية', 'الطباق', 'السجع', 'الاستعارة'],
     correctIndex: 3,
     funFact: 'الاستعارة من أبرز صور البيان، وتقوم على نقل اللفظ من معناه الأصلي لعلاقة المشابهة.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'lit_32',
@@ -328,7 +328,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['الجاحظ', 'ابن قتيبة', 'التوحيدي', 'الأصمعي'],
     correctIndex: 0,
     funFact: 'جمع الجاحظ في "البخلاء" طرائف البخل وأخباره، وهو من أمتع كتب النثر في العصر العباسي.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'lit_33',
@@ -338,7 +338,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['الحريري', 'بديع الزمان الهمذاني', 'ابن المقفع', 'الخوارزمي'],
     correctIndex: 1,
     funFact: 'ابتكر بديع الزمان الهمذاني فن المقامة، ثم بلغ به الحريري ذروة الصنعة اللفظية بعده بقرن.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'lit_34',
@@ -348,7 +348,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['جميل بثينة', 'كثير عزة', 'قيس بن الملوح', 'عروة بن حزام'],
     correctIndex: 2,
     funFact: 'عُرف قيس بن الملوح بـ "مجنون ليلى"، وصار قصته مادة للشعر والمسرح في آداب كثيرة.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'lit_35',
@@ -358,7 +358,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['الرجز', 'الكامل', 'الوافر', 'الطويل'],
     correctIndex: 3,
     funFact: 'نُظمت أكثر المعلقات على البحر الطويل، لسعته التي تحتمل المعاني الطويلة والوصف المفصل.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'lit_36',
@@ -368,7 +368,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['الموشح', 'المقامة', 'الرثاء', 'المديح'],
     correctIndex: 0,
     funFact: 'الموشح مقسم إلى أدوار وأقفال بقواف متعددة، ونشأ في الأندلس ليُغنّى لا ليُلقى فحسب.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'lit_37',
@@ -378,7 +378,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['قمة الجبل', 'الصحراء الواسعة الخالية', 'مجرى النهر', 'الغابة الكثيفة'],
     correctIndex: 1,
     funFact: 'الفلاة من ألفاظ البادية الكثيرة في العربية، ومثلها البيداء والمهمه والقفر.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'lit_38',
@@ -388,7 +388,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['ابن خلكان', 'أبو الفرج الأصفهاني', 'الأصمعي', 'ابن سلام الجمحي'],
     correctIndex: 1,
     funFact: 'يُعد "الأغاني" موسوعة للأدب والتاريخ الاجتماعي، وقد استغرق تأليفه خمسين سنة.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'كتاب الأغاني لأبي الفرج الأصفهاني',
   },
   {
@@ -399,7 +399,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['قلم من قصب', 'حبر أسود', 'صحيفة مُحيت ثم كُتب فيها', 'خزانة الكتب'],
     correctIndex: 2,
     funFact: 'كان الطِّرس حلاً لغلاء الورق قديماً، إذ تُمحى الكتابة القديمة ويُعاد استعمال الرَّق.',
-    rewardDinars: 50,
+    rewardDinars: 60,
   },
   {
     id: 'lit_40',
@@ -409,7 +409,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     options: ['الصحاح', 'أساس البلاغة', 'المخصص', 'القاموس المحيط'],
     correctIndex: 3,
     funFact: 'ذاع "القاموس المحيط" حتى صارت كلمة "قاموس" نفسها تعني المعجم في الاستعمال العربي الحديث.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'معجم القاموس المحيط لمجد الدين الفيروزآبادي',
   },
 ];

@@ -11,7 +11,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['صبراتة', 'أويا', 'لبدة', 'برنيق'],
     correctIndex: 1,
     funFact: 'كانت أويا إحدى المدن الثلاث (تريبوليس) مع لبدة وصبراتة، ومن هذا التحالف اشتُق اسم طرابلس الحالي.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'hist_lep_01',
@@ -22,7 +22,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['ماركوس أوريليوس', 'سيبتيموس سيفيروس', 'تراجان', 'قسطنطين العظيم'],
     correctIndex: 1,
     funFact: 'اعتلى سيبتيموس سيفيروس عرش روما سنة 193م، وأغدق على مسقط رأسه لبدة عمارة ضخمة ما زالت آثارها قائمة.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'hist_lep_02',
@@ -33,7 +33,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['المسرح الروماني المطل على البحر', 'معبد أبولو', 'قوس سيبتيموس سيفيروس', 'قصر الغرف'],
     correctIndex: 0,
     funFact: 'يعد مسرح صبراتة من أكمل المسارح الرومانية في شمال أفريقيا، وتميزه واجهته الخلفية الرخامية ثلاثية الطبقات.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'hist_ben_01',
@@ -44,7 +44,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['أبولونيا', 'درنيس', 'طوكرة', 'برنيق'],
     correctIndex: 3,
     funFact: 'سميت برنيق تكريماً للأميرة برنيكي زوجة بطليموس الثالث في القرن الثالث قبل الميلاد، وكانت إحدى مدن الخمس (بنتابوليس).',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'hist_cyr_01',
@@ -55,7 +55,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['البردي', 'السيلفيوم', 'اللبان', 'الزعفران'],
     correctIndex: 1,
     funFact: 'كان السيلفيوم نباتاً طبياً نادراً لا ينبت إلا في قورينائية، وقد انقرض في العصور القديمة بسبب الإفراط في جمعه.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'موسوعة ويكيبيديا العربية (مادة: سلفيوم)',
   },
   {
@@ -67,7 +67,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['وادي الشاطئ', 'وادي الآجال', 'وادي الكوف', 'وادي زمزم'],
     correctIndex: 2,
     funFact: 'وادي الكوف من أهم المحميات الطبيعية في ليبيا، وتغطيه غابات العرعر والبلوط، وكان ملاذاً لمجاهدي الجبل الأخضر.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'hist_ghad_01',
@@ -78,7 +78,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['عين زبيدة', 'عين الفرس', 'عين أم الماء', 'عين تاورغاء'],
     correctIndex: 1,
     funFact: 'عين الفرس شريان حياة غدامس منذ آلاف السنين، وكانت حصص مياهها تُقاس بنظام زمني دقيق يوزع الماء على البساتين.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'موسوعة ويكيبيديا العربية (مادة: غدامس)',
   },
   {
@@ -90,7 +90,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['زويلة', 'جرما', 'مرزق', 'أوباري'],
     correctIndex: 1,
     funFact: 'أقام الجرمنت مملكة صحراوية متقدمة اعتمدت على نظام ري جوفي يسمى "الفقارات"، وسيطرت على طرق قوافل الصحراء الكبرى.',
-    rewardDinars: 45,
+    rewardDinars: 35,
     source: 'موسوعة ويكيبيديا العربية (مادة: جرمنت)',
   },
   {
@@ -102,7 +102,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['بحيرة الطيور', 'بحيرة أم الماء', 'بحيرة المنظرة', 'بحيرة قبرعون'],
     correctIndex: 3,
     funFact: 'بحيرة قبرعون شديدة الملوحة حتى إن السابح يطفو فوقها كما في البحر الميت، وتحيط بها كثبان رمال أوباري الذهبية.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'hist_ght_01',
@@ -113,7 +113,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['جبل نفوسة', 'جبال تيبستي', 'جبال تدرارت أكاكوس', 'الجبل الأخضر'],
     correctIndex: 2,
     funFact: 'نقوش أكاكوس مسجلة في التراث العالمي، وتصور الفيلة والزرافات والرعاة في زمن كانت فيه الصحراء مروجاً وأنهاراً.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'cult_ght_01',
@@ -124,7 +124,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['غات', 'أوباري', 'مرزق', 'الجغبوب'],
     correctIndex: 0,
     funFact: 'يجمع مهرجان غات سباقات الهجن والرقصات التراثية والصناعات الجلدية والفضية لأهل الصحراء والطوارق.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'geo_kuf_01',
@@ -135,7 +135,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['الدوائر الزراعية المحورية', 'المصاطب الجبلية', 'الحقول المغمورة بالمياه', 'البيوت الزجاجية'],
     correctIndex: 0,
     funFact: 'مكّن الحوض الجوفي الهائل تحت الكفرة من إقامة دوائر ري محورية عملاقة تبدو كنقاط خضراء وسط الصحراء من الفضاء.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'hist_mis_01',
@@ -146,7 +146,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['رأس زروق', 'رأس أجدير', 'رأس التين', 'رأس الهلال'],
     correctIndex: 0,
     funFact: 'منارة رأس زروق قرب ميناء قصر أحمد شرق مصراتة، وقد أُنشئت سنة 1881م، ويُعرف الرأس أيضاً باسم رأس مصراتة.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'دليل منارات العالم — The Lighthouse Directory (جامعة نورث كارولينا)، قسم ليبيا',
   },
   {
@@ -158,7 +158,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['غريان', 'يفرن', 'نالوت', 'كاباو'],
     correctIndex: 2,
     funFact: 'قصر نالوت تحفة في العمارة التخزينية والدفاعية، بُني بالحجر والجبس ويضم أكثر من 400 غرفة موزعة على طوابق دائرية.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'hist_der_01',
@@ -169,7 +169,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['درنة', 'بنغازي', 'طرابلس', 'سرت'],
     correctIndex: 0,
     funFact: 'معركة درنة 1805 كانت أول معركة برية تخوضها الولايات المتحدة خارج أراضيها، وجاءت ضمن حروبها مع إيالة طرابلس.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'موسوعة ويكيبيديا العربية (مادة: معركة درنة (1805))',
   },
   {
@@ -181,7 +181,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['جامع الزيتونة', 'جامع القيروان', 'مسجد العتيق', 'مسجد كتشاوة'],
     correctIndex: 2,
     funFact: 'يتميز مسجد العتيق بأوجلة بقبابه المخروطية الطينية التي تلطف الحرارة، وهو من أقدم مساجد الصحراء الليبية وأكثرها تميزاً في طرازه.',
-    rewardDinars: 45,
+    rewardDinars: 35,
     source: 'بوابة الوسط الإخبارية',
   },
   {
@@ -192,7 +192,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['فارس برقة', 'صقر قريش', 'سيف الدولة', 'أسد الصحراء'],
     correctIndex: 3,
     funFact: 'قاد عمر المختار المقاومة الليبية ضد الاستعمار الإيطالي أكثر من عشرين عاماً، حتى أُسر وأُعدم شنقاً في سلوق سنة 1931م.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'hist_qardabiya_01',
@@ -203,7 +203,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['معركة الهاني', 'معركة عين زارة', 'معركة الكوز', 'معركة القرضابية'],
     correctIndex: 3,
     funFact: 'جمعت معركة القرضابية مجاهدين من طرابلس وبرقة وفزان، وأسفرت عن هزيمة ثقيلة للقوات الإيطالية وغنائم كبيرة.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'موسوعة ويكيبيديا العربية (مادة: معركة القرضابية)',
   },
   {
@@ -215,7 +215,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['السرايا الحمراء', 'برج الساعة', 'قلعة سبها', 'قصر القشلة'],
     correctIndex: 0,
     funFact: 'بُنيت السرايا الحمراء على أنقاض حصون أقدم، وكانت مقراً لحكام طرابلس في العهدين العثماني والقرمانلي، وتضم اليوم متاحف أثرية.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'hist_ottoman_01',
@@ -225,7 +225,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['الأسرة الحفصية', 'الأسرة السنوسية', 'الأسرة القرمانلية', 'الأسرة الزيرية'],
     correctIndex: 2,
     funFact: 'أسس أحمد القرمانلي حكم أسرته في طرابلس سنة 1711م، واستمرت أكثر من قرن قبل عودة الحكم العثماني المباشر سنة 1835م.',
-    rewardDinars: 45,
+    rewardDinars: 35,
     source: 'موسوعة ويكيبيديا العربية (مادة: إيالة طرابلس الغرب)',
   },
   {
@@ -236,7 +236,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['ثلاثة مواقع', 'تسعة مواقع', 'سبعة مواقع', 'خمسة مواقع'],
     correctIndex: 3,
     funFact: 'المواقع الليبية الخمسة هي: لبدة الكبرى، صبراتة، قورينا (شحات)، مدينة غدامس القديمة، وجبال تدرارت أكاكوس.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا العربية (مقالة: قائمة مواقع التراث العالمي في الدول العربية)',
   },
   {
@@ -247,7 +247,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['1943', '1962', '1956', '1951'],
     correctIndex: 3,
     funFact: 'أُعلن استقلال ليبيا في 24 ديسمبر 1951، لتكون أول دولة تنال استقلالها عبر الأمم المتحدة.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'hist_ajd_01',
@@ -258,7 +258,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['الفاطمية', 'العباسية', 'الأموية', 'العثمانية'],
     correctIndex: 0,
     funFact: 'قصر أجدابيا ومسجدها من أبرز الآثار الفاطمية في ليبيا، وتشهد على أهمية المدينة كمحطة على طريق القوافل.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'ويكيبيديا العربية (مقالة: أجدابيا)',
   },
   {
@@ -270,7 +270,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['الحرب العالمية الثانية', 'الحرب العالمية الأولى', 'حرب القرم', 'الحرب الباردة'],
     correctIndex: 0,
     funFact: 'شهدت طبرق حصاراً ومعارك طاحنة في الحرب العالمية الثانية، وتضم مقابر عسكرية لجنود من دول عدة.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'hist_lep_03',
@@ -281,7 +281,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['حمامات كركلا', 'حمامات تراجان', 'حمامات دقلديانوس', 'حمامات هادريان'],
     correctIndex: 3,
     funFact: 'حمامات هادريان في لبدة من أضخم المنشآت الحمّامية الرومانية في أفريقيا، وتضم قاعات ساخنة وباردة ومسابح رخامية.',
-    rewardDinars: 45,
+    rewardDinars: 35,
     source: 'ويكيبيديا العربية (مقالة: لبدة الكبرى)',
   },
   {
@@ -292,7 +292,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['1881', '1911', '1922', '1935'],
     correctIndex: 1,
     funFact: 'أعلنت إيطاليا الحرب على الدولة العثمانية في سبتمبر 1911 وأنزلت قواتها على السواحل الليبية، فبدأت مقاومة استمرت عقوداً.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'hist_king_01',
@@ -302,7 +302,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['أحمد الشريف السنوسي', 'محمد المهدي السنوسي', 'إدريس السنوسي', 'حسن الرضا السنوسي'],
     correctIndex: 2,
     funFact: 'تولى الملك إدريس السنوسي عرش المملكة الليبية المتحدة عند إعلان الاستقلال سنة 1951.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'hist_senussi_01',
@@ -313,7 +313,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['أحمد الشريف السنوسي', 'إدريس السنوسي', 'محمد بن علي السنوسي', 'عمر المختار'],
     correctIndex: 2,
     funFact: 'أسس محمد بن علي السنوسي الحركة في القرن التاسع عشر، وانتشرت زواياها التعليمية عبر الصحراء من برقة إلى وسط أفريقيا.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'hist_mukhtar_year_01',
@@ -323,7 +323,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['1921', '1927', '1940', '1931'],
     correctIndex: 3,
     funFact: 'أُسر عمر المختار وهو في السبعينيات من عمره وأُعدم شنقاً أمام حشد من الليبيين في سلوق سنة 1931م.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'hist_vandals_01',
@@ -333,7 +333,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['القوط', 'الهون', 'الوندال', 'الفرنجة'],
     correctIndex: 2,
     funFact: 'اجتاح الوندال المدن الرومانية على الساحل الليبي، وأسهم غزوهم في تراجع مدن مثل لبدة وصبراتة قبل العهد البيزنطي.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'ويكيبيديا العربية (مقالة: وندال)',
   },
   {
@@ -344,7 +344,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['الدولة الرومانية الغربية', 'الدولة البيزنطية', 'مملكة الوندال', 'الدولة الساسانية'],
     correctIndex: 1,
     funFact: 'استعاد البيزنطيون المدن الليبية من الوندال في القرن السادس الميلادي، وبقيت تحت حكمهم حتى الفتح الإسلامي سنة 22 هجرية.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا العربية (مقالة: تاريخ ليبيا)',
   },
   {
@@ -356,7 +356,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['قوس سيبتيموس سيفيروس', 'قوس ماركوس أوريليوس', 'قوس تيتوس', 'قوس قسطنطين'],
     correctIndex: 1,
     funFact: 'شُيّد قوس ماركوس أوريليوس في القرن الثاني الميلادي، وهو أبرز ما تبقى من مدينة أويا الرومانية داخل طرابلس القديمة.',
-    rewardDinars: 45,
+    rewardDinars: 35,
     source: 'ويكيبيديا العربية (مقالة: قوس ماركوس أوريليوس)',
   },
   {
@@ -367,7 +367,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['فرنسا', 'إيطاليا', 'بريطانيا', 'إسبانيا'],
     correctIndex: 1,
     funFact: 'امتد الاستعمار الإيطالي من 1911 حتى هزيمة إيطاليا في الحرب العالمية الثانية سنة 1943.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'hist_42',
@@ -377,7 +377,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['طرابلس', 'سبها', 'بنغازي', 'البيضاء'],
     correctIndex: 2,
     funFact: 'أعلن الملك إدريس السنوسي الاستقلال من قصر المنار ببنغازي في 24 ديسمبر 1951.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'hist_43',
@@ -387,7 +387,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['معاهدة سيفر', 'معاهدة أوشي', 'معاهدة سايكس بيكو', 'معاهدة فرساي'],
     correctIndex: 1,
     funFact: 'وُقّعت معاهدة أوشي قرب لوزان السويسرية، فانسحبت الدولة العثمانية وبقي الليبيون يقاومون وحدهم عقوداً.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'hist_44',
@@ -397,7 +397,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['إمارة برقة', 'الجمهورية الطرابلسية', 'دولة فزان', 'اتحاد الجبل'],
     correctIndex: 1,
     funFact: 'تُعد الجمهورية الطرابلسية من أوائل الجمهوريات المعلنة في العالم العربي، وكان رمضان السويحلي من أبرز قادتها.',
-    rewardDinars: 35,
+    rewardDinars: 20,
   },
   {
     id: 'hist_45',
@@ -407,7 +407,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['بنو هلال وبنو سليم', 'قريش وثقيف', 'الأوس والخزرج', 'طيء وشيبان'],
     correctIndex: 0,
     funFact: 'أسهمت هجرة بني هلال وبني سليم في تعريب البادية الليبية على نطاق واسع، وما زالت أنساب كثيرة تُنسب إليهما.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'hist_46',
@@ -417,7 +417,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['معتقل الجغبوب', 'معتقل الكفرة', 'معتقل العقيلة', 'معتقل طبرق'],
     correctIndex: 2,
     funFact: 'سيق إلى معتقل العقيلة آلاف من أهالي برقة ضمن سياسة عزل المجاهدين عن حاضنتهم، وهلك فيه خلق كثير.',
-    rewardDinars: 45,
+    rewardDinars: 35,
   },
   {
     id: 'hist_47',
@@ -427,7 +427,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['طريق القوافل', 'الطريق السلطاني', 'درب الأربعين', 'الليتورانيا'],
     correctIndex: 3,
     funFact: 'امتدت الليتورانيا نحو 1,800 كم على طول الساحل، وما زال الطريق الساحلي الحالي يتبع مسارها في معظمه.',
-    rewardDinars: 50,
+    rewardDinars: 60,
   },
   {
     id: 'hist_48',
@@ -437,7 +437,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['رودولفو غراتسياني', 'إيتالو بالبو', 'بيترو بادوليو', 'جوزيبي فولبي'],
     correctIndex: 0,
     funFact: 'اقترن اسم غراتسياني بأقسى مراحل الاستعمار الإيطالي، من المعتقلات إلى الأسلاك الشائكة على الحدود المصرية.',
-    rewardDinars: 50,
+    rewardDinars: 60,
   },
   // ── مدن أضيفت إلى الخريطة ────────────────────────────────────────────────
   {
@@ -449,7 +449,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['أحمد زروق', 'عبد السلام الأسمر', 'عمران بن بركة', 'عبد الله بن ياسين'],
     correctIndex: 1,
     funFact: 'قصده الدارسون من أنحاء المغرب قروناً، وما زال موسمه السنوي يُقام في زليتن إلى اليوم.',
-    rewardDinars: 35,
+    rewardDinars: 20,
     source: 'ويكيبيديا العربية (مقال: عبد السلام الأسمر) — زاوية زليتن',
   },
   {
@@ -461,7 +461,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['حسان بن النعمان', 'موسى بن نصير', 'عقبة بن نافع', 'زهير بن قيس'],
     correctIndex: 2,
     funFact: 'كان الوصول إلى تلك الواحة فتح الطريق نحو الجنوب، فربط دروب القوافل بما وراء الصحراء.',
-    rewardDinars: 45,
+    rewardDinars: 35,
     source: 'ابن عبد الحكم، فتوح مصر والمغرب — حملة ودان',
   },
   {
@@ -473,7 +473,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['فيضان مفاجئ', 'زلزال عنيف', 'عاصفة رملية', 'موجة جفاف'],
     correctIndex: 1,
     funFact: 'هُجر الموقع القديم بعد الكارثة وبُنيت المدينة الحديثة على بعد بضعة كيلومترات منه.',
-    rewardDinars: 40,
+    rewardDinars: 35,
     source: 'ويكيبيديا العربية (مقال: المرج) — زلزال 1963 وإعادة البناء',
   },
   // ── تعميق المدن قليلة الأسئلة ────────────────────────────────────────────
@@ -486,7 +486,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['أعمدة هرقل', 'مذابح الأخوين فيلاني', 'قوس تراجان', 'برج الرياح'],
     correctIndex: 1,
     funFact: 'تروي الحكاية أن أخوين قرطاجيين قبلا أن يُدفنا أحياء عند نقطة لقائهما بمنافسيهما، فثبت الحدّ عند مدفنهما.',
-    rewardDinars: 45,
+    rewardDinars: 35,
     source: 'ويكيبيديا العربية (مقال: مذبح الأخوين فيلاني)',
   },
   {
@@ -498,7 +498,7 @@ export const historyQuestions: TriviaQuestion[] = [
     options: ['أولاد محمد', 'القرمانليون', 'بنو خطاب', 'الأغالبة'],
     correctIndex: 0,
     funFact: 'قامت سلطتهم على ضبط دروب القوافل العابرة للصحراء، فمن يملك الطريق يملك ما يمرّ عليه.',
-    rewardDinars: 50,
+    rewardDinars: 60,
     source: 'ويكيبيديا العربية (مقال: أولاد محمد) — سلاطين فزان ومقرهم مرزق',
   },
 ];

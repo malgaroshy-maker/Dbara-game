@@ -94,9 +94,12 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
     if (isCorrect) {
       sfx.playCorrect();
       // Calculate stars based on speed
+      // Three stars means answering quickly, not merely answering. The old
+      // thresholds handed three stars to anyone who replied within ten seconds
+      // of a twenty-five second timer, which was almost everyone.
       let stars = 1;
-      if (timeLeft >= 15) stars = 3;
-      else if (timeLeft >= 8) stars = 2;
+      if (timeLeft >= 19) stars = 3;
+      else if (timeLeft >= 12) stars = 2;
 
       setEarnedStars(stars);
       addDinars(stage.rewardDinars);
@@ -113,7 +116,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
       setEarnedStars(0);
     }
 
-    onResolved?.({ isCorrect, stars: isCorrect ? (timeLeft >= 15 ? 3 : timeLeft >= 8 ? 2 : 1) : 0 });
+    onResolved?.({ isCorrect, stars: isCorrect ? (timeLeft >= 19 ? 3 : timeLeft >= 12 ? 2 : 1) : 0 });
     setShowFactModal(true);
   };
 
@@ -123,7 +126,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
     if (profile.lifelines.fiftyFifty > 0) {
       useLifeline('fiftyFifty');
     } else {
-      if (!spendDinars(20)) return;
+      if (!spendDinars(60)) return;
     }
 
     // Eliminate 2 wrong answers from visual shuffled array
@@ -142,7 +145,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
     if (profile.lifelines.extraTime > 0) {
       useLifeline('extraTime');
     } else {
-      if (!spendDinars(25)) return;
+      if (!spendDinars(80)) return;
     }
     addTime(15);
     sfx.playTap();
@@ -153,7 +156,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
     if (profile.lifelines.skip > 0) {
       useLifeline('skip');
     } else {
-      if (!spendDinars(40)) return;
+      if (!spendDinars(120)) return;
     }
 
     // A skip clears the stage but only at one star, and never counts as an

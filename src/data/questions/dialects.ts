@@ -10,7 +10,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['الجو بارد جداً', 'الجو حار جداً', 'الجو ممطر', 'الجو مغبر'],
     correctIndex: 0,
     funFact: '"صقع" مأخوذة من الصقيع، وتُقال عند اشتداد البرد في الشتاء الليبي وخاصة في الجبل والمناطق الداخلية.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'dia_02',
@@ -20,7 +20,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['كثير جداً', 'سريع', 'قليل ونادر', 'متأخر'],
     correctIndex: 0,
     funFact: '"هلبة" من أكثر الكلمات استخداماً في ليبيا، وتعني الكثير أو الوفير، وتُستعمل للمدح والتعجب.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'dia_13',
@@ -30,7 +30,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['أمس', 'غداً', 'الآن', 'ربما'],
     correctIndex: 2,
     funFact: '"توّا" تعني الآن أو حالاً، وتُستخدم كذلك بمعنى "بعد قليل" حسب سياق الجملة.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'dia_14',
@@ -40,7 +40,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['متعب', 'غالي الثمن', 'حسناً وجيد', 'بعيد'],
     correctIndex: 2,
     funFact: '"باهي" من أكثر كلمات الموافقة شيوعاً في ليبيا، وتقابل "حسناً" أو "تمام" في بقية اللهجات العربية.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'dia_15',
@@ -50,7 +50,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['أرغب', 'أعرف', 'أتذكر', 'أستطيع'],
     correctIndex: 3,
     funFact: '"نجّم" تعني استطاع وقدر، و"ما نجّمش" أي لا أستطيع، وهي شائعة في ليبيا وتونس.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'dia_03',
@@ -60,7 +60,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['يخسرك', 'يجهلك', 'يعذرك', 'يسألك'],
     correctIndex: 1,
     funFact: 'مثل شائع يعني أن من لا يعرف قدرك الحقيقي قد يسيء تقديرك، فلا تحمل همّ جهله بك.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'dia_05',
@@ -70,7 +70,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['كثير النوم', 'سريع الغضب', 'شاطر وماهر ومجتهد', 'كثير السفر'],
     correctIndex: 2,
     funFact: '"فالح" في اللهجة الليبية والمغاربية تدل على النجابة والمهارة والهمة في العمل.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'dia_06',
@@ -80,7 +80,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['حركة سريعة', 'كلام وحديث', 'ضجة وصياح', 'مصاريف كثيرة'],
     correctIndex: 1,
     funFact: '"الدوة" هي الحديث، ويقال "يدوي" أي يتكلم، و"دوّاي" للشخص كثير الكلام.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'dia_08',
@@ -90,7 +90,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['جميل وحسن', 'قبيح', 'طويل القامة', 'قديم بالٍ'],
     correctIndex: 0,
     funFact: '"سمح" من السماحة وحسن الهيئة، وتكثر في برقة وفزان، ويقابلها "زوين" في مناطق أخرى.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'dia_09',
@@ -100,7 +100,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['ابتعد', 'نزل', 'وقع', 'ضاع'],
     correctIndex: 2,
     funFact: 'حكمة عربية متداولة تدعو للتواضع وتحذر من الغرور مهما علا شأن الإنسان.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'dia_10',
@@ -110,7 +110,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['انتبه واحذر', 'أسرع في المشي', 'اذهب للنوم', 'تكلم بصوت عالٍ'],
     correctIndex: 0,
     funFact: '"دير بالك" أي انتبه وركّز، وغالباً ما تُسبق بنداء التحبب "يا ودي".',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'dia_11',
@@ -120,7 +120,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['قصّ شواربه', 'أطعمه عسل', 'علمه الصبر', 'افتّله حبل'],
     correctIndex: 3,
     funFact: 'يُضرب لمن يقضي حاجة شخص أو يجامله باستخدام مال ذلك الشخص وموارده دون أن يتكلف هو شيئاً.',
-    rewardDinars: 50,
+    rewardDinars: 60,
   },
   {
     id: 'dia_12',
@@ -130,7 +130,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['ما هو الطقس غداً؟', 'كيف الحال والأخبار؟', 'هل أنت مسافر؟', 'كم الساعة الآن؟'],
     correctIndex: 1,
     funFact: '"شن الجو" أشهر تحية شبابية ليبية، وهي سؤال عن الأحوال والأخبار لا عن الطقس.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'dia_16',
@@ -140,7 +140,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['الدراجة', 'السيارة', 'الحقيبة', 'النافذة'],
     correctIndex: 1,
     funFact: '"كرهبة" من أشهر الكلمات الليبية، ويرى كثيرون أنها مرتبطة بلفظ "الكهرباء" في أصل تسميتها.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'dia_17',
@@ -150,7 +150,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['السوق', 'المدرسة', 'الحديقة العامة', 'البيت والدار'],
     correctIndex: 3,
     funFact: '"الحوش" في ليبيا هو البيت كله لا فناؤه فقط، ومنها "حوش العايلة" أي بيت الأسرة.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'dia_18',
@@ -160,7 +160,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['ماذا', 'أين', 'متى', 'كيف'],
     correctIndex: 0,
     funFact: '"شنو" أداة استفهام بمعنى "ماذا"، ومنها "شن" و"شنهو" في مناطق مختلفة من ليبيا.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'dia_19',
@@ -170,7 +170,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['لماذا', 'كم', 'من', 'أين'],
     correctIndex: 1,
     funFact: '"قداش" أداة استفهام عن الكم أو السعر، ومنها السؤال الشهير في السوق: "قداش هذا؟"',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'dia_20',
@@ -180,7 +180,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['وقت الفجر', 'فترة ما بعد الظهر والمساء', 'منتصف الليل', 'وقت الظهيرة'],
     correctIndex: 1,
     funFact: '"العشية" هي فترة ما بعد الظهر حتى المغرب، وهي وقت الزيارات وجلسات الشاي في العرف الليبي.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'dia_21',
@@ -190,7 +190,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['تبني دار', 'تحمل حملين', 'تصفق', 'تكتب'],
     correctIndex: 2,
     funFact: 'مثل يحث على التعاون والعمل الجماعي، فالفرد وحده لا ينجز ما ينجزه المجتمع المتكاتف.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'dia_22',
@@ -200,7 +200,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['يا ترى / هل', 'بالتأكيد', 'أبداً', 'ربما لاحقاً'],
     correctIndex: 0,
     funFact: '"زعمة" أداة استفهام وتعجب بمعنى "يا ترى"، وتُستخدم للاستفسار والتشكيك في آن واحد.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'dia_23',
@@ -210,7 +210,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['القط', 'الكلب', 'العصفور', 'الفأر'],
     correctIndex: 0,
     funFact: '"قطّوس" للذكر و"قطّوسة" للأنثى، وهي من المفردات المشتركة بين ليبيا وبلدان المغرب العربي.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'dia_24',
@@ -220,7 +220,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['ادخل', 'اخرج أو في الخارج', 'اجلس', 'انتظر'],
     correctIndex: 1,
     funFact: '"برّا" تعني الخارج، ويقابلها "لداخل"، ومنها قولهم "قاعد برّا" أي جالس في الخارج.',
-    rewardDinars: 25,
+    rewardDinars: 10,
   },
   {
     id: 'dia_25',
@@ -230,7 +230,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['أين أنت؟', 'متى وصلت؟', 'ما بك؟ ماذا أصابك؟', 'كم عمرك؟'],
     correctIndex: 2,
     funFact: '"شبيك" اختصار لـ "ما شا بك"، وتُقال للاطمئنان على من بدا عليه تغيّر أو انزعاج.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'dia_26',
@@ -240,7 +240,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['كيف', 'متى', 'أين', 'لماذا'],
     correctIndex: 3,
     funFact: '"علاش" مركبة من "على" و"أش"، ومثلها "كيفاش" بمعنى كيف، و"قداش" بمعنى كم.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'dia_27',
@@ -250,7 +250,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['أين', 'لماذا', 'كيف', 'ماذا'],
     correctIndex: 0,
     funFact: '"وين" أداة استفهام عن المكان، ومنها السؤال اليومي "وين رايح؟" أي إلى أين تذهب.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'dia_28',
@@ -260,7 +260,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['بارد', 'لذيذ الطعم', 'كثير الملح', 'غالي الثمن'],
     correctIndex: 1,
     funFact: '"بنّين" من "البنّة" أي الطعم الطيب، ويقال "بنّتها حلوة" للأكلة المتقنة.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'dia_29',
@@ -270,7 +270,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['الضحك', 'الغضب', 'العجلة والاستعجال', 'التعب'],
     correctIndex: 2,
     funFact: '"زربة" أي عجلة، ويقال "لا تزرب" أي لا تتعجل، و"مزروب" للمستعجل.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'dia_30',
@@ -280,7 +280,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['هناك', 'أمس', 'غداً', 'هنا'],
     correctIndex: 3,
     funFact: '"هني" للمكان القريب و"غادي" للبعيد، ومنها "تعال هني" أي تعال إلى هنا.',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'dia_31',
@@ -290,7 +290,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['بعد ذلك أو لاحقاً', 'قبل قليل', 'دائماً', 'أبداً'],
     correctIndex: 0,
     funFact: '"امبعد" ظرف زمان يعني ما يأتي لاحقاً، وتُستعمل أيضاً للاستفهام بمعنى "وماذا بعد؟"',
-    rewardDinars: 30,
+    rewardDinars: 20,
   },
   {
     id: 'dia_32',
@@ -300,7 +300,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['الملعقة', 'القارورة أو الزجاجة', 'الطاولة', 'المفتاح'],
     correctIndex: 1,
     funFact: '"الدبّوزة" هي القارورة، ويرجّح أنها دخيلة على اللهجة من الإيطالية، شأنها شأن مفردات ساحلية أخرى.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'dia_33',
@@ -310,7 +310,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['الشبكة', 'المجداف', 'القارب الصغير', 'المرساة'],
     correctIndex: 2,
     funFact: 'الفلوكة قارب خشبي صغير يستعمله الصيادون قرب الشاطئ، وتكثر في موانئ زوارة ومصراتة وطبرق.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'dia_34',
@@ -320,7 +320,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['الساحة الواسعة', 'السوق', 'البوابة', 'الشارع الضيق'],
     correctIndex: 3,
     funFact: '"الزنقة" ممر ضيق بين البيوت، وتكثر في نسيج المدن القديمة كالمدينة القديمة بطرابلس.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'dia_35',
@@ -330,7 +330,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['المكنسة', 'المرآة', 'السلّم', 'الوسادة'],
     correctIndex: 0,
     funFact: '"المقشّة" من القش الذي كانت تُصنع منه قديماً، ومنها الفعل "قشّ" أي كنس.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'dia_36',
@@ -340,7 +340,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['خزانة الملابس', 'موقد الفحم', 'باب الدار', 'سطح المنزل'],
     correctIndex: 1,
     funFact: 'على الكانون يُغلى الشاي ويُشوى الخبز في ليالي الشتاء، وحوله تلتئم جلسة العائلة.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'dia_37',
@@ -350,7 +350,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['الحبل', 'السكين', 'الكيس الكبير', 'العصا'],
     correctIndex: 2,
     funFact: '"الشكارة" كيس كبير من الخيش أو البلاستيك يُعبأ فيه الدقيق أو الحبوب أو التمر.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'dia_38',
@@ -360,7 +360,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['البئر', 'الطاحونة', 'المخزن', 'حظيرة الماشية'],
     correctIndex: 3,
     funFact: 'الزريبة سياج من الشوك أو الخشب يُحاط به الغنم والماعز ليلاً حمايةً لها.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'dia_39',
@@ -370,7 +370,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['الصحن الكبير', 'الكوب', 'الشوكة', 'الإبريق'],
     correctIndex: 0,
     funFact: 'يُقدَّم البازين والفتات في طبسي كبير يجتمع حوله الآكلون، وهي عادة راسخة في الضيافة الليبية.',
-    rewardDinars: 40,
+    rewardDinars: 35,
   },
   {
     id: 'dia_40',
@@ -380,7 +380,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['الحوت العملاق', 'السمك عموماً', 'الطُّعم', 'قارب الصيد'],
     correctIndex: 1,
     funFact: 'خلافاً للفصحى، يعني "الحوت" في ليبيا والمغرب العربي السمك بأنواعه، ومنه "حوت مشوي".',
-    rewardDinars: 50,
+    rewardDinars: 60,
   },
   {
     id: 'dia_41',
@@ -390,7 +390,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['أحياناً', 'نادراً', 'دائماً', 'غداً'],
     correctIndex: 2,
     funFact: '"ديمة" من الدوام، ويقال "ديمة كذا" أي هذا حاله على الدوام.',
-    rewardDinars: 50,
+    rewardDinars: 60,
   },
   {
     id: 'dia_42',
@@ -400,6 +400,6 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['لوح تقطيع الخضار', 'مغرفة خشبية', 'إبريق الشاي', 'إناء مثقوب لطهي الكسكسي بالبخار'],
     correctIndex: 3,
     funFact: 'يوضع الكسكاس فوق قدر المرق فيصعد البخار من ثقوبه لينضج الكسكسي دون أن يلامس الماء.',
-    rewardDinars: 50,
+    rewardDinars: 60,
   },
 ];

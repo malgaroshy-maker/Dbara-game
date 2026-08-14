@@ -2,18 +2,37 @@ import React, { useState } from 'react';
 import { badgesList } from '../../data/badges';
 import { useGameStore } from '../../store/useGameStore';
 import { LeaderboardTab } from './LeaderboardTab';
-import { Trophy, ShoppingBag, CheckCircle2, Coins, HelpCircle, PlusCircle, FastForward, Lightbulb, Shield } from 'lucide-react';
+import { useMapStore } from '../../store/useMapStore';
+import { AVATARS, TITLES, cityUnlockCost } from '../../data/cosmetics';
+import { Trophy, ShoppingBag, CheckCircle2, Coins, HelpCircle, PlusCircle, FastForward, Lightbulb, Shield, Lock, MapPin } from 'lucide-react';
 
 export const BadgesScreen: React.FC = () => {
-  const { profile, unlockedBadges, buyLifeline } = useGameStore();
+  const {
+    profile,
+    unlockedBadges,
+    buyLifeline,
+    ownedAvatars,
+    ownedTitles,
+    customTitle,
+    buyAvatar,
+    equipAvatar,
+    buyTitle,
+    equipTitle,
+  } = useGameStore();
+  const { cities, purchaseCityUnlock } = useMapStore();
   const [tab, setTab] = useState<'badges' | 'shop' | 'leaderboard'>('badges');
+
+  /** Cities still shut, cheapest first, so the next step is the obvious one. */
+  const lockedCities = cities
+    .filter((c) => !c.unlockedByDefault && !c.stages.some((s) => s.isUnlocked))
+    .sort((a, b) => a.requiredStarsToUnlock - b.requiredStarsToUnlock);
 
   const shopItems = [
     {
       id: 'fiftyFifty',
       title: 'حذف إجابتين (50:50)',
       description: 'استبعاد خيارين خاطئين في أسئلة الاختيار من متعدد',
-      cost: 20,
+      cost: 60,
       icon: <HelpCircle className="w-6 h-6 text-gold-300" />,
       current: profile.lifelines.fiftyFifty,
     },
@@ -21,7 +40,7 @@ export const BadgesScreen: React.FC = () => {
       id: 'revealLetter',
       title: 'كشف حرف',
       description: 'كشف حرف في شبكة الكلمات المتقاطعة أو ألغاز الحروف',
-      cost: 15,
+      cost: 45,
       icon: <Lightbulb className="w-6 h-6 text-sea-300" />,
       current: profile.lifelines.revealLetter,
     },
@@ -29,7 +48,7 @@ export const BadgesScreen: React.FC = () => {
       id: 'skip',
       title: 'تخطي السؤال',
       description: 'تجاوز السؤال الصعب واجتياز المرحلة بنجمة واحدة',
-      cost: 40,
+      cost: 120,
       icon: <FastForward className="w-6 h-6 text-oasis-500" />,
       current: profile.lifelines.skip,
     },
@@ -37,7 +56,7 @@ export const BadgesScreen: React.FC = () => {
       id: 'extraTime',
       title: 'وقت إضافي (+15 ثانية)',
       description: 'إضافة 15 ثانية لعداد الوقت في الجولات الصعبة',
-      cost: 25,
+      cost: 80,
       icon: <PlusCircle className="w-6 h-6 text-rose" />,
       current: profile.lifelines.extraTime,
     },
@@ -186,6 +205,116 @@ export const BadgesScreen: React.FC = () => {
               </button>
             </div>
           ))}
+
+          {/* Avatars: pure decoration, so they can cost what they like without
+              touching the difficulty of anything. */}
+          <h3 className="text-sm font-extrabold text-white pt-3 flex items-center gap-1.5">
+            <ShoppingBag className="w-4 h-4 text-gold-400" />
+            رموز اللاعب
+          </h3>
+          <div className="grid grid-cols-4 gap-2">
+            {AVATARS.map((item) => {
+              const owned = ownedAvatars.includes(item.value);
+              const worn = profile.avatar === item.value;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => (owned ? equipAvatar(item.value) : buyAvatar(item.value, item.cost))}
+                  disabled={!owned && profile.dinars < item.cost}
+                  title={item.label}
+                  className={`p-2 rounded-2xl border flex flex-col items-center gap-1 transition-all active:scale-95 disabled:opacity-35 ${
+                    worn
+                      ? 'bg-gold-400/20 border-gold-400 shadow-gold-glow-sm'
+                      : 'bg-night-800 border-white/10 hover:border-gold-400/50'
+                  }`}
+                >
+                  <span className="text-2xl">{item.value}</span>
+                  <span className="text-[9px] font-bold text-ink-400 truncate w-full">
+                    {worn ? 'مُرتدى' : owned ? 'ارتدِ' : `${item.cost} د.ل`}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Titles override the earned rank, so the player can always go back. */}
+          <h3 className="text-sm font-extrabold text-white pt-3 flex items-center gap-1.5">
+            <Shield className="w-4 h-4 text-sea-300" />
+            الألقاب
+          </h3>
+          <div className="space-y-2">
+            {customTitle && (
+              <button
+                onClick={() => equipTitle(null)}
+                className="w-full py-2 rounded-xl bg-night-800 border border-white/10 text-[11px] font-bold text-ink-400 hover:text-white"
+              >
+                العودة إلى لقب رتبتك المكتسبة
+              </button>
+            )}
+            {TITLES.map((item) => {
+              const owned = ownedTitles.includes(item.value);
+              const worn = customTitle === item.value;
+              return (
+                <div
+                  key={item.id}
+                  className="glass-card-interactive p-3 rounded-2xl flex items-center justify-between gap-3"
+                >
+                  <span className="text-sm font-extrabold text-white">{item.label}</span>
+                  <button
+                    onClick={() => (owned ? equipTitle(item.value) : buyTitle(item.value, item.cost))}
+                    disabled={worn || (!owned && profile.dinars < item.cost)}
+                    className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-sea-500 to-sea-300 text-night-900 font-black text-[11px] disabled:opacity-40 active:scale-95 transition-transform"
+                  >
+                    {worn ? 'مُرتدى' : owned ? 'ارتدِ' : `${item.cost} د.ل`}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Buying a city opens its first stage only, exactly as the stars would. */}
+          {lockedCities.length > 0 && (
+            <>
+              <h3 className="text-sm font-extrabold text-white pt-3 flex items-center gap-1.5">
+                <MapPin className="w-4 h-4 text-oasis-500" />
+                افتح مدينة قبل أوانها
+              </h3>
+              <div className="space-y-2">
+                {lockedCities.slice(0, 4).map((city) => {
+                  const cost = cityUnlockCost(city.requiredStarsToUnlock);
+                  return (
+                    <div
+                      key={city.id}
+                      className="glass-card-interactive p-3 rounded-2xl flex items-center justify-between gap-3"
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <span className="text-xl shrink-0">{city.icon}</span>
+                        <div className="min-w-0">
+                          <h4 className="text-sm font-extrabold text-white truncate">
+                            {city.arabicName}
+                          </h4>
+                          <p className="text-[10px] text-ink-400 flex items-center gap-1">
+                            <Lock className="w-2.5 h-2.5" />
+                            تحتاج {city.requiredStarsToUnlock} نجمة
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => {
+                          if (profile.dinars < cost) return;
+                          if (purchaseCityUnlock(city.id)) useGameStore.getState().spendDinars(cost);
+                        }}
+                        disabled={profile.dinars < cost}
+                        className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-oasis-500 to-oasis-600 text-white font-black text-[11px] shrink-0 disabled:opacity-40 active:scale-95 transition-transform"
+                      >
+                        {cost} د.ل
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>
