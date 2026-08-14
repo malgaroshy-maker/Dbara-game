@@ -16,33 +16,15 @@ import { miniCrosswords } from './data/puzzles/crosswords';
 // The map is the landing screen and stays in the entry chunk. Everything else
 // is split out so first paint doesn't pay for the crossword keyboard, the
 // duel screen, or the share-card canvas.
-const CategoryHub = lazy(() =>
-  import('./features/quickplay/CategoryHub').then((m) => ({ default: m.CategoryHub }))
-);
-const DailyChallengeScreen = lazy(() =>
-  import('./features/daily/DailyChallengeScreen').then((m) => ({ default: m.DailyChallengeScreen }))
-);
-const BadgesScreen = lazy(() =>
-  import('./features/badges/BadgesScreen').then((m) => ({ default: m.BadgesScreen }))
-);
-const QuizScreen = lazy(() =>
-  import('./features/quiz/QuizScreen').then((m) => ({ default: m.QuizScreen }))
-);
-const LetterScramble = lazy(() =>
-  import('./features/puzzles/LetterScramble').then((m) => ({ default: m.LetterScramble }))
-);
-const MiniCrossword = lazy(() =>
-  import('./features/puzzles/MiniCrossword').then((m) => ({ default: m.MiniCrossword }))
-);
-const SpeedBlitz = lazy(() =>
-  import('./features/quiz/SpeedBlitz').then((m) => ({ default: m.SpeedBlitz }))
-);
-const MainMenuScreen = lazy(() =>
-  import('./features/menu/MainMenuScreen').then((m) => ({ default: m.MainMenuScreen }))
-);
-const OnboardingScreen = lazy(() =>
-  import('./features/menu/OnboardingScreen').then((m) => ({ default: m.OnboardingScreen }))
-);
+import { CategoryHub } from './features/quickplay/CategoryHub';
+import { DailyChallengeScreen } from './features/daily/DailyChallengeScreen';
+import { BadgesScreen } from './features/badges/BadgesScreen';
+import { QuizScreen } from './features/quiz/QuizScreen';
+import { LetterScramble } from './features/puzzles/LetterScramble';
+import { MiniCrossword } from './features/puzzles/MiniCrossword';
+import { SpeedBlitz } from './features/quiz/SpeedBlitz';
+import { MainMenuScreen } from './features/menu/MainMenuScreen';
+import { OnboardingScreen } from './features/menu/OnboardingScreen';
 
 const scramblesById = new Map(wordScramblePuzzles.map((p) => [p.id, p]));
 const crosswordsById = new Map(miniCrosswords.map((p) => [p.id, p]));
@@ -130,16 +112,14 @@ export const App: React.FC = () => {
     const openingStage = cities[0]?.stages[0];
     return (
       <div className="min-h-screen bg-night-900 text-ink-100 font-sans bg-libyan-pattern selection:bg-gold-400/30">
-        <Suspense fallback={<ScreenFallback />}>
-          <OnboardingScreen
-            onStart={(identity) => {
-              completeOnboarding(identity);
-              setIsMenuOpen(false);
-              if (openingStage) startStage(cities[0].id, openingStage);
-            }}
-            onSkip={(identity) => completeOnboarding(identity)}
-          />
-        </Suspense>
+        <OnboardingScreen
+          onStart={(identity) => {
+            completeOnboarding(identity);
+            setIsMenuOpen(false);
+            if (openingStage) startStage(cities[0].id, openingStage);
+          }}
+          onSkip={(identity) => completeOnboarding(identity)}
+        />
       </div>
     );
   }
@@ -147,15 +127,13 @@ export const App: React.FC = () => {
   if (isMenuOpen) {
     return (
       <div className="min-h-screen bg-night-900 text-ink-100 font-sans bg-libyan-pattern selection:bg-gold-400/30">
-        <Suspense fallback={<ScreenFallback />}>
-          <MainMenuScreen
-            onPlay={(mode) => {
-              setMode(mode);
-              setIsMenuOpen(false);
-            }}
-            onOpenSettings={() => setIsSettingsOpen(true)}
-          />
-        </Suspense>
+        <MainMenuScreen
+          onPlay={(mode) => {
+            setMode(mode);
+            setIsMenuOpen(false);
+          }}
+          onOpenSettings={() => setIsSettingsOpen(true)}
+        />
         <SettingsModal
           isOpen={isSettingsOpen}
           onClose={() => setIsSettingsOpen(false)}
@@ -205,7 +183,7 @@ export const App: React.FC = () => {
 
       {/* Main View Area */}
       <main className="flex-1 w-full max-w-lg mx-auto py-2">
-        <Suspense fallback={<ScreenFallback />}>{renderMainContent()}</Suspense>
+        {renderMainContent()}
       </main>
 
       {/* Floating Bottom Navigation */}
