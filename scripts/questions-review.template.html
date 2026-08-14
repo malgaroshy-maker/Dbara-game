@@ -55,6 +55,12 @@
     border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px;
   }
   .tag.kind { color: var(--accent); border-color: rgba(212,165,55,.4); }
+  .tag.flag { color: #ffb4a2; border-color: rgba(224,87,75,.5); background: rgba(224,87,75,.12); }
+  .review-note {
+    background: rgba(224,87,75,.1); border: 1px solid rgba(224,87,75,.35);
+    border-radius: 10px; padding: 9px 11px; margin-bottom: 10px; font-size: 13px;
+  }
+  .review-note strong { color: #ffb4a2; }
   .spacer { flex: 1; }
   label.field { display: block; font-size: 12px; color: var(--muted); margin: 10px 0 4px; }
   .opt { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
@@ -94,6 +100,8 @@
       <option value="edited">المعدّلة فقط</option>
       <option value="removed">المحذوفة فقط</option>
       <option value="kept">غير المعدّلة</option>
+      <option value="needsReview">تحتاج مراجعتك</option>
+      <option value="noSource">صعب/خبير بلا مصدر</option>
     </select>
   </div>
 </header>
@@ -165,6 +173,9 @@ function visible() {
     if (els.st.value === 'removed' && !s.removed) return false;
     if (els.st.value === 'edited' && !isEdited(id)) return false;
     if (els.st.value === 'kept' && (isEdited(id) || s.removed)) return false;
+    if (els.st.value === 'needsReview' && !s.data.needsReview) return false;
+    if (els.st.value === 'noSource' &&
+        !(['hard','expert'].includes(s.data.difficulty) && !s.data.source)) return false;
     if (q && !haystack(it).includes(q)) return false;
     return true;
   });
@@ -202,6 +213,9 @@ function card(it) {
   meta.append(el('span', { className: 'tag', textContent: id }));
   if (d.category) meta.append(el('span', { className: 'tag', textContent: d.category }));
   if (d.cityId) meta.append(el('span', { className: 'tag', textContent: d.cityId }));
+  if (d.needsReview) meta.append(el('span', { className: 'tag flag', textContent: '⚑ يحتاج مراجعتك' }));
+  if (['hard','expert'].includes(d.difficulty) && !d.source)
+    meta.append(el('span', { className: 'tag', textContent: 'بلا مصدر' }));
   meta.append(el('span', { className: 'spacer' }));
 
   if (d.difficulty !== undefined) {
@@ -222,6 +236,12 @@ function card(it) {
   c.append(meta);
 
   if (it.kind === 'mcq') {
+    if (d.needsReview) {
+      const note = el('div', { className: 'review-note' });
+      note.append(el('strong', { textContent: 'يحتاج مراجعتك: ' }));
+      note.append(document.createTextNode(d.needsReview));
+      c.append(note);
+    }
     c.append(...field('السؤال', d.question, v => { d.question = v; commit(false); }));
     c.append(el('label', { className: 'field', textContent: 'الخيارات (اختر الإجابة الصحيحة)' }));
     d.options.forEach((opt, i) => {
@@ -234,6 +254,10 @@ function card(it) {
       c.append(row);
     });
     c.append(...field('معلومة ع الماشي', d.funFact, v => { d.funFact = v; commit(false); }));
+    c.append(...field('المصدر (اختياري — مرجع يمكن التحقق منه)', d.source ?? '', v => {
+      if (v.trim()) d.source = v; else delete d.source;
+      commit(false);
+    }, 1));
   }
 
   if (it.kind === 'blitz') {

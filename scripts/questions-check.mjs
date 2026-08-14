@@ -24,6 +24,7 @@ const warnings = [];
 const fail = (id, msg) => errors.push(`✗ ${id}: ${msg}`);
 const warn = (id, msg) => warnings.push(`⚠ ${id}: ${msg}`);
 
+const missingSource = [];
 const REWARD_BAND = { easy: [25], medium: [30, 35], hard: [40, 45], expert: [50] };
 const ROUND_LENGTH = 5; // QUESTIONS_PER_ROUND in CategoryHub
 
@@ -67,6 +68,15 @@ for (const { data: q, file } of mcq) {
   if (!file.includes('generalArab') && q.category === 'general_arab') {
     warn(q.id, 'تصنيف general_arab خارج بنكه');
   }
+
+  // A source is expected where a claim is most likely to be wrong or disputed.
+  // Reported rather than fatal while the existing bank is backfilled.
+  if ((q.difficulty === 'hard' || q.difficulty === 'expert') && !q.source?.trim()) {
+    missingSource.push(q.id);
+  }
+  if (q.source !== undefined && !q.source.trim()) fail(q.id, 'حقل source فارغ');
+  if (q.needsReview !== undefined && !q.needsReview.trim())
+    fail(q.id, 'حقل needsReview فارغ — اكتب سبب المراجعة أو احذف الحقل');
 }
 
 // rule 5 — answer position must not cluster
@@ -217,6 +227,16 @@ if (Object.keys(typeMix).length < 3) errors.push('✗ التحدي اليومي:
 const counts = { 'اختيار من متعدد': mcq.length, 'صح/خطأ': blitz.length, 'ترتيب حروف': scrambles.length, 'متقاطعة': crosswords.length };
 console.log(Object.entries(counts).map(([k, v]) => `${k}: ${v}`).join('  |  '));
 console.log(`موقع الإجابة: ${pos.join(' / ')}`);
+
+const needingReview = mcq.filter((i) => i.data.needsReview);
+const sourced = mcq.filter((i) => i.data.source).length;
+const hardCount = mcq.filter((i) => ['hard', 'expert'].includes(i.data.difficulty)).length;
+console.log(
+  `المصادر: ${sourced}/${mcq.length} سؤالاً موثّقاً — ينقص ${missingSource.length} من ${hardCount} صعب/خبير`
+);
+if (needingReview.length) {
+  console.log(`بانتظار مراجعتك: ${needingReview.map((i) => i.data.id).join('، ')}`);
+}
 console.log(
   `التحدي اليومي: ${schedule.length} يوماً — ` +
     Object.entries(typeMix).map(([t, n]) => `${t} ${n}`).join(' / ') +

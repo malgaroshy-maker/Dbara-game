@@ -71,6 +71,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: 'يُضرب لمن يطمع في أخذ شيء ممن لا يملك شيئاً أصلاً، فكلاهما محتاج.',
     rewardDinars: 40,
+    needsReview: 'رواية هذا المثل وصياغته تختلف بين المناطق الليبية — يحتاج تأكيد الصيغة الأشهر.',
   },
   {
     id: 'dia_05',
@@ -101,6 +102,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: 'يدعو المثل للرضا بالحال والصبر على عيوب القريب، خشية أن يُبتلى المرء بمن هو أسوأ.',
     rewardDinars: 40,
+    needsReview: 'رواية هذا المثل وصياغته تختلف بين المناطق الليبية — يحتاج تأكيد الصيغة الأشهر.',
   },
   {
     id: 'dia_08',
@@ -141,6 +143,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: 'يُضرب لمن يقضي حاجة شخص أو يجامله باستخدام مال ذلك الشخص وموارده دون أن يتكلف هو شيئاً.',
     rewardDinars: 50,
+    needsReview: 'رواية هذا المثل وصياغته تختلف بين المناطق الليبية — يحتاج تأكيد الصيغة الأشهر.',
   },
   {
     id: 'dia_12',
