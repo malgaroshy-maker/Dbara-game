@@ -96,6 +96,30 @@ export const useMapViewport = () => {
     return () => el.removeEventListener('wheel', onWheel);
   }, [toFrame, update]);
 
+  /**
+   * Claims two-finger gestures for the map.
+   *
+   * The frame carries `touch-action: pan-y` until it is zoomed, so that a
+   * one-finger drag still scrolls the page — the map is half the height of a
+   * phone screen, and swallowing every drag over it would make the page
+   * awkward to move. But `pan-y` also lets the browser treat a two-finger drag
+   * as a scroll, and once it does it fires `pointercancel` and the pinch dies
+   * mid-gesture.
+   *
+   * Cancelling the default on a multi-touch `touchstart` takes the gesture back
+   * without giving up single-finger scrolling. It has to be non-passive, or the
+   * `preventDefault` is ignored.
+   */
+  useEffect(() => {
+    const el = frameRef.current;
+    if (!el) return;
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length >= 2) e.preventDefault();
+    };
+    el.addEventListener('touchstart', onTouchStart, { passive: false });
+    return () => el.removeEventListener('touchstart', onTouchStart);
+  }, []);
+
   const endGesture = useCallback(() => {
     pointers.current.clear();
     pinch.current = null;
