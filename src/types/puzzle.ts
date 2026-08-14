@@ -7,6 +7,8 @@ export interface LetterScramblePuzzle {
   scrambledLetters: string[];
   hint: string;
   funFact: string;
+  /** Same contract as `TriviaQuestion.source` — a named authority, never a link. */
+  source?: string;
   rewardDinars: number;
 }
 

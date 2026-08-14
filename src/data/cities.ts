@@ -212,13 +212,16 @@ export const initialCities: CityNode[] = [
     coordinates: { latitude: 30.7554, longitude: 20.2263 }, // أجدابيا
     mapLabel: 'أجدابيا',
     labelOffset: { x: 12, y: 18 },
-    stagesCount: 3,
+    stagesCount: 4,
     unlockedByDefault: false,
     requiredStarsToUnlock: 14,
     stages: [
       { id: 'ajdabiya_1', stageNumber: 1, title: 'قصر أجدابيا الأثري', type: 'multiple_choice', questionId: 'hist_ajd_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
       { id: 'ajdabiya_2', stageNumber: 2, title: 'أجدابيا وطرق الصحراء', type: 'multiple_choice', questionId: 'geo_ajd_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
       { id: 'ajdabiya_3', stageNumber: 3, title: 'سباق سرعة: دروب برقة', type: 'speed_blitz',  starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
+      // Appended rather than slotted before the blitz: renumbering an existing
+      // stage id would orphan the progress players have already saved under it.
+      { id: 'ajdabiya_4', stageNumber: 4, title: 'رتب الحروف: أقاليم ليبيا التاريخية', type: 'letter_scramble', puzzleId: 'scramble_ajd_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
     ],
   },
   {
@@ -343,13 +346,14 @@ export const initialCities: CityNode[] = [
     coordinates: { latitude: 29.7447, longitude: 24.5173 }, // الجغبوب
     mapLabel: 'الجغبوب',
     labelOffset: { x: -10, y: 20 },
-    stagesCount: 3,
+    stagesCount: 4,
     unlockedByDefault: false,
     requiredStarsToUnlock: 23,
     stages: [
       { id: 'jaghbub_1', stageNumber: 1, title: 'زاوية الجغبوب ومعهدها', type: 'multiple_choice', questionId: 'geo_jgb_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
       { id: 'jaghbub_2', stageNumber: 2, title: 'الحركة السنوسية', type: 'multiple_choice', questionId: 'isl_13', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
       { id: 'jaghbub_3', stageNumber: 3, title: 'سباق سرعة: دروب الواحات', type: 'speed_blitz',  starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
+      { id: 'jaghbub_4', stageNumber: 4, title: 'رتب الحروف: مدارس الصحراء', type: 'letter_scramble', puzzleId: 'scramble_jgb_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
     ],
   },
   {
@@ -386,12 +390,13 @@ export const initialCities: CityNode[] = [
     coordinates: { latitude: 25.9155, longitude: 13.9184 }, // مرزق
     mapLabel: 'مرزق',
     labelOffset: { x: 8, y: 20 },
-    stagesCount: 2,
+    stagesCount: 3,
     unlockedByDefault: false,
     requiredStarsToUnlock: 29,
     stages: [
       { id: 'murzuq_1', stageNumber: 1, title: 'مرزق حاضرة فزان', type: 'multiple_choice', questionId: 'geo_mzq_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
       { id: 'murzuq_2', stageNumber: 2, title: 'سباق سرعة: أعماق فزان', type: 'speed_blitz',  starsEarned: 0, isUnlocked: false, rewardDinars: 60 },
+      { id: 'murzuq_3', stageNumber: 3, title: 'رتب الحروف: تجارة الصحراء', type: 'letter_scramble', puzzleId: 'scramble_mzq_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
     ],
   },
   {
