@@ -187,14 +187,14 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
       <div className="flex items-center justify-between">
         <button
           onClick={onFinish}
-          className="flex items-center gap-1 text-xs font-bold text-[#94A3B8] hover:text-white bg-[#131C2E] px-3 py-1.5 rounded-xl border border-white/10"
+          className="flex items-center gap-1 text-xs font-bold text-ink-400 hover:text-white bg-night-800 px-3 py-1.5 rounded-xl border border-white/10"
         >
           <ArrowRight className="w-4 h-4" />
           <span>رجوع للخريطة</span>
         </button>
 
         <div className="text-center">
-          <span className="text-xs font-semibold text-[#0EA5E9]">المرحلة {stage.stageNumber}</span>
+          <span className="text-xs font-semibold text-sea-500">المرحلة {stage.stageNumber}</span>
           <h3 className="text-sm font-extrabold text-white">{stage.title}</h3>
         </div>
 
@@ -202,8 +202,8 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
         <div
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-2xl font-black text-xs border ${
             timeLeft <= 5
-              ? 'bg-[#F43F5E]/20 text-[#F43F5E] border-[#F43F5E]/40 animate-pulse'
-              : 'bg-[#1E293B] text-[#FCD34D] border-[#E5A93B]/30'
+              ? 'bg-crimson-500/20 text-crimson-500 border-crimson-500/40 animate-pulse'
+              : 'bg-night-700 text-gold-300 border-gold-400/30'
           }`}
         >
           <Clock className="w-3.5 h-3.5" />
@@ -218,14 +218,14 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
         className="glass-panel p-5 rounded-3xl relative overflow-hidden"
       >
         {/* Subtle Gold Corner Accents */}
-        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-[#E5A93B]/20 to-transparent pointer-events-none rounded-tr-3xl" />
+        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-gold-400/20 to-transparent pointer-events-none rounded-tr-3xl" />
 
-        <div className="flex items-center gap-1.5 text-xs text-[#E5A93B] font-bold mb-2">
+        <div className="flex items-center gap-1.5 text-xs text-gold-400 font-bold mb-2">
           <Sparkles className="w-3.5 h-3.5" />
           <span>سؤال التحدي الثقافي:</span>
         </div>
 
-        <h2 className="text-lg sm:text-xl font-extrabold text-[#F8FAFC] leading-relaxed text-right">
+        <h2 className="text-lg sm:text-xl font-extrabold text-ink-100 leading-relaxed text-right">
           {question.question}
         </h2>
       </motion.div>
@@ -237,13 +237,13 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
           const isCorrect = opt.originalIndex === question.correctIndex;
           const isDisabled = disabledOptions.includes(visualIdx);
 
-          let optionStyle = 'glass-card-interactive border-white/10 text-[#F8FAFC]';
+          let optionStyle = 'glass-card-interactive border-white/10 text-ink-100';
 
           if (isAnswered) {
             if (isCorrect) {
-              optionStyle = 'bg-[#10B981]/25 border-[#10B981] text-[#A7F3D0] shadow-[0_0_20px_rgba(16,185,129,0.35)]';
+              optionStyle = 'bg-oasis-500/25 border-oasis-500 text-oasis-200 shadow-oasis-glow';
             } else if (isSelected && !isCorrect) {
-              optionStyle = 'bg-[#F43F5E]/25 border-[#F43F5E] text-[#FECDD3]';
+              optionStyle = 'bg-crimson-500/25 border-crimson-500 text-crimson-200';
             } else {
               optionStyle = 'opacity-40 border-white/5';
             }
@@ -260,14 +260,14 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
               className={`w-full p-4 rounded-2xl flex items-center justify-between text-right transition-all font-bold ${optionStyle}`}
             >
               <div className="flex items-center gap-3">
-                <span className="w-7 h-7 rounded-full bg-[#E5A93B]/15 text-[#FCD34D] border border-[#E5A93B]/30 flex items-center justify-center text-xs font-black shrink-0">
+                <span className="w-7 h-7 rounded-full bg-gold-400/15 text-gold-300 border border-gold-400/30 flex items-center justify-center text-xs font-black shrink-0">
                   {optionLabels[visualIdx]}
                 </span>
                 <span className="text-sm sm:text-base leading-snug">{opt.text}</span>
               </div>
 
-              {isAnswered && isCorrect && <CheckCircle className="w-5 h-5 text-[#10B981] shrink-0" />}
-              {isAnswered && isSelected && !isCorrect && <XCircle className="w-5 h-5 text-[#F43F5E] shrink-0" />}
+              {isAnswered && isCorrect && <CheckCircle className="w-5 h-5 text-oasis-500 shrink-0" />}
+              {isAnswered && isSelected && !isCorrect && <XCircle className="w-5 h-5 text-crimson-500 shrink-0" />}
             </motion.button>
           );
         })}
@@ -278,9 +278,9 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
         <button
           onClick={handleFiftyFifty}
           disabled={isAnswered || disabledOptions.length > 0}
-          className="flex flex-col items-center gap-1 text-[11px] font-bold text-[#94A3B8] hover:text-[#FCD34D] disabled:opacity-30"
+          className="flex flex-col items-center gap-1 text-[11px] font-bold text-ink-400 hover:text-gold-300 disabled:opacity-30"
         >
-          <div className="p-2 rounded-xl bg-[#1E293B] border border-[#E5A93B]/20 text-[#FCD34D]">
+          <div className="p-2 rounded-xl bg-night-700 border border-gold-400/20 text-gold-300">
             <HelpCircle className="w-4 h-4" />
           </div>
           <span>50:50 ({profile.lifelines.fiftyFifty})</span>
@@ -289,9 +289,9 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
         <button
           onClick={handleExtraTime}
           disabled={isAnswered}
-          className="flex flex-col items-center gap-1 text-[11px] font-bold text-[#94A3B8] hover:text-[#38BDF8] disabled:opacity-30"
+          className="flex flex-col items-center gap-1 text-[11px] font-bold text-ink-400 hover:text-sea-300 disabled:opacity-30"
         >
-          <div className="p-2 rounded-xl bg-[#1E293B] border border-[#0EA5E9]/20 text-[#38BDF8]">
+          <div className="p-2 rounded-xl bg-night-700 border border-sea-500/20 text-sea-300">
             <PlusCircle className="w-4 h-4" />
           </div>
           <span>+15 ثانية ({profile.lifelines.extraTime})</span>
@@ -300,9 +300,9 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
         <button
           onClick={handleSkip}
           disabled={isAnswered}
-          className="flex flex-col items-center gap-1 text-[11px] font-bold text-[#94A3B8] hover:text-[#10B981] disabled:opacity-30"
+          className="flex flex-col items-center gap-1 text-[11px] font-bold text-ink-400 hover:text-oasis-500 disabled:opacity-30"
         >
-          <div className="p-2 rounded-xl bg-[#1E293B] border border-[#10B981]/20 text-[#10B981]">
+          <div className="p-2 rounded-xl bg-night-700 border border-oasis-500/20 text-oasis-500">
             <FastForward className="w-4 h-4" />
           </div>
           <span>تخطي ({profile.lifelines.skip})</span>
@@ -317,23 +317,23 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="w-full max-w-md bg-gradient-to-b from-[#1E293B] to-[#0B0F19] border border-[#E5A93B]/40 rounded-3xl p-5 shadow-2xl text-center"
+              className="w-full max-w-md bg-gradient-to-b from-night-700 to-night-900 border border-gold-400/40 rounded-3xl p-5 shadow-2xl text-center"
             >
-              <div className="w-12 h-12 rounded-2xl bg-[#E5A93B]/20 border border-[#E5A93B]/50 flex items-center justify-center mx-auto mb-3 text-[#FCD34D]">
+              <div className="w-12 h-12 rounded-2xl bg-gold-400/20 border border-gold-400/50 flex items-center justify-center mx-auto mb-3 text-gold-300">
                 <Lightbulb className="w-6 h-6" />
               </div>
 
-              <span className="text-xs font-black px-3 py-1 rounded-full bg-[#E5A93B]/20 text-[#FCD34D] border border-[#E5A93B]/30">
+              <span className="text-xs font-black px-3 py-1 rounded-full bg-gold-400/20 text-gold-300 border border-gold-400/30">
                 💡 معلومة ع الماشي
               </span>
 
-              <p className="text-sm text-[#F8FAFC] leading-relaxed my-4 text-right bg-[#0F172A]/70 p-4 rounded-2xl border border-white/5">
+              <p className="text-sm text-ink-100 leading-relaxed my-4 text-right bg-night-850/70 p-4 rounded-2xl border border-white/5">
                 {question.funFact}
               </p>
 
               <button
                 onClick={handleFactContinue}
-                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#E5A93B] to-[#F59E0B] text-[#0B0F19] font-black text-sm shadow-lg transition-transform active:scale-95"
+                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-gold-400 to-flame text-night-900 font-black text-sm shadow-lg transition-transform active:scale-95"
               >
                 استمر في الرحلة 🧭
               </button>
@@ -349,16 +349,16 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
             <motion.div
               initial={{ scale: 0.85, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="w-full max-w-sm bg-gradient-to-b from-[#131C2E] to-[#0B0F19] border border-[#10B981]/50 rounded-3xl p-6 shadow-2xl text-center"
+              className="w-full max-w-sm bg-gradient-to-b from-night-800 to-night-900 border border-oasis-500/50 rounded-3xl p-6 shadow-2xl text-center"
             >
-              <div className="w-16 h-16 rounded-full bg-[#10B981]/20 border-2 border-[#10B981] flex items-center justify-center mx-auto mb-3 text-[#10B981] shadow-[0_0_20px_rgba(16,185,129,0.4)]">
+              <div className="w-16 h-16 rounded-full bg-oasis-500/20 border-2 border-oasis-500 flex items-center justify-center mx-auto mb-3 text-oasis-500 shadow-oasis-glow">
                 <Trophy className="w-8 h-8" />
               </div>
 
               <h3 className="text-xl font-black text-white">
                 {wasSkipped ? 'تجاوزت المرحلة! ✨' : 'أحسنت يا بطل! 🎉'}
               </h3>
-              <p className="text-xs text-[#94A3B8] mt-1">
+              <p className="text-xs text-ink-400 mt-1">
                 {wasSkipped
                   ? 'استخدمت مساعدة التخطي واجتزت المرحلة بنجمة واحدة'
                   : 'أجبت بشكل صحيح واجتزت المرحلة بنجاح'}
@@ -371,14 +371,14 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
                     key={starNum}
                     className={`w-7 h-7 ${
                       earnedStars >= starNum
-                        ? 'text-[#E5A93B] fill-[#E5A93B] drop-shadow-[0_0_10px_#E5A93B]'
+                        ? 'text-gold-400 fill-gold-400 drop-shadow-gold-glow-sm'
                         : 'text-white/20'
                     }`}
                   />
                 ))}
               </div>
 
-              <div className="p-3 rounded-2xl bg-[#E5A93B]/10 border border-[#E5A93B]/20 text-[#FCD34D] font-extrabold text-sm mb-4">
+              <div className="p-3 rounded-2xl bg-gold-400/10 border border-gold-400/20 text-gold-300 font-extrabold text-sm mb-4">
                 {wasSkipped
                   ? 'لا توجد مكافأة دنانير عند التخطي 🎟️'
                   : `+${stage.rewardDinars} دينار ليبي مكافأة 💰`}
@@ -387,7 +387,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
               <div className="flex flex-col gap-2">
                 <button
                   onClick={() => setIsShareModalOpen(true)}
-                  className="w-full py-3 rounded-2xl bg-[#0EA5E9] hover:bg-[#0284C7] text-[#0B0F19] font-black text-xs shadow-md flex items-center justify-center gap-1.5 transition-transform active:scale-95"
+                  className="w-full py-3 rounded-2xl bg-sea-500 hover:bg-sea-700 text-night-900 font-black text-xs shadow-md flex items-center justify-center gap-1.5 transition-transform active:scale-95"
                 >
                   <Share2 className="w-4 h-4" />
                   <span>مشاركة الإنجاز 🏅</span>
@@ -395,7 +395,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
 
                 <button
                   onClick={onFinish}
-                  className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#10B981] to-[#059669] text-white font-black text-sm shadow-[0_0_20px_rgba(16,185,129,0.35)] transition-transform active:scale-95"
+                  className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-oasis-500 to-oasis-600 text-white font-black text-sm shadow-oasis-glow transition-transform active:scale-95"
                 >
                   العودة للخريطة 🗺️
                 </button>

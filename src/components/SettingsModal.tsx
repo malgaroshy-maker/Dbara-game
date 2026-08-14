@@ -103,7 +103,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
-          className="w-full max-w-md bg-gradient-to-b from-[#1E293B] to-[#0B0F19] border border-[#E5A93B]/30 rounded-3xl p-5 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto"
+          className="w-full max-w-md bg-gradient-to-b from-night-700 to-night-900 border border-gold-400/30 rounded-3xl p-5 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto"
         >
           {/* Header */}
           <div className="flex items-center justify-between pb-3 border-b border-white/10">
@@ -112,44 +112,44 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
             </h3>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-full bg-white/5 text-[#94A3B8] hover:text-white"
+              className="p-1.5 rounded-full bg-white/5 text-ink-400 hover:text-white"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
           {/* Stats Overview */}
-          <div className="p-4 rounded-2xl bg-[#131C2E] border border-white/5 space-y-2">
-            <h4 className="text-xs font-bold text-[#E5A93B] flex items-center gap-1.5">
+          <div className="p-4 rounded-2xl bg-night-800 border border-white/5 space-y-2">
+            <h4 className="text-xs font-bold text-gold-400 flex items-center gap-1.5">
               <BarChart2 className="w-4 h-4" />
               إحصائيات إنجازاتك
             </h4>
             <div className="grid grid-cols-3 gap-2 text-center pt-1">
               <div className="p-2 rounded-xl bg-black/20">
                 <span className="block text-base font-black text-white">{stats.questionsAnswered}</span>
-                <span className="text-[10px] text-[#94A3B8]">أسئلة مُجابة</span>
+                <span className="text-[10px] text-ink-400">أسئلة مُجابة</span>
               </div>
               <div className="p-2 rounded-xl bg-black/20">
-                <span className="block text-base font-black text-[#10B981]">{accuracy}%</span>
-                <span className="text-[10px] text-[#94A3B8]">دقة الإجابة</span>
+                <span className="block text-base font-black text-oasis-500">{accuracy}%</span>
+                <span className="text-[10px] text-ink-400">دقة الإجابة</span>
               </div>
               <div className="p-2 rounded-xl bg-black/20">
-                <span className="block text-base font-black text-[#FCD34D]">{stats.bestSpeedScore}</span>
-                <span className="text-[10px] text-[#94A3B8]">أفضل سرعة</span>
+                <span className="block text-base font-black text-gold-300">{stats.bestSpeedScore}</span>
+                <span className="text-[10px] text-ink-400">أفضل سرعة</span>
               </div>
             </div>
           </div>
 
           {/* Audio Controls */}
-          <div className="p-4 rounded-2xl bg-[#131C2E] border border-white/5 flex items-center justify-between">
+          <div className="p-4 rounded-2xl bg-night-800 border border-white/5 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              {audio.soundEnabled ? <Volume2 className="w-5 h-5 text-[#38BDF8]" /> : <VolumeX className="w-5 h-5 text-[#64748B]" />}
+              {audio.soundEnabled ? <Volume2 className="w-5 h-5 text-sea-300" /> : <VolumeX className="w-5 h-5 text-ink-500" />}
               <span className="text-xs font-bold text-white">المؤثرات الصوتية التفاعلية</span>
             </div>
             <button
               onClick={toggleSound}
               className={`px-3 py-1 rounded-xl text-xs font-bold transition-all ${
-                audio.soundEnabled ? 'bg-[#10B981] text-white' : 'bg-white/10 text-[#64748B]'
+                audio.soundEnabled ? 'bg-oasis-500 text-white' : 'bg-white/10 text-ink-500'
               }`}
             >
               {audio.soundEnabled ? 'مُفعل' : 'مكتوم'}
@@ -157,17 +157,17 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
           </div>
 
           {/* Haptics Control */}
-          <div className="p-4 rounded-2xl bg-[#131C2E] border border-white/5 flex items-center justify-between">
+          <div className="p-4 rounded-2xl bg-night-800 border border-white/5 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <Vibrate
-                className={`w-5 h-5 ${audio.hapticsEnabled ? 'text-[#E5A93B]' : 'text-[#64748B]'}`}
+                className={`w-5 h-5 ${audio.hapticsEnabled ? 'text-gold-400' : 'text-ink-500'}`}
               />
               <span className="text-xs font-bold text-white">الاهتزاز اللمسي (على الجوال)</span>
             </div>
             <button
               onClick={toggleHaptics}
               className={`px-3 py-1 rounded-xl text-xs font-bold transition-all ${
-                audio.hapticsEnabled ? 'bg-[#10B981] text-white' : 'bg-white/10 text-[#64748B]'
+                audio.hapticsEnabled ? 'bg-oasis-500 text-white' : 'bg-white/10 text-ink-500'
               }`}
             >
               {audio.hapticsEnabled ? 'مُفعل' : 'متوقف'}
@@ -175,8 +175,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
           </div>
 
           {/* Backup & Restore */}
-          <div className="p-4 rounded-2xl bg-[#131C2E] border border-white/5 space-y-3">
-            <h4 className="text-xs font-bold text-[#38BDF8] flex items-center gap-1.5">
+          <div className="p-4 rounded-2xl bg-night-800 border border-white/5 space-y-3">
+            <h4 className="text-xs font-bold text-sea-300 flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4" />
               النسخ الاحتياطي ونقل الحفظ الشامل
             </h4>
@@ -184,7 +184,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
             <div className="flex gap-2">
               <button
                 onClick={handleExport}
-                className="flex-1 py-2 rounded-xl bg-[#1E293B] hover:bg-[#2A374D] border border-white/10 text-xs font-bold text-white flex items-center justify-center gap-1.5 transition-colors"
+                className="flex-1 py-2 rounded-xl bg-night-700 hover:bg-night-600 border border-white/10 text-xs font-bold text-white flex items-center justify-center gap-1.5 transition-colors"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>{exportCopied ? 'تم نسخ الحفظ للحافظة! ✓' : 'تصدير كود الحفظ الكامل'}</span>
@@ -197,17 +197,17 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
                 value={importText}
                 onChange={(e) => setImportText(e.target.value)}
                 placeholder="الصق كود الحفظ هنا..."
-                className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-xs text-white placeholder:text-[#64748B] text-left ltr"
+                className="w-full p-2.5 rounded-xl bg-black/40 border border-white/10 text-xs text-white placeholder:text-ink-500 text-left ltr"
               />
               <button
                 onClick={handleImport}
-                className="w-full py-2 rounded-xl bg-[#0EA5E9] hover:bg-[#0284C7] text-[#0B0F19] font-black text-xs flex items-center justify-center gap-1.5"
+                className="w-full py-2 rounded-xl bg-sea-500 hover:bg-sea-700 text-night-900 font-black text-xs flex items-center justify-center gap-1.5"
               >
                 <Upload className="w-3.5 h-3.5" />
                 <span>استيراد واستعادة الحفظ الكامل</span>
               </button>
               {importStatus && (
-                <p className="text-[11px] font-bold text-center mt-1 text-[#FCD34D]">{importStatus}</p>
+                <p className="text-[11px] font-bold text-center mt-1 text-gold-300">{importStatus}</p>
               )}
             </div>
           </div>
@@ -217,20 +217,20 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
             {!showConfirmReset ? (
               <button
                 onClick={() => setShowConfirmReset(true)}
-                className="w-full py-2.5 rounded-xl bg-[#F43F5E]/10 hover:bg-[#F43F5E]/20 text-[#F43F5E] text-xs font-bold flex items-center justify-center gap-1.5 border border-[#F43F5E]/20"
+                className="w-full py-2.5 rounded-xl bg-crimson-500/10 hover:bg-crimson-500/20 text-crimson-500 text-xs font-bold flex items-center justify-center gap-1.5 border border-crimson-500/20"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>تصفير وإعادة تعيين تقدم اللعبة</span>
               </button>
             ) : (
-              <div className="p-3 rounded-2xl bg-[#F43F5E]/15 border border-[#F43F5E]/40 text-center space-y-2">
-                <p className="text-xs text-[#FECDD3] font-bold">
+              <div className="p-3 rounded-2xl bg-crimson-500/15 border border-crimson-500/40 text-center space-y-2">
+                <p className="text-xs text-crimson-200 font-bold">
                   هل أنت متأكد؟ سيتم مسح كافة المراحل والدنانير!
                 </p>
                 <div className="flex gap-2 justify-center">
                   <button
                     onClick={handleResetAll}
-                    className="px-4 py-1.5 rounded-xl bg-[#F43F5E] text-white text-xs font-black"
+                    className="px-4 py-1.5 rounded-xl bg-crimson-500 text-white text-xs font-black"
                   >
                     نعم، احذف الكل
                   </button>

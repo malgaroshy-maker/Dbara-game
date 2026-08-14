@@ -62,72 +62,72 @@ const categories: CategoryConfig[] = [
       id: 'history',
       title: 'تاريخ وآثار ليبيا',
       description: 'لبدة، قورينا، السرايا الحمراء، وشخصيات النضال الوطني',
-      icon: <BookOpen className="w-6 h-6 text-[#E5A93B]" />,
-      color: 'border-[#E5A93B]/40 hover:border-[#E5A93B]',
+      icon: <BookOpen className="w-6 h-6 text-gold-400" />,
+      color: 'border-gold-400/40 hover:border-gold-400',
       questions: historyQuestions,
     },
     {
       id: 'dialects',
       title: 'لهجات وأمثال شعبية',
       description: 'إكمال الأمثال والحكم الشعبية ومصطلحات اللهجة الليبية',
-      icon: <MessageSquareQuote className="w-6 h-6 text-[#0EA5E9]" />,
-      color: 'border-[#0EA5E9]/40 hover:border-[#0EA5E9]',
+      icon: <MessageSquareQuote className="w-6 h-6 text-sea-500" />,
+      color: 'border-sea-500/40 hover:border-sea-500',
       questions: dialectQuestions,
     },
     {
       id: 'sports',
       title: 'كورة ورياضة ليبية',
       description: 'الدوري الليبي، الديربيات، وأساطير فرسان المتوسط',
-      icon: <Trophy className="w-6 h-6 text-[#10B981]" />,
-      color: 'border-[#10B981]/40 hover:border-[#10B981]',
+      icon: <Trophy className="w-6 h-6 text-oasis-500" />,
+      color: 'border-oasis-500/40 hover:border-oasis-500',
       questions: sportsQuestions,
     },
     {
       id: 'food_traditions',
       title: 'المطبخ والعادات التراثية',
       description: 'البازين، الرشتة، المقروض، الشاهي العالة، والأزياء',
-      icon: <Utensils className="w-6 h-6 text-[#F59E0B]" />,
-      color: 'border-[#F59E0B]/40 hover:border-[#F59E0B]',
+      icon: <Utensils className="w-6 h-6 text-flame" />,
+      color: 'border-flame/40 hover:border-flame',
       questions: foodTraditionsQuestions,
     },
     {
       id: 'geography',
       title: 'جغرافيا ليبيا والعالم',
       description: 'الأقاليم والحدود والجبال والبحار والقارات',
-      icon: <MapIcon className="w-6 h-6 text-[#38BDF8]" />,
-      color: 'border-[#38BDF8]/40 hover:border-[#38BDF8]',
+      icon: <MapIcon className="w-6 h-6 text-sea-300" />,
+      color: 'border-sea-300/40 hover:border-sea-300',
       questions: geographyQuestions,
     },
     {
       id: 'islamic',
       title: 'دين وحضارة إسلامية',
       description: 'القرآن والسيرة والخلفاء وحواضر الإسلام',
-      icon: <Moon className="w-6 h-6 text-[#22C55E]" />,
-      color: 'border-[#22C55E]/40 hover:border-[#22C55E]',
+      icon: <Moon className="w-6 h-6 text-oasis-500" />,
+      color: 'border-oasis-500/40 hover:border-oasis-500',
       questions: islamicQuestions,
     },
     {
       id: 'literature',
       title: 'لغة وأدب عربي',
       description: 'الشعراء والمعاجم والنحو وأعلام الأدب الليبي',
-      icon: <Feather className="w-6 h-6 text-[#EC4899]" />,
-      color: 'border-[#EC4899]/40 hover:border-[#EC4899]',
+      icon: <Feather className="w-6 h-6 text-rose" />,
+      color: 'border-rose/40 hover:border-rose',
       questions: literatureQuestions,
     },
     {
       id: 'science',
       title: 'علوم وطبيعة',
       description: 'الفلك والكيمياء وجسم الإنسان وعلماء الحضارة',
-      icon: <FlaskConical className="w-6 h-6 text-[#0EA5E9]" />,
-      color: 'border-[#0EA5E9]/40 hover:border-[#0EA5E9]',
+      icon: <FlaskConical className="w-6 h-6 text-sea-500" />,
+      color: 'border-sea-500/40 hover:border-sea-500',
       questions: scienceQuestions,
     },
     {
       id: 'general_arab',
       title: 'ثقافة عامة ومنوعات',
       description: 'ليبيا في محيطها ومعلومات عامة متنوعة',
-      icon: <Globe className="w-6 h-6 text-[#A855F7]" />,
-      color: 'border-[#A855F7]/40 hover:border-[#A855F7]',
+      icon: <Globe className="w-6 h-6 text-orchid" />,
+      color: 'border-orchid/40 hover:border-orchid',
       questions: generalArabQuestions,
     },
 ];
@@ -198,14 +198,14 @@ export const CategoryHub: React.FC = () => {
           <motion.div
             initial={{ scale: 0.85, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="w-full bg-gradient-to-b from-[#131C2E] to-[#0B0F19] border border-[#E5A93B]/50 rounded-3xl p-6 shadow-2xl"
+            className="w-full bg-gradient-to-b from-night-800 to-night-900 border border-gold-400/50 rounded-3xl p-6 shadow-2xl"
           >
-            <div className="w-16 h-16 rounded-full bg-[#E5A93B]/20 border-2 border-[#E5A93B] flex items-center justify-center mx-auto mb-3 text-[#FCD34D]">
+            <div className="w-16 h-16 rounded-full bg-gold-400/20 border-2 border-gold-400 flex items-center justify-center mx-auto mb-3 text-gold-300">
               <Trophy className="w-8 h-8" />
             </div>
 
             <h3 className="text-xl font-black text-white">اكتملت الجولة الثقافية! 🎉</h3>
-            <p className="text-xs text-[#94A3B8] mt-1">
+            <p className="text-xs text-ink-400 mt-1">
               أجبت بشكل صحيح على {roundScore} من {roundQuestions.length} في مجال:{' '}
               {currentCatObj?.title}
             </p>
@@ -216,21 +216,21 @@ export const CategoryHub: React.FC = () => {
                   key={s}
                   className={`w-6 h-6 ${
                     roundStars(roundScore, roundQuestions.length) >= s
-                      ? 'text-[#E5A93B] fill-[#E5A93B]'
+                      ? 'text-gold-400 fill-gold-400'
                       : 'text-white/20'
                   }`}
                 />
               ))}
             </div>
 
-            <div className="p-3 rounded-2xl bg-[#E5A93B]/10 border border-[#E5A93B]/20 text-[#FCD34D] font-extrabold text-sm mb-5">
+            <div className="p-3 rounded-2xl bg-gold-400/10 border border-gold-400/20 text-gold-300 font-extrabold text-sm mb-5">
               +{roundCompletionBonus(roundScore)} دينار ليبي مكافأة إتمام الجولة 💰
             </div>
 
             <div className="flex flex-col gap-2">
               <button
                 onClick={() => handleStartCategory(activeCategory)}
-                className="w-full py-3 rounded-2xl bg-[#1E293B] border border-white/10 hover:border-white/20 text-white font-bold text-xs flex items-center justify-center gap-1.5"
+                className="w-full py-3 rounded-2xl bg-night-700 border border-white/10 hover:border-white/20 text-white font-bold text-xs flex items-center justify-center gap-1.5"
               >
                 <RotateCcw className="w-4 h-4" />
                 <span>جولة جديدة في نفس المجال</span>
@@ -238,7 +238,7 @@ export const CategoryHub: React.FC = () => {
 
               <button
                 onClick={handleExitRound}
-                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#E5A93B] to-[#F59E0B] text-[#0B0F19] font-black text-xs shadow-lg"
+                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-gold-400 to-flame text-night-900 font-black text-xs shadow-lg"
               >
                 العودة لصالة التصنيفات
               </button>
@@ -252,11 +252,11 @@ export const CategoryHub: React.FC = () => {
     return (
       <div className="flex flex-col gap-2">
         {/* Round Progress Tracker */}
-        <div className="max-w-lg mx-auto w-full px-3 pt-1 flex items-center justify-between text-xs font-bold text-[#94A3B8]">
+        <div className="max-w-lg mx-auto w-full px-3 pt-1 flex items-center justify-between text-xs font-bold text-ink-400">
           <span>جولة اللعب السريع ({currentQuestionIdx + 1} من {roundQuestions.length})</span>
           <div className="w-32 bg-white/10 h-1.5 rounded-full overflow-hidden">
             <div
-              className="bg-[#E5A93B] h-full transition-all duration-300"
+              className="bg-gold-400 h-full transition-all duration-300"
               style={{ width: `${((currentQuestionIdx + 1) / roundQuestions.length) * 100}%` }}
             />
           </div>
@@ -294,10 +294,10 @@ export const CategoryHub: React.FC = () => {
     <div className="flex flex-col gap-4 pb-28 max-w-lg mx-auto w-full px-3 pt-1 select-none">
       <div>
         <h2 className="text-xl font-extrabold text-white flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-[#E5A93B]" />
+          <Sparkles className="w-5 h-5 text-gold-400" />
           أنماط اللعب والتصنيفات
         </h2>
-        <p className="text-xs text-[#94A3B8] mt-0.5">
+        <p className="text-xs text-ink-400 mt-0.5">
           اختر مجالك المفضل للعب الفردي أو نافس صديقك في التحدي الثنائي
         </p>
       </div>
@@ -313,32 +313,32 @@ export const CategoryHub: React.FC = () => {
           sfx.playTap();
           setIsPassAndPlayActive(true);
         }}
-        className="w-full text-right glass-panel p-4 rounded-3xl cursor-pointer border-2 border-[#E5A93B]/60 bg-gradient-to-r from-[#E5A93B]/20 via-[#131C2E] to-[#0EA5E9]/20 shadow-[0_0_25px_rgba(229,169,59,0.25)] flex items-center justify-between gap-3 relative overflow-hidden"
+        className="w-full text-right glass-panel p-4 rounded-3xl cursor-pointer border-2 border-gold-400/60 bg-gradient-to-r from-gold-400/20 via-night-800 to-sea-500/20 shadow-gold-glow flex items-center justify-between gap-3 relative overflow-hidden"
       >
         <div className="flex items-center gap-3.5">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#E5A93B] to-[#F59E0B] text-[#0B0F19] flex items-center justify-center shrink-0 shadow-lg">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-gold-400 to-flame text-night-900 flex items-center justify-center shrink-0 shadow-lg">
             <Swords className="w-6 h-6 stroke-[2.5]" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h3 className="text-sm font-black text-white">التحدي الثنائي (Pass & Play)</h3>
-              <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#10B981] text-[#0B0F19] font-black">
+              <span className="text-[9px] px-2 py-0.5 rounded-full bg-oasis-500 text-night-900 font-black">
                 جديد 🔥
               </span>
             </div>
-            <p className="text-xs text-[#CBD5E1] mt-0.5">
+            <p className="text-xs text-ink-300 mt-0.5">
               مبارزة 1 ضد 1 على نفس الجهاز بالتناوب وتتويج الفائز
             </p>
           </div>
         </div>
 
-        <span className="px-3 py-1.5 rounded-xl bg-[#E5A93B] text-[#0B0F19] font-black text-xs shrink-0 shadow-md">
+        <span className="px-3 py-1.5 rounded-xl bg-gold-400 text-night-900 font-black text-xs shrink-0 shadow-md">
           تحدي ⚔️
         </span>
       </motion.button>
 
       {/* Categories List Header */}
-      <h3 className="text-xs font-bold text-[#94A3B8] px-1">تصنيفات الأسئلة الفردية (5 أسئلة):</h3>
+      <h3 className="text-xs font-bold text-ink-400 px-1">تصنيفات الأسئلة الفردية (5 أسئلة):</h3>
 
       <div className="space-y-2.5">
         {categories.map((cat) => (
@@ -354,14 +354,14 @@ export const CategoryHub: React.FC = () => {
               </div>
               <div>
                 <h3 className="text-sm font-bold text-white">{cat.title}</h3>
-                <p className="text-[11px] text-[#94A3B8] line-clamp-1 mt-0.5">{cat.description}</p>
-                <span className="text-[10px] font-semibold text-[#FCD34D] mt-0.5 inline-block">
+                <p className="text-[11px] text-ink-400 line-clamp-1 mt-0.5">{cat.description}</p>
+                <span className="text-[10px] font-semibold text-gold-300 mt-0.5 inline-block">
                   {cat.questions.length} أسئلة موثقة • جولة 5 أسئلة
                 </span>
               </div>
             </div>
 
-            <span className="w-9 h-9 rounded-2xl bg-[#E5A93B] text-[#0B0F19] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(229,169,59,0.3)]">
+            <span className="w-9 h-9 rounded-2xl bg-gold-400 text-night-900 flex items-center justify-center shrink-0 shadow-gold-glow-sm">
               <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
             </span>
           </button>

@@ -296,24 +296,24 @@ export const ShareResultModal: React.FC<ShareResultModalProps> = ({
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
-          className="w-full max-w-lg bg-gradient-to-b from-[#1E293B] to-[#0B0F19] border border-[#E5A93B]/40 rounded-3xl p-5 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto"
+          className="w-full max-w-lg bg-gradient-to-b from-night-700 to-night-900 border border-gold-400/40 rounded-3xl p-5 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto"
         >
           {/* Header */}
           <div className="flex items-center justify-between pb-3 border-b border-white/10">
             <h3 className="text-base font-extrabold text-white flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-[#E5A93B]" />
+              <Sparkles className="w-5 h-5 text-gold-400" />
               <span>مشاركة بطاقة الإنجاز 🏅</span>
             </h3>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-full bg-white/5 text-[#94A3B8] hover:text-white"
+              className="p-1.5 rounded-full bg-white/5 text-ink-400 hover:text-white"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
           {/* Canvas Preview Container */}
-          <div className="relative rounded-2xl overflow-hidden border border-[#E5A93B]/30 shadow-xl bg-[#0B0F19]">
+          <div className="relative rounded-2xl overflow-hidden border border-gold-400/30 shadow-xl bg-night-900">
             <canvas ref={canvasRef} className="w-full h-auto block rounded-2xl" />
           </div>
 
@@ -321,7 +321,7 @@ export const ShareResultModal: React.FC<ShareResultModalProps> = ({
           <div className="grid grid-cols-3 gap-2">
             <button
               onClick={handleNativeShare}
-              className="py-3 px-2 rounded-2xl bg-gradient-to-r from-[#E5A93B] to-[#F59E0B] text-[#0B0F19] font-black text-xs flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(229,169,59,0.3)] transition-transform active:scale-95"
+              className="py-3 px-2 rounded-2xl bg-gradient-to-r from-gold-400 to-flame text-night-900 font-black text-xs flex items-center justify-center gap-1.5 shadow-gold-glow-sm transition-transform active:scale-95"
             >
               <Share2 className="w-4 h-4" />
               <span>مشاركة</span>
@@ -330,7 +330,7 @@ export const ShareResultModal: React.FC<ShareResultModalProps> = ({
             <button
               onClick={handleDownloadImage}
               disabled={!downloadReady}
-              className="py-3 px-2 rounded-2xl bg-[#10B981] hover:bg-[#059669] text-white font-black text-xs flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-transform active:scale-95 disabled:opacity-50"
+              className="py-3 px-2 rounded-2xl bg-oasis-500 hover:bg-oasis-600 text-white font-black text-xs flex items-center justify-center gap-1.5 shadow-oasis-glow transition-transform active:scale-95 disabled:opacity-50"
             >
               <Download className="w-4 h-4" />
               <span>حفظ كصورة</span>
@@ -338,9 +338,9 @@ export const ShareResultModal: React.FC<ShareResultModalProps> = ({
 
             <button
               onClick={handleCopyText}
-              className="py-3 px-2 rounded-2xl bg-[#1E293B] hover:bg-[#2A374D] border border-white/10 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-transform active:scale-95"
+              className="py-3 px-2 rounded-2xl bg-night-700 hover:bg-night-600 border border-white/10 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-transform active:scale-95"
             >
-              {copiedText ? <Check className="w-4 h-4 text-[#10B981]" /> : <Copy className="w-4 h-4 text-[#38BDF8]" />}
+              {copiedText ? <Check className="w-4 h-4 text-oasis-500" /> : <Copy className="w-4 h-4 text-sea-300" />}
               <span>{copiedText ? 'تم النسخ!' : 'نسخ النص'}</span>
             </button>
           </div>

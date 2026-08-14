@@ -41,18 +41,18 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
       {/* Title & Region Banner */}
       <div className="flex items-center justify-between pt-1">
         <div>
-          <h2 className="text-xl font-extrabold text-[#F8FAFC] flex items-center gap-2">
-            <Compass className="w-5 h-5 text-[#E5A93B]" />
+          <h2 className="text-xl font-extrabold text-ink-100 flex items-center gap-2">
+            <Compass className="w-5 h-5 text-gold-400" />
             خريطة التحدي والاستكشاف
           </h2>
-          <p className="text-xs text-[#94A3B8] mt-0.5">
+          <p className="text-xs text-ink-400 mt-0.5">
             سافر عبر مدن ومعالم ليبيا واجمع النجوم والدنانير
           </p>
         </div>
 
         {/* Total City Count Badge */}
-        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1E293B] border border-[#E5A93B]/30 text-xs font-bold text-[#FCD34D] shadow-sm">
-          <MapPin className="w-3.5 h-3.5 text-[#E5A93B]" />
+        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-night-700 border border-gold-400/30 text-xs font-bold text-gold-300 shadow-sm">
+          <MapPin className="w-3.5 h-3.5 text-gold-400" />
           <span>{filteredCities.length} مدن</span>
         </div>
       </div>
@@ -63,8 +63,8 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
           onClick={() => setRegionFilter('all')}
           className={`px-3 py-1.5 rounded-full font-bold whitespace-nowrap transition-all ${
             regionFilter === 'all'
-              ? 'bg-[#E5A93B] text-[#0B0F19] shadow-[0_0_15px_rgba(229,169,59,0.3)]'
-              : 'bg-[#131C2E] text-[#94A3B8] border border-white/10 hover:text-white'
+              ? 'bg-gold-400 text-night-900 shadow-gold-glow-sm'
+              : 'bg-night-800 text-ink-400 border border-white/10 hover:text-white'
           }`}
         >
           كافة أرجاء ليبيا ({cities.length})
@@ -73,8 +73,8 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
           onClick={() => setRegionFilter('tripolitania')}
           className={`px-3 py-1.5 rounded-full font-bold whitespace-nowrap transition-all ${
             regionFilter === 'tripolitania'
-              ? 'bg-[#0EA5E9] text-[#0B0F19] shadow-[0_0_15px_rgba(14,165,233,0.3)]'
-              : 'bg-[#131C2E] text-[#94A3B8] border border-white/10 hover:text-white'
+              ? 'bg-sea-500 text-night-900 shadow-[0_0_15px_rgb(14_165_233/0.3)]'
+              : 'bg-night-800 text-ink-400 border border-white/10 hover:text-white'
           }`}
         >
           طرابلس والساحل الغربي
@@ -83,8 +83,8 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
           onClick={() => setRegionFilter('cyrenaica')}
           className={`px-3 py-1.5 rounded-full font-bold whitespace-nowrap transition-all ${
             regionFilter === 'cyrenaica'
-              ? 'bg-[#10B981] text-[#0B0F19] shadow-[0_0_15px_rgba(16,185,129,0.3)]'
-              : 'bg-[#131C2E] text-[#94A3B8] border border-white/10 hover:text-white'
+              ? 'bg-oasis-500 text-night-900 shadow-oasis-glow'
+              : 'bg-night-800 text-ink-400 border border-white/10 hover:text-white'
           }`}
         >
           برقة والجبل الأخضر
@@ -93,8 +93,8 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
           onClick={() => setRegionFilter('fezzan')}
           className={`px-3 py-1.5 rounded-full font-bold whitespace-nowrap transition-all ${
             regionFilter === 'fezzan'
-              ? 'bg-[#F59E0B] text-[#0B0F19] shadow-[0_0_15px_rgba(245,158,11,0.3)]'
-              : 'bg-[#131C2E] text-[#94A3B8] border border-white/10 hover:text-white'
+              ? 'bg-flame text-night-900 shadow-gold-glow-sm'
+              : 'bg-night-800 text-ink-400 border border-white/10 hover:text-white'
           }`}
         >
           فزان والجنوب
@@ -103,8 +103,8 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
           onClick={() => setRegionFilter('oasis_desert')}
           className={`px-3 py-1.5 rounded-full font-bold whitespace-nowrap transition-all ${
             regionFilter === 'oasis_desert'
-              ? 'bg-[#EC4899] text-[#0B0F19] shadow-[0_0_15px_rgba(236,72,153,0.3)]'
-              : 'bg-[#131C2E] text-[#94A3B8] border border-white/10 hover:text-white'
+              ? 'bg-rose text-night-900 shadow-[0_0_15px_rgb(236_72_153/0.3)]'
+              : 'bg-night-800 text-ink-400 border border-white/10 hover:text-white'
           }`}
         >
           واحات الصحراء الكبرى
@@ -121,8 +121,8 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
 
       {/* Expedition progress: how much of Libya is opened and starred. */}
       <div className="glass-card px-3.5 py-2.5 rounded-2xl flex items-center gap-3">
-        <div className="flex items-center gap-1.5 shrink-0 text-[11px] font-black text-[#FCD34D]">
-          <Compass className="w-3.5 h-3.5 text-[#E5A93B]" />
+        <div className="flex items-center gap-1.5 shrink-0 text-[11px] font-black text-gold-300">
+          <Compass className="w-3.5 h-3.5 text-gold-400" />
           <span>
             {unlockedCount}/{cities.length} مدينة
           </span>
@@ -130,13 +130,13 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
 
         <div className="flex-1 h-1.5 rounded-full bg-white/10 overflow-hidden">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-[#E5A93B] to-[#FCD34D] transition-all duration-500"
+            className="h-full rounded-full bg-gradient-to-r from-gold-400 to-gold-300 transition-all duration-500"
             style={{ width: `${starPercent}%` }}
           />
         </div>
 
-        <div className="flex items-center gap-1 shrink-0 text-[11px] font-black text-[#FCD34D]">
-          <Star className="w-3.5 h-3.5 text-[#E5A93B] fill-[#E5A93B]" />
+        <div className="flex items-center gap-1 shrink-0 text-[11px] font-black text-gold-300">
+          <Star className="w-3.5 h-3.5 text-gold-400 fill-gold-400" />
           <span>
             {earnedStars}/{totalPossibleStars}
           </span>
@@ -145,25 +145,25 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
 
       {/* Selected City Bottom Inspection Card */}
       {selectedCity && (
-        <div className="glass-card-interactive p-3.5 rounded-3xl flex items-center justify-between gap-3 border border-[#E5A93B]/25 shadow-xl">
+        <div className="glass-card-interactive p-3.5 rounded-3xl flex items-center justify-between gap-3 border border-gold-400/25 shadow-xl">
           <div className="flex items-center gap-3 overflow-hidden">
-            <div className="w-11 h-11 rounded-2xl bg-[#E5A93B]/20 border border-[#E5A93B]/40 flex items-center justify-center text-xl shrink-0 shadow-inner">
+            <div className="w-11 h-11 rounded-2xl bg-gold-400/20 border border-gold-400/40 flex items-center justify-center text-xl shrink-0 shadow-inner">
               {selectedCity.icon}
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2">
                 <h4 className="text-sm font-extrabold text-white truncate">{selectedCity.arabicName}</h4>
-                <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#0EA5E9]/20 text-[#38BDF8] font-bold border border-[#0EA5E9]/30 shrink-0">
+                <span className="text-[9px] px-2 py-0.5 rounded-full bg-sea-500/20 text-sea-300 font-bold border border-sea-500/30 shrink-0">
                   {selectedCity.titleBadge}
                 </span>
               </div>
-              <p className="text-[11px] text-[#94A3B8] truncate mt-0.5">{selectedCity.description}</p>
+              <p className="text-[11px] text-ink-400 truncate mt-0.5">{selectedCity.description}</p>
             </div>
           </div>
 
           <button
             onClick={() => setActiveModalCity(selectedCity)}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-gradient-to-r from-[#E5A93B] to-[#F59E0B] hover:from-[#FCD34D] hover:to-[#E5A93B] text-[#0B0F19] font-black text-xs shadow-[0_0_15px_rgba(229,169,59,0.35)] shrink-0 transition-transform active:scale-95"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-gradient-to-r from-gold-400 to-flame hover:from-gold-300 hover:to-gold-400 text-night-900 font-black text-xs shadow-gold-glow-sm shrink-0 transition-transform active:scale-95"
           >
             <span>استكشف</span>
             <Trophy className="w-3.5 h-3.5" />

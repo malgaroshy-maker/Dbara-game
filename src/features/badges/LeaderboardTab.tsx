@@ -113,42 +113,42 @@ export const LeaderboardTab: React.FC = () => {
   return (
     <div className="space-y-3.5 select-none">
       {/* Weekly Season Countdown Card */}
-      <div className="glass-panel p-4 rounded-3xl border border-[#E5A93B]/40 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-[#E5A93B]/20 to-transparent pointer-events-none rounded-tl-3xl" />
+      <div className="glass-panel p-4 rounded-3xl border border-gold-400/40 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-gold-400/20 to-transparent pointer-events-none rounded-tl-3xl" />
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Shield className="w-5 h-5 text-[#E5A93B]" />
+            <Shield className="w-5 h-5 text-gold-400" />
             <div>
               <h3 className="text-sm font-black text-white">الموسم الأول: فرسان الميدان ⚔️</h3>
-              <p className="text-[11px] text-[#94A3B8]">يتجدد الترتيب وتوزع الجوائز كل يوم أحد</p>
+              <p className="text-[11px] text-ink-400">يتجدد الترتيب وتوزع الجوائز كل يوم أحد</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-[#1E293B] border border-[#E5A93B]/30 text-[11px] font-bold text-[#FCD34D]">
+          <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-night-700 border border-gold-400/30 text-[11px] font-bold text-gold-300">
             <Clock className="w-3.5 h-3.5" />
             <span>باقي 3 أيام</span>
           </div>
         </div>
 
         {/* User Rank Snapshot Card */}
-        <div className="mt-3 p-3 rounded-2xl bg-gradient-to-r from-[#E5A93B]/15 via-[#0EA5E9]/10 to-transparent border border-[#E5A93B]/30 flex items-center justify-between">
+        <div className="mt-3 p-3 rounded-2xl bg-gradient-to-r from-gold-400/15 via-sea-500/10 to-transparent border border-gold-400/30 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <span className="w-8 h-8 rounded-xl bg-[#E5A93B] text-[#0B0F19] font-black text-sm flex items-center justify-center shadow-md">
+            <span className="w-8 h-8 rounded-xl bg-gold-400 text-night-900 font-black text-sm flex items-center justify-center shadow-md">
               #{currentUserRank}
             </span>
             <div>
               <h4 className="text-xs font-black text-white flex items-center gap-1">
                 <span>{profile.name}</span>
-                <span className="text-[10px] text-[#FCD34D] font-normal">({profile.title})</span>
+                <span className="text-[10px] text-gold-300 font-normal">({profile.title})</span>
               </h4>
-              <span className="text-[10px] text-[#94A3B8]">
-                مجموع نقاطك التنافسية: <strong className="text-[#38BDF8]">{userScore}</strong>
+              <span className="text-[10px] text-ink-400">
+                مجموع نقاطك التنافسية: <strong className="text-sea-300">{userScore}</strong>
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-1 text-xs font-black text-[#FCD34D]">
+          <div className="flex items-center gap-1 text-xs font-black text-gold-300">
             <Star className="w-3.5 h-3.5 fill-current" />
             <span>{userStars} نجوم</span>
           </div>
@@ -163,13 +163,13 @@ export const LeaderboardTab: React.FC = () => {
 
           if (item.rank === 1) {
             rankBadge = '🥇';
-            rankStyle = 'bg-[#E5A93B]/30 text-[#FCD34D] border-[#E5A93B]/50 shadow-[0_0_10px_#E5A93B]';
+            rankStyle = 'bg-gold-400/30 text-gold-300 border-gold-400/50 shadow-gold-glow-sm';
           } else if (item.rank === 2) {
             rankBadge = '🥈';
-            rankStyle = 'bg-[#94A3B8]/30 text-white border-[#94A3B8]/50';
+            rankStyle = 'bg-ink-400/30 text-white border-ink-400/50';
           } else if (item.rank === 3) {
             rankBadge = '🥉';
-            rankStyle = 'bg-[#D97706]/30 text-[#FCD34D] border-[#D97706]/50';
+            rankStyle = 'bg-gold-500/30 text-gold-300 border-gold-500/50';
           }
 
           return (
@@ -179,7 +179,7 @@ export const LeaderboardTab: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               className={`p-3.5 rounded-2xl flex items-center justify-between gap-3 border transition-all ${
                 item.isUser
-                  ? 'glass-panel border-2 border-[#E5A93B] shadow-[0_0_20px_rgba(229,169,59,0.25)] bg-[#E5A93B]/10'
+                  ? 'glass-panel border-2 border-gold-400 shadow-gold-glow bg-gold-400/10'
                   : 'glass-card border-white/5'
               }`}
             >
@@ -196,26 +196,26 @@ export const LeaderboardTab: React.FC = () => {
                   <div className="flex items-center gap-1.5">
                     <h4 className="text-xs font-black text-white truncate">{item.name}</h4>
                     {item.isUser && (
-                      <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-[#E5A93B] text-[#0B0F19] font-black">
+                      <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-gold-400 text-night-900 font-black">
                         أنت
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-2 text-[10px] text-[#94A3B8] mt-0.5">
-                    <span className="flex items-center gap-0.5 text-[#38BDF8]">
+                  <div className="flex items-center gap-2 text-[10px] text-ink-400 mt-0.5">
+                    <span className="flex items-center gap-0.5 text-sea-300">
                       <MapPin className="w-2.5 h-2.5" />
                       {item.city}
                     </span>
                     <span>•</span>
-                    <span className="text-[#FCD34D]">{item.title}</span>
+                    <span className="text-gold-300">{item.title}</span>
                   </div>
                 </div>
               </div>
 
               <div className="text-left shrink-0">
-                <span className="block text-xs font-black text-[#FCD34D]">{item.score} ن</span>
-                <span className="text-[10px] text-[#94A3B8] flex items-center justify-end gap-0.5">
-                  <Star className="w-2.5 h-2.5 text-[#E5A93B] fill-current" />
+                <span className="block text-xs font-black text-gold-300">{item.score} ن</span>
+                <span className="text-[10px] text-ink-400 flex items-center justify-end gap-0.5">
+                  <Star className="w-2.5 h-2.5 text-gold-400 fill-current" />
                   {item.stars}
                 </span>
               </div>

@@ -67,7 +67,7 @@ const crosswordsById = new Map(miniCrosswords.map((p) => [p.id, p]));
 
 const ScreenFallback: React.FC = () => (
   <div className="flex items-center justify-center py-24" role="status" aria-live="polite">
-    <div className="w-10 h-10 rounded-full border-2 border-[#E5A93B]/30 border-t-[#E5A93B] animate-spin" />
+    <div className="w-10 h-10 rounded-full border-2 border-gold-400/30 border-t-gold-400 animate-spin" />
     <span className="sr-only">جارٍ التحميل…</span>
   </div>
 );
@@ -136,7 +136,7 @@ export const App: React.FC = () => {
 
   if (isMenuOpen) {
     return (
-      <div className="min-h-screen bg-[#0B0F19] text-[#F8FAFC] font-sans bg-libyan-pattern selection:bg-[#E5A93B]/30">
+      <div className="min-h-screen bg-night-900 text-ink-100 font-sans bg-libyan-pattern selection:bg-gold-400/30">
         <Suspense fallback={<ScreenFallback />}>
           <MainMenuScreen
             onPlay={(mode) => {
@@ -152,7 +152,7 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] text-[#F8FAFC] flex flex-col font-sans bg-libyan-pattern selection:bg-[#E5A93B]/30">
+    <div className="min-h-screen bg-night-900 text-ink-100 flex flex-col font-sans bg-libyan-pattern selection:bg-gold-400/30">
       {/* Top HUD */}
       {!activeStage && (
         <HeaderHUD

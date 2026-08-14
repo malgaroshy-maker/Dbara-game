@@ -207,14 +207,14 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
         <div className="flex items-center justify-between">
           <button
             onClick={onBack}
-            className="flex items-center gap-1 text-xs font-bold text-[#94A3B8] hover:text-white bg-[#131C2E] px-3 py-1.5 rounded-xl border border-white/10"
+            className="flex items-center gap-1 text-xs font-bold text-ink-400 hover:text-white bg-night-800 px-3 py-1.5 rounded-xl border border-white/10"
           >
             <ArrowRight className="w-4 h-4" />
             <span>رجوع</span>
           </button>
           <div className="text-center">
             <h2 className="text-base font-extrabold text-white flex items-center gap-1.5">
-              <Swords className="w-5 h-5 text-[#E5A93B]" />
+              <Swords className="w-5 h-5 text-gold-400" />
               <span>التحدي الثنائي (Pass & Play)</span>
             </h2>
           </div>
@@ -224,9 +224,9 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
         {/* Players Card Config */}
         <div className="grid grid-cols-2 gap-3">
           {/* Player 1 */}
-          <div className="glass-panel p-4 rounded-3xl border-[#0EA5E9]/40 space-y-2">
+          <div className="glass-panel p-4 rounded-3xl border-sea-500/40 space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-black text-[#38BDF8]">اللاعب الأول</span>
+              <span className="text-xs font-black text-sea-300">اللاعب الأول</span>
               <span className="text-2xl">{player1Avatar}</span>
             </div>
             <input
@@ -243,7 +243,7 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
                   key={av}
                   onClick={() => setPlayer1Avatar(av)}
                   className={`p-1 rounded-lg text-sm border ${
-                    player1Avatar === av ? 'bg-[#0EA5E9]/30 border-[#0EA5E9]' : 'border-white/5'
+                    player1Avatar === av ? 'bg-sea-500/30 border-sea-500' : 'border-white/5'
                   }`}
                 >
                   {av}
@@ -253,9 +253,9 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
           </div>
 
           {/* Player 2 */}
-          <div className="glass-panel p-4 rounded-3xl border-[#F59E0B]/40 space-y-2">
+          <div className="glass-panel p-4 rounded-3xl border-flame/40 space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-black text-[#FCD34D]">اللاعب الثاني</span>
+              <span className="text-xs font-black text-gold-300">اللاعب الثاني</span>
               <span className="text-2xl">{player2Avatar}</span>
             </div>
             <input
@@ -272,7 +272,7 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
                   key={av}
                   onClick={() => setPlayer2Avatar(av)}
                   className={`p-1 rounded-lg text-sm border ${
-                    player2Avatar === av ? 'bg-[#F59E0B]/30 border-[#F59E0B]' : 'border-white/5'
+                    player2Avatar === av ? 'bg-flame/30 border-flame' : 'border-white/5'
                   }`}
                 >
                   {av}
@@ -285,7 +285,7 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
         {/* Match Settings */}
         <div className="glass-card p-4 rounded-3xl space-y-3">
           <div>
-            <label className="block text-xs font-bold text-[#CBD5E1] mb-1.5">عدد الأسئلة:</label>
+            <label className="block text-xs font-bold text-ink-300 mb-1.5">عدد الأسئلة:</label>
             <div className="grid grid-cols-3 gap-2">
               {[3, 5, 7].map((num) => (
                 <button
@@ -293,8 +293,8 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
                   onClick={() => setTotalQuestions(num)}
                   className={`py-2 rounded-xl text-xs font-black border transition-all ${
                     totalQuestions === num
-                      ? 'bg-[#E5A93B] text-[#0B0F19] border-[#E5A93B] shadow-md'
-                      : 'bg-[#1E293B] text-[#94A3B8] border-white/5'
+                      ? 'bg-gold-400 text-night-900 border-gold-400 shadow-md'
+                      : 'bg-night-700 text-ink-400 border-white/5'
                   }`}
                 >
                   {num} أسئلة
@@ -304,11 +304,11 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#CBD5E1] mb-1.5">مجال الأسئلة:</label>
+            <label className="block text-xs font-bold text-ink-300 mb-1.5">مجال الأسئلة:</label>
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full p-2.5 rounded-xl bg-[#1E293B] border border-white/10 text-xs text-white font-bold"
+              className="w-full p-2.5 rounded-xl bg-night-700 border border-white/10 text-xs text-white font-bold"
             >
               <option value="all">مزيج من كافة المجالات</option>
               <option value="history">تاريخ وآثار ليبيا</option>
@@ -327,7 +327,7 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
         {/* Start Button */}
         <button
           onClick={handleStartDuel}
-          className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#E5A93B] to-[#F59E0B] text-[#0B0F19] font-black text-sm shadow-[0_0_20px_rgba(229,169,59,0.4)] flex items-center justify-center gap-2 transition-transform active:scale-95"
+          className="w-full py-4 rounded-2xl bg-gradient-to-r from-gold-400 to-flame text-night-900 font-black text-sm shadow-gold-glow flex items-center justify-center gap-2 transition-transform active:scale-95"
         >
           <Play className="w-5 h-5 fill-current" />
           <span>ابدأ التحدي الثنائي الحماسي! ⚔️</span>
@@ -340,7 +340,7 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
   if (isPassingDevice) {
     const nextPlayerName = currentTurn === 1 ? player1Name : player2Name;
     const nextPlayerAvatar = currentTurn === 1 ? player1Avatar : player2Avatar;
-    const nextPlayerColor = currentTurn === 1 ? 'border-[#0EA5E9] text-[#38BDF8]' : 'border-[#F59E0B] text-[#FCD34D]';
+    const nextPlayerColor = currentTurn === 1 ? 'border-sea-500 text-sea-300' : 'border-flame text-gold-300';
 
     return (
       <div className="flex flex-col items-center justify-center p-6 max-w-sm mx-auto text-center min-h-[60vh] select-none">
@@ -351,11 +351,11 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
         >
           <div className="text-4xl animate-bounce">{nextPlayerAvatar}</div>
           <h3 className="text-xl font-black text-white">حان دورك يا {nextPlayerName}!</h3>
-          <p className="text-xs text-[#94A3B8]">مرّر الجهاز لخصمك دون النظر للإجابات السابقة</p>
+          <p className="text-xs text-ink-400">مرّر الجهاز لخصمك دون النظر للإجابات السابقة</p>
 
           <button
             onClick={handleReadyAfterPass}
-            className="w-full py-3.5 rounded-2xl bg-[#E5A93B] text-[#0B0F19] font-black text-sm shadow-lg transition-transform active:scale-95"
+            className="w-full py-3.5 rounded-2xl bg-gold-400 text-night-900 font-black text-sm shadow-lg transition-transform active:scale-95"
           >
             أنا جاهز، ابدأ سؤالي! 🎯
           </button>
@@ -375,9 +375,9 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
         <motion.div
           initial={{ scale: 0.85, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="w-full bg-gradient-to-b from-[#131C2E] to-[#0B0F19] border border-[#E5A93B]/50 rounded-3xl p-6 shadow-2xl space-y-4"
+          className="w-full bg-gradient-to-b from-night-800 to-night-900 border border-gold-400/50 rounded-3xl p-6 shadow-2xl space-y-4"
         >
-          <div className="w-16 h-16 rounded-full bg-[#E5A93B]/20 border-2 border-[#E5A93B] flex items-center justify-center mx-auto text-[#FCD34D] shadow-[0_0_20px_#E5A93B]">
+          <div className="w-16 h-16 rounded-full bg-gold-400/20 border-2 border-gold-400 flex items-center justify-center mx-auto text-gold-300 shadow-gold-glow">
             <Trophy className="w-8 h-8" />
           </div>
 
@@ -385,19 +385,19 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
             <h3 className="text-2xl font-black text-white">
               {isTie ? 'تعادل الفرسان! 🤝' : `الفائز: ${winnerName}! 👑`}
             </h3>
-            <p className="text-xs text-[#94A3B8] mt-1">انتهت المبارزة الثنائية الشيقة</p>
+            <p className="text-xs text-ink-400 mt-1">انتهت المبارزة الثنائية الشيقة</p>
           </div>
 
           {/* Score Duel Comparison */}
           <div className="grid grid-cols-2 gap-3 p-3 rounded-2xl bg-black/30 border border-white/5">
             <div className="text-center">
               <span className="text-xl">{player1Avatar}</span>
-              <h4 className="text-xs font-bold text-[#38BDF8] mt-0.5">{player1Name}</h4>
+              <h4 className="text-xs font-bold text-sea-300 mt-0.5">{player1Name}</h4>
               <span className="text-xl font-black text-white">{player1Score}</span>
             </div>
             <div className="text-center">
               <span className="text-xl">{player2Avatar}</span>
-              <h4 className="text-xs font-bold text-[#FCD34D] mt-0.5">{player2Name}</h4>
+              <h4 className="text-xs font-bold text-gold-300 mt-0.5">{player2Name}</h4>
               <span className="text-xl font-black text-white">{player2Score}</span>
             </div>
           </div>
@@ -405,7 +405,7 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
           <div className="flex flex-col gap-2">
             <button
               onClick={() => setIsShareModalOpen(true)}
-              className="w-full py-3 rounded-2xl bg-[#0EA5E9] hover:bg-[#0284C7] text-[#0B0F19] font-black text-xs flex items-center justify-center gap-1.5 shadow-md"
+              className="w-full py-3 rounded-2xl bg-sea-500 hover:bg-sea-700 text-night-900 font-black text-xs flex items-center justify-center gap-1.5 shadow-md"
             >
               <Share2 className="w-4 h-4" />
               <span>مشاركة نتيجة التحدي 🏅</span>
@@ -413,7 +413,7 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
 
             <button
               onClick={handleStartDuel}
-              className="w-full py-3 rounded-2xl bg-[#1E293B] border border-white/10 text-white font-bold text-xs flex items-center justify-center gap-1.5"
+              className="w-full py-3 rounded-2xl bg-night-700 border border-white/10 text-white font-bold text-xs flex items-center justify-center gap-1.5"
             >
               <RotateCcw className="w-4 h-4" />
               <span>جولة ثأر جديدة ⚔️</span>
@@ -421,7 +421,7 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
 
             <button
               onClick={() => setIsGameStarted(false)}
-              className="w-full py-3 rounded-2xl bg-white/5 hover:bg-white/10 text-[#94A3B8] text-xs font-bold"
+              className="w-full py-3 rounded-2xl bg-white/5 hover:bg-white/10 text-ink-400 text-xs font-bold"
             >
               العودة لإعدادات التحدي
             </button>
@@ -457,11 +457,11 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
         <div
           className={`p-2 rounded-2xl border transition-all text-center ${
             currentTurn === 1
-              ? 'bg-[#0EA5E9]/20 border-[#0EA5E9] ring-2 ring-[#0EA5E9]/40'
-              : 'bg-[#131C2E] border-white/5 opacity-60'
+              ? 'bg-sea-500/20 border-sea-500 ring-2 ring-sea-500/40'
+              : 'bg-night-800 border-white/5 opacity-60'
           }`}
         >
-          <div className="flex items-center justify-center gap-1 text-xs font-black text-[#38BDF8]">
+          <div className="flex items-center justify-center gap-1 text-xs font-black text-sea-300">
             <span>{player1Avatar}</span>
             <span className="truncate">{player1Name}</span>
           </div>
@@ -470,12 +470,12 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
 
         {/* Middle Timer */}
         <div className="flex flex-col items-center">
-          <span className="text-[10px] font-bold text-[#94A3B8]">
+          <span className="text-[10px] font-bold text-ink-400">
             سؤال {currentQIndex + 1}/{questions.length}
           </span>
           <div
             className={`flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-black border ${
-              timeLeft <= 5 ? 'bg-[#F43F5E]/20 text-[#F43F5E] border-[#F43F5E]' : 'bg-[#1E293B] text-[#FCD34D] border-[#E5A93B]/30'
+              timeLeft <= 5 ? 'bg-crimson-500/20 text-crimson-500 border-crimson-500' : 'bg-night-700 text-gold-300 border-gold-400/30'
             }`}
           >
             <Clock className="w-3.5 h-3.5" />
@@ -487,11 +487,11 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
         <div
           className={`p-2 rounded-2xl border transition-all text-center ${
             currentTurn === 2
-              ? 'bg-[#F59E0B]/20 border-[#F59E0B] ring-2 ring-[#F59E0B]/40'
-              : 'bg-[#131C2E] border-white/5 opacity-60'
+              ? 'bg-flame/20 border-flame ring-2 ring-flame/40'
+              : 'bg-night-800 border-white/5 opacity-60'
           }`}
         >
-          <div className="flex items-center justify-center gap-1 text-xs font-black text-[#FCD34D]">
+          <div className="flex items-center justify-center gap-1 text-xs font-black text-gold-300">
             <span>{player2Avatar}</span>
             <span className="truncate">{player2Name}</span>
           </div>
@@ -501,7 +501,7 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
 
       {/* Active Turn Banner */}
       <div className="text-center py-1 bg-white/5 rounded-2xl border border-white/5">
-        <span className="text-xs font-extrabold text-[#FCD34D]">
+        <span className="text-xs font-extrabold text-gold-300">
           🎯 دور: {activePlayerName} {activePlayerAvatar}
         </span>
       </div>
@@ -513,11 +513,11 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
         animate={{ opacity: 1, y: 0 }}
         className="glass-panel p-5 rounded-3xl text-right"
       >
-        <div className="flex items-center gap-1.5 text-xs text-[#E5A93B] font-bold mb-2">
+        <div className="flex items-center gap-1.5 text-xs text-gold-400 font-bold mb-2">
           <Sparkles className="w-3.5 h-3.5" />
           <span>سؤال المبارزة الثنائية:</span>
         </div>
-        <h2 className="text-lg sm:text-xl font-extrabold text-[#F8FAFC] leading-relaxed">
+        <h2 className="text-lg sm:text-xl font-extrabold text-ink-100 leading-relaxed">
           {currentQ.question}
         </h2>
       </motion.div>
@@ -528,12 +528,12 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
           const isSelected = selectedOption === vIdx;
           const isCorrect = opt.originalIndex === currentQ.correctIndex;
 
-          let btnStyle = 'glass-card-interactive border-white/10 text-[#F8FAFC]';
+          let btnStyle = 'glass-card-interactive border-white/10 text-ink-100';
           if (isAnswered) {
             if (isCorrect) {
-              btnStyle = 'bg-[#10B981]/25 border-[#10B981] text-[#A7F3D0] shadow-[0_0_20px_rgba(16,185,129,0.35)]';
+              btnStyle = 'bg-oasis-500/25 border-oasis-500 text-oasis-200 shadow-oasis-glow';
             } else if (isSelected && !isCorrect) {
-              btnStyle = 'bg-[#F43F5E]/25 border-[#F43F5E] text-[#FECDD3]';
+              btnStyle = 'bg-crimson-500/25 border-crimson-500 text-crimson-200';
             } else {
               btnStyle = 'opacity-40 border-white/5';
             }
@@ -548,14 +548,14 @@ export const PassAndPlayScreen: React.FC<PassAndPlayScreenProps> = ({ onBack }) 
               className={`w-full p-3.5 rounded-2xl flex items-center justify-between text-right transition-all font-bold ${btnStyle}`}
             >
               <div className="flex items-center gap-2.5">
-                <span className="w-6 h-6 rounded-full bg-[#E5A93B]/15 text-[#FCD34D] border border-[#E5A93B]/30 flex items-center justify-center text-xs font-black shrink-0">
+                <span className="w-6 h-6 rounded-full bg-gold-400/15 text-gold-300 border border-gold-400/30 flex items-center justify-center text-xs font-black shrink-0">
                   {optionLabels[vIdx]}
                 </span>
                 <span className="text-xs sm:text-sm">{opt.text}</span>
               </div>
 
-              {isAnswered && isCorrect && <CheckCircle className="w-4 h-4 text-[#10B981] shrink-0" />}
-              {isAnswered && isSelected && !isCorrect && <XCircle className="w-4 h-4 text-[#F43F5E] shrink-0" />}
+              {isAnswered && isCorrect && <CheckCircle className="w-4 h-4 text-oasis-500 shrink-0" />}
+              {isAnswered && isSelected && !isCorrect && <XCircle className="w-4 h-4 text-crimson-500 shrink-0" />}
             </motion.button>
           );
         })}

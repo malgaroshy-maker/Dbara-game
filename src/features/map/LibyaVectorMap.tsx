@@ -176,7 +176,7 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
     // Smaller symbols mean less displacement is needed to separate the coastal
     // cluster, so pins stay closer to their true positions.
     const iconClass = `w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform ${
-      isSelected ? 'text-[#0B0F19]' : isUnlocked ? 'text-[#FCD34D]' : 'text-[#64748B]'
+      isSelected ? 'text-night-900' : isUnlocked ? 'text-gold-300' : 'text-ink-500'
     }`;
 
     switch (cityId) {
@@ -226,13 +226,13 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
   };
 
   return (
-    <div className="relative w-full max-w-[500px] aspect-[1/1.12] mx-auto select-none overflow-hidden rounded-3xl p-1 bg-[#06080C] border border-[#E5A93B]/30 shadow-2xl">
+    <div className="relative w-full max-w-[500px] aspect-[1/1.12] mx-auto select-none overflow-hidden rounded-3xl p-1 bg-night-950 border border-gold-400/30 shadow-2xl">
       {/* Background Libya Satellite Map Graphic */}
       <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden rounded-3xl">
         <img
           src="/assets/libya-map.png"
           alt="خريطة ليبيا الجغرافية"
-          className="w-full h-full object-cover opacity-90 scale-[1.02] filter contrast-115 drop-shadow-[0_0_25px_rgba(212,175,55,0.25)]"
+          className="w-full h-full object-cover opacity-90 scale-[1.02] filter contrast-115 drop-shadow-gold-glow"
           onError={(e) => {
             (e.target as HTMLImageElement).src =
               'https://lh3.googleusercontent.com/aida-public/AB6AXuCFEq4CYSnmFvo6GDkKPKQew6cRirUlLA3JAZJ2toqpPwcSa-CHqLSWH-pxFNMqgqtwdYpPFBR9ZdS6KDXjUBASyZqxbD8glHur2HVOTd5xTeU8razUpnEAAUh7cC9GQo2PutQidWExPhxpfX2j9aOsDWA6gXXBZ00gfmRO89uj7N1oufpge3pveC8_iyiT-CiS1WlERqUrHCrpzJTl9WldtBEqz5rIlCf2NZlYZsdwCsHv0-u4FQ3OAkElJsD8SJm4CFZGS3A37VA';
@@ -240,7 +240,7 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
         />
 
         {/* Ambient Vignette Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#06080C] via-transparent to-[#06080C]/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-night-950 via-transparent to-night-950/40" />
       </div>
 
       {/*
@@ -280,7 +280,7 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
             strokeLinecap="round"
             strokeWidth={route.isUnlocked ? 2.2 : 1.2}
             strokeDasharray={route.isUnlocked ? 'none' : '4.5, 4.5'}
-            className={route.isUnlocked ? 'filter drop-shadow-[0_0_5px_rgba(229,169,59,0.6)]' : ''}
+            className={route.isUnlocked ? 'filter drop-shadow-gold-glow-sm' : ''}
           />
         ))}
 
@@ -380,7 +380,7 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
               {isSelected && (
                 <motion.div
                   className={`absolute -inset-3 rounded-full pointer-events-none ${
-                    isUnlocked ? 'bg-[#E5A93B]/50 blur-md' : 'bg-white/20 blur-sm'
+                    isUnlocked ? 'bg-gold-400/50 blur-md' : 'bg-white/20 blur-sm'
                   }`}
                   animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0.85, 0.5] }}
                   transition={{ repeat: Infinity, duration: 2 }}
@@ -422,28 +422,28 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
                 className={`relative flex items-center justify-center rounded-full p-2 sm:p-2.5 transition-all shadow-xl ${
                   isSelected
                     ? isUnlocked
-                      ? 'bg-gradient-to-br from-[#FCD34D] to-[#E5A93B] ring-4 ring-[#E5A93B]/60 scale-110 shadow-[0_0_25px_#E5A93B]'
-                      : 'bg-[#1E293B] border-2 border-white/40 ring-2 ring-white/20 scale-105'
+                      ? 'bg-gradient-to-br from-gold-300 to-gold-400 ring-4 ring-gold-400/60 scale-110 shadow-gold-glow'
+                      : 'bg-night-700 border-2 border-white/40 ring-2 ring-white/20 scale-105'
                     : isUnlocked
-                    ? 'bg-[#131C2E]/95 backdrop-blur-md border-2 border-[#E5A93B] hover:border-[#FCD34D] shadow-[0_0_15px_rgba(229,169,59,0.35)]'
-                    : 'bg-[#0B0F19]/90 backdrop-blur-md border border-white/15 opacity-70'
+                    ? 'bg-night-800/95 backdrop-blur-md border-2 border-gold-400 hover:border-gold-300 shadow-gold-glow-sm'
+                    : 'bg-night-900/90 backdrop-blur-md border border-white/15 opacity-70'
                 }`}
               >
                 {getCityIcon(city.id, isSelected && isUnlocked, isUnlocked)}
 
                 {/* Status Indicator Badge (Lock / Check / Stars) */}
-                <div className="absolute -top-2.5 -right-2 px-1.5 py-0.5 rounded-full text-[8px] font-black flex items-center gap-0.5 bg-[#0B0F19] border border-white/20 shadow-md">
+                <div className="absolute -top-2.5 -right-2 px-1.5 py-0.5 rounded-full text-[8px] font-black flex items-center gap-0.5 bg-night-900 border border-white/20 shadow-md">
                   {!isUnlocked ? (
-                    <Lock className="w-2.5 h-2.5 text-[#94A3B8]" />
+                    <Lock className="w-2.5 h-2.5 text-ink-400" />
                   ) : isAllStagesCompleted ? (
-                    <CheckCircle2 className="w-2.5 h-2.5 text-[#10B981]" />
+                    <CheckCircle2 className="w-2.5 h-2.5 text-oasis-500" />
                   ) : totalStars > 0 ? (
                     <>
-                      <Star className="w-2 h-2 text-[#E5A93B] fill-[#E5A93B]" />
-                      <span className="text-[#FCD34D] text-[9px]">{totalStars}</span>
+                      <Star className="w-2 h-2 text-gold-400 fill-gold-400" />
+                      <span className="text-gold-300 text-[9px]">{totalStars}</span>
                     </>
                   ) : (
-                    <span className="text-[#38BDF8] text-[8px] font-bold">1</span>
+                    <span className="text-sea-300 text-[8px] font-bold">1</span>
                   )}
                 </div>
               </div>
@@ -473,11 +473,11 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
                 className={`text-[10px] sm:text-[11px] font-black px-2 py-0.5 rounded-full shadow-lg backdrop-blur-md transition-all ${
                   isSelected
                     ? isUnlocked
-                      ? 'bg-[#E5A93B] text-[#0B0F19] border border-[#FCD34D] shadow-[0_0_12px_rgba(229,169,59,0.5)]'
-                      : 'bg-[#1E293B] text-white border border-white/30'
+                      ? 'bg-gold-400 text-night-900 border border-gold-300 shadow-gold-glow-sm'
+                      : 'bg-night-700 text-white border border-white/30'
                     : isUnlocked
-                    ? 'bg-[#0B0F19]/90 text-[#F8FAFC] border border-[#E5A93B]/35 hover:border-[#E5A93B]'
-                    : 'bg-[#0B0F19]/80 text-[#94A3B8] border border-white/10'
+                    ? 'bg-night-900/90 text-ink-100 border border-gold-400/35 hover:border-gold-400'
+                    : 'bg-night-900/80 text-ink-400 border border-white/10'
                 }`}
               >
                 {city.mapLabel ?? city.arabicName}
@@ -514,10 +514,10 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
               }}
               className={`absolute -translate-x-1/2 -translate-y-1/2 z-40 w-8 h-8 sm:w-9 sm:h-9 rounded-full flex flex-col items-center justify-center font-black text-[11px] shadow-lg transition-colors ${
                 !isPlayable
-                  ? 'bg-[#0B0F19]/90 border border-white/15 text-[#64748B] cursor-not-allowed'
+                  ? 'bg-night-900/90 border border-white/15 text-ink-500 cursor-not-allowed'
                   : stars > 0
-                  ? 'bg-gradient-to-br from-[#FCD34D] to-[#E5A93B] border-2 border-[#FCD34D] text-[#0B0F19] shadow-[0_0_14px_rgba(229,169,59,0.55)]'
-                  : 'bg-[#131C2E] border-2 border-[#E5A93B] text-[#FCD34D] shadow-[0_0_12px_rgba(229,169,59,0.4)] cursor-pointer'
+                  ? 'bg-gradient-to-br from-gold-300 to-gold-400 border-2 border-gold-300 text-night-900 shadow-gold-glow-sm'
+                  : 'bg-night-800 border-2 border-gold-400 text-gold-300 shadow-gold-glow-sm cursor-pointer'
               }`}
             >
               {isPlayable ? (

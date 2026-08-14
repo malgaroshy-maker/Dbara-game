@@ -14,7 +14,7 @@ export const BadgesScreen: React.FC = () => {
       title: 'حذف إجابتين (50:50)',
       description: 'استبعاد خيارين خاطئين في أسئلة الاختيار من متعدد',
       cost: 20,
-      icon: <HelpCircle className="w-6 h-6 text-[#FCD34D]" />,
+      icon: <HelpCircle className="w-6 h-6 text-gold-300" />,
       current: profile.lifelines.fiftyFifty,
     },
     {
@@ -22,7 +22,7 @@ export const BadgesScreen: React.FC = () => {
       title: 'كشف حرف',
       description: 'كشف حرف في شبكة الكلمات المتقاطعة أو ألغاز الحروف',
       cost: 15,
-      icon: <Lightbulb className="w-6 h-6 text-[#38BDF8]" />,
+      icon: <Lightbulb className="w-6 h-6 text-sea-300" />,
       current: profile.lifelines.revealLetter,
     },
     {
@@ -30,7 +30,7 @@ export const BadgesScreen: React.FC = () => {
       title: 'تخطي السؤال',
       description: 'تجاوز السؤال الصعب واجتياز المرحلة بنجمة واحدة',
       cost: 40,
-      icon: <FastForward className="w-6 h-6 text-[#10B981]" />,
+      icon: <FastForward className="w-6 h-6 text-oasis-500" />,
       current: profile.lifelines.skip,
     },
     {
@@ -38,7 +38,7 @@ export const BadgesScreen: React.FC = () => {
       title: 'وقت إضافي (+15 ثانية)',
       description: 'إضافة 15 ثانية لعداد الوقت في الجولات الصعبة',
       cost: 25,
-      icon: <PlusCircle className="w-6 h-6 text-[#EC4899]" />,
+      icon: <PlusCircle className="w-6 h-6 text-rose" />,
       current: profile.lifelines.extraTime,
     },
   ];
@@ -49,29 +49,29 @@ export const BadgesScreen: React.FC = () => {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-extrabold text-white flex items-center gap-2">
-            <Trophy className="w-5 h-5 text-[#E5A93B]" />
+            <Trophy className="w-5 h-5 text-gold-400" />
             الأوسمة ولوحة الشرف
           </h2>
-          <p className="text-xs text-[#94A3B8] mt-0.5">
+          <p className="text-xs text-ink-400 mt-0.5">
             استعرض إنجازاتك، تصنيفك الأسبوعي، والمساعدات
           </p>
         </div>
 
         {/* Dinars Counter */}
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-[#1E293B] border border-[#E5A93B]/40 text-xs font-black text-[#FCD34D]">
-          <Coins className="w-4 h-4 text-[#E5A93B]" />
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-night-700 border border-gold-400/40 text-xs font-black text-gold-300">
+          <Coins className="w-4 h-4 text-gold-400" />
           <span>{profile.dinars} د.ل</span>
         </div>
       </div>
 
       {/* Switcher 3 Tabs */}
-      <div className="grid grid-cols-3 p-1 rounded-2xl bg-[#131C2E] border border-white/10 text-xs font-bold gap-1">
+      <div className="grid grid-cols-3 p-1 rounded-2xl bg-night-800 border border-white/10 text-xs font-bold gap-1">
         <button
           onClick={() => setTab('badges')}
           className={`py-2 rounded-xl transition-all flex items-center justify-center gap-1 text-[11px] font-black ${
             tab === 'badges'
-              ? 'bg-[#E5A93B] text-[#0B0F19] shadow-md'
-              : 'text-[#94A3B8] hover:text-white'
+              ? 'bg-gold-400 text-night-900 shadow-md'
+              : 'text-ink-400 hover:text-white'
           }`}
         >
           <Trophy className="w-3.5 h-3.5" />
@@ -82,8 +82,8 @@ export const BadgesScreen: React.FC = () => {
           onClick={() => setTab('leaderboard')}
           className={`py-2 rounded-xl transition-all flex items-center justify-center gap-1 text-[11px] font-black ${
             tab === 'leaderboard'
-              ? 'bg-[#E5A93B] text-[#0B0F19] shadow-md'
-              : 'text-[#94A3B8] hover:text-white'
+              ? 'bg-gold-400 text-night-900 shadow-md'
+              : 'text-ink-400 hover:text-white'
           }`}
         >
           <Shield className="w-3.5 h-3.5" />
@@ -94,8 +94,8 @@ export const BadgesScreen: React.FC = () => {
           onClick={() => setTab('shop')}
           className={`py-2 rounded-xl transition-all flex items-center justify-center gap-1 text-[11px] font-black ${
             tab === 'shop'
-              ? 'bg-[#E5A93B] text-[#0B0F19] shadow-md'
-              : 'text-[#94A3B8] hover:text-white'
+              ? 'bg-gold-400 text-night-900 shadow-md'
+              : 'text-ink-400 hover:text-white'
           }`}
         >
           <ShoppingBag className="w-3.5 h-3.5" />
@@ -117,15 +117,15 @@ export const BadgesScreen: React.FC = () => {
                 key={badge.id}
                 className={`p-4 rounded-3xl border transition-all flex items-center justify-between gap-3 ${
                   isUnlocked
-                    ? 'glass-card border-[#E5A93B]/30'
-                    : 'bg-[#0B0F19]/50 border-white/5 opacity-50'
+                    ? 'glass-card border-gold-400/30'
+                    : 'bg-night-900/50 border-white/5 opacity-50'
                 }`}
               >
                 <div className="flex items-center gap-3.5">
                   <div
                     className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0 ${
                       isUnlocked
-                        ? 'bg-[#E5A93B]/20 border border-[#E5A93B]/40 shadow-[0_0_15px_rgba(229,169,59,0.2)]'
+                        ? 'bg-gold-400/20 border border-gold-400/40 shadow-gold-glow-sm'
                         : 'bg-white/5 border border-white/10 grayscale'
                     }`}
                   >
@@ -135,17 +135,17 @@ export const BadgesScreen: React.FC = () => {
                   <div>
                     <h4 className="text-sm font-extrabold text-white flex items-center gap-1.5">
                       {badge.title}
-                      {isUnlocked && <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981]" />}
+                      {isUnlocked && <CheckCircle2 className="w-3.5 h-3.5 text-oasis-500" />}
                     </h4>
-                    <p className="text-xs text-[#94A3B8] mt-0.5">{badge.description}</p>
-                    <span className="text-[10px] text-[#CBD5E1] mt-1 inline-block bg-white/5 px-2 py-0.5 rounded-full">
+                    <p className="text-xs text-ink-400 mt-0.5">{badge.description}</p>
+                    <span className="text-[10px] text-ink-300 mt-1 inline-block bg-white/5 px-2 py-0.5 rounded-full">
                       الشرط: {badge.requirementText}
                     </span>
                   </div>
                 </div>
 
                 <div className="text-left shrink-0">
-                  <span className="text-xs font-black text-[#FCD34D]">+{badge.rewardDinars} د.ل</span>
+                  <span className="text-xs font-black text-gold-300">+{badge.rewardDinars} د.ل</span>
                 </div>
               </div>
             );
@@ -168,18 +168,18 @@ export const BadgesScreen: React.FC = () => {
                 <div>
                   <div className="flex items-center gap-2">
                     <h4 className="text-sm font-extrabold text-white">{item.title}</h4>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#1E293B] text-[#94A3B8] font-bold">
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-night-700 text-ink-400 font-bold">
                       لديك: {item.current}
                     </span>
                   </div>
-                  <p className="text-xs text-[#94A3B8] mt-0.5">{item.description}</p>
+                  <p className="text-xs text-ink-400 mt-0.5">{item.description}</p>
                 </div>
               </div>
 
               <button
                 onClick={() => buyLifeline(item.id as keyof typeof profile.lifelines, item.cost)}
                 disabled={profile.dinars < item.cost}
-                className="flex items-center gap-1 px-3.5 py-2 rounded-2xl bg-gradient-to-r from-[#E5A93B] to-[#F59E0B] text-[#0B0F19] font-black text-xs shadow-md transition-transform active:scale-95 disabled:opacity-40"
+                className="flex items-center gap-1 px-3.5 py-2 rounded-2xl bg-gradient-to-r from-gold-400 to-flame text-night-900 font-black text-xs shadow-md transition-transform active:scale-95 disabled:opacity-40"
               >
                 <span>شراء</span>
                 <span>({item.cost} د.ل)</span>

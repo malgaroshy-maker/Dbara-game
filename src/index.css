@@ -1,89 +1,180 @@
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    --color-primary: #E5A93B;
-    --color-primary-light: #FCD34D;
-    --color-primary-dark: #B45309;
-    --color-secondary: #0EA5E9;
-    --color-secondary-light: #38BDF8;
-    --color-emerald: #10B981;
-    --color-crimson: #F43F5E;
-    --color-obsidian: #0B0F19;
-    --color-slate-surface: #131C2E;
-    --color-slate-elevated: #1E293B;
-  }
+/* ============================================================================
+   دبارة — Neo-Heritage design tokens
+   ----------------------------------------------------------------------------
+   These are Tailwind v4 `@theme` tokens, so every one generates real utilities
+   (`bg-gold-400`, `text-ink-400`, `shadow-gold-glow`, `border-gold-400/30`).
+   That matters: the palette used to live only in design.md while the code
+   carried ~770 hand-typed hex literals, so the "system" documented nothing the
+   product actually obeyed — and drift crept in (a stray #D4AF37 gold, two
+   different greens for the same success state).
 
+   Naming follows the design language rather than the hex: the palette is the
+   Libyan landscape — Sahara gold, Mediterranean sea, oasis green, Fezzan
+   crimson, desert night.
+   ========================================================================= */
+
+@theme {
+  /* ── Sahara gold — value, reward, the primary action ──────────────────── */
+  --color-gold-300: #fcd34d; /* highlight / hover glow */
+  --color-gold-400: #e5a93b; /* THE brand colour */
+  --color-gold-500: #d97706; /* pressed / deep */
+  --color-gold-600: #b45309; /* shadowed edge */
+
+  /* Streak heat. Deliberately distinct from gold: gold means earned value,
+     flame means momentum, and collapsing them loses that signal. */
+  --color-flame: #f59e0b;
+
+  /* ── Mediterranean sea — navigation, routes, lifelines ────────────────── */
+  --color-sea-300: #38bdf8;
+  --color-sea-500: #0ea5e9;
+  --color-sea-700: #0284c7;
+
+  /* ── Oasis — correct, complete, safe ──────────────────────────────────── */
+  --color-oasis-200: #a7f3d0;
+  --color-oasis-500: #10b981;
+  --color-oasis-600: #059669;
+
+  /* ── Fezzan crimson — wrong, expiring, destructive ────────────────────── */
+  --color-crimson-200: #fecdd3;
+  --color-crimson-500: #f43f5e;
+  --color-crimson-700: #be123c;
+
+  /* ── Desert night — every surface, darkest first ──────────────────────── */
+  --color-night-950: #06080c; /* map well */
+  --color-night-900: #0b0f19; /* app background */
+  --color-night-850: #0f172a; /* inset panels */
+  --color-night-800: #131c2e; /* cards, nav */
+  --color-night-700: #1e293b; /* raised controls */
+  --color-night-600: #2a374d; /* hover on raised */
+
+  /* ── Ink — text, lightest first ───────────────────────────────────────── */
+  --color-ink-100: #f8fafc; /* headings, question text */
+  --color-ink-300: #cbd5e1; /* body copy */
+  --color-ink-400: #94a3b8; /* secondary / captions */
+  /* Raised from #64748B, which sat at 3.9:1 on the app background and failed
+     WCAG AA for the muted captions and locked-state labels using it. */
+  --color-ink-500: #7d8da6;
+
+  /* ── Category accents — only for distinguishing quiz categories ───────── */
+  --color-orchid-300: #a78bfa;
+  --color-orchid: #a855f7;
+  --color-rose: #ec4899;
+
+  /* ── Glow vocabulary ──────────────────────────────────────────────────────
+     design.md named these ("Sahara Gold Glow", "Emerald Win Glow") but the code
+     had 42 hand-written variants of the same three effects at slightly
+     different radii and alphas. Three named intensities cover every real use. */
+  --shadow-gold-glow-sm: 0 0 15px rgb(229 169 59 / 0.3);
+  --shadow-gold-glow: 0 0 25px rgb(229 169 59 / 0.35);
+  --shadow-gold-glow-lg: 0 0 45px rgb(229 169 59 / 0.45);
+  --shadow-oasis-glow: 0 0 20px rgb(16 185 129 / 0.35);
+  --shadow-crimson-glow: 0 0 25px rgb(244 63 94 / 0.35);
+  --shadow-glass: 0 8px 32px rgb(0 0 0 / 0.37);
+  --shadow-lift: 0 4px 20px rgb(0 0 0 / 0.3);
+
+  /* ── Type ─────────────────────────────────────────────────────────────── */
+  --font-sans: "Rubik", "Tajawal", system-ui, -apple-system, sans-serif;
+  --font-display: "Cairo", "Rubik", system-ui, sans-serif;
+
+  /* ── Motion ───────────────────────────────────────────────────────────────
+     One exponential ease-out, so entrances across the game share a hand. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
   body {
-    font-family: 'Rubik', 'Tajawal', system-ui, -apple-system, sans-serif;
-    background-color: #0B0F19;
-    color: #F8FAFC;
+    font-family: var(--font-sans);
+    background-color: var(--color-night-900);
+    color: var(--color-ink-100);
     -webkit-tap-highlight-color: transparent;
     user-select: none;
     -webkit-user-select: none;
   }
+
+  /*
+   * Keyboard focus. The game is entirely buttons and had no visible focus
+   * anywhere, so a keyboard or switch user could not tell what was selected.
+   * `:focus-visible` keeps it off pointer taps.
+   */
+  :focus-visible {
+    outline: 2px solid var(--color-gold-300);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Honour a reduced-motion preference: the map, confetti and card entrances
+     all animate, which is exactly what this setting exists to calm. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
-/* Glassmorphism & UI Accents */
+/* ============================================================================
+   Surface primitives
+   The three glass treatments are one material at three elevations, not three
+   unrelated looks — panel sits above card, and only the interactive one moves.
+   ========================================================================= */
+
 .glass-panel {
-  background: rgba(19, 28, 46, 0.75);
+  background: color-mix(in oklab, var(--color-night-800) 75%, transparent);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(229, 169, 59, 0.15);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid color-mix(in oklab, var(--color-gold-400) 15%, transparent);
+  box-shadow: var(--shadow-glass);
 }
 
 .glass-card {
-  background: rgba(19, 28, 46, 0.65);
+  background: color-mix(in oklab, var(--color-night-800) 65%, transparent);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  box-shadow: var(--shadow-lift), inset 0 1px 0 rgb(255 255 255 / 0.1);
 }
 
 .glass-card-interactive {
-  background: rgba(19, 28, 46, 0.75);
+  background: color-mix(in oklab, var(--color-night-800) 75%, transparent);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(229, 169, 59, 0.18);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid color-mix(in oklab, var(--color-gold-400) 18%, transparent);
+  box-shadow: var(--shadow-lift), inset 0 1px 0 rgb(255 255 255 / 0.08);
+  transition: all 0.25s var(--ease-out-expo);
 }
 
 .glass-card-interactive:hover,
 .glass-card-interactive:active {
-  border-color: rgba(229, 169, 59, 0.5);
+  border-color: color-mix(in oklab, var(--color-gold-400) 50%, transparent);
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(229, 169, 59, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-}
-
-.gold-glow {
-  box-shadow: 0 0 25px rgba(229, 169, 59, 0.35);
-}
-
-.emerald-glow {
-  box-shadow: 0 0 25px rgba(16, 185, 129, 0.35);
-}
-
-.crimson-glow {
-  box-shadow: 0 0 25px rgba(244, 63, 94, 0.35);
+  box-shadow:
+    0 8px 28px color-mix(in oklab, var(--color-gold-400) 20%, transparent),
+    inset 0 1px 0 rgb(255 255 255 / 0.15);
 }
 
 .gold-gradient-text {
-  background: linear-gradient(135deg, #FCD34D 0%, #E5A93B 50%, #D97706 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-gold-300) 0%,
+    var(--color-gold-400) 50%,
+    var(--color-gold-500) 100%
+  );
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.teal-gradient-text {
-  background: linear-gradient(135deg, #38BDF8 0%, #0EA5E9 50%, #0284C7 100%);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 /* Background Cultural Geometric Pattern */
 .bg-libyan-pattern {
-  background-image: radial-gradient(rgba(229, 169, 59, 0.08) 1px, transparent 1px), radial-gradient(rgba(14, 165, 233, 0.05) 1px, transparent 1px);
+  background-image:
+    radial-gradient(color-mix(in oklab, var(--color-gold-400) 8%, transparent) 1px, transparent 1px),
+    radial-gradient(color-mix(in oklab, var(--color-sea-500) 5%, transparent) 1px, transparent 1px);
   background-size: 32px 32px;
   background-position: 0 0, 16px 16px;
 }
@@ -97,6 +188,14 @@
   padding-bottom: max(env(safe-area-inset-bottom), 16px);
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Custom Scrollbar for Arabic Content */
 ::-webkit-scrollbar {
   width: 6px;
@@ -104,14 +203,14 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(11, 15, 25, 0.6);
+  background: color-mix(in oklab, var(--color-night-900) 60%, transparent);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(229, 169, 59, 0.25);
+  background: color-mix(in oklab, var(--color-gold-400) 25%, transparent);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(229, 169, 59, 0.5);
+  background: color-mix(in oklab, var(--color-gold-400) 50%, transparent);
 }

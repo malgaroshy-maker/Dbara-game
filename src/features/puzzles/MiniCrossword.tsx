@@ -196,38 +196,38 @@ export const MiniCrossword: React.FC<MiniCrosswordProps> = ({ stage, cityId, puz
       <div className="flex items-center justify-between">
         <button
           onClick={onFinish}
-          className="flex items-center gap-1 text-xs font-bold text-[#94A3B8] hover:text-white bg-[#131C2E] px-3 py-1.5 rounded-xl border border-white/10"
+          className="flex items-center gap-1 text-xs font-bold text-ink-400 hover:text-white bg-night-800 px-3 py-1.5 rounded-xl border border-white/10"
         >
           <ArrowRight className="w-4 h-4" />
           <span>رجوع للخريطة</span>
         </button>
 
         <div className="text-center">
-          <span className="text-xs font-semibold text-[#0EA5E9]">المرحلة {stage.stageNumber} • كلمات متقاطعة</span>
+          <span className="text-xs font-semibold text-sea-500">المرحلة {stage.stageNumber} • كلمات متقاطعة</span>
           <h3 className="text-sm font-extrabold text-white">{puzzle.title}</h3>
         </div>
 
         <button
           onClick={handleRevealLetter}
-          className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#1E293B] border border-[#E5A93B]/40 text-[#FCD34D] text-xs font-bold shadow-sm"
+          className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-night-700 border border-gold-400/40 text-gold-300 text-xs font-bold shadow-sm"
         >
-          <Lightbulb className="w-3.5 h-3.5 text-[#E5A93B]" />
+          <Lightbulb className="w-3.5 h-3.5 text-gold-400" />
           <span>كشف حرف</span>
         </button>
       </div>
 
       {/* Active Clue Highlight Banner */}
       {activeClue && (
-        <div className="glass-panel p-3 rounded-2xl border-[#E5A93B]/40 flex items-center justify-between gap-2 shadow-lg">
+        <div className="glass-panel p-3 rounded-2xl border-gold-400/40 flex items-center justify-between gap-2 shadow-lg">
           <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded-lg bg-[#E5A93B] text-[#0B0F19] font-black text-xs">
+            <span className="px-2 py-0.5 rounded-lg bg-gold-400 text-night-900 font-black text-xs">
               {activeClue.direction === 'across' ? 'أفقياً' : 'رأسياً'} ({activeClue.number})
             </span>
-            <span className="text-xs sm:text-sm font-bold text-[#F8FAFC]">
+            <span className="text-xs sm:text-sm font-bold text-ink-100">
               {activeClue.clue}
             </span>
           </div>
-          <span className="text-[11px] font-extrabold text-[#38BDF8] shrink-0 bg-[#0EA5E9]/15 px-2 py-0.5 rounded-md">
+          <span className="text-[11px] font-extrabold text-sea-300 shrink-0 bg-sea-500/15 px-2 py-0.5 rounded-md">
             {activeClue.answer.length} حروف
           </span>
         </div>
@@ -252,7 +252,7 @@ export const MiniCrossword: React.FC<MiniCrosswordProps> = ({ stage, cityId, puz
                 return (
                   <div
                     key={`${r}-${c}`}
-                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#080D18] border border-white/5 opacity-40"
+                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-night-950 border border-white/5 opacity-40"
                   />
                 );
               }
@@ -263,19 +263,19 @@ export const MiniCrossword: React.FC<MiniCrosswordProps> = ({ stage, cityId, puz
                   onClick={() => handleCellClick(r, c)}
                   className={`relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl font-black text-xl sm:text-2xl flex items-center justify-center transition-all ${
                     isSelected
-                      ? 'bg-[#E5A93B] text-[#0B0F19] ring-4 ring-[#E5A93B]/50 scale-105 shadow-[0_0_20px_#E5A93B] z-10'
+                      ? 'bg-gold-400 text-night-900 ring-4 ring-gold-400/50 scale-105 shadow-gold-glow z-10'
                       : isInActiveWord
-                      ? 'bg-[#0EA5E9]/20 border-2 border-[#0EA5E9] text-white shadow-[0_0_10px_rgba(14,165,233,0.3)]'
+                      ? 'bg-sea-500/20 border-2 border-sea-500 text-white shadow-[0_0_10px_rgba(14,165,233,0.3)]'
                       : cellValue
-                      ? 'bg-[#1E293B] border border-[#E5A93B]/30 text-white'
-                      : 'bg-[#131C2E] border border-white/10 text-transparent hover:border-white/30'
+                      ? 'bg-night-700 border border-gold-400/30 text-white'
+                      : 'bg-night-800 border border-white/10 text-transparent hover:border-white/30'
                   }`}
                 >
                   {/* Clue Number Indicator at Top-Right Corner */}
                   {clueNumber && (
                     <span
                       className={`absolute top-1 right-1.5 text-[9px] font-black leading-none ${
-                        isSelected ? 'text-[#0B0F19]/80' : 'text-[#FCD34D]'
+                        isSelected ? 'text-night-900/80' : 'text-gold-300'
                       }`}
                     >
                       {clueNumber}
@@ -292,7 +292,7 @@ export const MiniCrossword: React.FC<MiniCrosswordProps> = ({ stage, cityId, puz
 
       {/* Clues Selection Quick List */}
       <div className="glass-card p-2.5 rounded-2xl space-y-1.5 text-xs">
-        <div className="flex items-center gap-1.5 text-[#E5A93B] font-bold pb-1 border-b border-white/5">
+        <div className="flex items-center gap-1.5 text-gold-400 font-bold pb-1 border-b border-white/5">
           <Sparkles className="w-3.5 h-3.5" />
           <span>قائمة التلميحات (اضغط على أي تلميح للتحديد):</span>
         </div>
@@ -307,17 +307,17 @@ export const MiniCrossword: React.FC<MiniCrosswordProps> = ({ stage, cityId, puz
                 onClick={() => handleSelectClue(clue)}
                 className={`p-2 rounded-xl text-right transition-all flex items-center justify-between text-xs font-bold border ${
                   isActive
-                    ? 'bg-[#E5A93B]/20 border-[#E5A93B] text-[#FCD34D]'
-                    : 'bg-[#0B0F19]/50 border-white/5 text-[#CBD5E1] hover:bg-white/5'
+                    ? 'bg-gold-400/20 border-gold-400 text-gold-300'
+                    : 'bg-night-900/50 border-white/5 text-ink-300 hover:bg-white/5'
                 }`}
               >
                 <span>
-                  <strong className="text-[#38BDF8]">
+                  <strong className="text-sea-300">
                     {clue.direction === 'across' ? 'أفقياً' : 'رأسياً'} ({clue.number}):
                   </strong>{' '}
                   {clue.clue}
                 </span>
-                {isActive && <CheckCircle2 className="w-3.5 h-3.5 text-[#E5A93B] shrink-0" />}
+                {isActive && <CheckCircle2 className="w-3.5 h-3.5 text-gold-400 shrink-0" />}
               </button>
             );
           })}
@@ -332,7 +332,7 @@ export const MiniCrossword: React.FC<MiniCrosswordProps> = ({ stage, cityId, puz
               <button
                 key={k}
                 onClick={() => handleKeyPress(k)}
-                className="w-7 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#1E293B] hover:bg-[#E5A93B] hover:text-[#0B0F19] active:scale-90 text-xs sm:text-sm font-bold transition-all border border-white/5 text-white"
+                className="w-7 h-8 sm:w-9 sm:h-9 rounded-lg bg-night-700 hover:bg-gold-400 hover:text-night-900 active:scale-90 text-xs sm:text-sm font-bold transition-all border border-white/5 text-white"
               >
                 {k}
               </button>
@@ -342,7 +342,7 @@ export const MiniCrossword: React.FC<MiniCrosswordProps> = ({ stage, cityId, puz
             {rIdx === arabicKeyboard.length - 1 && (
               <button
                 onClick={handleBackspace}
-                className="px-2.5 h-8 sm:h-9 rounded-lg bg-[#F43F5E]/20 border border-[#F43F5E]/40 text-[#F43F5E] hover:bg-[#F43F5E] hover:text-white active:scale-90 text-xs font-bold transition-all flex items-center justify-center"
+                className="px-2.5 h-8 sm:h-9 rounded-lg bg-crimson-500/20 border border-crimson-500/40 text-crimson-500 hover:bg-crimson-500 hover:text-white active:scale-90 text-xs font-bold transition-all flex items-center justify-center"
               >
                 <Delete className="w-3.5 h-3.5" />
               </button>
@@ -358,33 +358,33 @@ export const MiniCrossword: React.FC<MiniCrosswordProps> = ({ stage, cityId, puz
             <motion.div
               initial={{ scale: 0.85, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="w-full max-w-sm bg-gradient-to-b from-[#131C2E] to-[#0B0F19] border border-[#10B981]/50 rounded-3xl p-6 shadow-2xl text-center"
+              className="w-full max-w-sm bg-gradient-to-b from-night-800 to-night-900 border border-oasis-500/50 rounded-3xl p-6 shadow-2xl text-center"
             >
-              <div className="w-16 h-16 rounded-full bg-[#10B981]/20 border-2 border-[#10B981] flex items-center justify-center mx-auto mb-3 text-[#10B981]">
+              <div className="w-16 h-16 rounded-full bg-oasis-500/20 border-2 border-oasis-500 flex items-center justify-center mx-auto mb-3 text-oasis-500">
                 <Trophy className="w-8 h-8" />
               </div>
 
               <h3 className="text-xl font-black text-white">عبقري الكلمات المتقاطعة! 🎉</h3>
-              <p className="text-xs text-[#94A3B8] mt-1">أتممت شبكة الكلمات المتقاطعة بنجاح</p>
+              <p className="text-xs text-ink-400 mt-1">أتممت شبكة الكلمات المتقاطعة بنجاح</p>
 
               <div className="flex items-center justify-center gap-1.5 my-3">
                 {[1, 2, 3].map((s) => (
-                  <Star key={s} className="w-6 h-6 text-[#E5A93B] fill-[#E5A93B]" />
+                  <Star key={s} className="w-6 h-6 text-gold-400 fill-gold-400" />
                 ))}
               </div>
 
-              <p className="text-xs text-[#CBD5E1] bg-[#0F172A] p-3 rounded-2xl border border-white/5 mb-4 text-right">
-                <strong className="text-[#FCD34D]">معلومة تراثية: </strong>
+              <p className="text-xs text-ink-300 bg-night-850 p-3 rounded-2xl border border-white/5 mb-4 text-right">
+                <strong className="text-gold-300">معلومة تراثية: </strong>
                 {puzzle.funFact}
               </p>
 
-              <div className="p-2.5 rounded-2xl bg-[#E5A93B]/10 border border-[#E5A93B]/20 text-[#FCD34D] font-extrabold text-xs mb-4">
+              <div className="p-2.5 rounded-2xl bg-gold-400/10 border border-gold-400/20 text-gold-300 font-extrabold text-xs mb-4">
                 +{stage.rewardDinars} دينار ليبي مكافأة 💰
               </div>
 
               <button
                 onClick={onFinish}
-                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#10B981] to-[#059669] text-white font-black text-sm shadow-[0_0_20px_rgba(16,185,129,0.35)]"
+                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-oasis-500 to-oasis-600 text-white font-black text-sm shadow-oasis-glow"
               >
                 متابعة الرحلة 🗺️
               </button>

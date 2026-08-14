@@ -117,18 +117,18 @@ export const SpeedBlitz: React.FC<SpeedBlitzProps> = ({ stage, cityId, onFinish,
       <div className="flex items-center justify-between">
         <button
           onClick={onFinish}
-          className="flex items-center gap-1 text-xs font-bold text-[#94A3B8] hover:text-white bg-[#131C2E] px-3 py-1.5 rounded-xl border border-white/10"
+          className="flex items-center gap-1 text-xs font-bold text-ink-400 hover:text-white bg-night-800 px-3 py-1.5 rounded-xl border border-white/10"
         >
           <ArrowRight className="w-4 h-4" />
           <span>انسحاب</span>
         </button>
 
-        <div className="flex items-center gap-1 text-[#FCD34D] font-extrabold text-sm bg-[#1E293B] px-3 py-1.5 rounded-2xl border border-[#E5A93B]/30">
-          <Zap className="w-4 h-4 text-[#E5A93B]" />
+        <div className="flex items-center gap-1 text-gold-300 font-extrabold text-sm bg-night-700 px-3 py-1.5 rounded-2xl border border-gold-400/30">
+          <Zap className="w-4 h-4 text-gold-400" />
           <span>النقاط: {score}</span>
         </div>
 
-        <div className="flex items-center gap-1 text-[#F43F5E] font-black text-sm bg-[#1E293B] px-3 py-1.5 rounded-2xl border border-[#F43F5E]/30">
+        <div className="flex items-center gap-1 text-crimson-500 font-black text-sm bg-night-700 px-3 py-1.5 rounded-2xl border border-crimson-500/30">
           <Timer className="w-4 h-4" />
           <span>{timeLeft} ثانية</span>
         </div>
@@ -137,7 +137,7 @@ export const SpeedBlitz: React.FC<SpeedBlitzProps> = ({ stage, cityId, onFinish,
       {/* Progress Line */}
       <div className="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
         <div
-          className="bg-gradient-to-r from-[#E5A93B] to-[#10B981] h-full transition-all duration-300"
+          className="bg-gradient-to-r from-gold-400 to-oasis-500 h-full transition-all duration-300"
           style={{ width: `${((currentIdx + 1) / roundQuestions.length) * 100}%` }}
         />
       </div>
@@ -149,16 +149,16 @@ export const SpeedBlitz: React.FC<SpeedBlitzProps> = ({ stage, cityId, onFinish,
         animate={{ opacity: 1, scale: 1 }}
         className={`glass-panel p-6 rounded-3xl text-center min-h-[170px] flex flex-col items-center justify-center transition-colors relative overflow-hidden ${
           feedback === 'correct'
-            ? 'bg-[#10B981]/25 border-[#10B981]'
+            ? 'bg-oasis-500/25 border-oasis-500'
             : feedback === 'wrong'
-            ? 'bg-[#F43F5E]/25 border-[#F43F5E]'
+            ? 'bg-crimson-500/25 border-crimson-500'
             : ''
         }`}
       >
-        <span className="text-xs font-bold text-[#38BDF8] mb-2">
+        <span className="text-xs font-bold text-sea-300 mb-2">
           سؤال {currentIdx + 1} من {roundQuestions.length}
         </span>
-        <h2 className="text-lg sm:text-xl font-black text-[#F8FAFC] leading-relaxed">
+        <h2 className="text-lg sm:text-xl font-black text-ink-100 leading-relaxed">
           "{currentQ.statement}"
         </h2>
       </motion.div>
@@ -168,7 +168,7 @@ export const SpeedBlitz: React.FC<SpeedBlitzProps> = ({ stage, cityId, onFinish,
         <button
           onClick={() => handleAnswer(true)}
           disabled={isFinished || feedback !== null}
-          className="py-5 rounded-3xl bg-gradient-to-b from-[#10B981] to-[#059669] text-white font-black text-xl flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(16,185,129,0.35)] transition-transform active:scale-95 disabled:opacity-70"
+          className="py-5 rounded-3xl bg-gradient-to-b from-oasis-500 to-oasis-600 text-white font-black text-xl flex items-center justify-center gap-2 shadow-oasis-glow transition-transform active:scale-95 disabled:opacity-70"
         >
           <Check className="w-6 h-6 stroke-[3]" />
           <span>صح</span>
@@ -177,7 +177,7 @@ export const SpeedBlitz: React.FC<SpeedBlitzProps> = ({ stage, cityId, onFinish,
         <button
           onClick={() => handleAnswer(false)}
           disabled={isFinished || feedback !== null}
-          className="py-5 rounded-3xl bg-gradient-to-b from-[#F43F5E] to-[#BE123C] text-white font-black text-xl flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(244,63,94,0.35)] transition-transform active:scale-95 disabled:opacity-70"
+          className="py-5 rounded-3xl bg-gradient-to-b from-crimson-500 to-crimson-700 text-white font-black text-xl flex items-center justify-center gap-2 shadow-crimson-glow transition-transform active:scale-95 disabled:opacity-70"
         >
           <X className="w-6 h-6 stroke-[3]" />
           <span>خطأ</span>
@@ -191,14 +191,14 @@ export const SpeedBlitz: React.FC<SpeedBlitzProps> = ({ stage, cityId, onFinish,
             <motion.div
               initial={{ scale: 0.85, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="w-full max-w-sm bg-gradient-to-b from-[#131C2E] to-[#0B0F19] border border-[#E5A93B]/50 rounded-3xl p-6 shadow-2xl text-center"
+              className="w-full max-w-sm bg-gradient-to-b from-night-800 to-night-900 border border-gold-400/50 rounded-3xl p-6 shadow-2xl text-center"
             >
-              <div className="w-16 h-16 rounded-full bg-[#E5A93B]/20 border-2 border-[#E5A93B] flex items-center justify-center mx-auto mb-3 text-[#FCD34D]">
+              <div className="w-16 h-16 rounded-full bg-gold-400/20 border-2 border-gold-400 flex items-center justify-center mx-auto mb-3 text-gold-300">
                 <Trophy className="w-8 h-8" />
               </div>
 
               <h3 className="text-xl font-black text-white">انتهى سباق السرعة! ⏱️</h3>
-              <p className="text-xs text-[#94A3B8] mt-1">حققت {score} إجابات صحيحة من {roundQuestions.length}</p>
+              <p className="text-xs text-ink-400 mt-1">حققت {score} إجابات صحيحة من {roundQuestions.length}</p>
 
               <div className="flex items-center justify-center gap-1.5 my-3">
                 {[1, 2, 3].map((s) => (
@@ -206,21 +206,21 @@ export const SpeedBlitz: React.FC<SpeedBlitzProps> = ({ stage, cityId, onFinish,
                     key={s}
                     className={`w-6 h-6 ${
                       (score >= 6 ? 3 : score >= 3 ? 2 : 1) >= s
-                        ? 'text-[#E5A93B] fill-[#E5A93B]'
+                        ? 'text-gold-400 fill-gold-400'
                         : 'text-white/20'
                     }`}
                   />
                 ))}
               </div>
 
-              <div className="p-2.5 rounded-2xl bg-[#E5A93B]/10 border border-[#E5A93B]/20 text-[#FCD34D] font-extrabold text-xs mb-4">
+              <div className="p-2.5 rounded-2xl bg-gold-400/10 border border-gold-400/20 text-gold-300 font-extrabold text-xs mb-4">
                 +{score * 15 + stage.rewardDinars} دينار ليبي مكافأة 💰
               </div>
 
               <div className="flex flex-col gap-2">
                 <button
                   onClick={() => setIsShareModalOpen(true)}
-                  className="w-full py-3 rounded-2xl bg-[#0EA5E9] hover:bg-[#0284C7] text-[#0B0F19] font-black text-xs shadow-md flex items-center justify-center gap-1.5 transition-transform active:scale-95"
+                  className="w-full py-3 rounded-2xl bg-sea-500 hover:bg-sea-700 text-night-900 font-black text-xs shadow-md flex items-center justify-center gap-1.5 transition-transform active:scale-95"
                 >
                   <Share2 className="w-4 h-4" />
                   <span>مشاركة رقم السرعة 🏅</span>
@@ -228,7 +228,7 @@ export const SpeedBlitz: React.FC<SpeedBlitzProps> = ({ stage, cityId, onFinish,
 
                 <button
                   onClick={onFinish}
-                  className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#E5A93B] to-[#F59E0B] text-[#0B0F19] font-black text-sm shadow-lg"
+                  className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-gold-400 to-flame text-night-900 font-black text-sm shadow-lg"
                 >
                   العودة للخريطة 🗺️
                 </button>
