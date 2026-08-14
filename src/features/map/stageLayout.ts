@@ -85,15 +85,16 @@ const arcPositions = (
 };
 
 /** Lower is better: sums how badly an arc leaves the map or crowds neighbours. */
-const scoreArc = (positions: MapPoint[], obstacles: Obstacle[]): number => {
+const scoreArc = (positions: MapPoint[], obstacles: Obstacle[], scale: number): number => {
   let penalty = 0;
+  const minSpacing = MIN_NODE_SPACING / scale;
 
   // Adjacent nodes crowding each other. Without this the search happily pulls
   // the radius in to dodge a neighbouring city and stacks the nodes instead.
   for (let i = 1; i < positions.length; i++) {
     const gap = Math.hypot(positions[i].x - positions[i - 1].x, positions[i].y - positions[i - 1].y);
-    if (gap < MIN_NODE_SPACING) {
-      const shortfall = MIN_NODE_SPACING - gap;
+    if (gap < minSpacing) {
+      const shortfall = minSpacing - gap;
       penalty += shortfall * shortfall * 4;
     }
   }
@@ -136,9 +137,11 @@ export interface StageLayout {
 export const layoutStageNodes = (
   origin: MapPoint,
   count: number,
-  obstacles: Obstacle[]
+  obstacles: Obstacle[],
+  /** The map's zoom: nodes keep a constant screen size, so the fan tightens. */
+  scale = 1
 ): StageLayout => {
-  if (count <= 0) return { positions: [], bearing: 0, radius: STAGE_ORBIT_RADIUS };
+  if (count <= 0) return { positions: [], bearing: 0, radius: STAGE_ORBIT_RADIUS / scale };
 
   let best: StageLayout | null = null;
   let bestScore = Number.POSITIVE_INFINITY;
@@ -147,15 +150,17 @@ export const layoutStageNodes = (
     const sweepPenalty =
       (SWEEP_PER_GAP_CANDIDATES[0] - degreesPerGap) * SWEEP_DEVIATION_COST;
 
-    for (const radius of RADIUS_CANDIDATES) {
-      const radiusPenalty = Math.abs(radius - STAGE_ORBIT_RADIUS) * RADIUS_DEVIATION_COST;
+    for (const candidate of RADIUS_CANDIDATES) {
+      const radius = candidate / scale;
+      const radiusPenalty =
+        Math.abs(candidate - STAGE_ORBIT_RADIUS) * RADIUS_DEVIATION_COST;
 
       // Start at due north (-90°) so an unobstructed city fans out over the
       // sea, which reads better than fanning inland over the terrain.
       for (let i = 0; i < 360 / BEARING_STEP; i++) {
         const bearing = -90 + i * BEARING_STEP;
         const positions = arcPositions(origin, count, bearing, radius, degreesPerGap);
-        const score = scoreArc(positions, obstacles) + radiusPenalty + sweepPenalty;
+        const score = scoreArc(positions, obstacles, scale) + radiusPenalty + sweepPenalty;
 
         if (score < bestScore) {
           bestScore = score;
@@ -174,11 +179,11 @@ export const layoutStageNodes = (
         origin,
         count,
         -90,
-        STAGE_ORBIT_RADIUS,
+        STAGE_ORBIT_RADIUS / scale,
         SWEEP_PER_GAP_CANDIDATES[0]
       ),
       bearing: -90,
-      radius: STAGE_ORBIT_RADIUS,
+      radius: STAGE_ORBIT_RADIUS / scale,
     }
   );
 };

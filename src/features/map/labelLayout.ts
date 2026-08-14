@@ -45,13 +45,6 @@ interface Rect {
   y2: number;
 }
 
-const rectAt = (centre: MapPoint, width: number): Rect => ({
-  x1: centre.x - width / 2,
-  y1: centre.y - LABEL_HEIGHT / 2,
-  x2: centre.x + width / 2,
-  y2: centre.y + LABEL_HEIGHT / 2,
-});
-
 const overlapArea = (a: Rect, b: Rect) =>
   Math.max(0, Math.min(a.x2, b.x2) - Math.max(a.x1, b.x1)) *
   Math.max(0, Math.min(a.y2, b.y2) - Math.max(a.y1, b.y1));
@@ -71,29 +64,49 @@ export interface LabelInput {
  * Cities are placed in the order given and each one avoids everything already
  * placed, so the result is deterministic.
  */
-export const layoutLabels = (inputs: LabelInput[]): Map<string, MapPoint> => {
+export const layoutLabels = (
+  inputs: LabelInput[],
+  /**
+   * The map's zoom. Pins and labels are drawn at a constant size on screen, so
+   * at 2x they cover half as much of the artwork — and the solver has to know
+   * that, or it keeps shoving names apart that no longer collide.
+   */
+  scale = 1
+): Map<string, MapPoint> => {
+  const pinRadius = PIN_RADIUS / scale;
+  const labelHeight = LABEL_HEIGHT / scale;
+  const rectAtScale = (centre: MapPoint, width: number): Rect => ({
+    x1: centre.x - width / 2,
+    y1: centre.y - labelHeight / 2,
+    x2: centre.x + width / 2,
+    y2: centre.y + labelHeight / 2,
+  });
+
   const pinRects: Rect[] = inputs.map((i) => ({
-    x1: i.pin.x - PIN_RADIUS,
-    y1: i.pin.y - PIN_RADIUS,
-    x2: i.pin.x + PIN_RADIUS,
-    y2: i.pin.y + PIN_RADIUS,
+    x1: i.pin.x - pinRadius,
+    y1: i.pin.y - pinRadius,
+    x2: i.pin.x + pinRadius,
+    y2: i.pin.y + pinRadius,
   }));
 
   const placed: Rect[] = [];
   const result = new Map<string, MapPoint>();
 
   for (const input of inputs) {
-    const width = estimateLabelWidth(input.text);
+    const width = estimateLabelWidth(input.text) / scale;
 
     const candidates: MapPoint[] = [];
     if (input.preferred) {
-      candidates.push({ x: input.pin.x + input.preferred.x, y: input.pin.y + input.preferred.y });
+      candidates.push({
+        x: input.pin.x + input.preferred.x / scale,
+        y: input.pin.y + input.preferred.y / scale,
+      });
     }
     for (const distance of CANDIDATE_DISTANCES) {
       for (const dir of CANDIDATE_DIRECTIONS) {
         candidates.push({
-          x: input.pin.x + dir.x * (width / 2 + 6),
-          y: input.pin.y + dir.y * distance,
+          x: input.pin.x + dir.x * (width / 2 + 6 / scale),
+          y: input.pin.y + (dir.y * distance) / scale,
         });
       }
     }
@@ -102,7 +115,7 @@ export const layoutLabels = (inputs: LabelInput[]): Map<string, MapPoint> => {
     let bestScore = Number.POSITIVE_INFINITY;
 
     candidates.forEach((candidate, index) => {
-      const rect = rectAt(candidate, width);
+      const rect = rectAtScale(candidate, width);
       let score = 0;
 
       const overflow =
@@ -127,7 +140,7 @@ export const layoutLabels = (inputs: LabelInput[]): Map<string, MapPoint> => {
       }
     });
 
-    placed.push(rectAt(best, width));
+    placed.push(rectAtScale(best, width));
     result.set(input.id, best);
   }
 

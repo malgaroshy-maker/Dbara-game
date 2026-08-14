@@ -1,9 +1,12 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
 import type { CityNode, LibyanRegion, Stage } from '../../types/map';
 import { useMapStore } from '../../store/useMapStore';
-import { MAP_IMAGE, projectToMap, buildRoutePath } from './projection';
-import { declutterPins } from './pinLayout';
+import { MAP_IMAGE, projectToMap, buildRoutePath, type MapPoint } from './projection';
+
+/** Mirrors the `scale-[1.02]` the artwork and its overlay are both drawn at. */
+const OVERLAY_SCALE = 1.02;
+import { declutterPins, MIN_PIN_DISTANCE as PIN_SEPARATION } from './pinLayout';
 import { layoutLabels } from './labelLayout';
 import {
   layoutStageNodes,
@@ -11,16 +14,17 @@ import {
   LABEL_CLEARANCE,
   type Obstacle,
 } from './stageLayout';
-import { 
-  Lock, 
-  Star, 
-  CheckCircle2, 
-  Castle, 
-  Landmark, 
-  Waves, 
-  Trees, 
-  Palmtree, 
-  Mountain, 
+import { useMapViewport } from './useMapViewport';
+import {
+  Lock,
+  Star,
+  CheckCircle2,
+  Castle,
+  Landmark,
+  Waves,
+  Trees,
+  Palmtree,
+  Mountain,
   Sun,
   Flame,
   Anchor,
@@ -32,28 +36,102 @@ import {
   Ship,
   BookOpen,
   Tent,
-  Sparkles
+  Sparkles,
+  Plus,
+  Minus,
+  Maximize2,
+  type LucideIcon,
 } from 'lucide-react';
 
 interface LibyaVectorMapProps {
   onSelectCity: (city: CityNode) => void;
   onStartStage: (cityId: string, stage: Stage) => void;
+  /** Called when the player taps the map itself rather than any city. */
+  onClearSelection: () => void;
   selectedCityId: string | null;
   regionFilter?: LibyanRegion | 'all';
 }
 
+/**
+ * One symbol per city. A lookup rather than a switch in the render body: this
+ * is fixed data, and rebuilding the branch for twenty cities on every pan frame
+ * is work for nothing.
+ */
+const CITY_ICONS: Record<string, LucideIcon> = {
+  tripoli: Castle,
+  leptis_magna: Landmark,
+  msallata: Leaf,
+  zuwara: Fish,
+  gharyan: Amphora,
+  sirte: Sunset,
+  ajdabiya: Milestone,
+  tobruk: Ship,
+  jaghbub: BookOpen,
+  murzuq: Tent,
+  misrata: Anchor,
+  nalut_nafusa: Castle,
+  benghazi: Waves,
+  cyrene_green_mountain: Trees,
+  derna: Sparkles,
+  jalu_awjila: Palmtree,
+  ghadames: Palmtree,
+  sabha_fezzan: Flame,
+  ghat_akakus: Mountain,
+  kufra_desert: Sun,
+};
+
+/** Smaller symbols need less displacement to separate the coastal cluster. */
+const CityIcon: React.FC<{ cityId: string; isSelected: boolean; isUnlocked: boolean }> = React.memo(
+  ({ cityId, isSelected, isUnlocked }) => {
+    const Icon = CITY_ICONS[cityId] ?? Landmark;
+    return (
+      <Icon
+        className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${
+          isSelected ? 'text-night-900' : isUnlocked ? 'text-gold-300' : 'text-ink-500'
+        }`}
+      />
+    );
+  }
+);
+CityIcon.displayName = 'CityIcon';
+
 export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
   onSelectCity,
   onStartStage,
+  onClearSelection,
   selectedCityId,
   regionFilter = 'all',
 }) => {
   const { cities } = useMapStore();
+  const {
+    frameRef,
+    view,
+    layoutScale,
+    isZoomed,
+    canZoomIn,
+    onPointerDown,
+    wasDragged,
+    zoomBy,
+    zoomToPoint,
+    centreOn,
+    reset,
+  } = useMapViewport();
+
+  /**
+   * Pins and labels are drawn at a constant size on screen, so `1 / scale` is
+   * how much of the artwork they now cover. Everything that reasons about
+   * crowding is measured in artwork units, so it all divides by the same thing.
+   */
+  const symbolScale = 1 / view.scale;
 
   /**
    * True projected positions, then the drawn positions after decluttering.
    * `cityPoints` is what everything on the map aligns to — pins, labels,
    * routes and stage fans — so they never disagree about where a city is.
+   *
+   * Zooming in shrinks the separation the pins need, so they settle closer to
+   * where the cities really are: the displacement is only ever as large as
+   * legibility demands.
    */
   const placedPins = useMemo(
     () =>
@@ -61,9 +139,10 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
         cities.map((c) => ({
           id: c.id,
           point: projectToMap(c.coordinates.latitude, c.coordinates.longitude),
-        }))
+        })),
+        PIN_SEPARATION / layoutScale
       ),
-    [cities]
+    [cities, layoutScale]
   );
 
   const cityPoints = useMemo(
@@ -80,9 +159,10 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
           return pin
             ? [{ id: c.id, pin, text: c.mapLabel ?? c.arabicName, preferred: c.labelOffset }]
             : [];
-        })
+        }),
+        layoutScale
       ),
-    [cities, cityPoints]
+    [cities, cityPoints, layoutScale]
   );
 
   /**
@@ -109,18 +189,21 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
         const l = labelPoints.get(c.id);
         if (!p) return [];
         return [
-          { ...p, clearance: PIN_CLEARANCE },
-          ...(l ? [{ ...l, clearance: LABEL_CLEARANCE }] : []),
+          { ...p, clearance: PIN_CLEARANCE / layoutScale },
+          ...(l ? [{ ...l, clearance: LABEL_CLEARANCE / layoutScale }] : []),
         ];
       });
 
-    const { positions } = layoutStageNodes(origin, city.stages.length, obstacles);
+    const { positions } = layoutStageNodes(origin, city.stages.length, obstacles, layoutScale);
     return {
       city,
       origin,
       nodes: city.stages.map((stage, i) => ({ stage, point: positions[i] })),
     };
-  }, [cities, selectedCityId, cityPoints]);
+    // `labelPoints` was missing here: the fan is solved against the label
+    // positions, so leaving it out meant a re-solved label set kept the stale
+    // constellation and stages could sit on a neighbour's name.
+  }, [cities, selectedCityId, cityPoints, labelPoints, layoutScale]);
 
   // Caravan routes as city pairs plus a bow, so they always terminate exactly
   // on the projected pins. Previously these were hand-written path coordinates
@@ -171,67 +254,99 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
     });
   }, [cityPoints]);
 
-  // Custom Icon Selector for High-Craft Aesthetics across all 12 cities
-  const getCityIcon = (cityId: string, isSelected: boolean, isUnlocked: boolean) => {
-    // Smaller symbols mean less displacement is needed to separate the coastal
-    // cluster, so pins stay closer to their true positions.
-    const iconClass = `w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform ${
-      isSelected ? 'text-night-900' : isUnlocked ? 'text-gold-300' : 'text-ink-500'
-    }`;
+  /**
+   * A tap that lands on the artwork rather than on a city clears the selection.
+   * `wasDragged` keeps a pan from counting as a tap, and the `data-map-hit`
+   * marker keeps the pins, labels, stage nodes and zoom controls out of it.
+   */
+  const handleBackgroundClick = useCallback(
+    (e: React.MouseEvent) => {
+      if (wasDragged()) return;
+      if ((e.target as Element).closest('[data-map-hit]')) return;
+      onClearSelection();
+    },
+    [onClearSelection, wasDragged]
+  );
 
-    switch (cityId) {
-      case 'tripoli':
-        return <Castle className={iconClass} />;
-      case 'leptis_magna':
-        return <Landmark className={iconClass} />;
-      case 'msallata':
-        return <Leaf className={iconClass} />;
-      case 'zuwara':
-        return <Fish className={iconClass} />;
-      case 'gharyan':
-        return <Amphora className={iconClass} />;
-      case 'sirte':
-        return <Sunset className={iconClass} />;
-      case 'ajdabiya':
-        return <Milestone className={iconClass} />;
-      case 'tobruk':
-        return <Ship className={iconClass} />;
-      case 'jaghbub':
-        return <BookOpen className={iconClass} />;
-      case 'murzuq':
-        return <Tent className={iconClass} />;
-      case 'misrata':
-        return <Anchor className={iconClass} />;
-      case 'nalut_nafusa':
-        return <Castle className={iconClass} />;
-      case 'benghazi':
-        return <Waves className={iconClass} />;
-      case 'cyrene_green_mountain':
-        return <Trees className={iconClass} />;
-      case 'derna':
-        return <Sparkles className={iconClass} />;
-      case 'jalu_awjila':
-        return <Palmtree className={iconClass} />;
-      case 'ghadames':
-        return <Palmtree className={iconClass} />;
-      case 'sabha_fezzan':
-        return <Flame className={iconClass} />;
-      case 'ghat_akakus':
-        return <Mountain className={iconClass} />;
-      case 'kufra_desert':
-        return <Sun className={iconClass} />;
-      default:
-        return <Landmark className={iconClass} />;
+  const handleDoubleClick = useCallback(
+    (e: React.MouseEvent) => zoomToPoint(e.clientX, e.clientY, 1.8),
+    [zoomToPoint]
+  );
+
+  /**
+   * Artwork pixels to the frame's own coordinates, before the pan/zoom
+   * transform. The overlay is laid out full-width, centred vertically at the
+   * artwork's aspect ratio and scaled by 1.02 to match the image, so anything
+   * aiming the viewport at a city has to reproduce exactly that.
+   */
+  const artworkToFrame = useCallback(
+    (point: MapPoint) => {
+      const frame = frameRef.current;
+      const frameWidth = frame?.clientWidth ?? 0;
+      const frameHeight = frame?.clientHeight ?? 0;
+      const overlayWidth = frameWidth;
+      const overlayHeight = (frameWidth * MAP_IMAGE.height) / MAP_IMAGE.width;
+      const halfWidth = overlayWidth / 2;
+      const halfHeight = overlayHeight / 2;
+      return {
+        x: halfWidth + ((point.x / MAP_IMAGE.width) * overlayWidth - halfWidth) * OVERLAY_SCALE,
+        y:
+          (frameHeight - overlayHeight) / 2 +
+          halfHeight +
+          ((point.y / MAP_IMAGE.height) * overlayHeight - halfHeight) * OVERLAY_SCALE,
+      };
+    },
+    [frameRef]
+  );
+
+  /** The pin the viewport should hold on to while zooming. */
+  const focusPoint = selectedCityId ? cityPoints.get(selectedCityId) : undefined;
+
+  // Selecting a city while zoomed in brings it into view. Without this the
+  // player can pick a city from a card or a filter and be left staring at a
+  // patch of desert somewhere else on the map.
+  const lastFocused = useRef<string | null>(null);
+  useEffect(() => {
+    if (!selectedCityId || selectedCityId === lastFocused.current) {
+      lastFocused.current = selectedCityId;
+      return;
     }
-  };
+    lastFocused.current = selectedCityId;
+    if (view.scale <= 1.001) return;
+    const point = cityPoints.get(selectedCityId);
+    if (point) centreOn(artworkToFrame(point));
+    // `view.scale` is read but deliberately not a dependency: this should fire
+    // when the selection changes, not every time the player zooms.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCityId, cityPoints, centreOn, artworkToFrame]);
 
   return (
-    <div className="relative w-full max-w-[500px] aspect-[1/1.12] mx-auto select-none overflow-hidden rounded-3xl p-1 bg-night-950 border border-gold-400/30 shadow-2xl">
+    <div
+      ref={frameRef}
+      onPointerDown={onPointerDown}
+      onClick={handleBackgroundClick}
+      onDoubleClick={handleDoubleClick}
+      // Vertical page scrolling stays available until the map is zoomed in;
+      // from then on the gesture belongs to the map, or panning would fight
+      // the page for every drag.
+      style={{ touchAction: isZoomed ? 'none' : 'pan-y' }}
+      className={`relative w-full max-w-[500px] aspect-[1/1.12] mx-auto select-none overflow-hidden rounded-3xl p-1 bg-night-950 border border-gold-400/30 shadow-2xl ${
+        isZoomed ? 'cursor-grab active:cursor-grabbing' : ''
+      }`}
+    >
+      <div
+        className="absolute inset-0 will-change-transform"
+        style={{
+          transform: `translate3d(${view.x}px, ${view.y}px, 0) scale(${view.scale})`,
+          transformOrigin: '0 0',
+        }}
+      >
       {/* Background Libya Satellite Map Graphic */}
       <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden rounded-3xl">
         <img
           src="/assets/libya-map.png"
           alt="خريطة ليبيا الجغرافية"
+          draggable={false}
           className="w-full h-full object-cover opacity-90 scale-[1.02] filter contrast-115 drop-shadow-gold-glow"
           onError={(e) => {
             (e.target as HTMLImageElement).src =
@@ -278,8 +393,10 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
             fill="none"
             stroke={route.isUnlocked ? 'url(#goldRouteGradient)' : 'rgba(255, 255, 255, 0.12)'}
             strokeLinecap="round"
-            strokeWidth={route.isUnlocked ? 2.2 : 1.2}
-            strokeDasharray={route.isUnlocked ? 'none' : '4.5, 4.5'}
+            // Strokes are counter-scaled too, so a zoomed-in map shows finer
+            // roads rather than gold ribbons swamping the coastline.
+            strokeWidth={(route.isUnlocked ? 2.2 : 1.2) * symbolScale}
+            strokeDasharray={route.isUnlocked ? 'none' : `${4.5 * symbolScale}, ${4.5 * symbolScale}`}
             className={route.isUnlocked ? 'filter drop-shadow-gold-glow-sm' : ''}
           />
         ))}
@@ -296,16 +413,16 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
                 x2={placed.display.x}
                 y2={placed.display.y}
                 stroke="rgba(252, 211, 77, 0.55)"
-                strokeWidth={0.8}
-                strokeDasharray="2, 2"
+                strokeWidth={0.8 * symbolScale}
+                strokeDasharray={`${2 * symbolScale}, ${2 * symbolScale}`}
               />
               <circle
                 cx={placed.anchor.x}
                 cy={placed.anchor.y}
-                r={1.6}
+                r={1.6 * symbolScale}
                 fill="#FCD34D"
                 stroke="rgba(11, 15, 25, 0.8)"
-                strokeWidth={0.5}
+                strokeWidth={0.5 * symbolScale}
               />
             </g>
           ) : null
@@ -322,9 +439,9 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
               x2={point.x}
               y2={point.y}
               stroke={isPlayable ? 'rgba(252, 211, 77, 0.75)' : 'rgba(255, 255, 255, 0.18)'}
-              strokeWidth={1.4}
+              strokeWidth={1.4 * symbolScale}
               strokeLinecap="round"
-              strokeDasharray={isPlayable ? 'none' : '3, 3'}
+              strokeDasharray={isPlayable ? 'none' : `${3 * symbolScale}, ${3 * symbolScale}`}
             />
           );
         })}
@@ -363,18 +480,25 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
             <motion.button
               type="button"
               data-city-id={city.id}
+              data-map-hit
               aria-label={city.arabicName}
-              className={`absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 ${
+              className={`absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-opacity duration-300 ${
                 !isRegionMatched
                   ? 'opacity-35 pointer-events-none'
                   : isBackgrounded
-                  ? 'opacity-45 scale-75'
+                  ? 'opacity-45'
                   : 'opacity-100'
               }`}
-              style={{ left: `${pin.left}%`, top: `${pin.top}%` }}
-              whileHover={{ scale: 1.15 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => onSelectCity(city)}
+              style={{
+                left: `${pin.left}%`,
+                top: `${pin.top}%`,
+                // Held at a constant size on screen: zooming is for separating
+                // the pins, not for magnifying them.
+                scale: symbolScale * (isBackgrounded ? 0.75 : 1),
+              }}
+              whileHover={{ scale: symbolScale * 1.15 }}
+              whileTap={{ scale: symbolScale * 0.95 }}
+              onClick={() => !wasDragged() && onSelectCity(city)}
             >
               {/* Pulsing Glowing Aura for Selected/Active Node */}
               {isSelected && (
@@ -429,7 +553,11 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
                     : 'bg-night-900/90 backdrop-blur-md border border-white/15 opacity-70'
                 }`}
               >
-                {getCityIcon(city.id, isSelected && isUnlocked, isUnlocked)}
+                <CityIcon
+                  cityId={city.id}
+                  isSelected={isSelected && isUnlocked}
+                  isUnlocked={isUnlocked}
+                />
 
                 {/* Status Indicator Badge (Lock / Check / Stars) */}
                 <div className="absolute -top-2.5 -right-2 px-1.5 py-0.5 rounded-full text-[8px] font-black flex items-center gap-0.5 bg-night-900 border border-white/20 shadow-md">
@@ -457,9 +585,14 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
               type="button"
               tabIndex={-1}
               aria-hidden="true"
-              onClick={() => onSelectCity(city)}
-              style={{ left: `${label.left}%`, top: `${label.top}%` }}
-              className={`absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap transition-opacity duration-300 ${
+              data-map-hit
+              onClick={() => !wasDragged() && onSelectCity(city)}
+              style={{
+                left: `${label.left}%`,
+                top: `${label.top}%`,
+                transform: `translate(-50%, -50%) scale(${symbolScale})`,
+              }}
+              className={`absolute whitespace-nowrap transition-opacity duration-300 ${
                 isLabelHidden
                   ? 'opacity-0 pointer-events-none'
                   : !isRegionMatched
@@ -497,17 +630,18 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
               key={stage.id}
               type="button"
               data-stage-id={stage.id}
+              data-map-hit
               disabled={!isPlayable}
               aria-label={`${stage.title} — ${
                 isPlayable ? `${stars} من 3 نجوم` : 'مرحلة مقفلة'
               }`}
               title={stage.title}
-              onClick={() => isPlayable && onStartStage(expanded.city.id, stage)}
-              initial={{ opacity: 0, scale: 0.4 }}
-              animate={{ opacity: 1, scale: 1 }}
+              onClick={() => isPlayable && !wasDragged() && onStartStage(expanded.city.id, stage)}
+              initial={{ opacity: 0, scale: symbolScale * 0.4 }}
+              animate={{ opacity: 1, scale: symbolScale }}
               transition={{ type: 'spring', stiffness: 320, damping: 22, delay: stage.stageNumber * 0.04 }}
-              whileHover={isPlayable ? { scale: 1.18 } : undefined}
-              whileTap={isPlayable ? { scale: 0.92 } : undefined}
+              whileHover={isPlayable ? { scale: symbolScale * 1.18 } : undefined}
+              whileTap={isPlayable ? { scale: symbolScale * 0.92 } : undefined}
               style={{
                 left: `${(point.x / MAP_IMAGE.width) * 100}%`,
                 top: `${(point.y / MAP_IMAGE.height) * 100}%`,
@@ -537,6 +671,56 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
         })}
       </div>
       </div>
+      </div>
+
+      {/* Zoom controls. Outside the transformed layer so they stay put and keep
+          their size, and marked as a hit target so using them does not clear
+          the selected city. */}
+      <div
+        data-map-hit
+        className="absolute bottom-3 left-3 z-50 flex flex-col gap-1.5"
+        onPointerDown={(e) => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          onClick={() => zoomBy(1.6, focusPoint && artworkToFrame(focusPoint))}
+          disabled={!canZoomIn}
+          aria-label="تكبير الخريطة"
+          className="w-9 h-9 rounded-xl bg-night-900/90 backdrop-blur-md border border-gold-400/40 text-gold-300 flex items-center justify-center shadow-lg hover:border-gold-300 active:scale-95 disabled:opacity-30 transition-all"
+        >
+          <Plus className="w-4 h-4" />
+        </button>
+        <button
+          type="button"
+          onClick={() => zoomBy(1 / 1.6, focusPoint && artworkToFrame(focusPoint))}
+          disabled={!isZoomed}
+          aria-label="تصغير الخريطة"
+          className="w-9 h-9 rounded-xl bg-night-900/90 backdrop-blur-md border border-gold-400/40 text-gold-300 flex items-center justify-center shadow-lg hover:border-gold-300 active:scale-95 disabled:opacity-30 transition-all"
+        >
+          <Minus className="w-4 h-4" />
+        </button>
+        <button
+          type="button"
+          onClick={reset}
+          disabled={!isZoomed}
+          aria-label="إعادة الخريطة لحجمها"
+          className="w-9 h-9 rounded-xl bg-night-900/90 backdrop-blur-md border border-white/15 text-ink-400 flex items-center justify-center shadow-lg hover:text-white active:scale-95 disabled:opacity-30 transition-all"
+        >
+          <Maximize2 className="w-3.5 h-3.5" />
+        </button>
+      </div>
+
+      {/* The zoom level, shown only while it is not 1 — a permanent "1.0x"
+          badge would be noise on a map most players never zoom. */}
+      {isZoomed && (
+        <div
+          // A number with its unit: RTL would otherwise render it as "×1.6".
+          dir="ltr"
+          className="absolute bottom-3 right-3 z-50 px-2 py-1 rounded-lg bg-night-900/90 backdrop-blur-md border border-gold-400/30 text-[10px] font-black text-gold-300 pointer-events-none"
+        >
+          {view.scale.toFixed(1)}×
+        </div>
+      )}
     </div>
   );
 };

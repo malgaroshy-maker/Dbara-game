@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { LibyaVectorMap } from './LibyaVectorMap';
 import { CityDetailModal } from './CityDetailModal';
 import { useMapStore } from '../../store/useMapStore';
@@ -14,15 +14,40 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
   const [regionFilter, setRegionFilter] = useState<LibyanRegion | 'all'>('all');
   const [activeModalCity, setActiveModalCity] = useState<CityNode | null>(null);
 
-  const selectedCity = cities.find((c) => c.id === selectedCityId) || cities[0];
+  // Strictly the selected city, with no fallback: falling back to `cities[0]`
+  // meant clearing the selection still showed Tripoli's card, so there was no
+  // way to tell "nothing selected" from "Tripoli selected".
+  const selectedCity = selectedCityId ? cities.find((c) => c.id === selectedCityId) ?? null : null;
 
   // Tapping a pin expands that city's stages on the map. The full detail card
   // (lore, rewards, lock requirements) stays one tap away via "استكشف" below —
   // previously the pin opened that card immediately, which left no way to see
   // a city's stages in place on the map.
-  const handlePinClick = (city: CityNode) => {
-    selectCity(city.id);
-  };
+  const handlePinClick = useCallback((city: CityNode) => selectCity(city.id), [selectCity]);
+  const handleClearSelection = useCallback(() => selectCity(null), [selectCity]);
+
+  /**
+   * Anything outside the map and its card deselects — the region chips, the
+   * progress bar, the page background. A selected city dims every other pin and
+   * fans stage nodes over its neighbours, so leaving it stuck on is a real cost
+   * once the player has moved on.
+   */
+  const mapAreaRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!selectedCityId || activeModalCity) return;
+    const onPointerDown = (e: PointerEvent) => {
+      const target = e.target as Node | null;
+      if (!target) return;
+      // The card is the selection's own controls — "استكشف" must not have to
+      // survive the selection being cleared out from under it.
+      if (mapAreaRef.current?.contains(target) || cardRef.current?.contains(target)) return;
+      selectCity(null);
+    };
+    // Capture phase, so a stopPropagation deeper in the tree cannot swallow it.
+    document.addEventListener('pointerdown', onPointerDown, true);
+    return () => document.removeEventListener('pointerdown', onPointerDown, true);
+  }, [selectedCityId, activeModalCity, selectCity]);
 
   const filteredCities = regionFilter === 'all' ? cities : cities.filter((c) => c.region === regionFilter);
 
@@ -112,12 +137,15 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
       </div>
 
       {/* Main Libya Map Component with Stitch Artwork */}
+      <div ref={mapAreaRef} className="flex flex-col gap-3">
       <LibyaVectorMap
         onSelectCity={handlePinClick}
         onStartStage={onStartStage}
+        onClearSelection={handleClearSelection}
         selectedCityId={selectedCityId}
         regionFilter={regionFilter}
       />
+      </div>
 
       {/* Expedition progress: how much of Libya is opened and starred. */}
       <div className="glass-card px-3.5 py-2.5 rounded-2xl flex items-center gap-3">
@@ -145,7 +173,10 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
 
       {/* Selected City Bottom Inspection Card */}
       {selectedCity && (
-        <div className="glass-card-interactive p-3.5 rounded-3xl flex items-center justify-between gap-3 border border-gold-400/25 shadow-xl">
+        <div
+          ref={cardRef}
+          className="glass-card-interactive p-3.5 rounded-3xl flex items-center justify-between gap-3 border border-gold-400/25 shadow-xl"
+        >
           <div className="flex items-center gap-3 overflow-hidden">
             <div className="w-11 h-11 rounded-2xl bg-gold-400/20 border border-gold-400/40 flex items-center justify-center text-xl shrink-0 shadow-inner">
               {selectedCity.icon}
