@@ -77,6 +77,12 @@ for (const { data: q, file } of mcq) {
     missingSource.push(q.id);
   }
   if (q.source !== undefined && !q.source.trim()) fail(q.id, 'حقل source فارغ');
+
+  // A hint that names the answer sells the question instead of helping with it.
+  if (q.hint !== undefined) {
+    if (!q.hint.trim()) fail(q.id, 'حقل hint فارغ — اكتب تلميحاً أو احذف الحقل');
+    else if (answer && q.hint.includes(answer)) fail(q.id, `التلميح يذكر الإجابة ("${answer}")`);
+  }
   if (q.needsReview !== undefined && !q.needsReview.trim())
     fail(q.id, 'حقل needsReview فارغ — اكتب سبب المراجعة أو احذف الحقل');
 }
@@ -377,6 +383,9 @@ const hardCount = mcq.filter((i) => ['hard', 'expert'].includes(i.data.difficult
 console.log(
   `المصادر: ${sourced}/${mcq.length} سؤالاً موثّقاً — ينقص ${missingSource.length} من ${hardCount} صعب/خبير`
 );
+const hinted = mcq.filter((i) => i.data.hint).length;
+const hintedHard = mcq.filter((i) => i.data.hint && ['hard', 'expert'].includes(i.data.difficulty)).length;
+console.log(`التلميحات: ${hinted}/${mcq.length} — منها ${hintedHard} من ${hardCount} صعب/خبير`);
 console.log(
   `تسريب متقاطع: ${knownLeaks.length} زوجاً مؤجلاً في خط الأساس (scripts/questions-leaks-allow.json)`
 );

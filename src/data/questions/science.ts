@@ -379,6 +379,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['Ag', 'Gd', 'Au', 'Go'],
     correctIndex: 2,
     funFact: 'الرمز Au مأخوذ من اسمه اللاتيني Aurum، بينما Ag هي الفضة من Argentum.',
+    hint: 'من الاسم اللاتيني aurum.',
     rewardDinars: 60,
     source: 'الجدول الدوري للعناصر — الرمز Au من اللاتينية Aurum',
   },
@@ -390,6 +391,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['92 عنصراً', '104 عناصر', '110 عناصر', '118 عنصراً'],
     correctIndex: 3,
     funFact: 'آخر أربعة عناصر اعتُمدت رسمياً سنة 2016 لتكتمل الدورة السابعة من الجدول الدوري.',
+    hint: 'آخر أربعة منها أُقرّت أسماؤها سنة 2016.',
     rewardDinars: 60,
     source: 'الاتحاد الدولي للكيمياء البحتة والتطبيقية (IUPAC) — الجدول الدوري',
   },
@@ -401,6 +403,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['غريغور مندل', 'تشارلز داروين', 'لويس باستور', 'روبرت هوك'],
     correctIndex: 0,
     funFact: 'نشر مندل نتائجه سنة 1866 فمرت دون اهتمام، ولم يُعرف قدرها إلا بعد وفاته بعقود.',
+    hint: 'راهب نمساوي عمل في حديقة ديره.',
     rewardDinars: 60,
   },
   {
@@ -411,6 +414,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     options: ['الاحتراق الكيميائي', 'الاندماج النووي', 'الانشطار النووي', 'التحلل الإشعاعي'],
     correctIndex: 1,
     funFact: 'تندمج نوى الهيدروجين في قلب الشمس لتكوّن الهيليوم، فتتحول فروق الكتلة إلى طاقة هائلة.',
+    hint: 'تتحد فيها نوى الهيدروجين لتصير هيليوم.',
     rewardDinars: 60,
   },
 ];

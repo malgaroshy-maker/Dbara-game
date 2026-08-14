@@ -53,6 +53,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
   const [earnedStars, setEarnedStars] = useState<number>(0);
   const [isVictoryModal, setIsVictoryModal] = useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
+  const [isHintShown, setIsHintShown] = useState<boolean>(false);
 
   // Dynamically shuffle options on question load (Fisher-Yates Shuffle)
   const shuffledOptions = useMemo(() => {
@@ -148,6 +149,21 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
       if (!spendDinars(80)) return;
     }
     addTime(15);
+    sfx.playTap();
+  };
+
+  /**
+   * Buys the question's hint.
+   *
+   * Priced under the 50:50 because it is weaker: it narrows the thinking rather
+   * than the options, and a player who does not know the subject still has to
+   * choose. Only offered where a hint has actually been written.
+   */
+  const HINT_COST = 30;
+  const handleHint = () => {
+    if (isAnswered || isHintShown || !question.hint) return;
+    if (!spendDinars(HINT_COST)) return;
+    setIsHintShown(true);
     sfx.playTap();
   };
 
@@ -290,6 +306,19 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
         })}
       </div>
 
+      {/* The bought hint, shown in place rather than in a modal so it stays
+          readable next to the options it is meant to narrow. */}
+      {isHintShown && question.hint && (
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-start gap-2 p-3 rounded-2xl bg-sea-500/10 border border-sea-500/30 text-right"
+        >
+          <Lightbulb className="w-4 h-4 text-sea-300 shrink-0 mt-0.5" />
+          <p className="text-xs text-ink-100 leading-relaxed">{question.hint}</p>
+        </motion.div>
+      )}
+
       {/* Bottom Lifelines Bar */}
       <div className="glass-card p-3 rounded-2xl flex items-center justify-around gap-2 mt-2">
         <button
@@ -313,6 +342,19 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
           </div>
           <span>+15 ثانية ({profile.lifelines.extraTime})</span>
         </button>
+
+        {question.hint && (
+          <button
+            onClick={handleHint}
+            disabled={isAnswered || isHintShown || profile.dinars < HINT_COST}
+            className="flex flex-col items-center gap-1 text-[11px] font-bold text-ink-400 hover:text-sea-300 disabled:opacity-30"
+          >
+            <div className="p-2 rounded-xl bg-night-700 border border-sea-500/20 text-sea-300">
+              <Lightbulb className="w-4 h-4" />
+            </div>
+            <span>{isHintShown ? 'ظهر التلميح' : `تلميح (${HINT_COST})`}</span>
+          </button>
+        )}
 
         <button
           onClick={handleSkip}

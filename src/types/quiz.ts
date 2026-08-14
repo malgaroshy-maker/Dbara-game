@@ -34,6 +34,17 @@ export interface TriviaQuestion {
    */
   source?: string;
   /**
+   * A nudge the player can buy: it narrows the field without naming the answer.
+   *
+   * Write it so someone who knows the subject goes "of course" and someone who
+   * does not still has to choose. A hint that gives the answer away is worse
+   * than none, because it sells the question rather than helping with it —
+   * `questions:check` fails the build if a hint contains its own answer.
+   *
+   * Optional: the hint button only appears on questions that have one.
+   */
+  hint?: string;
+  /**
    * Set on claims that could not be confirmed and are waiting on a reviewer who
    * knows the subject locally. Surfaced as its own filter in the review page.
    */
