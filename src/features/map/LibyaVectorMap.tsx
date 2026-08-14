@@ -125,6 +125,23 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
   const symbolScale = 1 / view.scale;
 
   /**
+   * How much of a pin's full size to draw at the current zoom.
+   *
+   * Libya's coastal cities are closer together than a full-size pin is wide, so
+   * at the overview zoom a full-size pin cannot avoid covering its neighbour —
+   * and a covered pin is worse than a small one: tapping the centre of Tripoli
+   * used to select Gharyan, whichever happened to be painted last.
+   *
+   * So the symbol carries less detail when zoomed out, the way a paper map
+   * marks a city with a dot and a name until you look closer: half size at the
+   * overview, full size from 2x up. Half of 27 artwork px is 13.6, which fits
+   * inside the 14 px the layout can open between Leptis Magna and Msallata —
+   * the tightest pair on the map, and the one that decides this number.
+   */
+  const pinDetail = Math.min(1, view.scale / 2);
+  const pinScale = symbolScale * pinDetail;
+
+  /**
    * True projected positions, then the drawn positions after decluttering.
    * `cityPoints` is what everything on the map aligns to — pins, labels,
    * routes and stage fans — so they never disagree about where a city is.
@@ -140,7 +157,11 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
           id: c.id,
           point: projectToMap(c.coordinates.latitude, c.coordinates.longitude),
         })),
-        PIN_SEPARATION / layoutScale
+        // Not `/ layoutScale`: the pin is drawn at half detail below 2x, so its
+        // artwork footprint is flat there rather than shrinking with the zoom.
+        // Dividing the separation faster than the symbol actually shrinks is
+        // what let Leptis Magna slide back under Msallata at 1.6x.
+        PIN_SEPARATION / Math.max(1, layoutScale / 2)
       ),
     [cities, layoutScale]
   );
@@ -494,10 +515,10 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
                 top: `${pin.top}%`,
                 // Held at a constant size on screen: zooming is for separating
                 // the pins, not for magnifying them.
-                scale: symbolScale * (isBackgrounded ? 0.75 : 1),
+                scale: pinScale * (isBackgrounded ? 0.75 : 1),
               }}
-              whileHover={{ scale: symbolScale * 1.15 }}
-              whileTap={{ scale: symbolScale * 0.95 }}
+              whileHover={{ scale: pinScale * 1.15 }}
+              whileTap={{ scale: pinScale * 0.95 }}
               onClick={() => !wasDragged() && onSelectCity(city)}
             >
               {/* Pulsing Glowing Aura for Selected/Active Node */}
@@ -673,14 +694,32 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
       </div>
       </div>
 
-      {/* Zoom controls. Outside the transformed layer so they stay put and keep
-          their size, and marked as a hit target so using them does not clear
-          the selected city. */}
+      {/*
+        Centred on the bottom edge — below Libya's southern border, the one
+        strip of this frame that is never a city. The corners all cover one:
+        bottom left is Ghat, top right is Tobruk once panned. Keeping the
+        controls inside the frame also keeps them out of the page's layout,
+        which matters because a row of their own pushed the city card down
+        behind the bottom navigation.
+      */}
       <div
         data-map-hit
-        className="absolute bottom-3 left-3 z-50 flex flex-col gap-1.5"
+        className="absolute bottom-2 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5"
         onPointerDown={(e) => e.stopPropagation()}
       >
+        {/* The zoom level, shown only while it is not 1 — a permanent "1.0x"
+            badge would be noise on a map most players never zoom. */}
+        <span
+          // A number with its unit: RTL would otherwise render it as "×1.6".
+          dir="ltr"
+          className={`px-2 py-1 rounded-lg bg-night-900/90 backdrop-blur-md border border-gold-400/30 text-[10px] font-black text-gold-300 transition-opacity ${
+            isZoomed ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          {view.scale.toFixed(1)}×
+        </span>
+
+        <span className="flex items-center gap-1.5">
         <button
           type="button"
           onClick={() => zoomBy(1.6, focusPoint && artworkToFrame(focusPoint))}
@@ -708,19 +747,8 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
         >
           <Maximize2 className="w-3.5 h-3.5" />
         </button>
+        </span>
       </div>
-
-      {/* The zoom level, shown only while it is not 1 — a permanent "1.0x"
-          badge would be noise on a map most players never zoom. */}
-      {isZoomed && (
-        <div
-          // A number with its unit: RTL would otherwise render it as "×1.6".
-          dir="ltr"
-          className="absolute bottom-3 right-3 z-50 px-2 py-1 rounded-lg bg-night-900/90 backdrop-blur-md border border-gold-400/30 text-[10px] font-black text-gold-300 pointer-events-none"
-        >
-          {view.scale.toFixed(1)}×
-        </div>
-      )}
     </div>
   );
 };

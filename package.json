@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "questions:export": "node scripts/questions-export.mjs",
     "questions:check": "node scripts/questions-check.mjs",
-    "questions:rebalance": "node scripts/questions-rebalance.mjs"
+    "questions:rebalance": "node scripts/questions-rebalance.mjs",
+    "map:audit": "node scripts/map-audit.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
