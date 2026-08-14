@@ -1,227 +1,202 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useGameStore } from '../../store/useGameStore';
 import { useMapStore } from '../../store/useMapStore';
-import { Trophy, Star, Shield, Clock, Flame, Sparkles, MapPin, Award } from 'lucide-react';
+import {
+  competitiveScore,
+  rankForScore,
+  nextRankAfter,
+  explorerRanks,
+} from '../../data/ranks';
+import { Star, Zap, Flame, Target, MapPin, HelpCircle, Users, Lock } from 'lucide-react';
 
+/**
+ * The player's own standing.
+ *
+ * This used to be a table of seven invented rivals — fabricated names with
+ * fabricated scores, presented as real competitors. Cross-player ranking needs
+ * the server that is planned but does not exist yet, and inventing opponents in
+ * the meantime is exactly what a heritage game should not do.
+ *
+ * Everything here is the player's real record, plus the one thing that was
+ * genuinely missing: a ladder. The profile carried a rank title that was set at
+ * sign-up and never advanced.
+ */
 export const LeaderboardTab: React.FC = () => {
   const { profile, stats } = useGameStore();
-  const { getTotalStars } = useMapStore();
-  const [selectedDivision, setSelectedDivision] = useState<'all' | 'diamond' | 'gold'>('all');
+  const { cities, getTotalStars } = useMapStore();
 
-  const userStars = getTotalStars();
-  const userScore = userStars * 35 + stats.correctAnswers * 15 + profile.streakDays * 20;
+  const totalStars = getTotalStars();
+  const score = competitiveScore({
+    totalStars,
+    correctAnswers: stats.correctAnswers,
+    streakDays: profile.streakDays,
+  });
+  const rank = rankForScore(score);
+  const nextRank = nextRankAfter(score);
+  const rankIndex = explorerRanks.findIndex((r) => r.id === rank.id);
 
-  // Mock Top Libyan Explorers
-  const leaderboardData = [
+  const progressToNext = nextRank
+    ? Math.min(100, ((score - rank.minScore) / (nextRank.minScore - rank.minScore)) * 100)
+    : 100;
+
+  const accuracy =
+    stats.questionsAnswered > 0
+      ? Math.round((stats.correctAnswers / stats.questionsAnswered) * 100)
+      : 0;
+  const unlockedCities = cities.filter(
+    (c) => c.unlockedByDefault || c.stages.some((s) => s.isUnlocked)
+  ).length;
+
+  const records: { label: string; value: string; icon: React.ReactNode; tone: string }[] = [
     {
-      rank: 1,
-      name: 'سراج الطرابلسي',
-      avatar: '🏛️',
-      city: 'طرابلس',
-      title: 'جهبذ التراث الأكبر',
-      stars: 36,
-      score: 1480,
-      streak: 14,
-      isUser: false,
+      label: 'أفضل سباق سرعة',
+      value: `${stats.bestSpeedScore} إجابة`,
+      icon: <Zap className="w-4 h-4" />,
+      tone: 'text-sea-300',
     },
     {
-      rank: 2,
-      name: 'مرام الفيتوري',
-      avatar: '🦅',
-      city: 'بنغازي',
-      title: 'صقر برقة',
-      stars: 35,
-      score: 1390,
-      streak: 11,
-      isUser: false,
+      label: 'أطول سلسلة أيام',
+      value: `${stats.dailyStreakRecord} يوم`,
+      icon: <Flame className="w-4 h-4" />,
+      tone: 'text-flame',
     },
     {
-      rank: 3,
-      name: 'إبراهيم الأكوري',
-      avatar: '🌲',
-      city: 'شحات',
-      title: 'حارس قورينا',
-      stars: 34,
-      score: 1310,
-      streak: 9,
-      isUser: false,
+      label: 'دقة الإجابة',
+      value: stats.questionsAnswered > 0 ? `${accuracy}%` : '—',
+      icon: <Target className="w-4 h-4" />,
+      tone: 'text-oasis-500',
     },
     {
-      rank: 4,
-      name: 'طارق الزنتاني',
-      avatar: '⚔️',
-      city: 'جبل نفوسة',
-      title: 'فارس الجبل',
-      stars: 32,
-      score: 1220,
-      streak: 8,
-      isUser: false,
+      label: 'أسئلة مُجابة',
+      value: `${stats.questionsAnswered}`,
+      icon: <HelpCircle className="w-4 h-4" />,
+      tone: 'text-orchid-300',
     },
     {
-      rank: 5,
-      name: 'خديجة الغدامسية',
-      avatar: '🌴',
-      city: 'غدامس',
-      title: 'لؤلؤة الصحراء',
-      stars: 30,
-      score: 1150,
-      streak: 7,
-      isUser: false,
+      label: 'النجوم المكتسبة',
+      value: `${totalStars}`,
+      icon: <Star className="w-4 h-4 fill-current" />,
+      tone: 'text-gold-300',
     },
     {
-      rank: 6,
-      name: 'الصادق الفزاني',
-      avatar: '🏰',
-      city: 'سبها',
-      title: 'سليل الجرمنت',
-      stars: 28,
-      score: 1040,
-      streak: 6,
-      isUser: false,
-    },
-    {
-      rank: 7,
-      name: 'نور الهدى الكفراوية',
-      avatar: '✨',
-      city: 'الكفرة',
-      title: 'دليل الواحات',
-      stars: 26,
-      score: 960,
-      streak: 5,
-      isUser: false,
+      label: 'مدن مفتوحة',
+      value: `${unlockedCities} من ${cities.length}`,
+      icon: <MapPin className="w-4 h-4" />,
+      tone: 'text-gold-400',
     },
   ];
 
-  // Insert user based on their score
-  const userEntry = {
-    rank: 0,
-    name: profile.name,
-    avatar: profile.avatar,
-    city: 'مستكشف ليبيا',
-    title: profile.title,
-    stars: userStars,
-    score: userScore,
-    streak: profile.streakDays,
-    isUser: true,
-  };
-
-  const combinedList = [...leaderboardData, userEntry].sort((a, b) => b.score - a.score);
-  const rankedList = combinedList.map((item, index) => ({ ...item, rank: index + 1 }));
-  const currentUserRank = rankedList.find((item) => item.isUser)?.rank || 8;
-
   return (
     <div className="space-y-3.5 select-none">
-      {/* Weekly Season Countdown Card */}
+      {/* Current rank */}
       <div className="glass-panel p-4 rounded-3xl border border-gold-400/40 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-gold-400/20 to-transparent pointer-events-none rounded-tl-3xl" />
+        <div className="absolute top-0 left-0 w-28 h-28 bg-gradient-to-br from-gold-400/20 to-transparent pointer-events-none rounded-tl-3xl" />
 
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Shield className="w-5 h-5 text-gold-400" />
-            <div>
-              <h3 className="text-sm font-black text-white">الموسم الأول: فرسان الميدان ⚔️</h3>
-              <p className="text-[11px] text-ink-400">يتجدد الترتيب وتوزع الجوائز كل يوم أحد</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-night-700 border border-gold-400/30 text-[11px] font-bold text-gold-300">
-            <Clock className="w-3.5 h-3.5" />
-            <span>باقي 3 أيام</span>
+        <div className="flex items-center gap-3">
+          <span className="w-14 h-14 rounded-2xl bg-gold-400/15 border border-gold-400/40 flex items-center justify-center text-3xl shrink-0 shadow-gold-glow-sm">
+            {rank.icon}
+          </span>
+          <div className="min-w-0">
+            <p className="text-[11px] text-ink-400 font-bold">رتبتك الحالية</p>
+            <h3 className="text-lg font-black text-white truncate">{rank.title}</h3>
+            <p className="text-[11px] text-gold-300 font-bold mt-0.5">{score} نقطة تنافسية</p>
           </div>
         </div>
 
-        {/* User Rank Snapshot Card */}
-        <div className="mt-3 p-3 rounded-2xl bg-gradient-to-r from-gold-400/15 via-sea-500/10 to-transparent border border-gold-400/30 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <span className="w-8 h-8 rounded-xl bg-gold-400 text-night-900 font-black text-sm flex items-center justify-center shadow-md">
-              #{currentUserRank}
+        <div className="mt-4">
+          <div className="flex items-center justify-between text-[11px] font-bold mb-1.5">
+            <span className="text-ink-400">
+              {nextRank ? `التالي: ${nextRank.title}` : 'بلغت أعلى رتبة'}
             </span>
-            <div>
-              <h4 className="text-xs font-black text-white flex items-center gap-1">
-                <span>{profile.name}</span>
-                <span className="text-[10px] text-gold-300 font-normal">({profile.title})</span>
-              </h4>
-              <span className="text-[10px] text-ink-400">
-                مجموع نقاطك التنافسية: <strong className="text-sea-300">{userScore}</strong>
-              </span>
-            </div>
+            {nextRank && (
+              <span className="text-gold-300">باقٍ {nextRank.minScore - score} نقطة</span>
+            )}
           </div>
-
-          <div className="flex items-center gap-1 text-xs font-black text-gold-300">
-            <Star className="w-3.5 h-3.5 fill-current" />
-            <span>{userStars} نجوم</span>
+          <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+            <motion.div
+              className="h-full rounded-full bg-gradient-to-r from-gold-400 to-gold-300"
+              initial={{ width: 0 }}
+              animate={{ width: `${progressToNext}%` }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            />
           </div>
         </div>
       </div>
 
-      {/* Leaderboard Table List */}
-      <div className="space-y-2">
-        {rankedList.map((item) => {
-          let rankBadge = `${item.rank}`;
-          let rankStyle = 'bg-white/10 text-white';
+      {/* The formula, stated rather than hidden */}
+      <p className="text-[11px] text-ink-400 text-center leading-relaxed px-2">
+        تُحتسب النقطة التنافسية من نجومك (×35) وإجاباتك الصحيحة (×15) وسلسلة أيامك (×20)
+      </p>
 
-          if (item.rank === 1) {
-            rankBadge = '🥇';
-            rankStyle = 'bg-gold-400/30 text-gold-300 border-gold-400/50 shadow-gold-glow-sm';
-          } else if (item.rank === 2) {
-            rankBadge = '🥈';
-            rankStyle = 'bg-ink-400/30 text-white border-ink-400/50';
-          } else if (item.rank === 3) {
-            rankBadge = '🥉';
-            rankStyle = 'bg-gold-500/30 text-gold-300 border-gold-500/50';
-          }
+      {/* Personal records */}
+      <div>
+        <h4 className="text-xs font-bold text-ink-400 flex items-center gap-1.5 mb-2 px-1">
+          <Star className="w-3.5 h-3.5 text-gold-400" />
+          أرقامك القياسية
+        </h4>
+        <div className="grid grid-cols-2 gap-2">
+          {records.map((r) => (
+            <div key={r.label} className="glass-card rounded-2xl px-3 py-2.5">
+              <div className={`flex items-center gap-1.5 font-black text-sm ${r.tone}`}>
+                {r.icon}
+                <span>{r.value}</span>
+              </div>
+              <span className="text-[10px] text-ink-400 mt-0.5 block">{r.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
 
-          return (
-            <motion.div
-              key={item.rank + item.name}
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              className={`p-3.5 rounded-2xl flex items-center justify-between gap-3 border transition-all ${
-                item.isUser
-                  ? 'glass-panel border-2 border-gold-400 shadow-gold-glow bg-gold-400/10'
-                  : 'glass-card border-white/5'
-              }`}
-            >
-              <div className="flex items-center gap-3 min-w-0">
-                <span
-                  className={`w-7 h-7 rounded-xl flex items-center justify-center font-black text-xs shrink-0 border ${rankStyle}`}
-                >
-                  {rankBadge}
-                </span>
-
-                <span className="text-2xl shrink-0">{item.avatar}</span>
-
-                <div className="min-w-0">
-                  <div className="flex items-center gap-1.5">
-                    <h4 className="text-xs font-black text-white truncate">{item.name}</h4>
-                    {item.isUser && (
-                      <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-gold-400 text-night-900 font-black">
-                        أنت
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2 text-[10px] text-ink-400 mt-0.5">
-                    <span className="flex items-center gap-0.5 text-sea-300">
-                      <MapPin className="w-2.5 h-2.5" />
-                      {item.city}
-                    </span>
-                    <span>•</span>
-                    <span className="text-gold-300">{item.title}</span>
-                  </div>
+      {/* The ladder */}
+      <div>
+        <h4 className="text-xs font-bold text-ink-400 flex items-center gap-1.5 mb-2 px-1">
+          <Users className="w-3.5 h-3.5 text-gold-400" />
+          سلّم الرتب
+        </h4>
+        <div className="space-y-1.5">
+          {explorerRanks.map((r, i) => {
+            const reached = i <= rankIndex;
+            const isCurrent = r.id === rank.id;
+            return (
+              <div
+                key={r.id}
+                className={`px-3 py-2 rounded-2xl flex items-center justify-between gap-3 border transition-all ${
+                  isCurrent
+                    ? 'glass-panel border-gold-400 shadow-gold-glow-sm bg-gold-400/10'
+                    : reached
+                    ? 'glass-card border-white/5'
+                    : 'bg-night-900/50 border-white/5 opacity-55'
+                }`}
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <span className={`text-lg shrink-0 ${reached ? '' : 'grayscale'}`}>{r.icon}</span>
+                  <span
+                    className={`text-xs font-black truncate ${
+                      isCurrent ? 'text-gold-300' : reached ? 'text-white' : 'text-ink-500'
+                    }`}
+                  >
+                    {r.title}
+                  </span>
                 </div>
-              </div>
-
-              <div className="text-left shrink-0">
-                <span className="block text-xs font-black text-gold-300">{item.score} ن</span>
-                <span className="text-[10px] text-ink-400 flex items-center justify-end gap-0.5">
-                  <Star className="w-2.5 h-2.5 text-gold-400 fill-current" />
-                  {item.stars}
+                <span
+                  className={`text-[11px] font-bold shrink-0 ${reached ? 'text-ink-400' : 'text-ink-500'}`}
+                >
+                  {r.minScore === 0 ? 'البداية' : `${r.minScore} نقطة`}
                 </span>
               </div>
-            </motion.div>
-          );
-        })}
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Honest about what is not here yet */}
+      <div className="glass-card rounded-2xl px-3.5 py-3 flex items-start gap-2.5 border border-white/5">
+        <Lock className="w-4 h-4 text-ink-400 shrink-0 mt-0.5" />
+        <p className="text-[11px] text-ink-400 leading-relaxed">
+          المقارنة مع لاعبين آخرين تحتاج حساباً على الإنترنت، وهي غير متاحة بعد. كل ما تراه
+          هنا هو سجلك أنت، محفوظ على جهازك.
+        </p>
       </div>
     </div>
   );

@@ -73,7 +73,7 @@ const ScreenFallback: React.FC = () => (
 );
 
 export const App: React.FC = () => {
-  const { currentMode, setMode, checkBadgeUnlocks } = useGameStore();
+  const { currentMode, setMode, checkBadgeUnlocks, refreshRank } = useGameStore();
   const { activeStage, startStage, clearActiveStage, getTotalStars } = useMapStore();
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   // The menu opens each launch rather than being persisted: it is the title
@@ -84,7 +84,8 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     checkBadgeUnlocks(totalStars);
-  }, [totalStars, checkBadgeUnlocks]);
+    refreshRank(totalStars);
+  }, [totalStars, checkBadgeUnlocks, refreshRank]);
 
   const activeStageView = useMemo(() => {
     if (!activeStage) return null;

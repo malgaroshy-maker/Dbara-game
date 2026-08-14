@@ -44,16 +44,16 @@ export const BadgesScreen: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-4 pb-20 max-w-lg mx-auto w-full px-3 pt-1">
+    <div className="flex flex-col gap-4 pb-28 max-w-lg mx-auto w-full px-3 pt-1">
       {/* Header Tabs */}
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-extrabold text-white flex items-center gap-2">
             <Trophy className="w-5 h-5 text-gold-400" />
-            الأوسمة ولوحة الشرف
+            الأوسمة والرتب
           </h2>
           <p className="text-xs text-ink-400 mt-0.5">
-            استعرض إنجازاتك، تصنيفك الأسبوعي، والمساعدات
+            استعرض إنجازاتك ورتبتك وأرقامك القياسية والمساعدات
           </p>
         </div>
 
@@ -87,7 +87,7 @@ export const BadgesScreen: React.FC = () => {
           }`}
         >
           <Shield className="w-3.5 h-3.5" />
-          <span>لوحة الشرف</span>
+          <span>رتبتي</span>
         </button>
 
         <button

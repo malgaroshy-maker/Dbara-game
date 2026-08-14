@@ -58,8 +58,8 @@ export const MainMenuScreen: React.FC<MainMenuScreenProps> = ({ onPlay, onOpenSe
     },
     {
       mode: 'badges',
-      label: 'الأوسمة ولوحة الشرف',
-      hint: `${unlockedBadges.length} وسام • المتجر والتصنيف`,
+      label: 'الأوسمة والرتب',
+      hint: `${unlockedBadges.length} وسام • رتبتك والمتجر`,
       icon: <Trophy className="w-5 h-5" />,
       accent: 'text-orchid-300 border-orchid/40',
     },

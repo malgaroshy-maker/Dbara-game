@@ -52,6 +52,7 @@ c:/Users/masal/Documents/opencode/trivia-game/
 │   ├── data/
 │   │   ├── cities.ts                  # بيانات مدن ومراحل وإحداثيات خريطة ليبيا
 │   │   ├── badges.ts                  # بيانات الأوسمة الثقافية والتراثية
+│   │   ├── ranks.ts                   # سلّم الرتب وصيغة النقطة التنافسية
 │   │   ├── questions/                 # بنوك الأسئلة (9 تصنيفات، 195 سؤالاً)
 │   │   │   ├── history.ts             # تاريخ وآثار ليبيا
 │   │   │   ├── dialects.ts            # اللهجات والأمثال الشعبية
@@ -92,7 +93,7 @@ c:/Users/masal/Documents/opencode/trivia-game/
 │   │   │   └── DailyChallengeScreen.tsx # شاشة اللغز اليومي ومضاعف الأيام
 │   │   └── badges/
 │   │       ├── BadgesScreen.tsx       # مجلس الأوسمة ومتجر المساعدات
-│   │       └── LeaderboardTab.tsx     # لوحة الشرف الأسبوعية والموسم التنافسي
+│   │       └── LeaderboardTab.tsx     # الرتب والسجل الشخصي (بيانات اللاعب وحده)
 │   ├── store/
 │   │   ├── useGameStore.ts            # مخزن الحالة الاقتصادية والمستخدم
 │   │   └── useMapStore.ts             # مخزن تقدم الخريطة وفتح المراحل

@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { PlayerProfile, AudioSettings, GameStats, GameMode } from '../types/game';
 import { badgesList } from '../data/badges';
+import { competitiveScore, rankForScore } from '../data/ranks';
 import { sfx } from '../audio/soundEffects';
 
 interface GameState {
@@ -32,6 +33,7 @@ interface GameState {
   isDailyRewardAvailable: () => boolean;
   completeDailyChallenge: () => void;
   isDailyChallengeAvailable: () => boolean;
+  refreshRank: (totalStars: number) => void;
   resetAllProgress: () => void;
 }
 
@@ -240,6 +242,24 @@ export const useGameStore = create<GameState>()(
       isDailyRewardAvailable: () => get().profile.lastLoginDate !== todayKey(),
 
       isDailyChallengeAvailable: () => get().dailyChallengeCompletedDate !== todayKey(),
+
+      /**
+       * Advances the displayed rank to match what the player has actually
+       * earned. Without this the title was frozen at sign-up forever, so the
+       * header, share card and leaderboard all showed a rank that never moved.
+       */
+      refreshRank: (totalStars) => {
+        const state = get();
+        const rank = rankForScore(
+          competitiveScore({
+            totalStars,
+            correctAnswers: state.stats.correctAnswers,
+            streakDays: state.profile.streakDays,
+          })
+        );
+        if (state.profile.title === rank.title) return;
+        set({ profile: { ...state.profile, title: rank.title } });
+      },
 
       /**
        * Marks today's challenge as done so it pays out once. Without this the
