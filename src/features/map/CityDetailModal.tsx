@@ -32,6 +32,9 @@ export const CityDetailModal: React.FC<CityDetailModalProps> = ({ city, onClose,
 
         {/* Modal Card */}
         <motion.div
+          role="dialog"
+          aria-modal="true"
+          aria-label={city.arabicName}
           initial={{ y: '100%', opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: '100%', opacity: 0 }}
