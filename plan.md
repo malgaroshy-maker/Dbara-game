@@ -52,7 +52,7 @@ c:/Users/masal/Documents/opencode/trivia-game/
 │   ├── data/
 │   │   ├── cities.ts                  # بيانات مدن ومراحل وإحداثيات خريطة ليبيا
 │   │   ├── badges.ts                  # بيانات الأوسمة الثقافية والتراثية
-│   │   ├── questions/                 # بنوك الأسئلة (9 تصنيفات، 182 سؤالاً)
+│   │   ├── questions/                 # بنوك الأسئلة (9 تصنيفات، 195 سؤالاً)
 │   │   │   ├── history.ts             # تاريخ وآثار ليبيا
 │   │   │   ├── dialects.ts            # اللهجات والأمثال الشعبية
 │   │   │   ├── sports.ts              # الرياضة والكرة الليبية
@@ -71,6 +71,7 @@ c:/Users/masal/Documents/opencode/trivia-game/
 │   │   ├── map/                       # شاشات ومكونات خريطة ليبيا
 │   │   │   ├── projection.ts          # إسقاط Mercator المعاير: إحداثيات حقيقية ← بكسل الصورة
 │   │   │   ├── pinLayout.ts           # فضّ ازدحام الدبابيس مع خطوط دالة على الموضع الحقيقي
+│   │   │   ├── labelLayout.ts          # اختيار موضع تسمية كل مدينة تلقائياً بلا تصادم
 │   │   │   ├── stageLayout.ts         # توزيع عقد المراحل حول دبوس المدينة بلا تصادم
 │   │   │   ├── LibyaVectorMap.tsx     # خريطة ليبيا الجغرافية والنقاط التفاعلية
 │   │   │   ├── CityDetailModal.tsx    # نافذة تفاصيل مراحل المدينة والنبذة
@@ -85,6 +86,8 @@ c:/Users/masal/Documents/opencode/trivia-game/
 │   │   │   └── MiniCrossword.tsx      # محرك الكلمات المتقاطعة 4×4 مع لوحة المفاتيح
 │   │   ├── quickplay/
 │   │   │   └── CategoryHub.tsx        # صالة الجولات السريعة حسب الموضوع
+│   │   ├── menu/
+│   │   │   └── MainMenuScreen.tsx     # شاشة البداية وملخص التقدم ومداخل أنماط اللعب
 │   │   ├── daily/
 │   │   │   └── DailyChallengeScreen.tsx # شاشة اللغز اليومي ومضاعف الأيام
 │   │   └── badges/

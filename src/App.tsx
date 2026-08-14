@@ -43,6 +43,9 @@ const MiniCrossword = lazy(() =>
 const SpeedBlitz = lazy(() =>
   import('./features/quiz/SpeedBlitz').then((m) => ({ default: m.SpeedBlitz }))
 );
+const MainMenuScreen = lazy(() =>
+  import('./features/menu/MainMenuScreen').then((m) => ({ default: m.MainMenuScreen }))
+);
 
 // Built once at module load: stage lookups were previously concatenating five
 // banks into a fresh array on every render and then scanning it linearly.
@@ -70,9 +73,12 @@ const ScreenFallback: React.FC = () => (
 );
 
 export const App: React.FC = () => {
-  const { currentMode, checkBadgeUnlocks } = useGameStore();
+  const { currentMode, setMode, checkBadgeUnlocks } = useGameStore();
   const { activeStage, startStage, clearActiveStage, getTotalStars } = useMapStore();
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+  // The menu opens each launch rather than being persisted: it is the title
+  // screen, not a saved location.
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(true);
 
   const totalStars = getTotalStars();
 
@@ -128,10 +134,32 @@ export const App: React.FC = () => {
     }
   };
 
+  if (isMenuOpen) {
+    return (
+      <div className="min-h-screen bg-[#0B0F19] text-[#F8FAFC] font-sans bg-libyan-pattern selection:bg-[#E5A93B]/30">
+        <Suspense fallback={<ScreenFallback />}>
+          <MainMenuScreen
+            onPlay={(mode) => {
+              setMode(mode);
+              setIsMenuOpen(false);
+            }}
+            onOpenSettings={() => setIsSettingsOpen(true)}
+          />
+        </Suspense>
+        <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#0B0F19] text-[#F8FAFC] flex flex-col font-sans bg-libyan-pattern selection:bg-[#E5A93B]/30">
       {/* Top HUD */}
-      {!activeStage && <HeaderHUD onOpenSettings={() => setIsSettingsOpen(true)} />}
+      {!activeStage && (
+        <HeaderHUD
+          onOpenSettings={() => setIsSettingsOpen(true)}
+          onOpenMenu={() => setIsMenuOpen(true)}
+        />
+      )}
 
       {/* Main View Area */}
       <main className="flex-1 w-full max-w-lg mx-auto py-2">

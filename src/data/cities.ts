@@ -13,7 +13,7 @@ export const initialCities: CityNode[] = [
     coordinates: { latitude: 32.8872, longitude: 13.1913 }, // طرابلس
     mapLabel: 'طرابلس',
     labelOffset: { x: 0, y: -20 },
-    stagesCount: 5,
+    stagesCount: 6,
     unlockedByDefault: true,
     requiredStarsToUnlock: 0,
     stages: [
@@ -22,6 +22,7 @@ export const initialCities: CityNode[] = [
       { id: 'tripoli_3', stageNumber: 3, title: 'أكلات طرابلسية: الرشدة والمبكبكة', type: 'multiple_choice', questionId: 'food_trp_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
       { id: 'tripoli_4', stageNumber: 4, title: 'كلمات متقاطعة: معالم المدينة القديمة', type: 'crossword', puzzleId: 'cross_trp_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
       { id: 'tripoli_5', stageNumber: 5, title: 'تحدي فرسان المتوسط والدربي', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 60 },
+      { id: 'tripoli_6', stageNumber: 6, title: 'قوس ماركوس أوريليوس', type: 'multiple_choice', questionId: 'hist_arch_trp_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
     ],
   },
   {
@@ -36,7 +37,7 @@ export const initialCities: CityNode[] = [
     coordinates: { latitude: 32.6386, longitude: 14.2903 }, // لبدة الكبرى (الخمس)
     mapLabel: 'لبدة',
     labelOffset: { x: 14, y: -16 },
-    stagesCount: 4,
+    stagesCount: 5,
     unlockedByDefault: false,
     requiredStarsToUnlock: 3,
     stages: [
@@ -44,6 +45,7 @@ export const initialCities: CityNode[] = [
       { id: 'leptis_2', stageNumber: 2, title: 'مسرح صبراتة والفسيفساء الفينيقية', type: 'multiple_choice', questionId: 'hist_lep_02', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
       { id: 'leptis_3', stageNumber: 3, title: 'رتب الحروف: شخصيات تاريخية', type: 'letter_scramble', puzzleId: 'scramble_lep_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
       { id: 'leptis_4', stageNumber: 4, title: 'تحدي تاريخ الآثار الليبية', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
+      { id: 'leptis_5', stageNumber: 5, title: 'حمامات لبدة الرومانية', type: 'multiple_choice', questionId: 'hist_lep_03', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
     ],
   },
   {
@@ -66,6 +68,48 @@ export const initialCities: CityNode[] = [
       { id: 'msallata_2', stageNumber: 2, title: 'رتب الحروف: عصر الزيتون', type: 'letter_scramble', puzzleId: 'scramble_msl_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
       { id: 'msallata_3', stageNumber: 3, title: 'مسلاتة وموقعها في المرقب', type: 'multiple_choice', questionId: 'geo_msl_02', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
       { id: 'msallata_4', stageNumber: 4, title: 'سباق سرعة: الساحل الشرقي لطرابلس', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
+    ],
+  },
+  {
+    id: 'zuwara',
+    name: 'Zuwara',
+    arabicName: 'زوارة',
+    titleBadge: 'عروس الساحل الأمازيغي',
+    region: 'tripolitania',
+    description: 'مدينة الصيد والبحر في أقصى الشمال الغربي، ومعقل الثقافة الأمازيغية الساحلية.',
+    historicalLore: 'زوارة مدينة أمازيغية عريقة على المتوسط، عاش أهلها على البحر صيداً وتجارة، وحافظوا على لغتهم وتقاليدهم جيلاً بعد جيل.',
+    icon: '🎣',
+    coordinates: { latitude: 32.9312, longitude: 12.0820 }, // زوارة
+    mapLabel: 'زوارة',
+    labelOffset: { x: -6, y: -18 },
+    stagesCount: 3,
+    unlockedByDefault: false,
+    requiredStarsToUnlock: 7,
+    stages: [
+      { id: 'zuwara_1', stageNumber: 1, title: 'لسان زوارة وهويتها', type: 'multiple_choice', questionId: 'geo_zwr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 35 },
+      { id: 'zuwara_2', stageNumber: 2, title: 'رتب الحروف: أهل الساحل', type: 'letter_scramble', puzzleId: 'scramble_zwr_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
+      { id: 'zuwara_3', stageNumber: 3, title: 'بحر زوارة ورزق أهلها', type: 'multiple_choice', questionId: 'geo_zwr_02', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
+    ],
+  },
+  {
+    id: 'gharyan',
+    name: 'Gharyan',
+    arabicName: 'غريان',
+    titleBadge: 'مدينة الدور الجوفية',
+    region: 'tripolitania',
+    description: 'بوابة جبل نفوسة الشمالية، بيوتها محفورة في الأرض وأفران فخارها لا تنطفئ.',
+    historicalLore: 'اشتهرت غريان بالدور الجوفية المحفورة حول أفنية دائرية تحت سطح الأرض، وبصناعة الفخار التي توارثتها أسرها لقرون.',
+    icon: '🏺',
+    coordinates: { latitude: 32.1722, longitude: 13.0203 }, // غريان
+    mapLabel: 'غريان',
+    labelOffset: { x: -4, y: 20 },
+    stagesCount: 3,
+    unlockedByDefault: false,
+    requiredStarsToUnlock: 8,
+    stages: [
+      { id: 'gharyan_1', stageNumber: 1, title: 'الدور الجوفية وعمارة الجبل', type: 'multiple_choice', questionId: 'geo_gry_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
+      { id: 'gharyan_2', stageNumber: 2, title: 'رتب الحروف: حرفة الطين', type: 'letter_scramble', puzzleId: 'scramble_gry_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
+      { id: 'gharyan_3', stageNumber: 3, title: 'أفران غريان وصناعتها', type: 'multiple_choice', questionId: 'geo_gry_02', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
     ],
   },
   {
@@ -113,6 +157,27 @@ export const initialCities: CityNode[] = [
     ],
   },
   {
+    id: 'sirte',
+    name: 'Sirte',
+    arabicName: 'سرت',
+    titleBadge: 'ملتقى الإقليمين',
+    region: 'tripolitania',
+    description: 'مدينة وسط الساحل على الخليج الكبير، ونقطة الوصل بين غرب ليبيا وشرقها.',
+    historicalLore: 'وقعت قرب سرت معركة القرضابية سنة 1915م التي جمعت مجاهدي طرابلس وبرقة وفزان في صف واحد ضد الجيش الإيطالي.',
+    icon: '🌅',
+    coordinates: { latitude: 31.2089, longitude: 16.5887 }, // سرت
+    mapLabel: 'سرت',
+    labelOffset: { x: 0, y: 20 },
+    stagesCount: 3,
+    unlockedByDefault: false,
+    requiredStarsToUnlock: 11,
+    stages: [
+      { id: 'sirte_1', stageNumber: 1, title: 'موقع سرت بين الإقليمين', type: 'multiple_choice', questionId: 'geo_srt_01', starsEarned: 0, isUnlocked: false, rewardDinars: 35 },
+      { id: 'sirte_2', stageNumber: 2, title: 'معركة القرضابية', type: 'multiple_choice', questionId: 'hist_qardabiya_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
+      { id: 'sirte_3', stageNumber: 3, title: 'رتب الحروف: انحناءة الساحل', type: 'letter_scramble', puzzleId: 'scramble_srt_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
+    ],
+  },
+  {
     id: 'benghazi',
     name: 'Benghazi',
     arabicName: 'بنغازي',
@@ -133,6 +198,27 @@ export const initialCities: CityNode[] = [
       { id: 'benghazi_3', stageNumber: 3, title: 'المطبخ الشرقي: المقروض والمثرودة', type: 'multiple_choice', questionId: 'food_ben_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
       { id: 'benghazi_4', stageNumber: 4, title: 'كلمات متقاطعة: كورة وفن بنغازي', type: 'crossword', puzzleId: 'cross_ben_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
       { id: 'benghazi_5', stageNumber: 5, title: 'سباق سرعة: لهجة الشرق', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 60 },
+    ],
+  },
+  {
+    id: 'ajdabiya',
+    name: 'Ajdabiya',
+    arabicName: 'أجدابيا',
+    titleBadge: 'بوابة الواحات',
+    region: 'cyrenaica',
+    description: 'مفترق طرق برقة، ومنها تنطلق دروب الصحراء نحو جالو والكفرة.',
+    historicalLore: 'كانت أجدابيا محطة رئيسية على طريق القوافل بين مصر والمغرب، وما زالت أطلال قصرها ومسجدها الفاطميين شاهدة على ازدهارها.',
+    icon: '🧱',
+    coordinates: { latitude: 30.7554, longitude: 20.2263 }, // أجدابيا
+    mapLabel: 'أجدابيا',
+    labelOffset: { x: 12, y: 18 },
+    stagesCount: 3,
+    unlockedByDefault: false,
+    requiredStarsToUnlock: 14,
+    stages: [
+      { id: 'ajdabiya_1', stageNumber: 1, title: 'قصر أجدابيا الأثري', type: 'multiple_choice', questionId: 'hist_ajd_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
+      { id: 'ajdabiya_2', stageNumber: 2, title: 'أجدابيا وطرق الصحراء', type: 'multiple_choice', questionId: 'geo_ajd_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
+      { id: 'ajdabiya_3', stageNumber: 3, title: 'سباق سرعة: دروب برقة', type: 'speed_blitz',  starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
     ],
   },
   {
@@ -177,6 +263,27 @@ export const initialCities: CityNode[] = [
       { id: 'derna_2', stageNumber: 2, title: 'رتب الحروف: معالم وادي الشلال', type: 'letter_scramble', puzzleId: 'scramble_der_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
       { id: 'derna_3', stageNumber: 3, title: 'حلويات درنة وعسل الزعتر', type: 'multiple_choice', questionId: 'food_der_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
       { id: 'derna_4', stageNumber: 4, title: 'سباق درنة الفيحاء وسواحل الشرق', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 60 },
+    ],
+  },
+  {
+    id: 'tobruk',
+    name: 'Tobruk',
+    arabicName: 'طبرق',
+    titleBadge: 'مرفأ الشرق العميق',
+    region: 'cyrenaica',
+    description: 'ميناء طبيعي عميق في أقصى الشرق، ومسرح لأشهر معارك الحرب العالمية الثانية.',
+    historicalLore: 'جعل مرفأ طبرق الطبيعي منها هدفاً استراتيجياً في الحرب العالمية الثانية، وتضم المدينة اليوم مقابر عسكرية لجنود من دول عدة.',
+    icon: '🛳️',
+    coordinates: { latitude: 32.0836, longitude: 23.9764 }, // طبرق
+    mapLabel: 'طبرق',
+    labelOffset: { x: 6, y: 20 },
+    stagesCount: 3,
+    unlockedByDefault: false,
+    requiredStarsToUnlock: 20,
+    stages: [
+      { id: 'tobruk_1', stageNumber: 1, title: 'طبرق في الحرب العالمية', type: 'multiple_choice', questionId: 'hist_tbk_01', starsEarned: 0, isUnlocked: false, rewardDinars: 35 },
+      { id: 'tobruk_2', stageNumber: 2, title: 'رتب الحروف: مرفأ المدينة', type: 'letter_scramble', puzzleId: 'scramble_tbk_01', starsEarned: 0, isUnlocked: false, rewardDinars: 45 },
+      { id: 'tobruk_3', stageNumber: 3, title: 'سر موقع طبرق البحري', type: 'multiple_choice', questionId: 'geo_tbk_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
     ],
   },
   {
@@ -225,6 +332,27 @@ export const initialCities: CityNode[] = [
     ],
   },
   {
+    id: 'jaghbub',
+    name: 'Jaghbub',
+    arabicName: 'الجغبوب',
+    titleBadge: 'واحة العلم والزاوية',
+    region: 'oasis_desert',
+    description: 'واحة منعزلة قرب الحدود الشرقية، ومركز الحركة السنوسية ومعهدها العلمي.',
+    historicalLore: 'اتخذ السنوسيون من الجغبوب مركزاً لزاويتهم ومعهدهم العلمي الذي قصده طلاب العلم من أنحاء الصحراء قبل انتقال المركز إلى الكفرة.',
+    icon: '📿',
+    coordinates: { latitude: 29.7447, longitude: 24.5173 }, // الجغبوب
+    mapLabel: 'الجغبوب',
+    labelOffset: { x: -10, y: 20 },
+    stagesCount: 3,
+    unlockedByDefault: false,
+    requiredStarsToUnlock: 23,
+    stages: [
+      { id: 'jaghbub_1', stageNumber: 1, title: 'زاوية الجغبوب ومعهدها', type: 'multiple_choice', questionId: 'geo_jgb_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
+      { id: 'jaghbub_2', stageNumber: 2, title: 'الحركة السنوسية', type: 'multiple_choice', questionId: 'isl_13', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
+      { id: 'jaghbub_3', stageNumber: 3, title: 'سباق سرعة: دروب الواحات', type: 'speed_blitz',  starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
+    ],
+  },
+  {
     id: 'sabha_fezzan',
     name: 'Sabha & Germa',
     arabicName: 'سبها وجرمة',
@@ -244,6 +372,26 @@ export const initialCities: CityNode[] = [
       { id: 'sabha_2', stageNumber: 2, title: 'بحيرات أوباري ونخيل قَبْر عَوْن', type: 'multiple_choice', questionId: 'geo_sab_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
       { id: 'sabha_3', stageNumber: 3, title: 'رتب الحروف: تقاليد فزان والشاي العالة', type: 'letter_scramble', puzzleId: 'scramble_sab_01', starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
       { id: 'sabha_4', stageNumber: 4, title: 'تحدي رمال الصحراء الكبرى', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 65 },
+    ],
+  },
+  {
+    id: 'murzuq',
+    name: 'Murzuq',
+    arabicName: 'مرزق',
+    titleBadge: 'عاصمة فزان التاريخية',
+    region: 'fezzan',
+    description: 'حاضرة فزان القديمة ومحطة القوافل الكبرى نحو قلب أفريقيا.',
+    historicalLore: 'كانت مرزق عاصمة فزان ومقصد القوافل العابرة للصحراء لقرون، وتلتقي عندها دروب التجارة القادمة من الشمال والجنوب.',
+    icon: '🐪',
+    coordinates: { latitude: 25.9155, longitude: 13.9184 }, // مرزق
+    mapLabel: 'مرزق',
+    labelOffset: { x: 8, y: 20 },
+    stagesCount: 2,
+    unlockedByDefault: false,
+    requiredStarsToUnlock: 29,
+    stages: [
+      { id: 'murzuq_1', stageNumber: 1, title: 'مرزق حاضرة فزان', type: 'multiple_choice', questionId: 'geo_mzq_01', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
+      { id: 'murzuq_2', stageNumber: 2, title: 'سباق سرعة: أعماق فزان', type: 'speed_blitz',  starsEarned: 0, isUnlocked: false, rewardDinars: 60 },
     ],
   },
   {
@@ -280,13 +428,14 @@ export const initialCities: CityNode[] = [
     coordinates: { latitude: 24.1781, longitude: 23.3117 }, // الكفرة (الجوف)
     mapLabel: 'الكفرة',
     labelOffset: { x: -10, y: 20 },
-    stagesCount: 3,
+    stagesCount: 4,
     unlockedByDefault: false,
     requiredStarsToUnlock: 33,
     stages: [
       { id: 'kufra_1', stageNumber: 1, title: 'جغرافيا الكفرة وبحيراتها المالحة', type: 'multiple_choice', questionId: 'geo_kuf_01', starsEarned: 0, isUnlocked: false, rewardDinars: 50 },
       { id: 'kufra_2', stageNumber: 2, title: 'رتب الحروف: جبل العوينات والزجاج الصحراوي', type: 'letter_scramble', puzzleId: 'scramble_kuf_01', starsEarned: 0, isUnlocked: false, rewardDinars: 55 },
-      { id: 'kufra_3', stageNumber: 3, title: 'الامتحان الكبير: جهبذ ليبيا', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 100 },
+      { id: 'kufra_3', stageNumber: 3, title: 'واحات الكفرة ومركزها', type: 'multiple_choice', questionId: 'geo_kuf_02', starsEarned: 0, isUnlocked: false, rewardDinars: 40 },
+      { id: 'kufra_4', stageNumber: 4, title: 'الامتحان الكبير: جهبذ ليبيا', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 100 },
     ],
   },
 ];

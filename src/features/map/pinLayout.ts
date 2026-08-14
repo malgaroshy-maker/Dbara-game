@@ -25,7 +25,7 @@ import type { MapPoint } from './projection';
 
 /** Centre-to-centre spacing a pair of pins needs to stay tappable.
  *  A pin renders about 25.5 artwork px across, so this leaves a small gap. */
-const MIN_PIN_DISTANCE = 25;
+const MIN_PIN_DISTANCE = 28;
 
 /** Pull back toward the true position, per iteration. */
 const ANCHOR_PULL = 0.06;
@@ -33,7 +33,7 @@ const ANCHOR_PULL = 0.06;
 /** Share of the overlap each pin of a pair gives up, per iteration. */
 const PUSH_STRENGTH = 0.5;
 
-const ITERATIONS = 160;
+const ITERATIONS = 220;
 
 /** Displaced pins must stay on the artwork. */
 const BOUNDS = { minX: 14, maxX: 272, minY: 100, maxY: 410 };

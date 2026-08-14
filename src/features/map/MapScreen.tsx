@@ -3,7 +3,7 @@ import { LibyaVectorMap } from './LibyaVectorMap';
 import { CityDetailModal } from './CityDetailModal';
 import { useMapStore } from '../../store/useMapStore';
 import type { CityNode, Stage, LibyanRegion } from '../../types/map';
-import { MapPin, Compass, Trophy } from 'lucide-react';
+import { MapPin, Compass, Trophy, Star } from 'lucide-react';
 
 interface MapScreenProps {
   onStartStage: (cityId: string, stage: Stage) => void;
@@ -25,6 +25,16 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
   };
 
   const filteredCities = regionFilter === 'all' ? cities : cities.filter((c) => c.region === regionFilter);
+
+  const unlockedCount = cities.filter(
+    (c) => c.unlockedByDefault || c.stages.some((s) => s.isUnlocked)
+  ).length;
+  const earnedStars = cities.reduce(
+    (acc, c) => acc + c.stages.reduce((s, stage) => s + (stage.starsEarned || 0), 0),
+    0
+  );
+  const totalPossibleStars = cities.reduce((acc, c) => acc + c.stages.length * 3, 0);
+  const starPercent = totalPossibleStars ? (earnedStars / totalPossibleStars) * 100 : 0;
 
   return (
     <div className="flex flex-col gap-3 pb-36 max-w-lg mx-auto w-full px-3 select-none">
@@ -108,6 +118,30 @@ export const MapScreen: React.FC<MapScreenProps> = ({ onStartStage }) => {
         selectedCityId={selectedCityId}
         regionFilter={regionFilter}
       />
+
+      {/* Expedition progress: how much of Libya is opened and starred. */}
+      <div className="glass-card px-3.5 py-2.5 rounded-2xl flex items-center gap-3">
+        <div className="flex items-center gap-1.5 shrink-0 text-[11px] font-black text-[#FCD34D]">
+          <Compass className="w-3.5 h-3.5 text-[#E5A93B]" />
+          <span>
+            {unlockedCount}/{cities.length} مدينة
+          </span>
+        </div>
+
+        <div className="flex-1 h-1.5 rounded-full bg-white/10 overflow-hidden">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-[#E5A93B] to-[#FCD34D] transition-all duration-500"
+            style={{ width: `${starPercent}%` }}
+          />
+        </div>
+
+        <div className="flex items-center gap-1 shrink-0 text-[11px] font-black text-[#FCD34D]">
+          <Star className="w-3.5 h-3.5 text-[#E5A93B] fill-[#E5A93B]" />
+          <span>
+            {earnedStars}/{totalPossibleStars}
+          </span>
+        </div>
+      </div>
 
       {/* Selected City Bottom Inspection Card */}
       {selectedCity && (

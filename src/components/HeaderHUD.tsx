@@ -5,9 +5,10 @@ import { Volume2, VolumeX, Settings, Star, Coins, Flame } from 'lucide-react';
 
 interface HeaderHUDProps {
   onOpenSettings: () => void;
+  onOpenMenu: () => void;
 }
 
-export const HeaderHUD: React.FC<HeaderHUDProps> = ({ onOpenSettings }) => {
+export const HeaderHUD: React.FC<HeaderHUDProps> = ({ onOpenSettings, onOpenMenu }) => {
   const { profile, audio, toggleSound } = useGameStore();
   const { getTotalStars } = useMapStore();
 
@@ -16,11 +17,17 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({ onOpenSettings }) => {
   return (
     <header className="sticky top-0 z-40 w-full max-w-lg mx-auto px-3 pt-3 pb-2 bg-[#0B0F19]/90 backdrop-blur-md border-b border-white/5">
       <div className="flex items-center justify-between gap-2">
-        {/* User Info & Avatar */}
+        {/* User Info & Avatar — the avatar doubles as the way back to the menu */}
         <div className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#E5A93B]/20 to-[#0EA5E9]/20 border border-[#E5A93B]/40 flex items-center justify-center text-lg shadow-sm">
+          <button
+            type="button"
+            onClick={onOpenMenu}
+            aria-label="القائمة الرئيسية"
+            title="القائمة الرئيسية"
+            className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#E5A93B]/20 to-[#0EA5E9]/20 border border-[#E5A93B]/40 flex items-center justify-center text-lg shadow-sm hover:border-[#E5A93B] transition-colors"
+          >
             {profile.avatar}
-          </div>
+          </button>
           <div>
             <div className="flex items-center gap-1.5">
               <h1 className="text-sm font-black text-white">{profile.name}</h1>

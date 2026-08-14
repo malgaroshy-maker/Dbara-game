@@ -4,6 +4,7 @@ import type { CityNode, LibyanRegion, Stage } from '../../types/map';
 import { useMapStore } from '../../store/useMapStore';
 import { MAP_IMAGE, projectToMap, buildRoutePath } from './projection';
 import { declutterPins } from './pinLayout';
+import { layoutLabels } from './labelLayout';
 import {
   layoutStageNodes,
   PIN_CLEARANCE,
@@ -24,6 +25,13 @@ import {
   Flame,
   Anchor,
   Leaf,
+  Fish,
+  Amphora,
+  Sunset,
+  Milestone,
+  Ship,
+  BookOpen,
+  Tent,
   Sparkles
 } from 'lucide-react';
 
@@ -63,6 +71,20 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
     [placedPins]
   );
 
+  /** Label centres, solved so no name covers a pin or another name. */
+  const labelPoints = useMemo(
+    () =>
+      layoutLabels(
+        cities.flatMap((c) => {
+          const pin = cityPoints.get(c.id);
+          return pin
+            ? [{ id: c.id, pin, text: c.mapLabel ?? c.arabicName, preferred: c.labelOffset }]
+            : [];
+        })
+      ),
+    [cities, cityPoints]
+  );
+
   /**
    * The selected city expands into its stages, fanned around its pin. Only
    * unlocked cities expand — a locked city has nothing playable to show, and
@@ -84,11 +106,11 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
       .filter((c) => c.id !== city.id)
       .flatMap((c) => {
         const p = cityPoints.get(c.id);
+        const l = labelPoints.get(c.id);
         if (!p) return [];
-        const o = c.labelOffset ?? { x: 0, y: 20 };
         return [
           { ...p, clearance: PIN_CLEARANCE },
-          { x: p.x + o.x, y: p.y + o.y, clearance: LABEL_CLEARANCE },
+          ...(l ? [{ ...l, clearance: LABEL_CLEARANCE }] : []),
         ];
       });
 
@@ -109,24 +131,33 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
       // 1. Coastal Highway (Tripoli -> Msallata -> Leptis -> Misrata -> Benghazi
       //    -> Cyrene -> Derna). Msallata sits inland between Tripoli and Leptis,
       //    so the chain threads through it rather than bypassing it.
+      { id: 'coastal_0', from: 'zuwara', to: 'tripoli', curvature: 0.1 },
       { id: 'coastal_1', from: 'tripoli', to: 'msallata', curvature: 0.12 },
       { id: 'coastal_1b', from: 'msallata', to: 'leptis_magna', curvature: 0.12 },
       { id: 'coastal_2', from: 'leptis_magna', to: 'misrata', curvature: 0.1 },
-      // Bows deep enough to follow the shore of the Gulf of Sirte instead of
+      // Threads the shore of the Gulf of Sirte through Sirte itself rather than
       // cutting straight across open water.
-      { id: 'coastal_3', from: 'misrata', to: 'benghazi', curvature: 0.85 },
+      { id: 'coastal_3', from: 'misrata', to: 'sirte', curvature: 0.35 },
+      { id: 'coastal_3b', from: 'sirte', to: 'ajdabiya', curvature: 0.35 },
+      { id: 'coastal_3c', from: 'ajdabiya', to: 'benghazi', curvature: 0.15 },
       { id: 'coastal_4', from: 'benghazi', to: 'cyrene_green_mountain', curvature: -0.1 },
       { id: 'coastal_5', from: 'cyrene_green_mountain', to: 'derna', curvature: 0.1 },
+      { id: 'coastal_6', from: 'derna', to: 'tobruk', curvature: 0.1 },
 
-      // 2. Western Mountain & Desert (Tripoli -> Nalut -> Ghadames -> Sabha -> Ghat)
-      { id: 'west_1', from: 'tripoli', to: 'nalut_nafusa', curvature: 0.12 },
+      // 2. Western Mountain & Desert (Tripoli -> Gharyan -> Nalut -> Ghadames
+      //    -> Sabha -> Murzuq -> Ghat)
+      { id: 'west_1', from: 'tripoli', to: 'gharyan', curvature: 0.12 },
+      { id: 'west_1b', from: 'gharyan', to: 'nalut_nafusa', curvature: 0.12 },
       { id: 'west_2', from: 'nalut_nafusa', to: 'ghadames', curvature: 0.12 },
       { id: 'west_3', from: 'ghadames', to: 'sabha_fezzan', curvature: -0.1 },
-      { id: 'west_4', from: 'sabha_fezzan', to: 'ghat_akakus', curvature: -0.12 },
+      { id: 'west_4', from: 'sabha_fezzan', to: 'murzuq', curvature: -0.1 },
+      { id: 'west_5', from: 'murzuq', to: 'ghat_akakus', curvature: -0.12 },
 
-      // 3. Eastern Oases & Desert (Benghazi -> Jalu -> Kufra, and Sabha -> Jalu)
-      { id: 'east_1', from: 'benghazi', to: 'jalu_awjila', curvature: 0.1 },
+      // 3. Eastern Oases & Desert (Ajdabiya -> Jalu -> Kufra, Tobruk -> Jaghbub,
+      //    and the desert crossing from Sabha)
+      { id: 'east_1', from: 'ajdabiya', to: 'jalu_awjila', curvature: 0.1 },
       { id: 'east_2', from: 'jalu_awjila', to: 'kufra_desert', curvature: 0.1 },
+      { id: 'east_3', from: 'tobruk', to: 'jaghbub', curvature: 0.12 },
       { id: 'cross_desert', from: 'sabha_fezzan', to: 'jalu_awjila', curvature: -0.08 },
     ];
 
@@ -155,6 +186,20 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
         return <Landmark className={iconClass} />;
       case 'msallata':
         return <Leaf className={iconClass} />;
+      case 'zuwara':
+        return <Fish className={iconClass} />;
+      case 'gharyan':
+        return <Amphora className={iconClass} />;
+      case 'sirte':
+        return <Sunset className={iconClass} />;
+      case 'ajdabiya':
+        return <Milestone className={iconClass} />;
+      case 'tobruk':
+        return <Ship className={iconClass} />;
+      case 'jaghbub':
+        return <BookOpen className={iconClass} />;
+      case 'murzuq':
+        return <Tent className={iconClass} />;
       case 'misrata':
         return <Anchor className={iconClass} />;
       case 'nalut_nafusa':
@@ -307,10 +352,10 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
             left: (placed.display.x / MAP_IMAGE.width) * 100,
             top: (placed.display.y / MAP_IMAGE.height) * 100,
           };
-          const offset = city.labelOffset ?? { x: 0, y: 20 };
+          const labelPoint = labelPoints.get(city.id) ?? placed.display;
           const label = {
-            left: pin.left + (offset.x / MAP_IMAGE.width) * 100,
-            top: pin.top + (offset.y / MAP_IMAGE.height) * 100,
+            left: (labelPoint.x / MAP_IMAGE.width) * 100,
+            top: (labelPoint.y / MAP_IMAGE.height) * 100,
           };
 
           return (
@@ -340,6 +385,36 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
                   animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0.85, 0.5] }}
                   transition={{ repeat: Infinity, duration: 2 }}
                 />
+              )}
+
+              {/* Star-progress ring: how much of this city is finished, read
+                  at a glance without opening it. */}
+              {isUnlocked && totalStars > 0 && (
+                <svg
+                  className="absolute -inset-1 pointer-events-none -rotate-90"
+                  viewBox="0 0 36 36"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.12)"
+                    strokeWidth="2.5"
+                  />
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="none"
+                    stroke={isAllStagesCompleted ? '#10B981' : '#FCD34D'}
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeDasharray={`${(totalStars / (city.stages.length * 3)) * 100.5} 100.5`}
+                    className="transition-all duration-500"
+                  />
+                </svg>
               )}
 
               {/* Pin Beacon Icon Button */}
