@@ -17,8 +17,10 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({ onOpenSettings, onOpenMenu
   return (
     <header className="sticky top-0 z-40 w-full max-w-lg mx-auto px-3 pt-3 pb-2 bg-night-900/90 backdrop-blur-md border-b border-white/5">
       <div className="flex items-center justify-between gap-2">
-        {/* User Info & Avatar — the avatar doubles as the way back to the menu */}
-        <div className="flex items-center gap-2">
+        {/* User Info & Avatar — the avatar doubles as the way back to the menu.
+            `min-w-0` matters: without it this block refuses to shrink and the
+            header overflowed the viewport on a 360px phone. */}
+        <div className="flex items-center gap-2 min-w-0 flex-1">
           <button
             type="button"
             onClick={onOpenMenu}
@@ -28,10 +30,12 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({ onOpenSettings, onOpenMenu
           >
             {profile.avatar}
           </button>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <h1 className="text-sm font-black text-white">{profile.name}</h1>
-              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-gold-400/15 text-gold-300 font-bold border border-gold-400/30">
+          <div className="min-w-0">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <h1 className="text-sm font-black text-white truncate">{profile.name}</h1>
+              {/* The rank is always on the الرتب tab, so on the narrowest phones
+                  it yields rather than pushing the HUD off-screen. */}
+              <span className="hidden min-[400px]:inline text-[10px] px-1.5 py-0.5 rounded-full bg-gold-400/15 text-gold-300 font-bold border border-gold-400/30 whitespace-nowrap">
                 {profile.title}
               </span>
             </div>
@@ -45,7 +49,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({ onOpenSettings, onOpenMenu
         </div>
 
         {/* Currency & Stars HUD Badges */}
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
           {/* Stars */}
           <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-2xl bg-night-800 border border-gold-400/30 text-xs font-black text-gold-300 shadow-sm">
             <Star className="w-3.5 h-3.5 text-gold-400 fill-gold-400" />
