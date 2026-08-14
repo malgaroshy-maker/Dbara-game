@@ -59,7 +59,12 @@ test.describe('Dbara PWA Full Offline Capabilities Suite', () => {
     const optionButtons = page.locator('button').filter({ has: page.locator('span.w-7') });
     await expect(optionButtons.first()).toBeVisible();
     expect(await optionButtons.count()).toBe(4);
-    await optionButtons.first().click();
+
+    // Pick the answer by its text, not by position: the options are shuffled at
+    // render time, so clicking the first one passed or failed the stage at
+    // random — and only a pass shows the victory card, which made everything
+    // after this point a coin toss.
+    await page.getByRole('button', { name: /أويا/ }).click();
 
     // Verify fun fact card appears offline
     await expect(page.getByText('معلومة ع الماشي')).toBeVisible({ timeout: 5000 });
@@ -68,6 +73,12 @@ test.describe('Dbara PWA Full Offline Capabilities Suite', () => {
     const continueBtn = page.getByRole('button', { name: /استمر في الرحلة/ });
     await expect(continueBtn).toBeVisible();
     await continueBtn.click();
+
+    // A correct answer clears the fun fact into the victory card, not the map:
+    // the stage is only left once the player takes the reward and goes back.
+    const backToMapBtn = page.getByRole('button', { name: /العودة للخريطة/ });
+    await expect(backToMapBtn).toBeVisible({ timeout: 5000 });
+    await backToMapBtn.click();
 
     // Verify we are on the map with HUD updated offline
     const tripoliPin = page.locator('button[data-city-id="tripoli"]');
