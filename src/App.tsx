@@ -60,9 +60,8 @@ export const App: React.FC = () => {
     useGameStore();
   const { cities, activeStage, startStage, clearActiveStage, getTotalStars } = useMapStore();
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
-  // The menu opens each launch rather than being persisted: it is the title
-  // screen, not a saved location.
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(true);
+  // Returning players land directly in the game instead of the title menu on reload.
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const totalStars = getTotalStars();
 

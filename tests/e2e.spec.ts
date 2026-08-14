@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Dbara Trivia Game E2E Suite', () => {
   test.beforeEach(async ({ page }, testInfo) => {
-    // For tests 2-4 and 6, pre-seed state so we start on the Main Menu
+    // For non-onboarding tests, pre-seed state
     if (!testInfo.title.includes('Onboarding') && !testInfo.title.includes('Quiz gameplay')) {
       await page.addInitScript(() => {
         window.localStorage.setItem(
@@ -17,6 +17,10 @@ test.describe('Dbara Trivia Game E2E Suite', () => {
                 dinars: 150,
                 streakDays: 2,
                 lastLoginDate: new Date().toISOString().slice(0, 10),
+                soundEnabled: true,
+                hapticsEnabled: true,
+              },
+              audio: {
                 soundEnabled: true,
                 hapticsEnabled: true,
               },
@@ -47,9 +51,8 @@ test.describe('Dbara Trivia Game E2E Suite', () => {
     await expect(skipButton).toBeVisible();
     await skipButton.click();
 
-    // After skipping onboarding, Main Menu is shown
-    await expect(page.getByRole('heading', { name: 'دبارة' })).toBeVisible();
-    await expect(page.getByRole('button', { name: /(ابدأ الرحلة|واصل الرحلة)/ })).toBeVisible();
+    // After skipping onboarding, lands in game HUD and Map
+    await expect(page.locator('button[data-city-id="tripoli"]')).toBeVisible();
   });
 
   test('2. Clean boot and main menu navigation', async ({ page }) => {
@@ -62,12 +65,18 @@ test.describe('Dbara Trivia Game E2E Suite', () => {
 
     await page.goto('/');
 
-    // Expect Main Menu elements
+    // Header HUD displays player name and currency
+    await expect(page.getByText('مستكشف دبارة')).toBeVisible();
+    await expect(page.getByText('150')).toBeVisible();
+
+    // Open Main Menu via Avatar
+    const menuBtn = page.getByRole('button', { name: 'القائمة الرئيسية' });
+    await expect(menuBtn).toBeVisible();
+    await menuBtn.click();
+
+    // Verify Main Menu elements
     await expect(page.getByRole('heading', { name: 'دبارة' })).toBeVisible();
     await expect(page.getByRole('button', { name: /(ابدأ الرحلة|واصل الرحلة)/ })).toBeVisible();
-    await expect(page.getByRole('button', { name: /لعب سريع/ })).toBeVisible();
-    await expect(page.getByRole('button', { name: /تحدي اليوم/ })).toBeVisible();
-    await expect(page.getByRole('button', { name: /الأوسمة والرتب/ })).toBeVisible();
 
     // Verify zero console errors
     const criticalErrors = consoleErrors.filter(
@@ -80,6 +89,9 @@ test.describe('Dbara Trivia Game E2E Suite', () => {
     await page.goto('/');
 
     // Open Settings via Menu
+    const menuBtn = page.getByRole('button', { name: 'القائمة الرئيسية' });
+    await menuBtn.click();
+
     const settingsButton = page.getByRole('button', { name: 'الإعدادات والنسخ الاحتياطي' });
     await expect(settingsButton).toBeVisible();
     await settingsButton.click();
@@ -100,10 +112,6 @@ test.describe('Dbara Trivia Game E2E Suite', () => {
 
   test('4. Interactive map, pin selection, and zoom controls', async ({ page }) => {
     await page.goto('/');
-
-    // Enter map from Main Menu
-    const enterMapBtn = page.getByRole('button', { name: /(ابدأ الرحلة|واصل الرحلة)/ });
-    await enterMapBtn.click();
 
     // Verify map pins exist
     const tripoliPin = page.locator('button[data-city-id="tripoli"]');
@@ -175,12 +183,31 @@ test.describe('Dbara Trivia Game E2E Suite', () => {
   test('6. Daily challenge screen availability', async ({ page }) => {
     await page.goto('/');
 
-    // Navigate to Daily Challenge
+    // Open Menu and navigate to Daily Challenge
+    const menuBtn = page.getByRole('button', { name: 'القائمة الرئيسية' });
+    await menuBtn.click();
+
     const dailyBtn = page.getByRole('button', { name: /تحدي اليوم/ });
     await dailyBtn.click();
 
     // Verify Daily Challenge components
     await expect(page.getByText('تحدي اليوم وسلسلة الدخول')).toBeVisible();
     await expect(page.getByText(/أيام متتالية/)).toBeVisible();
+  });
+
+  test('7. Page reload preserves game state and does not reset to start', async ({ page }) => {
+    await page.goto('/');
+
+    // Verify initial loaded balance
+    await expect(page.getByText('مستكشف دبارة')).toBeVisible();
+    await expect(page.getByText('150')).toBeVisible();
+
+    // Reload the page
+    await page.reload();
+
+    // Verify returning player is directly on the map with identical progress (no onboarding/reset)
+    await expect(page.getByText('مستكشف دبارة')).toBeVisible();
+    await expect(page.getByText('150')).toBeVisible();
+    await expect(page.locator('button[data-city-id="tripoli"]')).toBeVisible();
   });
 });

@@ -29,7 +29,13 @@ export interface Viewport {
   y: number;
 }
 
-const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+const safeNum = (val: number, fallback: number = 0): number =>
+  Number.isFinite(val) ? val : fallback;
+
+const clamp = (value: number, min: number, max: number): number => {
+  const safe = safeNum(value, min);
+  return Math.min(max, Math.max(min, safe));
+};
 
 /**
  * Keeps the scaled content covering the frame.
@@ -39,17 +45,32 @@ const clamp = (value: number, min: number, max: number) => Math.min(max, Math.ma
  * scale 1 that pins it to 0, which is what stops the map drifting off centre
  * when the player zooms back out.
  */
-const clampToFrame = (view: Viewport, width: number, height: number): Viewport => ({
-  scale: view.scale,
-  x: clamp(view.x, width * (1 - view.scale), 0),
-  y: clamp(view.y, height * (1 - view.scale), 0),
-});
+const clampToFrame = (view: Viewport, width: number, height: number): Viewport => {
+  const safeScale = clamp(view.scale, MIN_ZOOM, MAX_ZOOM);
+  const minX = width * (1 - safeScale);
+  const minY = height * (1 - safeScale);
+  return {
+    scale: safeScale,
+    x: clamp(view.x, minX, 0),
+    y: clamp(view.y, minY, 0),
+  };
+};
 
 /** Rescales about a point in frame coordinates, so that point stays put. */
 const zoomAbout = (view: Viewport, nextScale: number, fx: number, fy: number): Viewport => {
+  const currentScale = clamp(view.scale, MIN_ZOOM, MAX_ZOOM);
   const scale = clamp(nextScale, MIN_ZOOM, MAX_ZOOM);
-  const ratio = scale / view.scale;
-  return { scale, x: fx - (fx - view.x) * ratio, y: fy - (fy - view.y) * ratio };
+  const ratio = scale / (currentScale || 1);
+  const validFx = safeNum(fx, 0);
+  const validFy = safeNum(fy, 0);
+  const validX = safeNum(view.x, 0);
+  const validY = safeNum(view.y, 0);
+
+  return {
+    scale,
+    x: validFx - (validFx - validX) * ratio,
+    y: validFy - (validFy - validY) * ratio,
+  };
 };
 
 export const useMapViewport = () => {
@@ -65,7 +86,7 @@ export const useMapViewport = () => {
 
   const frameSize = useCallback(() => {
     const rect = frameRef.current?.getBoundingClientRect();
-    return { width: rect?.width ?? 1, height: rect?.height ?? 1 };
+    return { width: Math.max(rect?.width ?? 1, 1), height: Math.max(rect?.height ?? 1, 1) };
   }, []);
 
   const update = useCallback(
@@ -79,7 +100,10 @@ export const useMapViewport = () => {
   /** Frame-relative coordinates for a client point. */
   const toFrame = useCallback((clientX: number, clientY: number) => {
     const rect = frameRef.current?.getBoundingClientRect();
-    return { x: clientX - (rect?.left ?? 0), y: clientY - (rect?.top ?? 0) };
+    return {
+      x: safeNum(clientX - (rect?.left ?? 0), 0),
+      y: safeNum(clientY - (rect?.top ?? 0), 0),
+    };
   }, []);
 
   // Wheel has to be a native non-passive listener: React's synthetic handler
@@ -124,6 +148,7 @@ export const useMapViewport = () => {
     pointers.current.clear();
     pinch.current = null;
     lastPoint.current = null;
+    travelled.current = 0;
   }, []);
 
   const handleMove = useCallback(
@@ -132,13 +157,22 @@ export const useMapViewport = () => {
       if (!active.has(e.pointerId)) return;
       active.set(e.pointerId, { x: e.clientX, y: e.clientY });
 
-      if (active.size >= 2 && pinch.current) {
+      if (active.size >= 2) {
         const [a, b] = [...active.values()];
         const distance = Math.hypot(a.x - b.x, a.y - b.y);
         const focus = toFrame((a.x + b.x) / 2, (a.y + b.y) / 2);
-        // A pinch is never a tap, whatever the fingers travelled.
-        dragged.current = true;
-        update((v) => zoomAbout(v, pinch.current!.scale * (distance / pinch.current!.distance), focus.x, focus.y));
+
+        if (!pinch.current || !Number.isFinite(pinch.current.distance) || pinch.current.distance <= 0) {
+          pinch.current = { distance: Math.max(distance, 1), scale: clamp(view.scale, MIN_ZOOM, MAX_ZOOM) };
+        }
+
+        if (distance > 0 && pinch.current.distance > 0) {
+          dragged.current = true;
+          const nextScale = pinch.current.scale * (distance / pinch.current.distance);
+          if (Number.isFinite(nextScale)) {
+            update((v) => zoomAbout(v, nextScale, focus.x, focus.y));
+          }
+        }
         return;
       }
 
@@ -152,7 +186,7 @@ export const useMapViewport = () => {
       dragged.current = true;
       update((v) => ({ ...v, x: v.x + dx, y: v.y + dy }));
     },
-    [toFrame, update]
+    [toFrame, update, view.scale]
   );
 
   const handleUp = useCallback(
@@ -180,10 +214,13 @@ export const useMapViewport = () => {
         lastPoint.current = { x: e.clientX, y: e.clientY };
         travelled.current = 0;
         dragged.current = false;
-      } else if (active.size === 2) {
+        pinch.current = null;
+      } else if (active.size >= 2) {
         const [a, b] = [...active.values()];
+        const distance = Math.hypot(a.x - b.x, a.y - b.y);
         setView((v) => {
-          pinch.current = { distance: Math.hypot(a.x - b.x, a.y - b.y) || 1, scale: v.scale };
+          const scale = clamp(v.scale, MIN_ZOOM, MAX_ZOOM);
+          pinch.current = { distance: Math.max(distance, 1), scale };
           return v;
         });
       }
@@ -210,10 +247,6 @@ export const useMapViewport = () => {
   /**
    * Zooms about `anchor` — a point in untransformed content coordinates —
    * falling back to the middle of the frame.
-   *
-   * Without an anchor the buttons zoom about the frame's centre, which on this
-   * map is the Gulf of Sirte: pressing + with Tripoli selected walked the view
-   * off into empty desert and lost the city the player was looking at.
    */
   const zoomBy = useCallback(
     (factor: number, anchor?: { x: number; y: number }) => {
@@ -231,7 +264,9 @@ export const useMapViewport = () => {
   const centreOn = useCallback(
     (point: { x: number; y: number }) => {
       const { width, height } = frameSize();
-      update((v) => ({ ...v, x: width / 2 - point.x * v.scale, y: height / 2 - point.y * v.scale }));
+      const px = safeNum(point.x, 0);
+      const py = safeNum(point.y, 0);
+      update((v) => ({ ...v, x: width / 2 - px * v.scale, y: height / 2 - py * v.scale }));
     },
     [frameSize, update]
   );
@@ -248,12 +283,11 @@ export const useMapViewport = () => {
 
   /**
    * The scale the layout solvers see, quantised.
-   *
-   * Decluttering twenty pins is an O(n²) relaxation; re-running it for every
-   * frame of a pinch would be wasted work, and the layout does not visibly
-   * differ between 1.87x and 1.75x.
    */
-  const layoutScale = useMemo(() => Math.max(1, Math.round(view.scale * 4) / 4), [view.scale]);
+  const layoutScale = useMemo(
+    () => Math.max(1, Math.round(clamp(view.scale, MIN_ZOOM, MAX_ZOOM) * 4) / 4),
+    [view.scale]
+  );
 
   return {
     frameRef,

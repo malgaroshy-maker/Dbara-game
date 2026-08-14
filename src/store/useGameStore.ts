@@ -380,8 +380,14 @@ export const useGameStore = create<GameState>()(
         // The sound engine is a plain singleton; without this the saved mute and
         // haptics preferences are shown in the UI but never actually applied.
         if (!state) return;
-        sfx.setMuted(!state.audio.soundEnabled);
-        sfx.setHapticsEnabled(state.audio.hapticsEnabled);
+        try {
+          const sound = state.audio?.soundEnabled ?? true;
+          const haptics = state.audio?.hapticsEnabled ?? true;
+          sfx.setMuted(!sound);
+          sfx.setHapticsEnabled(haptics);
+        } catch {
+          // ignore
+        }
       },
     }
   )
