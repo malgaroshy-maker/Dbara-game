@@ -81,6 +81,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: 'فتح عمرو بن العاص برقة وطرابلس سنة 22 هجرية، ودُفن الصحابي رويفع بن ثابت الأنصاري لاحقاً في البيضاء.',
     rewardDinars: 40,
+    source: 'موسوعة المعرفة (مقال: الفتح الإسلامي للمغرب)',
   },
   {
     id: 'isl_09',
@@ -111,6 +112,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: 'أسس عبيد الله المهدي مدينة المهدية على الساحل التونسي سنة 921م، ثم بنى الفاطميون المنصورية قرب القيروان.',
     rewardDinars: 50,
+    source: 'موسوعة المعرفة (مقال: الدولة الفاطمية)',
   },
   {
     id: 'isl_12',
@@ -121,6 +123,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     correctIndex: 2,
     funFact: 'أسست فاطمة الفهرية جامع القرويين في فاس سنة 859م، ويعده كتاب غينيس أقدم مؤسسة تعليمية عاملة تمنح الشهادات.',
     rewardDinars: 45,
+    source: 'موسوعة المعرفة (مقال: جامعة القرويين)',
   },
   {
     id: 'isl_13',
@@ -171,6 +174,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'وردت البسملة في مطلع سورة النمل، ثم مرة ثانية داخل آياتها ضمن كتاب سليمان عليه السلام إلى ملكة سبأ.',
     rewardDinars: 40,
+    source: 'القرآن الكريم (سورة النمل: الآية 30 ومطلع السورة)',
   },
   {
     id: 'isl_18',
@@ -181,6 +185,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     correctIndex: 2,
     funFact: 'سُميت سورة الأنفال بهذا الاسم لأن الأنفال هي الغنائم، وفيها سُمي يوم بدر "يوم الفرقان".',
     rewardDinars: 40,
+    source: 'موسوعة المعرفة (مقال: سورة الأنفال)',
   },
   {
     id: 'isl_19',
@@ -191,6 +196,7 @@ export const islamicQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: 'ورد اسم زيد بن حارثة في سورة الأحزاب، وكان يُدعى قبل الإسلام "زيد بن محمد" حتى نزل قوله تعالى "ادعوهم لآبائهم".',
     rewardDinars: 45,
+    source: 'القرآن الكريم (سورة الأحزاب: الآية 37)',
   },
   {
     id: 'isl_20',
@@ -211,5 +217,6 @@ export const islamicQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'وردت قصة السامري في سورة طه، وهو الذي أضل بني إسرائيل بعجل جسد له خوار بعد خروجهم من مصر.',
     rewardDinars: 50,
+    source: 'القرآن الكريم (سورة طه: الآية 96)',
   },
 ];

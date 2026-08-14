@@ -12,6 +12,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'يمتد الساحل الليبي نحو 1,770 كم، وهو أطول ساحل لدولة أفريقية على البحر المتوسط.',
     rewardDinars: 40,
+    source: 'ويكيبيديا الموسوعة الحرة (مقال: قوات البحرية الليبية)',
   },
   {
     id: 'geog_02',
@@ -22,6 +23,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'ترتفع قمة بتة نحو 2,267 متراً في أقصى الجنوب على الحدود مع تشاد، ضمن سلسلة تيبستي البركانية.',
     rewardDinars: 50,
+    source: 'ويكيبيديا الموسوعة الحرة (مقال: قمة بتة)',
   },
   {
     id: 'geog_03',
@@ -42,6 +44,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: 'تأتي ليبيا رابعة بمساحة نحو 1.76 مليون كم² بعد الجزائر ثم السعودية ثم السودان.',
     rewardDinars: 40,
+    source: 'ويكيبيديا الموسوعة الحرة (مقال: ليبيا)',
   },
   {
     id: 'geog_05',
@@ -111,6 +114,8 @@ export const geographyQuestions: TriviaQuestion[] = [
     correctIndex: 2,
     funFact: 'تقع مسلاتة ضمن منطقة المرقب في شمال غرب ليبيا، ومركزها مدينة الخمس على الساحل.',
     rewardDinars: 40,
+    needsReview:
+      'التبعية لشعبية المرقب موثقة عن فترة الجماهيرية بصيغة الماضي («كانت تابعة سابقاً»)، ولم أجد ما يثبت التقسيم الإداري النافذ اليوم بعد تغييرات ما بعد 2012. فإما تأكيد التبعية الحالية أو صياغة السؤال بصيغة تاريخية.',
   },
   // ── مدن ومحطات الخريطة ───────────────────────────────────────────────────
   {
@@ -200,6 +205,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: 'كانت مرزق عاصمة فزان ومركز تجارة القوافل العابرة للصحراء نحو وسط أفريقيا لقرون طويلة.',
     rewardDinars: 40,
+    source: 'ويكيبيديا الموسوعة الحرة (مقال: سلطنة أولاد محمد)',
   },
   {
     id: 'geo_jgb_01',
@@ -211,6 +217,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     correctIndex: 0,
     funFact: 'أسس السنوسيون في الجغبوب زاوية ومعهداً علمياً صار مركزاً للحركة قبل انتقالها إلى الكفرة.',
     rewardDinars: 40,
+    source: 'ويكيبيديا الموسوعة الحرة (مقال: محمد بن علي السنوسي)',
   },
   {
     id: 'geo_kuf_02',
@@ -222,6 +229,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     correctIndex: 2,
     funFact: 'الجوف هي كبرى واحات الكفرة ومركزها الإداري، وتحيط بها مشاريع الري المحوري الشهيرة.',
     rewardDinars: 50,
+    source: 'ويكيبيديا الموسوعة الحرة (مقال: الجوف (ليبيا))',
   },
   {
     id: 'geog_09',
@@ -272,6 +280,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: 'صقلية أكبر جزر المتوسط، ولها صلات تاريخية قديمة بالسواحل الليبية عبر التجارة والهجرات.',
     rewardDinars: 40,
+    source: 'موسوعة المعرفة (مقال: صقلية)',
   },
   {
     id: 'geog_14',
@@ -322,6 +331,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     correctIndex: 2,
     funFact: 'تمتد جبال الأنديز نحو 7,000 كم على طول الساحل الغربي لأمريكا الجنوبية عبر سبع دول.',
     rewardDinars: 40,
+    source: 'موسوعة المعرفة (مقال: جبال الأنديز)',
   },
   {
     id: 'geog_19',
@@ -342,6 +352,7 @@ export const geographyQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'نواكشوط عاصمة موريتانيا وأكبر مدنها، وتقع على ساحل المحيط الأطلسي.',
     rewardDinars: 40,
+    source: 'موسوعة المعرفة (مقال: نواكشوط)',
   },
   {
     id: 'geog_21',

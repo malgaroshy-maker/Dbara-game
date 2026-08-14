@@ -31,6 +31,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'وضع أبو الأسود الدؤلي أسس النحو ونقط المصحف، ثم طوره الخليل بن أحمد وسيبويه من بعده.',
     rewardDinars: 45,
+    source: 'موسوعة المعرفة (مقال: أبو الأسود الدؤلي)',
   },
   {
     id: 'lit_04',
@@ -81,6 +82,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: 'أبو العلاء المعري شاعر وفيلسوف فقد بصره صغيراً، ولُقب برهين المحبسين: العمى والعزلة.',
     rewardDinars: 50,
+    source: 'موسوعة المعرفة (مقال: أبو العلاء المعري)',
   },
   {
     id: 'lit_09',
@@ -91,6 +93,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'ترجم عبد الله بن المقفع "كليلة ودمنة" عن الفارسية في العصر العباسي، وهو من روائع أدب الحكمة على ألسنة الحيوانات.',
     rewardDinars: 40,
+    source: 'موسوعة المعرفة (مقال: ابن المقفع)',
   },
   {
     id: 'lit_10',
@@ -101,6 +104,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: '"لسان العرب" لابن منظور من أضخم معاجم العربية، ويضم أكثر من ثمانين ألف مادة لغوية.',
     rewardDinars: 45,
+    source: 'موسوعة المعرفة (مقال: لسان العرب)',
   },
   {
     id: 'lit_11',
@@ -162,6 +166,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     correctIndex: 0,
     funFact: 'وضع الخليل بن أحمد الفراهيدي علم العروض وبحور الشعر، كما ألف أول معجم عربي وهو "كتاب العين".',
     rewardDinars: 45,
+    source: 'موسوعة المعرفة (مقال: علم العروض)',
   },
   {
     id: 'lit_17',
@@ -192,6 +197,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     correctIndex: 0,
     funFact: 'المنّة هي العطاء والإحسان، ومنها قوله تعالى "بل الله يمن عليكم أن هداكم للإيمان".',
     rewardDinars: 40,
+    source: 'ويكيبيديا الموسوعة الحرة (مقال: المنان (أسماء الله الحسنى))',
   },
   {
     id: 'lit_20',
@@ -212,6 +218,7 @@ export const literatureQuestions: TriviaQuestion[] = [
     correctIndex: 2,
     funFact: 'الصُّرّة كيس صغير تُشد فيه الدراهم، ومنه قولهم "صرّ الدراهم" أي جمعها وأحكم ربطها.',
     rewardDinars: 40,
+    source: 'ويكيبيديا الموسوعة الحرة (مقال: صرة نقود)',
   },
   {
     id: 'lit_22',

@@ -141,6 +141,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     correctIndex: 0,
     funFact: 'وضع ابن الهيثم أسس المنهج التجريبي وفسّر آلية الإبصار تفسيراً علمياً سبق أوروبا بقرون.',
     rewardDinars: 40,
+    source: 'موسوعة المعرفة (مقال: ابن الهيثم)',
   },
   {
     id: 'sci_15',
@@ -151,6 +152,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     correctIndex: 2,
     funFact: 'ظل "القانون في الطب" لابن سينا مرجعاً أساسياً في الجامعات الأوروبية لأكثر من ستة قرون.',
     rewardDinars: 40,
+    source: 'موسوعة المعرفة (مقال: القانون في الطب)',
   },
   {
     id: 'sci_16',
@@ -161,6 +163,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'تبلغ سرعة الضوء نحو 299,792 كيلومتراً في الثانية، وهي السرعة القصوى في الكون وفق النسبية الخاصة.',
     rewardDinars: 40,
+    source: 'ويكيبيديا الموسوعة الحرة (مقال: سرعة الضوء)',
   },
   {
     id: 'sci_17',
@@ -181,6 +184,7 @@ export const scienceQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'وضع محمد بن موسى الخوارزمي كتاب "الجبر والمقابلة"، ومنه انتقلت كلمة "الجبر" إلى اللغات الأوروبية، بينما جاءت كلمة "algorithm" من اسمه هو.',
     rewardDinars: 40,
+    source: 'ويكيبيديا الموسوعة الحرة (مقال: محمد بن موسى الخوارزمي)',
   },
   {
     id: 'sci_19',
