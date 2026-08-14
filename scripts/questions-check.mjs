@@ -9,7 +9,7 @@
  * and daily challenge depend on.
  */
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -164,6 +164,147 @@ for (const { data: c } of crosswords) {
     fail(c.id, 'أبعاد الشبكة لا تطابق gridSize');
 }
 
+// ── cross-question answer leakage ───────────────────────────────────────────
+// Until now every leak rule compared an item only against its own answer, so a
+// question could be given away by a *different* item — most often by the fun
+// fact of a question the player just answered. Three such pairs were caught by
+// hand while drafting; at this size they have to be caught mechanically.
+//
+// Naive substring matching is useless here: "طرابلس" appears in dozens of fun
+// facts perfectly legitimately. A pair is only reported when both hold —
+//   1. the answer appears in the other item's player-visible text, and
+//   2. the two items share at least two distinctive words,
+// which is the case where a player who read one could answer the other without
+// knowing anything.
+// A short answer is usually a common noun ("عين", "نهر"), so the odds of it
+// turning up innocently are much higher — those need a third shared word.
+const SHARED_TERMS_REQUIRED = 2;
+const SHORT_ANSWER = 5;
+const SHARED_TERMS_SHORT = 3;
+
+/** Fold the orthographic variants Arabic writes the same word in. */
+const norm = (s) =>
+  s
+    .normalize('NFKC')
+    .replace(/[ً-ْـ]/g, '') // harakat and tatweel
+    .replace(/[أإآٱ]/g, 'ا')
+    .replace(/ى/g, 'ي')
+    .replace(/ة/g, 'ه')
+    .replace(/ؤ/g, 'و')
+    .replace(/ئ/g, 'ي');
+
+// Words too common in this bank to make two items "about the same thing".
+const STOP = new Set(
+  `من في على عن الي هذا هذه ذلك التي الذي الذين ما ماذا لماذا اين كيف كم اي
+   هو هي هم كان كانت يكون تكون قد لقد ثم كل بعض غير بين مع عند لدي حتي
+   اسم اسمها اسمه يسمي تسمي يعرف تعرف يطلق اشتهر تشتهر يشتهر شهير مشهور
+   اشهر اكبر اطول اعلي اقدم اول احد احدي التي كذلك ايضا نحو حوالي
+   ليبيا ليبي ليبيه الليبي الليبيه الليبيين عربي عربيه العربي العربيه
+   مدينه مدن سنه عام سنوات مليون الف الاف`
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(norm)
+);
+
+/** Content words, with the article and common proclitics stripped. */
+const terms = (s) =>
+  new Set(
+    norm(s)
+      .split(/[^ء-ي]+/)
+      .map((w) => w.replace(/^(?:وال|فال|بال|كال|ال)/, ''))
+      .filter((w) => w.length >= 3 && !STOP.has(w))
+  );
+
+/**
+ * Does `haystack` state `needle`?
+ *
+ * The trailing boundary is enforced but not the leading one: Arabic glues و/ب/ل
+ * and the article onto the front of a word, so "وبرقة" must still count as
+ * mentioning "برقة".
+ */
+const mentions = (haystack, needle) => {
+  const core = norm(needle).replace(/^ال/, '');
+  if (core.length < 3) return false;
+  const at = haystack.indexOf(core);
+  if (at === -1) return false;
+  const after = haystack[at + core.length];
+  return after === undefined || !/[ء-ي]/.test(after);
+};
+
+// What a player actually reads, per record. Options are left out: an option
+// list naturally contains other questions' answers, and that is not a leak.
+const visibleText = ({ kind, data: d }) => {
+  if (kind === 'mcq') return `${d.question} ${d.funFact}`;
+  if (kind === 'blitz') return `${d.statement} ${d.explanation}`;
+  if (kind === 'scramble') return `${d.prompt} ${d.hint ?? ''} ${d.funFact}`;
+  return `${d.clues.map((c) => c.clue).join(' ')} ${d.funFact}`;
+};
+
+// Every answer worth protecting, paired with the wording that asks for it.
+const secrets = [];
+for (const { kind, data: d } of bank.items) {
+  if (kind === 'mcq') secrets.push({ id: d.id, answer: d.options[d.correctIndex], ask: d.question });
+  else if (kind === 'scramble') secrets.push({ id: d.id, answer: d.answer, ask: d.prompt });
+  else if (kind === 'crossword')
+    for (const c of d.clues) secrets.push({ id: d.id, answer: c.answer, ask: c.clue });
+}
+
+const sources = bank.items.map((it) => ({
+  id: it.data.id,
+  text: norm(visibleText(it)),
+  terms: terms(visibleText(it)),
+}));
+for (const s of secrets) s.terms = terms(s.ask);
+
+const leaks = [];
+for (const secret of secrets) {
+  if (!secret.answer) continue;
+  for (const src of sources) {
+    if (src.id === secret.id) continue;
+    if (!mentions(src.text, secret.answer)) continue;
+    const shared = [...secret.terms].filter((t) => src.terms.has(t));
+    const need =
+      norm(secret.answer).replace(/^ال/, '').length < SHORT_ANSWER
+        ? SHARED_TERMS_SHORT
+        : SHARED_TERMS_REQUIRED;
+    if (shared.length < need) continue;
+    leaks.push({
+      id: secret.id,
+      via: src.id,
+      answer: secret.answer,
+      shared,
+    });
+  }
+}
+
+// The rule is fatal for anything new. Pairs already in the bank when the rule
+// landed are listed in the baseline file so the gate can be enforced today
+// instead of after the backlog is cleared — shrink it, never grow it.
+// Run with LEAK_BASELINE=write to regenerate after a deliberate content change.
+const baselinePath = join(root, 'scripts', 'questions-leaks-allow.json');
+const key = (l) => `${l.id} > ${l.via}`;
+
+if (process.env.LEAK_BASELINE === 'write') {
+  const out = { note: 'أزواج تسريب معروفة — قائمة تُنقَص ولا تُزاد.', pairs: leaks.map(key).sort() };
+  writeFileSync(baselinePath, `${JSON.stringify(out, null, 2)}\n`);
+  console.log(`كُتب خط الأساس: ${leaks.length} زوجاً`);
+}
+
+const baseline = existsSync(baselinePath)
+  ? new Set(JSON.parse(readFileSync(baselinePath, 'utf8')).pairs)
+  : new Set();
+const knownLeaks = leaks.filter((l) => baseline.has(key(l)));
+for (const l of leaks) {
+  if (baseline.has(key(l))) continue;
+  fail(l.id, `إجابته "${l.answer}" مكشوفة في ${l.via} (تشترك في: ${l.shared.join('، ')})`);
+}
+// A baseline entry that no longer fires means the pair was fixed — drop it, so
+// the list cannot quietly go stale and start hiding a real regression.
+const fired = new Set(leaks.map(key));
+for (const stale of baseline) {
+  if (!fired.has(stale)) warnings.push(`⚠ خط الأساس: "${stale}" لم يعد يسرّب — احذفه من القائمة`);
+}
+
 // ── referential integrity with the map and the daily challenge ──────────────
 const ids = new Set(bank.items.map((i) => i.data.id));
 const scan = (file, re, label) => {
@@ -233,6 +374,9 @@ const sourced = mcq.filter((i) => i.data.source).length;
 const hardCount = mcq.filter((i) => ['hard', 'expert'].includes(i.data.difficulty)).length;
 console.log(
   `المصادر: ${sourced}/${mcq.length} سؤالاً موثّقاً — ينقص ${missingSource.length} من ${hardCount} صعب/خبير`
+);
+console.log(
+  `تسريب متقاطع: ${knownLeaks.length} زوجاً مؤجلاً في خط الأساس (scripts/questions-leaks-allow.json)`
 );
 if (needingReview.length) {
   console.log(`بانتظار مراجعتك: ${needingReview.map((i) => i.data.id).join('، ')}`);
