@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm run questions:check && tsc -b && vite build",
     "preview": "vite preview",
     "questions:export": "node scripts/questions-export.mjs",
     "questions:check": "node scripts/questions-check.mjs",
