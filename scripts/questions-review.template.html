@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>مراجعة أسئلة اللعبة</title>
+<style>
+  :root {
+    --bg: #0f1216;
+    --panel: #171c22;
+    --panel-2: #1e242c;
+    --line: #2b333d;
+    --text: #e8edf3;
+    --muted: #9aa7b4;
+    --accent: #d4a537;
+    --good: #3fb27f;
+    --bad: #e0574b;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Segoe UI", Tahoma, "Noto Naskh Arabic", sans-serif;
+    font-size: 15px; line-height: 1.6;
+  }
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(15,18,22,.96); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line); padding: 12px 16px;
+  }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  h1 { font-size: 17px; margin: 0 8px 0 0; }
+  .stats { color: var(--muted); font-size: 13px; }
+  .stats b { color: var(--text); }
+  input, select, textarea, button {
+    font: inherit; color: var(--text); background: var(--panel-2);
+    border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px;
+  }
+  textarea { width: 100%; resize: vertical; line-height: 1.6; }
+  input[type=search] { min-width: 240px; flex: 1; }
+  button { cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button.primary { background: var(--accent); color: #1a1206; border-color: var(--accent); font-weight: 600; }
+  button.ghost { background: transparent; }
+  main { padding: 16px; max-width: 1000px; margin: 0 auto; display: grid; gap: 14px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 14px;
+  }
+  .card.removed { opacity: .45; border-color: var(--bad); }
+  .card.edited { border-color: var(--accent); }
+  .meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
+  .tag {
+    font-size: 12px; color: var(--muted); background: var(--panel-2);
+    border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px;
+  }
+  .tag.kind { color: var(--accent); border-color: rgba(212,165,55,.4); }
+  .spacer { flex: 1; }
+  label.field { display: block; font-size: 12px; color: var(--muted); margin: 10px 0 4px; }
+  .opt { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+  .opt input[type=text] { flex: 1; }
+  .opt input[type=radio] { accent-color: var(--good); width: 18px; height: 18px; }
+  .opt.correct input[type=text] { border-color: var(--good); }
+  .clue { border-top: 1px dashed var(--line); padding-top: 8px; margin-top: 8px; }
+  .grid-preview { font-family: monospace; font-size: 18px; letter-spacing: 4px; color: var(--muted); }
+  .empty { text-align: center; color: var(--muted); padding: 40px; }
+  footer { padding: 24px 16px 60px; text-align: center; color: var(--muted); font-size: 13px; }
+  .bar-bottom {
+    position: sticky; bottom: 0; background: rgba(15,18,22,.96);
+    border-top: 1px solid var(--line); padding: 10px 16px; display: flex; gap: 8px; justify-content: center;
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="row">
+    <h1>مراجعة أسئلة اللعبة</h1>
+    <span class="stats" id="stats"></span>
+    <span class="spacer"></span>
+    <button class="ghost" id="reset">استرجاع الأصل</button>
+  </div>
+  <div class="row" style="margin-top:8px">
+    <input type="search" id="q" placeholder="ابحث في النص، الخيارات، المعلومة، المعرّف…" />
+    <select id="fileFilter"></select>
+    <select id="diffFilter">
+      <option value="">كل المستويات</option>
+      <option value="easy">easy</option>
+      <option value="medium">medium</option>
+      <option value="hard">hard</option>
+      <option value="expert">expert</option>
+    </select>
+    <select id="stateFilter">
+      <option value="">الكل</option>
+      <option value="edited">المعدّلة فقط</option>
+      <option value="removed">المحذوفة فقط</option>
+      <option value="kept">غير المعدّلة</option>
+    </select>
+  </div>
+</header>
+
+<main id="list"></main>
+
+<div class="bar-bottom">
+  <button class="primary" id="download">تنزيل ملف التعديلات (questions-edited.json)</button>
+  <button id="copy">نسخ إلى الحافظة</button>
+</div>
+
+<footer>
+  التعديلات تُحفظ تلقائياً في هذا المتصفح. عند الانتهاء نزّل الملف وأعطه لكلود لتطبيقه على اللعبة.
+</footer>
+
+<script id="payload" type="application/json">__PAYLOAD__</script>
+<script>
+const RAW = JSON.parse(document.getElementById('payload').textContent);
+const KEY = 'trivia-question-review-v1';
+const KIND_LABEL = { mcq: 'اختيار من متعدد', blitz: 'صح/خطأ', scramble: 'ترتيب حروف', crossword: 'كلمات متقاطعة' };
+
+/** working copy: {removed:boolean, data:object} keyed by item id */
+let state = load();
+
+function load() {
+  const base = {};
+  RAW.items.forEach(it => { base[it.data.id] = { removed: false, data: structuredClone(it.data) }; });
+  try {
+    const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (saved) for (const id of Object.keys(base)) if (saved[id]) base[id] = saved[id];
+  } catch (_) { /* corrupt storage: fall back to originals */ }
+  return base;
+}
+/** storage can be unavailable (private mode, data: URL) — editing must still work */
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (_) { /* no autosave */ }
+}
+const original = id => RAW.items.find(it => it.data.id === id);
+const isEdited = id => JSON.stringify(state[id].data) !== JSON.stringify(original(id).data);
+
+/* ---------- filters ---------- */
+const els = {
+  list: document.getElementById('list'),
+  q: document.getElementById('q'),
+  file: document.getElementById('fileFilter'),
+  diff: document.getElementById('diffFilter'),
+  st: document.getElementById('stateFilter'),
+  stats: document.getElementById('stats'),
+};
+
+const files = [...new Set(RAW.items.map(i => i.file))];
+els.file.innerHTML = '<option value="">كل الملفات</option>' +
+  files.map(f => {
+    const n = RAW.items.filter(i => i.file === f).length;
+    return `<option value="${f}">${f.split('/').pop()} (${n})</option>`;
+  }).join('');
+
+function haystack(it) {
+  const d = state[it.data.id].data;
+  return JSON.stringify(d);
+}
+
+function visible() {
+  const q = els.q.value.trim();
+  return RAW.items.filter(it => {
+    const id = it.data.id, s = state[id];
+    if (els.file.value && it.file !== els.file.value) return false;
+    if (els.diff.value && s.data.difficulty !== els.diff.value) return false;
+    if (els.st.value === 'removed' && !s.removed) return false;
+    if (els.st.value === 'edited' && !isEdited(id)) return false;
+    if (els.st.value === 'kept' && (isEdited(id) || s.removed)) return false;
+    if (q && !haystack(it).includes(q)) return false;
+    return true;
+  });
+}
+
+/* ---------- rendering ---------- */
+function el(tag, props = {}, kids = []) {
+  const n = Object.assign(document.createElement(tag), props);
+  kids.forEach(k => n.append(k));
+  return n;
+}
+
+/** textareas grow to fit so no Arabic text is hidden behind a scrollbar */
+function autoGrow(ta) {
+  ta.style.height = 'auto';
+  ta.style.height = ta.scrollHeight + 2 + 'px';
+}
+
+function field(labelText, value, onInput, rows = 1) {
+  const lab = el('label', { className: 'field', textContent: labelText });
+  const ta = el('textarea', { value, rows });
+  ta.addEventListener('input', () => { autoGrow(ta); onInput(ta.value); });
+  requestAnimationFrame(() => autoGrow(ta));
+  return [lab, ta];
+}
+
+function card(it) {
+  const id = it.data.id;
+  const s = state[id];
+  const d = s.data;
+  const c = el('div', { className: 'card' + (s.removed ? ' removed' : '') + (isEdited(id) ? ' edited' : '') });
+
+  const meta = el('div', { className: 'meta' });
+  meta.append(el('span', { className: 'tag kind', textContent: KIND_LABEL[it.kind] }));
+  meta.append(el('span', { className: 'tag', textContent: id }));
+  if (d.category) meta.append(el('span', { className: 'tag', textContent: d.category }));
+  if (d.cityId) meta.append(el('span', { className: 'tag', textContent: d.cityId }));
+  meta.append(el('span', { className: 'spacer' }));
+
+  if (d.difficulty !== undefined) {
+    const sel = el('select');
+    ['easy', 'medium', 'hard', 'expert'].forEach(v =>
+      sel.append(el('option', { value: v, textContent: v, selected: v === d.difficulty })));
+    sel.addEventListener('change', () => { d.difficulty = sel.value; commit(); });
+    meta.append(sel);
+  }
+  if (d.rewardDinars !== undefined) {
+    const num = el('input', { type: 'number', value: d.rewardDinars, style: 'width:80px' });
+    num.addEventListener('input', () => { d.rewardDinars = Number(num.value); commit(); });
+    meta.append(num);
+  }
+  const del = el('button', { className: 'ghost', textContent: s.removed ? '↩ تراجع' : '🗑 حذف' });
+  del.addEventListener('click', () => { s.removed = !s.removed; commit(); });
+  meta.append(del);
+  c.append(meta);
+
+  if (it.kind === 'mcq') {
+    c.append(...field('السؤال', d.question, v => { d.question = v; commit(false); }));
+    c.append(el('label', { className: 'field', textContent: 'الخيارات (اختر الإجابة الصحيحة)' }));
+    d.options.forEach((opt, i) => {
+      const row = el('div', { className: 'opt' + (i === d.correctIndex ? ' correct' : '') });
+      const radio = el('input', { type: 'radio', name: 'c_' + id, checked: i === d.correctIndex });
+      radio.addEventListener('change', () => { d.correctIndex = i; commit(); });
+      const txt = el('input', { type: 'text', value: opt });
+      txt.addEventListener('input', () => { d.options[i] = txt.value; commit(false); });
+      row.append(radio, txt);
+      c.append(row);
+    });
+    c.append(...field('معلومة ع الماشي', d.funFact, v => { d.funFact = v; commit(false); }));
+  }
+
+  if (it.kind === 'blitz') {
+    c.append(...field('العبارة', d.statement, v => { d.statement = v; commit(false); }));
+    const row = el('div', { className: 'row', style: 'margin-top:8px' });
+    [['صحيحة', true], ['خاطئة', false]].forEach(([label, val]) => {
+      const b = el('button', {
+        textContent: label,
+        className: d.isCorrect === val ? 'primary' : 'ghost',
+      });
+      b.addEventListener('click', () => { d.isCorrect = val; commit(); });
+      row.append(b);
+    });
+    c.append(row);
+    c.append(...field('الشرح', d.explanation, v => { d.explanation = v; commit(false); }));
+  }
+
+  if (it.kind === 'scramble') {
+    c.append(...field('نص السؤال', d.prompt, v => { d.prompt = v; commit(false); }));
+    const lab = el('label', { className: 'field', textContent: 'الإجابة (تُعاد الحروف المبعثرة تلقائياً عند التطبيق)' });
+    const ans = el('input', { type: 'text', value: d.answer, style: 'width:100%' });
+    ans.addEventListener('input', () => { d.answer = ans.value; commit(false); });
+    c.append(lab, ans);
+    c.append(...field('التلميح', d.hint, v => { d.hint = v; commit(false); }, 1));
+    c.append(...field('معلومة ع الماشي', d.funFact, v => { d.funFact = v; commit(false); }));
+  }
+
+  if (it.kind === 'crossword') {
+    c.append(...field('العنوان', d.title, v => { d.title = v; commit(false); }, 1));
+    c.append(el('label', { className: 'field', textContent: 'الشبكة (للاطلاع فقط — تعديل الإجابات يتطلب إعادة بناء الشبكة)' }));
+    d.grid.forEach(rowArr => c.append(el('div', {
+      className: 'grid-preview',
+      textContent: rowArr.map(x => x || '·').join(' '),
+    })));
+    d.clues.forEach((cl, i) => {
+      const box = el('div', { className: 'clue' });
+      box.append(el('div', { className: 'tag', textContent: `${cl.number} ${cl.direction} — ${cl.answer}` }));
+      const ta = el('textarea', { value: cl.clue, rows: 1, style: 'margin-top:6px' });
+      ta.addEventListener('input', () => { autoGrow(ta); d.clues[i].clue = ta.value; commit(false); });
+      requestAnimationFrame(() => autoGrow(ta));
+      box.append(ta);
+      c.append(box);
+    });
+    c.append(...field('معلومة ع الماشي', d.funFact, v => { d.funFact = v; commit(false); }));
+  }
+
+  return c;
+}
+
+/** rerender=false keeps focus while typing in a textarea */
+function commit(rerender = true) {
+  save();
+  stats();
+  if (rerender) render(); else markCards();
+}
+
+function markCards() {
+  els.list.querySelectorAll('.card').forEach(c => {
+    const id = c.dataset.id;
+    c.classList.toggle('edited', isEdited(id));
+    c.classList.toggle('removed', state[id].removed);
+  });
+}
+
+function stats() {
+  const ids = Object.keys(state);
+  const removed = ids.filter(i => state[i].removed).length;
+  const edited = ids.filter(i => !state[i].removed && isEdited(i)).length;
+  els.stats.innerHTML = `الإجمالي <b>${ids.length}</b> · معدّلة <b>${edited}</b> · محذوفة <b>${removed}</b> · معروضة <b>${visible().length}</b>`;
+}
+
+function render() {
+  const items = visible();
+  els.list.innerHTML = '';
+  if (!items.length) {
+    els.list.append(el('div', { className: 'empty', textContent: 'لا توجد نتائج مطابقة.' }));
+  } else {
+    items.forEach(it => {
+      const c = card(it);
+      c.dataset.id = it.data.id;
+      els.list.append(c);
+    });
+  }
+  stats();
+}
+
+[els.q, els.file, els.diff, els.st].forEach(e => e.addEventListener('input', render));
+
+document.getElementById('reset').addEventListener('click', () => {
+  if (!confirm('سيتم مسح كل التعديلات والرجوع للنسخة الأصلية. متأكد؟')) return;
+  localStorage.removeItem(KEY);
+  state = load();
+  render();
+});
+
+function output() {
+  return JSON.stringify({
+    generatedAt: RAW.generatedAt,
+    editedAt: new Date().toISOString(),
+    items: RAW.items.map(it => ({
+      id: it.data.id,
+      file: it.file,
+      kind: it.kind,
+      removed: state[it.data.id].removed,
+      changed: isEdited(it.data.id),
+      data: state[it.data.id].data,
+    })),
+  }, null, 2);
+}
+
+document.getElementById('download').addEventListener('click', () => {
+  const blob = new Blob([output()], { type: 'application/json' });
+  const a = el('a', { href: URL.createObjectURL(blob), download: 'questions-edited.json' });
+  document.body.append(a); a.click(); a.remove();
+});
+
+document.getElementById('copy').addEventListener('click', async () => {
+  await navigator.clipboard.writeText(output());
+  alert('تم نسخ التعديلات إلى الحافظة.');
+});
+
+render();
+</script>
+</body>
+</html>

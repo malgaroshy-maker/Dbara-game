@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "questions:export": "node scripts/questions-export.mjs",
+    "questions:check": "node scripts/questions-check.mjs",
+    "questions:rebalance": "node scripts/questions-rebalance.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

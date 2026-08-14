@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+scripts/questions.json
+scripts/questions-edited.json
+scripts/questions-review.html
