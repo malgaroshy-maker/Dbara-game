@@ -54,11 +54,14 @@ Built and verified today:
 
 - **Map expedition** — 20 Libyan cities at real coordinates across the four
   regions, 77 stages, unlocked by collecting stars.
-- **Question banks** — 219 multiple-choice questions across 9 categories
+- **Question banks** — 343 multiple-choice questions across 9 categories
   (4 Libyan: history, dialect, sport, cuisine; 5 general: geography, Islamic
   civilisation, Arabic language and literature, science, general knowledge),
-  plus 50 true/false statements for the speed mode. Every category carries a
-  real spread of difficulty, and reward follows difficulty.
+  plus 50 true/false statements for the speed mode. Eight of the nine banks hold
+  40 questions each; every category carries a real spread of difficulty
+  (93 easy / 132 medium / 85 hard / 33 expert) and reward follows difficulty.
+  73 questions cite a source — a named work, institution or Quranic verse rather
+  than a link, so it stays checkable offline.
 - **Puzzle modes** — letter scramble (17), 4×4 Arabic mini-crossword (18),
   45-second speed blitz, and a daily challenge **derived from the date** — a
   pure function, so the same day yields the same challenge on every device
@@ -84,8 +87,9 @@ Constraints:
 Explicitly undecided:
 
 - Which of the three audiences is primary.
-- **Who validates Libyan factual content.** No authority is established; several
-  Libya-specific claims are flagged in `roadmap.md` as wanting a local reviewer.
+- **Who validates Libyan factual content.** No authority is established. Claims
+  that cannot be confirmed carry a `needsReview` note in the data saying what
+  is doubtful and why.
 - When the server arrives, and what it covers first.
 
 ## Brand Commitments
@@ -112,9 +116,11 @@ Absences that future work must not paper over:
 - **The leaderboard rivals are fabricated placeholder names.** They stand in for a
   feature that needs the planned server. Until it exists, the leaderboard must not
   present invented people as real competitors.
-- **No external review of the Libyan content** has happened. Five specific
-  claims are flagged by id in `improvement-plan.md` as wanting a local reviewer,
-  and no question carries a source field yet.
+- **No external review of the Libyan content** has happened by a person. A
+  machine fact-check pass covered the hard and expert questions and 73 now carry
+  a source, but its verdicts were unreliable enough that only quoted, re-checked
+  findings were applied. One claim — the description of المثرودة — is still
+  flagged in the data itself as wanting a local reviewer.
 
 ## Product Principles
 
