@@ -18,7 +18,7 @@ export const MIN_ZOOM = 1;
 export const MAX_ZOOM = 4;
 
 /** Movement past this many pixels is a pan, not a tap. */
-const DRAG_SLOP = 6;
+const DRAG_SLOP = 8;
 
 /** How much one wheel notch multiplies the scale. */
 const WHEEL_SENSITIVITY = 0.0015;
@@ -76,10 +76,11 @@ const zoomAbout = (view: Viewport, nextScale: number, fx: number, fy: number): V
 export const useMapViewport = () => {
   const frameRef = useRef<HTMLDivElement>(null);
   const [view, setView] = useState<Viewport>({ scale: MIN_ZOOM, x: 0, y: 0 });
+  const viewRef = useRef<Viewport>(view);
+  viewRef.current = view;
 
-  const pointers = useRef(new Map<number, { x: number; y: number }>());
-  const pinch = useRef<{ distance: number; scale: number } | null>(null);
-  const lastPoint = useRef<{ x: number; y: number } | null>(null);
+  const mouseLastPoint = useRef<{ x: number; y: number } | null>(null);
+  const isMouseDown = useRef(false);
   const travelled = useRef(0);
   /** Set once a gesture turns into a drag, so the trailing click is ignored. */
   const dragged = useRef(false);
@@ -92,7 +93,11 @@ export const useMapViewport = () => {
   const update = useCallback(
     (next: (current: Viewport) => Viewport) => {
       const { width, height } = frameSize();
-      setView((current) => clampToFrame(next(current), width, height));
+      setView((current) => {
+        const updated = clampToFrame(next(current), width, height);
+        viewRef.current = updated;
+        return updated;
+      });
     },
     [frameSize]
   );
@@ -106,8 +111,7 @@ export const useMapViewport = () => {
     };
   }, []);
 
-  // Wheel has to be a native non-passive listener: React's synthetic handler
-  // cannot preventDefault, so the page would scroll while the map zoomed.
+  // Native Wheel Event Listener for Desktop
   useEffect(() => {
     const el = frameRef.current;
     if (!el) return;
@@ -120,125 +124,143 @@ export const useMapViewport = () => {
     return () => el.removeEventListener('wheel', onWheel);
   }, [toFrame, update]);
 
-  /**
-   * Claims two-finger gestures for the map.
-   *
-   * The frame carries `touch-action: pan-y` until it is zoomed, so that a
-   * one-finger drag still scrolls the page — the map is half the height of a
-   * phone screen, and swallowing every drag over it would make the page
-   * awkward to move. But `pan-y` also lets the browser treat a two-finger drag
-   * as a scroll, and once it does it fires `pointercancel` and the pinch dies
-   * mid-gesture.
-   *
-   * Cancelling the default on a multi-touch `touchstart` takes the gesture back
-   * without giving up single-finger scrolling. It has to be non-passive, or the
-   * `preventDefault` is ignored.
-   */
+  // Native Touch Event Listeners for Mobile Pinch & Pan
   useEffect(() => {
     const el = frameRef.current;
     if (!el) return;
+
+    let touchStartDist = 0;
+    let touchStartScale = 1;
+    let lastTouchX = 0;
+    let lastTouchY = 0;
+    let touchMoved = 0;
+
     const onTouchStart = (e: TouchEvent) => {
-      if (e.touches.length >= 2) e.preventDefault();
+      if (e.touches.length === 1) {
+        lastTouchX = e.touches[0].clientX;
+        lastTouchY = e.touches[0].clientY;
+        touchMoved = 0;
+        dragged.current = false;
+      } else if (e.touches.length >= 2) {
+        // Multi-touch pinch start: prevent browser zoom immediately
+        e.preventDefault();
+        const t1 = e.touches[0];
+        const t2 = e.touches[1];
+        touchStartDist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY) || 1;
+        touchStartScale = viewRef.current.scale;
+        dragged.current = true;
+      }
     };
-    el.addEventListener('touchstart', onTouchStart, { passive: false });
-    return () => el.removeEventListener('touchstart', onTouchStart);
-  }, []);
 
-  const endGesture = useCallback(() => {
-    pointers.current.clear();
-    pinch.current = null;
-    lastPoint.current = null;
-    travelled.current = 0;
-  }, []);
-
-  const handleMove = useCallback(
-    (e: PointerEvent) => {
-      const active = pointers.current;
-      if (!active.has(e.pointerId)) return;
-      active.set(e.pointerId, { x: e.clientX, y: e.clientY });
-
-      if (active.size >= 2) {
-        const [a, b] = [...active.values()];
-        const distance = Math.hypot(a.x - b.x, a.y - b.y);
-        const focus = toFrame((a.x + b.x) / 2, (a.y + b.y) / 2);
-
-        if (!pinch.current || !Number.isFinite(pinch.current.distance) || pinch.current.distance <= 0) {
-          pinch.current = { distance: Math.max(distance, 1), scale: clamp(view.scale, MIN_ZOOM, MAX_ZOOM) };
-        }
-
-        if (distance > 0 && pinch.current.distance > 0) {
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches.length >= 2) {
+        // Two-finger pinch-zoom on mobile
+        e.preventDefault();
+        const t1 = e.touches[0];
+        const t2 = e.touches[1];
+        const dist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+        if (dist > 0 && touchStartDist > 0) {
+          const focus = toFrame((t1.clientX + t2.clientX) / 2, (t1.clientY + t2.clientY) / 2);
           dragged.current = true;
-          const nextScale = pinch.current.scale * (distance / pinch.current.distance);
+          const nextScale = touchStartScale * (dist / touchStartDist);
           if (Number.isFinite(nextScale)) {
             update((v) => zoomAbout(v, nextScale, focus.x, focus.y));
           }
         }
-        return;
-      }
+      } else if (e.touches.length === 1) {
+        const t = e.touches[0];
+        const dx = t.clientX - lastTouchX;
+        const dy = t.clientY - lastTouchY;
+        lastTouchX = t.clientX;
+        lastTouchY = t.clientY;
+        touchMoved += Math.hypot(dx, dy);
 
-      const last = lastPoint.current;
-      if (!last) return;
-      const dx = e.clientX - last.x;
-      const dy = e.clientY - last.y;
-      lastPoint.current = { x: e.clientX, y: e.clientY };
+        // If map is zoomed in (> 1.05), pan the map with 1 finger and prevent vertical page scroll
+        if (viewRef.current.scale > 1.05) {
+          e.preventDefault();
+          if (touchMoved > DRAG_SLOP) {
+            dragged.current = true;
+            update((v) => ({ ...v, x: v.x + dx, y: v.y + dy }));
+          }
+        }
+      }
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        lastTouchX = e.touches[0].clientX;
+        lastTouchY = e.touches[0].clientY;
+      }
+      if (e.touches.length === 0) {
+        touchStartDist = 0;
+        // Keep dragged flag for a tick so onClick knows it was a drag, then reset
+        setTimeout(() => {
+          dragged.current = false;
+        }, 80);
+      }
+    };
+
+    el.addEventListener('touchstart', onTouchStart, { passive: false });
+    el.addEventListener('touchmove', onTouchMove, { passive: false });
+    el.addEventListener('touchend', onTouchEnd, { passive: false });
+    el.addEventListener('touchcancel', onTouchEnd, { passive: false });
+
+    return () => {
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchmove', onTouchMove);
+      el.removeEventListener('touchend', onTouchEnd);
+      el.removeEventListener('touchcancel', onTouchEnd);
+    };
+  }, [toFrame, update]);
+
+  // Desktop Mouse Drag Handling
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!isMouseDown.current || !mouseLastPoint.current) return;
+      const dx = e.clientX - mouseLastPoint.current.x;
+      const dy = e.clientY - mouseLastPoint.current.y;
+      mouseLastPoint.current = { x: e.clientX, y: e.clientY };
       travelled.current += Math.hypot(dx, dy);
-      if (travelled.current <= DRAG_SLOP) return;
-      dragged.current = true;
-      update((v) => ({ ...v, x: v.x + dx, y: v.y + dy }));
-    },
-    [toFrame, update, view.scale]
-  );
 
-  const handleUp = useCallback(
-    (e: PointerEvent) => {
-      pointers.current.delete(e.pointerId);
-      if (pointers.current.size < 2) pinch.current = null;
-      if (pointers.current.size === 0) {
-        window.removeEventListener('pointermove', handleMove);
-        window.removeEventListener('pointerup', handleUp);
-        window.removeEventListener('pointercancel', handleUp);
-        endGesture();
+      if (travelled.current > DRAG_SLOP) {
+        dragged.current = true;
+        update((v) => ({ ...v, x: v.x + dx, y: v.y + dy }));
       }
     },
-    [endGesture, handleMove]
+    [update]
   );
 
-  // Tracking on the window rather than capturing the pointer: capture on an
-  // ancestor of the pins interferes with the click the pins depend on.
+  const handleMouseUp = useCallback(() => {
+    isMouseDown.current = false;
+    mouseLastPoint.current = null;
+    window.removeEventListener('mousemove', handleMouseMove);
+    window.removeEventListener('mouseup', handleMouseUp);
+    setTimeout(() => {
+      dragged.current = false;
+    }, 80);
+  }, [handleMouseMove]);
+
   const onPointerDown = useCallback(
     (e: React.PointerEvent) => {
-      const active = pointers.current;
-      active.set(e.pointerId, { x: e.clientX, y: e.clientY });
-
-      if (active.size === 1) {
-        lastPoint.current = { x: e.clientX, y: e.clientY };
+      // Only process mouse pointer on pointerdown (touch is handled natively by touchstart)
+      if (e.pointerType === 'mouse' && e.button === 0) {
+        isMouseDown.current = true;
+        mouseLastPoint.current = { x: e.clientX, y: e.clientY };
         travelled.current = 0;
         dragged.current = false;
-        pinch.current = null;
-      } else if (active.size >= 2) {
-        const [a, b] = [...active.values()];
-        const distance = Math.hypot(a.x - b.x, a.y - b.y);
-        setView((v) => {
-          const scale = clamp(v.scale, MIN_ZOOM, MAX_ZOOM);
-          pinch.current = { distance: Math.max(distance, 1), scale };
-          return v;
-        });
+        window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('mouseup', handleMouseUp);
       }
-
-      window.addEventListener('pointermove', handleMove);
-      window.addEventListener('pointerup', handleUp);
-      window.addEventListener('pointercancel', handleUp);
     },
-    [handleMove, handleUp]
+    [handleMouseMove, handleMouseUp]
   );
 
   useEffect(
     () => () => {
-      window.removeEventListener('pointermove', handleMove);
-      window.removeEventListener('pointerup', handleUp);
-      window.removeEventListener('pointercancel', handleUp);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
     },
-    [handleMove, handleUp]
+    [handleMouseMove, handleMouseUp]
   );
 
   /** True when the click that just fired was the tail of a drag or pinch. */
