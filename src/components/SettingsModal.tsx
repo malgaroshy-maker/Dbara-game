@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '../store/useGameStore';
 import { useMapStore, mergeCitiesWithInitial } from '../store/useMapStore';
 import { sfx } from '../audio/soundEffects';
-import { X, Volume2, VolumeX, Download, Upload, RotateCcw, BarChart2, ShieldCheck, Vibrate, UserRound } from 'lucide-react';
+import { X, Volume2, VolumeX, Download, Upload, RotateCcw, BarChart2, ShieldCheck, Vibrate, UserRound, MessageCircle } from 'lucide-react';
+import { AUTHOR, reportLink } from '../data/credits';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -251,6 +252,25 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
                 <p className="text-[11px] font-bold text-center mt-1 text-gold-300">{importStatus}</p>
               )}
             </div>
+          </div>
+
+          {/* Report a mistake, and who made this */}
+          <div className="pt-2 space-y-2">
+            <a
+              href={reportLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => sfx.playTap()}
+              className="w-full py-2.5 rounded-xl bg-oasis-500/10 hover:bg-oasis-500/20 text-oasis-500 text-xs font-bold flex items-center justify-center gap-1.5 border border-oasis-500/25"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              <span>بلّغ عن خطأ أو اقترح سؤالاً</span>
+            </a>
+            <p className="text-[10px] text-ink-400 text-center leading-relaxed">
+              من إعداد وجمع {AUTHOR.arabicName}
+              <br />
+              تقدّمك محفوظ على هذا الجهاز وحده، فمسح بيانات المتصفح يمسحه.
+            </p>
           </div>
 
           {/* Reset Game Data */}

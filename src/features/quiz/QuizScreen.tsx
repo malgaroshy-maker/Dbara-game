@@ -7,9 +7,11 @@ import { useMapStore } from '../../store/useMapStore';
 import { useCountdown } from '../../hooks/useCountdown';
 import { sfx } from '../../audio/soundEffects';
 import confetti from 'canvas-confetti';
-import { 
-  Sparkles, 
-  Clock, 
+import { reportLink } from '../../data/credits';
+import {
+  Flag,
+  Sparkles,
+  Clock,
   HelpCircle, 
   FastForward, 
   PlusCircle, 
@@ -337,6 +339,19 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
               >
                 استمر في الرحلة 🧭
               </button>
+
+              {/* The moment a player knows an answer is wrong is the moment they
+                  have just read it, so the report carries this question's id and
+                  they never have to describe which one they meant. */}
+              <a
+                href={reportLink(question.id)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center justify-center gap-1 text-[11px] text-ink-400 hover:text-gold-300 transition-colors"
+              >
+                <Flag className="w-3 h-3" />
+                <span>تشك في هذه المعلومة؟ بلّغنا</span>
+              </a>
             </motion.div>
           </div>
         )}
