@@ -127,6 +127,7 @@ export const islamicQuestions: TriviaQuestion[] = [
   },
   {
     id: 'isl_13',
+    cityId: 'jaghbub',
     category: 'islamic',
     difficulty: 'medium',
     question: 'ما اسم الحركة الإصلاحية التي انطلقت من الجغبوب وكان لها أثر كبير في تاريخ ليبيا الحديث؟',

@@ -13,7 +13,8 @@
     "map:audit": "node scripts/map-audit.mjs",
     "icons:generate": "node scripts/generate-icons.mjs",
     "test:e2e": "playwright test",
-    "round:audit": "node scripts/round-audit.mjs"
+    "round:audit": "node scripts/round-audit.mjs",
+    "city:audit": "node scripts/city-audit.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useMemo, useState, useEffect } from 'react';
+import React, { Suspense, lazy, useMemo, useRef, useState, useEffect } from 'react';
 import { useGameStore } from './store/useGameStore';
 import { useMapStore } from './store/useMapStore';
 import { HeaderHUD } from './components/HeaderHUD';
@@ -9,7 +9,7 @@ import { usePWAInstall } from './features/pwa/usePWAInstall';
 import { PWAInstallModal } from './features/pwa/PWAInstallModal';
 
 // Question & Puzzle Banks
-import { allQuestions, questionById } from './data/questions';
+import { questionForStage } from './features/map/stageQuestion';
 import { wordScramblePuzzles } from './data/puzzles/wordScramble';
 import { miniCrosswords } from './data/puzzles/crosswords';
 
@@ -37,13 +37,34 @@ const ScreenFallback: React.FC = () => (
 );
 
 export const App: React.FC = () => {
-  const { currentMode, setMode, checkBadgeUnlocks, refreshRank, hasOnboarded, completeOnboarding } =
-    useGameStore();
+  const {
+    currentMode,
+    setMode,
+    checkBadgeUnlocks,
+    refreshRank,
+    hasOnboarded,
+    completeOnboarding,
+    seenQuestionIds,
+  } = useGameStore();
   const { cities, activeStage, startStage, clearActiveStage, getTotalStars } = useMapStore();
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isInstallModalOpen, setIsInstallModalOpen] = useState<boolean>(false);
   // Returning players land directly in the game instead of the title menu on reload.
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+  /**
+   * The seen list as it stood when the current stage opened.
+   *
+   * Read through a ref on purpose: answering a question adds its id to the
+   * store's seen list, and picking the stage's question from the live list
+   * would then re-run the moment the player answers and swap the question out
+   * from under them. The effect commits after render, so a stage always sees
+   * the list from before it started.
+   */
+  const seenAtStageStart = useRef<string[]>(seenQuestionIds);
+  useEffect(() => {
+    seenAtStageStart.current = seenQuestionIds;
+  }, [seenQuestionIds]);
 
   const { isInstallable, isInstalled, isIOS, isOnline, showOfflineToast, triggerInstall } =
     usePWAInstall();
@@ -61,8 +82,7 @@ export const App: React.FC = () => {
 
     switch (stage.type) {
       case 'multiple_choice': {
-        const question =
-          (stage.questionId && questionById(stage.questionId)) || allQuestions[0];
+        const question = questionForStage(stage.questionId, cityId, seenAtStageStart.current);
         return (
           <QuizScreen stage={stage} cityId={cityId} question={question} onFinish={clearActiveStage} />
         );

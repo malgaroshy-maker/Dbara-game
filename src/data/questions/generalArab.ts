@@ -173,6 +173,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
   },
   {
     id: 'gen_39',
+    cityId: 'murzuq',
     category: 'general_arab',
     difficulty: 'expert',
     question: 'ما اسم الحقل النفطي الأكثر إنتاجاً في ليبيا؟',

@@ -196,6 +196,7 @@ export const historyQuestions: TriviaQuestion[] = [
   },
   {
     id: 'hist_qardabiya_01',
+    cityId: 'sirte',
     category: 'history',
     difficulty: 'hard',
     question: 'ما هي المعركة الكبرى التي وقعت قرب سرت سنة 1915م وانتصر فيها المجاهدون الليبيون على الجيش الإيطالي؟',
@@ -305,6 +306,7 @@ export const historyQuestions: TriviaQuestion[] = [
   },
   {
     id: 'hist_senussi_01',
+    cityId: 'jaghbub',
     category: 'history',
     difficulty: 'medium',
     question: 'من هو مؤسس الحركة السنوسية التي انطلقت من الجغبوب؟',
@@ -473,5 +475,30 @@ export const historyQuestions: TriviaQuestion[] = [
     funFact: 'هُجر الموقع القديم بعد الكارثة وبُنيت المدينة الحديثة على بعد بضعة كيلومترات منه.',
     rewardDinars: 40,
     source: 'ويكيبيديا العربية (مقال: المرج) — زلزال 1963 وإعادة البناء',
+  },
+  // ── تعميق المدن قليلة الأسئلة ────────────────────────────────────────────
+  {
+    id: 'hist_srt_01',
+    category: 'history',
+    cityId: 'sirte',
+    difficulty: 'hard',
+    question: 'ما المَعْلَم القديم الذي كان يُعرَف به الحدّ الفاصل بين نفوذ قرطاجة ونفوذ قورينائية عند قاع الخليج؟',
+    options: ['أعمدة هرقل', 'مذابح الأخوين فيلاني', 'قوس تراجان', 'برج الرياح'],
+    correctIndex: 1,
+    funFact: 'تروي الحكاية أن أخوين قرطاجيين قبلا أن يُدفنا أحياء عند نقطة لقائهما بمنافسيهما، فثبت الحدّ عند مدفنهما.',
+    rewardDinars: 45,
+    source: 'ويكيبيديا العربية (مقال: مذبح الأخوين فيلاني)',
+  },
+  {
+    id: 'hist_mzq_01',
+    category: 'history',
+    cityId: 'murzuq',
+    difficulty: 'expert',
+    question: 'ما اسم الأسرة التي حكمت فزان قروناً واتخذت من مرزق مقرّاً لها قبل السيطرة العثمانية المباشرة؟',
+    options: ['أولاد محمد', 'القرمانليون', 'بنو خطاب', 'الأغالبة'],
+    correctIndex: 0,
+    funFact: 'قامت سلطتهم على ضبط دروب القوافل العابرة للصحراء، فمن يملك الطريق يملك ما يمرّ عليه.',
+    rewardDinars: 50,
+    source: 'ويكيبيديا العربية (مقال: أولاد محمد) — سلاطين فزان ومقرهم مرزق',
   },
 ];

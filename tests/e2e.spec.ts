@@ -163,8 +163,10 @@ test.describe('Dbara Trivia Game E2E Suite', () => {
     await expect(optionButtons.first()).toBeVisible({ timeout: 10000 });
     expect(await optionButtons.count()).toBe(4);
 
-    // Answer the first option
-    await optionButtons.first().click();
+    // Answer correctly, by text rather than by position: the options are
+    // shuffled at render, so clicking the first one passed or failed the stage
+    // at random, and the two outcomes lead to different cards.
+    await page.getByRole('button', { name: /أويا/ }).click();
 
     // Fun fact card / next question modal should appear
     const reportLink = page.getByRole('link', { name: 'تشك في هذه المعلومة؟ بلّغنا' });
