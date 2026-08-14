@@ -211,7 +211,8 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
         if (!p) return [];
         return [
           { ...p, clearance: PIN_CLEARANCE / layoutScale },
-          ...(l ? [{ ...l, clearance: LABEL_CLEARANCE / layoutScale }] : []),
+          // A hidden label is not on the map, so nothing needs to avoid it.
+          ...(l && !l.hidden ? [{ ...l.centre, clearance: LABEL_CLEARANCE / layoutScale }] : []),
         ];
       });
 
@@ -235,16 +236,21 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
       // 1. Coastal Highway (Tripoli -> Msallata -> Leptis -> Misrata -> Benghazi
       //    -> Cyrene -> Derna). Msallata sits inland between Tripoli and Leptis,
       //    so the chain threads through it rather than bypassing it.
-      { id: 'coastal_0', from: 'zuwara', to: 'tripoli', curvature: 0.1 },
+      { id: 'coastal_0', from: 'zuwara', to: 'zawiya', curvature: 0.1 },
+      { id: 'coastal_0b', from: 'zawiya', to: 'tripoli', curvature: 0.1 },
       { id: 'coastal_1', from: 'tripoli', to: 'msallata', curvature: 0.12 },
       { id: 'coastal_1b', from: 'msallata', to: 'leptis_magna', curvature: 0.12 },
-      { id: 'coastal_2', from: 'leptis_magna', to: 'misrata', curvature: 0.1 },
+      // Zliten sits on the shore between Leptis Magna and Misrata, so the road
+      // threads through it rather than stepping over it.
+      { id: 'coastal_2', from: 'leptis_magna', to: 'zliten', curvature: 0.1 },
+      { id: 'coastal_2b', from: 'zliten', to: 'misrata', curvature: 0.1 },
       // Threads the shore of the Gulf of Sirte through Sirte itself rather than
       // cutting straight across open water.
       { id: 'coastal_3', from: 'misrata', to: 'sirte', curvature: 0.35 },
       { id: 'coastal_3b', from: 'sirte', to: 'ajdabiya', curvature: 0.35 },
       { id: 'coastal_3c', from: 'ajdabiya', to: 'benghazi', curvature: 0.15 },
-      { id: 'coastal_4', from: 'benghazi', to: 'cyrene_green_mountain', curvature: -0.1 },
+      { id: 'coastal_4', from: 'benghazi', to: 'al_marj', curvature: -0.1 },
+      { id: 'coastal_4b', from: 'al_marj', to: 'cyrene_green_mountain', curvature: -0.1 },
       { id: 'coastal_5', from: 'cyrene_green_mountain', to: 'derna', curvature: 0.1 },
       { id: 'coastal_6', from: 'derna', to: 'tobruk', curvature: 0.1 },
 
@@ -255,7 +261,16 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
       { id: 'west_2', from: 'nalut_nafusa', to: 'ghadames', curvature: 0.12 },
       { id: 'west_3', from: 'ghadames', to: 'sabha_fezzan', curvature: -0.1 },
       { id: 'west_4', from: 'sabha_fezzan', to: 'murzuq', curvature: -0.1 },
-      { id: 'west_5', from: 'murzuq', to: 'ghat_akakus', curvature: -0.12 },
+      // Ghat is reached along Wadi al-Hayaa through Ubari, which is the road
+      // that exists rather than a line drawn straight across the sand sea.
+      { id: 'west_5', from: 'sabha_fezzan', to: 'ubari', curvature: -0.1 },
+      { id: 'west_5b', from: 'ubari', to: 'ghat_akakus', curvature: -0.12 },
+
+      // 2b. The central corridor: the coast to Fezzan through the middle of the
+      //     country, which is what puts Bani Walid and Jufrah on a road at all.
+      { id: 'central_1', from: 'misrata', to: 'bani_walid', curvature: 0.1 },
+      { id: 'central_2', from: 'bani_walid', to: 'jufrah', curvature: -0.1 },
+      { id: 'central_3', from: 'jufrah', to: 'sabha_fezzan', curvature: -0.1 },
 
       // 3. Eastern Oases & Desert (Ajdabiya -> Jalu -> Kufra, Tobruk -> Jaghbub,
       //    and the desert crossing from Sabha)
@@ -490,11 +505,16 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
             left: (placed.display.x / MAP_IMAGE.width) * 100,
             top: (placed.display.y / MAP_IMAGE.height) * 100,
           };
-          const labelPoint = labelPoints.get(city.id) ?? placed.display;
+          const placedLabel = labelPoints.get(city.id);
+          const labelPoint = placedLabel?.centre ?? placed.display;
           const label = {
             left: (labelPoint.x / MAP_IMAGE.width) * 100,
             top: (labelPoint.y / MAP_IMAGE.height) * 100,
           };
+          // A name with nowhere to sit is dropped rather than stacked on its
+          // neighbour — except for the city the player has selected, which is
+          // the one name they actually asked to see.
+          const isLabelCrowdedOut = (placedLabel?.hidden ?? false) && !isSelected;
 
           return (
             <React.Fragment key={city.id}>
@@ -614,7 +634,7 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
                 transform: `translate(-50%, -50%) scale(${symbolScale})`,
               }}
               className={`absolute whitespace-nowrap transition-opacity duration-300 ${
-                isLabelHidden
+                isLabelHidden || isLabelCrowdedOut
                   ? 'opacity-0 pointer-events-none'
                   : !isRegionMatched
                   ? 'opacity-35 pointer-events-none'

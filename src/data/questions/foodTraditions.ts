@@ -246,4 +246,15 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     rewardDinars: 40,
     source: 'ويكيبيديا العربية (مقال: جبل نفوسة) — زراعة الزيتون والحبوب في الأودية',
   },
+  {
+    id: 'food_zlt_01',
+    category: 'food_traditions',
+    cityId: 'zliten',
+    difficulty: 'medium',
+    question: 'ما اسم العسل الأسود الكثيف الذي يُستخرج من عصير التمر ويُحلّى به كثير من الحلويات الليبية؟',
+    options: ['السميط', 'رُبّ التمر', 'المحلب', 'الطحينة'],
+    correctIndex: 1,
+    funFact: 'يُغلى عصير التمر حتى يثخن ويسودّ، فيحفظ حلاوة الموسم كله ويُؤكل بالزيت أو يُحشى به العجين.',
+    rewardDinars: 30,
+  },
 ];

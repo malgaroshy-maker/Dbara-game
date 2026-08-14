@@ -15,9 +15,17 @@ import type { MapPoint } from './projection';
  * crowded label still lands somewhere readable.
  */
 
-/** Roughly how wide a label renders, in artwork px, for `n` characters. */
-export const estimateLabelWidth = (text: string) => 8 + 4.6 * text.length;
-export const LABEL_HEIGHT = 12;
+/**
+ * Roughly how wide a label renders, in artwork px, for `n` characters.
+ *
+ * Measured off the rendered chips rather than guessed: the pill's own padding
+ * is most of a short name's width, which is why the constant term is large and
+ * why "سرت" comes out nearly as wide as "لبدة". The old estimate (8 + 4.6n,
+ * height 12) undercounted every label — the height by 40% — so the solver kept
+ * declaring positions clear that visibly collided.
+ */
+export const estimateLabelWidth = (text: string) => 18 + 4.4 * text.length;
+export const LABEL_HEIGHT = 20;
 
 /** Half-width of a city pin, for overlap tests. */
 const PIN_RADIUS = 13;
@@ -59,10 +67,31 @@ export interface LabelInput {
 }
 
 /**
+ * How much overlap a placed label may still carry, in square artwork pixels.
+ * Above this it is dropped rather than drawn on top of its neighbour.
+ */
+const OVERLAP_TOLERANCE = 12;
+
+export interface PlacedLabel {
+  centre: MapPoint;
+  /**
+   * True when even the best position collided, so the label is not drawn.
+   *
+   * With twenty-six cities there is simply no arrangement in which every name
+   * fits at the overview zoom — the solver was returning fifteen overlapping
+   * pairs, which is less readable than showing fewer names. Dropping the ones
+   * that cannot fit is what a printed map does, and because the labels shrink
+   * with zoom the dropped ones come back as the player zooms in.
+   */
+  hidden: boolean;
+}
+
+/**
  * Returns the chosen label centre for each city, in artwork pixels.
  *
  * Cities are placed in the order given and each one avoids everything already
- * placed, so the result is deterministic.
+ * placed, so the result is deterministic — and so earlier cities keep their
+ * position while later ones give way.
  */
 export const layoutLabels = (
   inputs: LabelInput[],
@@ -72,7 +101,7 @@ export const layoutLabels = (
    * that, or it keeps shoving names apart that no longer collide.
    */
   scale = 1
-): Map<string, MapPoint> => {
+): Map<string, PlacedLabel> => {
   const pinRadius = PIN_RADIUS / scale;
   const labelHeight = LABEL_HEIGHT / scale;
   const rectAtScale = (centre: MapPoint, width: number): Rect => ({
@@ -90,7 +119,7 @@ export const layoutLabels = (
   }));
 
   const placed: Rect[] = [];
-  const result = new Map<string, MapPoint>();
+  const result = new Map<string, PlacedLabel>();
 
   for (const input of inputs) {
     const width = estimateLabelWidth(input.text) / scale;
@@ -113,10 +142,12 @@ export const layoutLabels = (
 
     let best = candidates[0];
     let bestScore = Number.POSITIVE_INFINITY;
+    let bestCollision = Number.POSITIVE_INFINITY;
 
     candidates.forEach((candidate, index) => {
       const rect = rectAtScale(candidate, width);
       let score = 0;
+      let collision = 0;
 
       const overflow =
         Math.max(0, BOUNDS.minX - rect.x1) +
@@ -125,6 +156,10 @@ export const layoutLabels = (
         Math.max(0, rect.y2 - BOUNDS.maxY);
       if (overflow > 0) score += 500 + overflow * overflow;
 
+      // Covering a pin is worse than covering another label: the pin is the
+      // thing the player has to hit.
+      for (const pin of pinRects) collision += overlapArea(rect, pin);
+      for (const other of placed) collision += overlapArea(rect, other);
       // Covering a pin is worse than covering another label: the pin is the
       // thing the player has to hit.
       for (const pin of pinRects) score += overlapArea(rect, pin) * 3;
@@ -137,11 +172,15 @@ export const layoutLabels = (
       if (score < bestScore) {
         bestScore = score;
         best = candidate;
+        bestCollision = collision;
       }
     });
 
-    placed.push(rectAtScale(best, width));
-    result.set(input.id, best);
+    const hidden = bestCollision > OVERLAP_TOLERANCE;
+    // A dropped label does not reserve space, so the next city may still use
+    // the room it would have taken.
+    if (!hidden) placed.push(rectAtScale(best, width));
+    result.set(input.id, { centre: best, hidden });
   }
 
   return result;
