@@ -236,6 +236,7 @@ export const historyQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: 'المواقع الليبية الخمسة هي: لبدة الكبرى، صبراتة، قورينا (شحات)، مدينة غدامس القديمة، وجبال تدرارت أكاكوس.',
     rewardDinars: 40,
+    source: 'ويكيبيديا العربية (مقالة: قائمة مواقع التراث العالمي في الدول العربية)',
   },
   {
     id: 'hist_independence_01',
@@ -257,6 +258,7 @@ export const historyQuestions: TriviaQuestion[] = [
     correctIndex: 0,
     funFact: 'قصر أجدابيا ومسجدها من أبرز الآثار الفاطمية في ليبيا، وتشهد على أهمية المدينة كمحطة على طريق القوافل.',
     rewardDinars: 50,
+    source: 'ويكيبيديا العربية (مقالة: أجدابيا)',
   },
   {
     id: 'hist_tbk_01',
@@ -279,6 +281,7 @@ export const historyQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: 'حمامات هادريان في لبدة من أضخم المنشآت الحمّامية الرومانية في أفريقيا، وتضم قاعات ساخنة وباردة ومسابح رخامية.',
     rewardDinars: 45,
+    source: 'ويكيبيديا العربية (مقالة: لبدة الكبرى)',
   },
   {
     id: 'hist_italian_01',
@@ -329,6 +332,7 @@ export const historyQuestions: TriviaQuestion[] = [
     correctIndex: 2,
     funFact: 'اجتاح الوندال المدن الرومانية على الساحل الليبي، وأسهم غزوهم في تراجع مدن مثل لبدة وصبراتة قبل العهد البيزنطي.',
     rewardDinars: 50,
+    source: 'ويكيبيديا العربية (مقالة: وندال)',
   },
   {
     id: 'hist_byzantine_01',
@@ -339,6 +343,7 @@ export const historyQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'استعاد البيزنطيون المدن الليبية من الوندال في القرن السادس الميلادي، وبقيت تحت حكمهم حتى الفتح الإسلامي سنة 22 هجرية.',
     rewardDinars: 40,
+    source: 'ويكيبيديا العربية (مقالة: تاريخ ليبيا)',
   },
   {
     id: 'hist_arch_trp_01',
@@ -350,5 +355,6 @@ export const historyQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'شُيّد قوس ماركوس أوريليوس في القرن الثاني الميلادي، وهو أبرز ما تبقى من مدينة أويا الرومانية داخل طرابلس القديمة.',
     rewardDinars: 45,
+    source: 'ويكيبيديا العربية (مقالة: قوس ماركوس أوريليوس)',
   },
 ];

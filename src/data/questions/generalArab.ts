@@ -191,6 +191,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'نُقشت شريعة حمورابي على مسلة من حجر الديوريت في نحو 282 مادة، وهي من أقدم القوانين المكتوبة التي وصلتنا كاملة.',
     rewardDinars: 40,
+    source: 'موسوعة المعرفة (مقالة: بابل)',
   },
   {
     id: 'gen_41',
