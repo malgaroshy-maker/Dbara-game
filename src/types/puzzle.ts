@@ -33,9 +33,10 @@ export interface DailyChallengeItem {
   date: string; // YYYY-MM-DD
   title: string;
   description: string;
-  type: 'trivia' | 'scramble' | 'blitz';
+  type: 'trivia' | 'scramble' | 'blitz' | 'crossword';
   questionId?: string;
   scrambleId?: string;
+  crosswordId?: string;
   /**
    * What clearing the challenge pays, and the only source of truth for it —
    * the screen that runs the challenge awards exactly this. There used to be a

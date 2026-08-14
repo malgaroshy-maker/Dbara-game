@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { dailyChallenges } from '../../data/puzzles/dailyPuzzles';
-import { dialectQuestions } from '../../data/questions/dialects';
+import { getDailyChallenge } from '../../data/puzzles/dailyPuzzles';
+import { allQuestions, questionById } from '../../data/questions';
 import { wordScramblePuzzles } from '../../data/puzzles/wordScramble';
+import { miniCrosswords } from '../../data/puzzles/crosswords';
+import { MiniCrossword } from '../puzzles/MiniCrossword';
+import type { DailyChallengeItem } from '../../types/puzzle';
 import { useGameStore, todayKey, yesterdayKey } from '../../store/useGameStore';
 import { QuizScreen } from '../quiz/QuizScreen';
 import { LetterScramble } from '../puzzles/LetterScramble';
@@ -17,7 +20,7 @@ export const DailyChallengeScreen: React.FC = () => {
     completeDailyChallenge,
     isDailyChallengeAvailable,
   } = useGameStore();
-  const [activeChallenge, setActiveChallenge] = useState<typeof dailyChallenges[0] | null>(null);
+  const [activeChallenge, setActiveChallenge] = useState<DailyChallengeItem | null>(null);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
 
   // Derived from the persisted claim date rather than local state, so the
@@ -33,10 +36,7 @@ export const DailyChallengeScreen: React.FC = () => {
 
   // Local date, not UTC: the challenge must roll over at the player's midnight.
   const todayStr = todayKey();
-  const dateHash = todayStr.split('-').reduce((acc, part) => acc + parseInt(part, 10), 0);
-  const todayChallenge =
-    dailyChallenges.find((c) => c.date === todayStr) ||
-    dailyChallenges[dateHash % dailyChallenges.length];
+  const todayChallenge = getDailyChallenge(todayStr);
 
   const handleClaimStreak = () => {
     claimDailyStreak();
@@ -51,7 +51,11 @@ export const DailyChallengeScreen: React.FC = () => {
 
   if (activeChallenge) {
     if (activeChallenge.type === 'trivia') {
-      const q = dialectQuestions.find((dq) => dq.id === activeChallenge.questionId) || dialectQuestions[0];
+      // Resolved against every bank, not one: the daily question is drawn from
+      // all nine categories, and a single-bank lookup would silently serve the
+      // wrong question for eight of them.
+      const q =
+        (activeChallenge.questionId && questionById(activeChallenge.questionId)) || allQuestions[0];
       return (
         <QuizScreen
           stage={{
@@ -82,6 +86,28 @@ export const DailyChallengeScreen: React.FC = () => {
             stageNumber: 1,
             title: activeChallenge.title,
             type: 'letter_scramble',
+            starsEarned: 0,
+            isUnlocked: true,
+            rewardDinars: activeChallenge.rewardDinars,
+          }}
+          cityId="daily"
+          puzzle={puzzle}
+          onFinish={() => setActiveChallenge(null)}
+          onSolved={handleChallengeCleared}
+        />
+      );
+    }
+
+    if (activeChallenge.type === 'crossword') {
+      const puzzle =
+        miniCrosswords.find((p) => p.id === activeChallenge.crosswordId) || miniCrosswords[0];
+      return (
+        <MiniCrossword
+          stage={{
+            id: 'daily_crossword',
+            stageNumber: 1,
+            title: activeChallenge.title,
+            type: 'crossword',
             starsEarned: 0,
             isUnlocked: true,
             rewardDinars: activeChallenge.rewardDinars,

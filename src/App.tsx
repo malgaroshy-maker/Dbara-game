@@ -7,15 +7,7 @@ import { SettingsModal } from './components/SettingsModal';
 import { MapScreen } from './features/map/MapScreen';
 
 // Question & Puzzle Banks
-import { historyQuestions } from './data/questions/history';
-import { dialectQuestions } from './data/questions/dialects';
-import { sportsQuestions } from './data/questions/sports';
-import { foodTraditionsQuestions } from './data/questions/foodTraditions';
-import { generalArabQuestions } from './data/questions/generalArab';
-import { geographyQuestions } from './data/questions/geography';
-import { islamicQuestions } from './data/questions/islamic';
-import { literatureQuestions } from './data/questions/literature';
-import { scienceQuestions } from './data/questions/science';
+import { allQuestions, questionById } from './data/questions';
 import { wordScramblePuzzles } from './data/puzzles/wordScramble';
 import { miniCrosswords } from './data/puzzles/crosswords';
 
@@ -50,21 +42,9 @@ const OnboardingScreen = lazy(() =>
   import('./features/menu/OnboardingScreen').then((m) => ({ default: m.OnboardingScreen }))
 );
 
-// Built once at module load: stage lookups were previously concatenating five
-// banks into a fresh array on every render and then scanning it linearly.
-const questionsById = new Map(
-  [
-    ...historyQuestions,
-    ...dialectQuestions,
-    ...sportsQuestions,
-    ...foodTraditionsQuestions,
-    ...generalArabQuestions,
-    ...geographyQuestions,
-    ...islamicQuestions,
-    ...literatureQuestions,
-    ...scienceQuestions,
-  ].map((q) => [q.id, q])
-);
+// Stage lookups go through the shared index in `data/questions`, which is built
+// once at module load. This used to concatenate every bank into a fresh array
+// on each render and then scan it linearly.
 const scramblesById = new Map(wordScramblePuzzles.map((p) => [p.id, p]));
 const crosswordsById = new Map(miniCrosswords.map((p) => [p.id, p]));
 
@@ -98,7 +78,7 @@ export const App: React.FC = () => {
     switch (stage.type) {
       case 'multiple_choice': {
         const question =
-          (stage.questionId && questionsById.get(stage.questionId)) || historyQuestions[0];
+          (stage.questionId && questionById(stage.questionId)) || allQuestions[0];
         return (
           <QuizScreen stage={stage} cityId={cityId} question={question} onFinish={clearActiveStage} />
         );

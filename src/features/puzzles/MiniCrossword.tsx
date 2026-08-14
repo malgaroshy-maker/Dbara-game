@@ -13,9 +13,17 @@ interface MiniCrosswordProps {
   cityId: string;
   puzzle: MiniCrosswordPuzzle;
   onFinish: () => void;
+  /** Fired once when the grid is solved, so hosts can record completion. */
+  onSolved?: () => void;
 }
 
-export const MiniCrossword: React.FC<MiniCrosswordProps> = ({ stage, cityId, puzzle, onFinish }) => {
+export const MiniCrossword: React.FC<MiniCrosswordProps> = ({
+  stage,
+  cityId,
+  puzzle,
+  onFinish,
+  onSolved,
+}) => {
   const { addDinars, useLifeline, spendDinars, profile } = useGameStore();
   const { completeStage } = useMapStore();
 
@@ -176,6 +184,7 @@ export const MiniCrossword: React.FC<MiniCrosswordProps> = ({ stage, cityId, puz
     setIsCompleted(true);
     addDinars(stage.rewardDinars);
     completeStage(cityId, stage.id, 3);
+    onSolved?.();
     confetti({
       particleCount: 70,
       spread: 75,
