@@ -86,8 +86,11 @@ export const MainMenuScreen: React.FC<MainMenuScreenProps> = ({ onPlay, onOpenSe
 
         <h1 className="mt-5 text-5xl font-black gold-gradient-text leading-tight">دبارة</h1>
         <p className="text-sm font-bold text-ink-300 mt-1">لغز ومعرفة ليبية</p>
+        {/* Onboarding asks for a name, so the menu uses it. */}
         <p className="text-xs text-ink-400 mt-2 leading-relaxed">
-          سافر عبر مدن ليبيا ومعالمها، واجمع النجوم والدنانير
+          {profile.name
+            ? `يا هلا ${profile.name} — واصل رحلتك عبر مدن ليبيا`
+            : 'سافر عبر مدن ليبيا ومعالمها، واجمع النجوم والدنانير'}
         </p>
       </motion.div>
 

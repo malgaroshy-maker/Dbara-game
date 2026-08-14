@@ -46,6 +46,9 @@ const SpeedBlitz = lazy(() =>
 const MainMenuScreen = lazy(() =>
   import('./features/menu/MainMenuScreen').then((m) => ({ default: m.MainMenuScreen }))
 );
+const OnboardingScreen = lazy(() =>
+  import('./features/menu/OnboardingScreen').then((m) => ({ default: m.OnboardingScreen }))
+);
 
 // Built once at module load: stage lookups were previously concatenating five
 // banks into a fresh array on every render and then scanning it linearly.
@@ -73,8 +76,9 @@ const ScreenFallback: React.FC = () => (
 );
 
 export const App: React.FC = () => {
-  const { currentMode, setMode, checkBadgeUnlocks, refreshRank } = useGameStore();
-  const { activeStage, startStage, clearActiveStage, getTotalStars } = useMapStore();
+  const { currentMode, setMode, checkBadgeUnlocks, refreshRank, hasOnboarded, completeOnboarding } =
+    useGameStore();
+  const { cities, activeStage, startStage, clearActiveStage, getTotalStars } = useMapStore();
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   // The menu opens each launch rather than being persisted: it is the title
   // screen, not a saved location.
@@ -134,6 +138,29 @@ export const App: React.FC = () => {
         return <MapScreen onStartStage={startStage} />;
     }
   };
+
+  /**
+   * First run: short setup, then straight into the opening stage. Landing on a
+   * real question is the point — a tour of the map would delay the moment that
+   * actually shows what this game is.
+   */
+  if (!hasOnboarded) {
+    const openingStage = cities[0]?.stages[0];
+    return (
+      <div className="min-h-screen bg-night-900 text-ink-100 font-sans bg-libyan-pattern selection:bg-gold-400/30">
+        <Suspense fallback={<ScreenFallback />}>
+          <OnboardingScreen
+            onStart={(identity) => {
+              completeOnboarding(identity);
+              setIsMenuOpen(false);
+              if (openingStage) startStage(cities[0].id, openingStage);
+            }}
+            onSkip={(identity) => completeOnboarding(identity)}
+          />
+        </Suspense>
+      </div>
+    );
+  }
 
   if (isMenuOpen) {
     return (

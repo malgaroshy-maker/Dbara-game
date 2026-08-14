@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '../store/useGameStore';
 import { useMapStore, mergeCitiesWithInitial } from '../store/useMapStore';
 import { sfx } from '../audio/soundEffects';
-import { X, Volume2, VolumeX, Download, Upload, RotateCcw, BarChart2, ShieldCheck, Vibrate } from 'lucide-react';
+import { X, Volume2, VolumeX, Download, Upload, RotateCcw, BarChart2, ShieldCheck, Vibrate, UserRound } from 'lucide-react';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -11,13 +11,16 @@ interface SettingsModalProps {
 }
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
-  const { audio, toggleSound, toggleHaptics, stats, resetAllProgress } = useGameStore();
+  const { audio, toggleSound, toggleHaptics, stats, profile, completeOnboarding, resetAllProgress } =
+    useGameStore();
   const { resetMapProgress } = useMapStore();
 
   const [importText, setImportText] = useState<string>('');
   const [importStatus, setImportStatus] = useState<string | null>(null);
   const [exportCopied, setExportCopied] = useState<boolean>(false);
   const [showConfirmReset, setShowConfirmReset] = useState<boolean>(false);
+  const [nameDraft, setNameDraft] = useState<string>(profile.name);
+  const [nameSaved, setNameSaved] = useState<boolean>(false);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -137,6 +140,44 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
                 <span className="block text-base font-black text-gold-300">{stats.bestSpeedScore}</span>
                 <span className="text-[10px] text-ink-400">أفضل سرعة</span>
               </div>
+            </div>
+          </div>
+
+          {/* Player identity — onboarding promises this can be changed later,
+              and before it existed the name was permanently a placeholder. */}
+          <div className="p-4 rounded-2xl bg-night-800 border border-white/5 space-y-2.5">
+            <h4 className="text-xs font-bold text-gold-300 flex items-center gap-1.5">
+              <UserRound className="w-4 h-4" />
+              اسمك ورمزك
+            </h4>
+            <div className="flex items-center gap-2">
+              <span className="w-11 h-11 rounded-2xl bg-gold-400/15 border border-gold-400/30 flex items-center justify-center text-xl shrink-0">
+                {profile.avatar}
+              </span>
+              <input
+                type="text"
+                value={nameDraft}
+                maxLength={20}
+                onChange={(e) => {
+                  setNameDraft(e.target.value);
+                  setNameSaved(false);
+                }}
+                aria-label="اسم اللاعب"
+                className="flex-1 min-w-0 p-2.5 rounded-xl bg-night-900 border border-white/10 text-xs text-white font-bold placeholder:text-ink-500"
+                placeholder="اسم اللاعب"
+              />
+              <button
+                onClick={() => {
+                  if (!nameDraft.trim()) return;
+                  completeOnboarding({ name: nameDraft, avatar: profile.avatar });
+                  sfx.playCoin();
+                  setNameSaved(true);
+                }}
+                disabled={!nameDraft.trim() || nameDraft === profile.name}
+                className="px-3 py-2.5 rounded-xl bg-gold-400 text-night-900 font-black text-xs shrink-0 disabled:opacity-40"
+              >
+                {nameSaved ? 'تم ✓' : 'حفظ'}
+              </button>
             </div>
           </div>
 

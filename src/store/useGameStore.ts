@@ -34,6 +34,8 @@ interface GameState {
   completeDailyChallenge: () => void;
   isDailyChallengeAvailable: () => boolean;
   refreshRank: (totalStars: number) => void;
+  hasOnboarded: boolean;
+  completeOnboarding: (identity: { name: string; avatar: string }) => void;
   resetAllProgress: () => void;
 }
 
@@ -98,6 +100,7 @@ export const useGameStore = create<GameState>()(
       unlockedBadges: ['welcome_badge'],
       activeCategory: null,
       dailyChallengeCompletedDate: null,
+      hasOnboarded: false,
 
       setMode: (mode) => {
         sfx.playTap();
@@ -244,6 +247,21 @@ export const useGameStore = create<GameState>()(
       isDailyChallengeAvailable: () => get().dailyChallengeCompletedDate !== todayKey(),
 
       /**
+       * Records the name and avatar the player chose on first run. The profile
+       * name used to be a hard-coded placeholder with no way to change it, even
+       * though it appears in the header, the duel and every shared card.
+       */
+      completeOnboarding: ({ name, avatar }) =>
+        set((state) => ({
+          hasOnboarded: true,
+          profile: {
+            ...state.profile,
+            name: name.trim() || state.profile.name,
+            avatar: avatar || state.profile.avatar,
+          },
+        })),
+
+      /**
        * Advances the displayed rank to match what the player has actually
        * earned. Without this the title was frozen at sign-up forever, so the
        * header, share card and leaderboard all showed a rank that never moved.
@@ -308,6 +326,7 @@ export const useGameStore = create<GameState>()(
           stats: initialStats,
           unlockedBadges: ['welcome_badge'],
           dailyChallengeCompletedDate: null,
+      hasOnboarded: false,
         });
       },
     }),
@@ -322,6 +341,7 @@ export const useGameStore = create<GameState>()(
         stats: state.stats,
         unlockedBadges: state.unlockedBadges,
         dailyChallengeCompletedDate: state.dailyChallengeCompletedDate,
+        hasOnboarded: state.hasOnboarded,
       }),
       onRehydrateStorage: () => (state) => {
         // The sound engine is a plain singleton; without this the saved mute and
