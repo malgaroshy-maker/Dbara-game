@@ -1,0 +1,50 @@
+name: CI & Quality Gates
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  verify-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: 1. Content and Question Leak Gate
+        run: npm run questions:check
+
+      - name: 2. Map Precision and Drift Audit
+        run: npm run map:audit
+
+      - name: 3. TypeScript Typecheck
+        run: npx tsc -b
+
+      - name: 4. Production Build & PWA Precaching
+        run: npm run build
+
+      - name: 5. Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: 6. Playwright E2E Test Suite
+        run: npm run test:e2e
+
+      - name: Upload Test Results Artifact (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: test-results/
+          retention-days: 7

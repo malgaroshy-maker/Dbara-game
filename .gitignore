@@ -21,7 +21,11 @@ dist-ssr
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
 scripts/questions.json
 scripts/questions-edited.json
 scripts/questions-review.html
+
+# Playwright Test Artifacts
+test-results/
+playwright-report/
+blob-report/

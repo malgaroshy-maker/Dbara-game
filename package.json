@@ -10,7 +10,9 @@
     "questions:export": "node scripts/questions-export.mjs",
     "questions:check": "node scripts/questions-check.mjs",
     "questions:rebalance": "node scripts/questions-rebalance.mjs",
-    "map:audit": "node scripts/map-audit.mjs"
+    "map:audit": "node scripts/map-audit.mjs",
+    "icons:generate": "node scripts/generate-icons.mjs",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -22,6 +24,7 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "@tailwindcss/vite": "^4.0.0",
     "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^22.13.0",
