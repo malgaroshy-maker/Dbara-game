@@ -56,6 +56,7 @@ export const historyQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'كان السيلفيوم نباتاً طبياً نادراً لا ينبت إلا في قورينائية، وقد انقرض في العصور القديمة بسبب الإفراط في جمعه.',
     rewardDinars: 50,
+    source: 'موسوعة ويكيبيديا العربية (مادة: سلفيوم)',
   },
   {
     id: 'geo_cyr_01',
@@ -78,6 +79,7 @@ export const historyQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'عين الفرس شريان حياة غدامس منذ آلاف السنين، وكانت حصص مياهها تُقاس بنظام زمني دقيق يوزع الماء على البساتين.',
     rewardDinars: 40,
+    source: 'موسوعة ويكيبيديا العربية (مادة: غدامس)',
   },
   {
     id: 'hist_sab_01',
@@ -89,6 +91,7 @@ export const historyQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'أقام الجرمنت مملكة صحراوية متقدمة اعتمدت على نظام ري جوفي يسمى "الفقارات"، وسيطرت على طرق قوافل الصحراء الكبرى.',
     rewardDinars: 45,
+    source: 'موسوعة ويكيبيديا العربية (مادة: جرمنت)',
   },
   {
     id: 'geo_sab_01',
@@ -167,6 +170,7 @@ export const historyQuestions: TriviaQuestion[] = [
     correctIndex: 0,
     funFact: 'معركة درنة 1805 كانت أول معركة برية تخوضها الولايات المتحدة خارج أراضيها، وجاءت ضمن حروبها مع إيالة طرابلس.',
     rewardDinars: 50,
+    source: 'موسوعة ويكيبيديا العربية (مادة: معركة درنة (1805))',
   },
   {
     id: 'hist_jal_01',
@@ -178,6 +182,7 @@ export const historyQuestions: TriviaQuestion[] = [
     correctIndex: 2,
     funFact: 'يتميز مسجد العتيق بأوجلة بقبابه المخروطية الطينية التي تلطف الحرارة، وهو من أقدم مساجد الصحراء الليبية وأكثرها تميزاً في طرازه.',
     rewardDinars: 45,
+    source: 'بوابة الوسط الإخبارية',
   },
   {
     id: 'hist_jihad_01',
@@ -198,6 +203,7 @@ export const historyQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: 'جمعت معركة القرضابية مجاهدين من طرابلس وبرقة وفزان، وأسفرت عن هزيمة ثقيلة للقوات الإيطالية وغنائم كبيرة.',
     rewardDinars: 40,
+    source: 'موسوعة ويكيبيديا العربية (مادة: معركة القرضابية)',
   },
   {
     id: 'hist_castillo_01',
@@ -219,6 +225,7 @@ export const historyQuestions: TriviaQuestion[] = [
     correctIndex: 2,
     funFact: 'أسس أحمد القرمانلي حكم أسرته في طرابلس سنة 1711م، واستمرت أكثر من قرن قبل عودة الحكم العثماني المباشر سنة 1835م.',
     rewardDinars: 45,
+    source: 'موسوعة ويكيبيديا العربية (مادة: إيالة طرابلس الغرب)',
   },
   {
     id: 'hist_unesco_01',
