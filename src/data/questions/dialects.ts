@@ -63,17 +63,6 @@ export const dialectQuestions: TriviaQuestion[] = [
     rewardDinars: 30,
   },
   {
-    id: 'dia_04',
-    category: 'dialects',
-    difficulty: 'hard',
-    question: 'أكمل المثل الشعبي الليبي: "عريان يسلب في..."؟',
-    options: ['تاجر', 'فقير', 'غني', 'ميت'],
-    correctIndex: 3,
-    funFact: 'يُضرب لمن يطمع في أخذ شيء ممن لا يملك شيئاً أصلاً، فكلاهما محتاج.',
-    rewardDinars: 40,
-    needsReview: 'رواية هذا المثل وصياغته تختلف بين المناطق الليبية — يحتاج تأكيد الصيغة الأشهر.',
-  },
-  {
     id: 'dia_05',
     category: 'dialects',
     difficulty: 'medium',
