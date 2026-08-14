@@ -52,28 +52,47 @@ not a generic Arabic quiz with a Libyan skin.
 
 Built and verified today:
 
-- **Map expedition** — 20 Libyan cities at real coordinates across the four
-  regions, 77 stages, unlocked by collecting stars.
-- **Question banks** — 343 multiple-choice questions across 9 categories
+- **Map expedition** — 26 Libyan cities at real coordinates across the four
+  regions, 95 stages, unlocked by collecting stars or bought with dinars. The
+  map zooms and pans to 4x; symbols hold their size on screen, so zooming in
+  lets the declutter ask for less separation and the pins settle back onto their
+  true positions — no pin is ever drawn more than 39 km from its city, and at 4x
+  none is displaced at all. `npm run map:audit` reports the drift per city.
+- **Question banks** — 356 multiple-choice questions across 9 categories
   (4 Libyan: history, dialect, sport, cuisine; 5 general: geography, Islamic
   civilisation, Arabic language and literature, science, general knowledge),
-  plus 50 true/false statements for the speed mode. Eight of the nine banks hold
-  40 questions each; every category carries a real spread of difficulty
-  (93 easy / 132 medium / 85 hard / 33 expert) and reward follows difficulty.
-  73 questions cite a source — a named work, institution or Quranic verse rather
-  than a link, so it stays checkable offline.
-- **Puzzle modes** — letter scramble (17), 4×4 Arabic mini-crossword (18),
+  plus 50 true/false statements for the speed mode. Difficulty spreads
+  94 easy / 137 medium / 91 hard / 34 expert, and reward follows it six-fold
+  rather than two-fold. 83 questions cite a source — a named work, institution
+  or Quranic verse rather than a link, so it stays checkable offline.
+- **Round shape** — a five-question round ramps easy, easy, medium, medium,
+  hard instead of being drawn at random, so no round opens on an expert
+  question. Measured over thousands of sampled rounds by `npm run round:audit`.
+- **Hints** — 123 of the 124 hard and expert questions carry a bought hint that
+  narrows the thinking without naming the answer; the build fails if one does.
+- **Earned fun facts** — the fun fact appears only on a correct answer. A wrong
+  answer is shown the right one and nothing more.
+- **Puzzle modes** — letter scramble (30), 4×4 Arabic mini-crossword (18),
   45-second speed blitz, and a daily challenge **derived from the date** — a
   pure function, so the same day yields the same challenge on every device
   with no server, cycling four modes without repeating until a pool is spent.
 - **Question memory** — the game records which questions a player has seen and
   which they got wrong. Rounds prefer unseen questions, and a practice mode
-  replays only the missed ones until they are answered correctly.
+  replays only the missed ones until they are answered correctly. A map stage
+  asks its curated question first, then draws unseen ones from the same city and
+  subject, so replaying a city no longer repeats: twelve replays now give twelve
+  different questions in every city, where it used to give one.
 - **Content integrity check** — `npm run questions:check` gates the build, so a
   bank that breaks the authoring rules or a dangling stage reference cannot ship.
 - **Local two-player duel** on one device (pass and play).
-- **Meta** — Libyan-dinar economy, lifelines shop, badges, shareable achievement
-  cards rendered on canvas.
+- **Meta** — Libyan-dinar economy sized so the balance is worth watching: a
+  perfect round pays about 120 against lifelines at 45 to 120, and the shop sells
+  eight avatars, four titles and the early unlock of a locked city at 120 dinars
+  per star it would have cost. Cosmetics touch no difficulty, so they can be
+  priced freely. Badges and shareable achievement cards rendered on canvas.
+- **Mistake reporting** — a link under every fun fact opens WhatsApp with the
+  question id already filled in, so a report names the item rather than
+  describing it.
 - **Persistence** — everything is on-device, with manual backup export/import.
 
 Constraints:
@@ -87,9 +106,12 @@ Constraints:
 Explicitly undecided:
 
 - Which of the three audiences is primary.
-- **Who validates Libyan factual content.** No authority is established. Claims
-  that cannot be confirmed carry a `needsReview` note in the data saying what
-  is doubtful and why.
+- **Who validates Libyan factual content.** No authority is established beyond
+  the author's own review. Claims that cannot be confirmed carry a `needsReview`
+  note saying what is doubtful and why — none are outstanding today. 47 of the
+  124 hard and expert questions still cite no source, which is where a wrong
+  answer is most likely to be hiding, and the in-game report link exists to find
+  them.
 - When the server arrives, and what it covers first.
 
 ## Brand Commitments

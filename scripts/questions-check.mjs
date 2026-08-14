@@ -242,7 +242,9 @@ const mentions = (haystack, needle) => {
 // What a player actually reads, per record. Options are left out: an option
 // list naturally contains other questions' answers, and that is not a leak.
 const visibleText = ({ kind, data: d }) => {
-  if (kind === 'mcq') return `${d.question} ${d.funFact}`;
+  // The hint counts: it is player-visible, so it can spoil another
+  // question exactly as a fun fact can.
+  if (kind === 'mcq') return `${d.question} ${d.funFact} ${d.hint ?? ''}`;
   if (kind === 'blitz') return `${d.statement} ${d.explanation}`;
   if (kind === 'scramble') return `${d.prompt} ${d.hint ?? ''} ${d.funFact}`;
   return `${d.clues.map((c) => c.clue).join(' ')} ${d.funFact}`;

@@ -201,6 +201,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['يا ترى / هل', 'بالتأكيد', 'أبداً', 'ربما لاحقاً'],
     correctIndex: 0,
     funFact: '"زعمة" أداة استفهام وتعجب بمعنى "يا ترى"، وتُستخدم للاستفسار والتشكيك في آن واحد.',
+    hint: 'أداة استفهام تُبدأ بها الجملة، لا اسم ولا فعل.',
     rewardDinars: 35,
   },
   {
@@ -301,6 +302,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['الملعقة', 'القارورة أو الزجاجة', 'الطاولة', 'المفتاح'],
     correctIndex: 1,
     funFact: '"الدبّوزة" هي القارورة، ويرجّح أنها دخيلة على اللهجة من الإيطالية، شأنها شأن مفردات ساحلية أخرى.',
+    hint: 'الكلمة مأخوذة عن الإيطالية، وتُقال لما يُحفظ فيه الماء.',
     rewardDinars: 35,
   },
   {
@@ -311,6 +313,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['الشبكة', 'المجداف', 'القارب الصغير', 'المرساة'],
     correctIndex: 2,
     funFact: 'الفلوكة قارب خشبي صغير يستعمله الصيادون قرب الشاطئ، وتكثر في موانئ زوارة ومصراتة وطبرق.',
+    hint: 'الكلمة من أصل إيطالي، ويستعملها الصيادون كل يوم.',
     rewardDinars: 35,
   },
   {
@@ -321,6 +324,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['الساحة الواسعة', 'السوق', 'البوابة', 'الشارع الضيق'],
     correctIndex: 3,
     funFact: '"الزنقة" ممر ضيق بين البيوت، وتكثر في نسيج المدن القديمة كالمدينة القديمة بطرابلس.',
+    hint: 'تُقال للطريق الضيق بين البيوت في المدينة القديمة.',
     rewardDinars: 35,
   },
   {
@@ -331,6 +335,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['المكنسة', 'المرآة', 'السلّم', 'الوسادة'],
     correctIndex: 0,
     funFact: '"المقشّة" من القش الذي كانت تُصنع منه قديماً، ومنها الفعل "قشّ" أي كنس.',
+    hint: 'أداة تُمسك باليد وتُجرّ على الأرض.',
     rewardDinars: 35,
   },
   {
@@ -341,6 +346,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['خزانة الملابس', 'موقد الفحم', 'باب الدار', 'سطح المنزل'],
     correctIndex: 1,
     funFact: 'على الكانون يُغلى الشاي ويُشوى الخبز في ليالي الشتاء، وحوله تلتئم جلسة العائلة.',
+    hint: 'يُوقد فيه الفحم للتدفئة ولغلي الشاي.',
     rewardDinars: 35,
   },
   {
@@ -351,6 +357,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['الحبل', 'السكين', 'الكيس الكبير', 'العصا'],
     correctIndex: 2,
     funFact: '"الشكارة" كيس كبير من الخيش أو البلاستيك يُعبأ فيه الدقيق أو الحبوب أو التمر.',
+    hint: 'يُحمل فيه الدقيق أو الحبوب.',
     rewardDinars: 35,
   },
   {
@@ -361,6 +368,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['البئر', 'الطاحونة', 'المخزن', 'حظيرة الماشية'],
     correctIndex: 3,
     funFact: 'الزريبة سياج من الشوك أو الخشب يُحاط به الغنم والماعز ليلاً حمايةً لها.',
+    hint: 'مكان مسوّر يُحفظ فيه الغنم.',
     rewardDinars: 35,
   },
   {
@@ -371,6 +379,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     options: ['الصحن الكبير', 'الكوب', 'الشوكة', 'الإبريق'],
     correctIndex: 0,
     funFact: 'يُقدَّم البازين والفتات في طبسي كبير يجتمع حوله الآكلون، وهي عادة راسخة في الضيافة الليبية.',
+    hint: 'يُوضع في وسط المائدة ويأكل منه الجميع.',
     rewardDinars: 35,
   },
   {
