@@ -54,12 +54,20 @@ Built and verified today:
 
 - **Map expedition** — 20 Libyan cities at real coordinates across the four
   regions, 77 stages, unlocked by collecting stars.
-- **Question banks** — 195 multiple-choice questions across 9 categories
+- **Question banks** — 219 multiple-choice questions across 9 categories
   (4 Libyan: history, dialect, sport, cuisine; 5 general: geography, Islamic
   civilisation, Arabic language and literature, science, general knowledge),
-  plus 50 true/false statements for the speed mode.
-- **Puzzle modes** — letter scramble (17), 4×4 Arabic mini-crossword (3),
-  45-second speed blitz, daily challenge (3 rotating).
+  plus 50 true/false statements for the speed mode. Every category carries a
+  real spread of difficulty, and reward follows difficulty.
+- **Puzzle modes** — letter scramble (17), 4×4 Arabic mini-crossword (18),
+  45-second speed blitz, and a daily challenge **derived from the date** — a
+  pure function, so the same day yields the same challenge on every device
+  with no server, cycling four modes without repeating until a pool is spent.
+- **Question memory** — the game records which questions a player has seen and
+  which they got wrong. Rounds prefer unseen questions, and a practice mode
+  replays only the missed ones until they are answered correctly.
+- **Content integrity check** — `npm run questions:check` gates the build, so a
+  bank that breaks the authoring rules or a dangling stage reference cannot ship.
 - **Local two-player duel** on one device (pass and play).
 - **Meta** — Libyan-dinar economy, lifelines shop, badges, shareable achievement
   cards rendered on canvas.
@@ -104,7 +112,9 @@ Absences that future work must not paper over:
 - **The leaderboard rivals are fabricated placeholder names.** They stand in for a
   feature that needs the planned server. Until it exists, the leaderboard must not
   present invented people as real competitors.
-- **No external review of the Libyan content** has happened.
+- **No external review of the Libyan content** has happened. Five specific
+  claims are flagged by id in `improvement-plan.md` as wanting a local reviewer,
+  and no question carries a source field yet.
 
 ## Product Principles
 
