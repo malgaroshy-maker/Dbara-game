@@ -72,8 +72,8 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onStart, onS
             className="flex-1 flex flex-col justify-center"
           >
             <div className="text-center">
-              <div className="mx-auto w-20 h-20 rounded-[1.75rem] bg-gradient-to-br from-gold-300 via-gold-400 to-gold-600 flex items-center justify-center shadow-gold-glow-lg">
-                <Compass className="w-10 h-10 text-night-900" strokeWidth={2.2} />
+              <div className="mx-auto w-20 h-20 rounded-[1.75rem] overflow-hidden border-2 border-gold-400/50 shadow-gold-glow-lg flex items-center justify-center bg-night-950">
+                <img src="/icon-192.png" alt="أيقونة دبارة" className="w-full h-full object-cover" />
               </div>
               <h1 className="mt-5 text-4xl font-black gold-gradient-text">أهلاً بك في دبارة</h1>
               <p className="text-sm text-ink-300 mt-2 leading-relaxed">

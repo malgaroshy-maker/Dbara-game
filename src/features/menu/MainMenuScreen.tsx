@@ -74,11 +74,11 @@ export const MainMenuScreen: React.FC<MainMenuScreenProps> = ({ onPlay, onOpenSe
         transition={{ type: 'spring', stiffness: 220, damping: 20 }}
         className="text-center"
       >
-        <div className="relative mx-auto w-24 h-24 rounded-[2rem] bg-gradient-to-br from-gold-300 via-gold-400 to-gold-600 flex items-center justify-center shadow-gold-glow-lg">
-          <Compass className="w-12 h-12 text-night-900" strokeWidth={2.2} />
+        <div className="relative mx-auto w-24 h-24 rounded-[2rem] overflow-hidden border-2 border-gold-400/50 shadow-gold-glow-lg flex items-center justify-center bg-night-950">
+          <img src="/icon-192.png" alt="أيقونة دبارة" className="w-full h-full object-cover" />
           <motion.span
             aria-hidden="true"
-            className="absolute inset-0 rounded-[2rem] border-2 border-gold-300/50"
+            className="absolute inset-0 rounded-[2rem] border-2 border-gold-300/50 pointer-events-none"
             animate={{ scale: [1, 1.18, 1], opacity: [0.55, 0, 0.55] }}
             transition={{ repeat: Infinity, duration: 2.6, ease: 'easeOut' }}
           />

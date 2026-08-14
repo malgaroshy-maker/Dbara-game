@@ -5,6 +5,8 @@ import { HeaderHUD } from './components/HeaderHUD';
 import { BottomNav } from './components/BottomNav';
 import { SettingsModal } from './components/SettingsModal';
 import { MapScreen } from './features/map/MapScreen';
+import { usePWAInstall } from './features/pwa/usePWAInstall';
+import { PWAInstallModal } from './features/pwa/PWAInstallModal';
 
 // Question & Puzzle Banks
 import { allQuestions, questionById } from './data/questions';
@@ -42,9 +44,6 @@ const OnboardingScreen = lazy(() =>
   import('./features/menu/OnboardingScreen').then((m) => ({ default: m.OnboardingScreen }))
 );
 
-// Stage lookups go through the shared index in `data/questions`, which is built
-// once at module load. This used to concatenate every bank into a fresh array
-// on each render and then scan it linearly.
 const scramblesById = new Map(wordScramblePuzzles.map((p) => [p.id, p]));
 const crosswordsById = new Map(miniCrosswords.map((p) => [p.id, p]));
 
@@ -60,8 +59,12 @@ export const App: React.FC = () => {
     useGameStore();
   const { cities, activeStage, startStage, clearActiveStage, getTotalStars } = useMapStore();
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+  const [isInstallModalOpen, setIsInstallModalOpen] = useState<boolean>(false);
   // Returning players land directly in the game instead of the title menu on reload.
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+  const { isInstallable, isInstalled, isIOS, isOnline, showOfflineToast, triggerInstall } =
+    usePWAInstall();
 
   const totalStars = getTotalStars();
 
@@ -153,18 +156,50 @@ export const App: React.FC = () => {
             onOpenSettings={() => setIsSettingsOpen(true)}
           />
         </Suspense>
-        <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
+        <SettingsModal
+          isOpen={isSettingsOpen}
+          onClose={() => setIsSettingsOpen(false)}
+          onOpenInstall={() => setIsInstallModalOpen(true)}
+        />
+        <PWAInstallModal
+          isOpen={isInstallModalOpen}
+          onClose={() => setIsInstallModalOpen(false)}
+          isIOS={isIOS}
+          isInstallable={isInstallable}
+          isInstalled={isInstalled}
+          onInstall={triggerInstall}
+        />
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-night-900 text-ink-100 flex flex-col font-sans bg-libyan-pattern selection:bg-gold-400/30">
+      {/* Offline / Online Status Pill Toast */}
+      {showOfflineToast && (
+        <div className="fixed top-14 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-2xl bg-night-850/95 border border-gold-400/35 text-xs font-bold shadow-2xl flex items-center gap-2 backdrop-blur-md text-white transition-all">
+          {!isOnline ? (
+            <>
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
+              <span>⚡ وضع اللعب دون إنترنت: كافة المراحل والأسئلة متاحة</span>
+            </>
+          ) : (
+            <>
+              <span className="w-2 h-2 rounded-full bg-oasis-400" />
+              <span>✓ تم استعادة الاتصال بالإنترنت</span>
+            </>
+          )}
+        </div>
+      )}
+
       {/* Top HUD */}
       {!activeStage && (
         <HeaderHUD
           onOpenSettings={() => setIsSettingsOpen(true)}
           onOpenMenu={() => setIsMenuOpen(true)}
+          onOpenInstall={() => setIsInstallModalOpen(true)}
+          isInstalled={isInstalled}
+          isOnline={isOnline}
         />
       )}
 
@@ -177,7 +212,21 @@ export const App: React.FC = () => {
       {!activeStage && <BottomNav />}
 
       {/* Settings & Backup Modal */}
-      <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+        onOpenInstall={() => setIsInstallModalOpen(true)}
+      />
+
+      {/* PWA Install Modal */}
+      <PWAInstallModal
+        isOpen={isInstallModalOpen}
+        onClose={() => setIsInstallModalOpen(false)}
+        isIOS={isIOS}
+        isInstallable={isInstallable}
+        isInstalled={isInstalled}
+        onInstall={triggerInstall}
+      />
     </div>
   );
 };

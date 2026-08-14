@@ -1,14 +1,23 @@
 import React from 'react';
 import { useGameStore } from '../store/useGameStore';
 import { useMapStore } from '../store/useMapStore';
-import { Volume2, VolumeX, Settings, Star, Coins, Flame } from 'lucide-react';
+import { Volume2, VolumeX, Settings, Star, Coins, Flame, Download, WifiOff } from 'lucide-react';
 
 interface HeaderHUDProps {
   onOpenSettings: () => void;
   onOpenMenu: () => void;
+  onOpenInstall?: () => void;
+  isInstalled?: boolean;
+  isOnline?: boolean;
 }
 
-export const HeaderHUD: React.FC<HeaderHUDProps> = ({ onOpenSettings, onOpenMenu }) => {
+export const HeaderHUD: React.FC<HeaderHUDProps> = ({ 
+  onOpenSettings, 
+  onOpenMenu,
+  onOpenInstall,
+  isInstalled = false,
+  isOnline = true,
+}) => {
   const { profile, audio, toggleSound } = useGameStore();
   const { getTotalStars } = useMapStore();
 
@@ -44,6 +53,12 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({ onOpenSettings, onOpenMenu
                 <Flame className="w-3 h-3 text-flame" />
                 {profile.streakDays} أيام
               </span>
+              {!isOnline && (
+                <span className="flex items-center gap-1 px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-bold">
+                  <WifiOff className="w-2.5 h-2.5" />
+                  أوفلاين
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -61,6 +76,17 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({ onOpenSettings, onOpenMenu
             <Coins className="w-3.5 h-3.5 text-gold-400" />
             <span>{profile.dinars}</span>
           </div>
+
+          {/* Quick PWA Install Button (if in browser) */}
+          {!isInstalled && onOpenInstall && (
+            <button
+              onClick={onOpenInstall}
+              title="تثبيت اللعبة على هاتفك للعب دون إنترنت"
+              className="p-2 rounded-2xl bg-gradient-to-r from-gold-400/20 to-amber-500/20 hover:from-gold-400 hover:to-amber-500 text-gold-300 hover:text-night-900 border border-gold-400/40 transition-all active:scale-95 flex items-center gap-1 shadow-sm"
+            >
+              <Download className="w-4 h-4" />
+            </button>
+          )}
 
           {/* Sound Toggle */}
           <button

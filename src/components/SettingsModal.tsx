@@ -9,9 +9,10 @@ import { AUTHOR, reportLink } from '../data/credits';
 interface SettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onOpenInstall?: () => void;
 }
 
-export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
+export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenInstall }) => {
   const { audio, toggleSound, toggleHaptics, stats, profile, completeOnboarding, resetAllProgress } =
     useGameStore();
   const { resetMapProgress } = useMapStore();
@@ -144,8 +145,31 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
             </div>
           </div>
 
-          {/* Player identity — onboarding promises this can be changed later,
-              and before it existed the name was permanently a placeholder. */}
+          {/* PWA App Installation Option */}
+          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-gold-400/10 via-night-800 to-sea-500/10 border border-gold-400/25 flex items-center justify-between gap-3 shadow-inner">
+            <div className="flex items-center gap-3">
+              <img
+                src="/icon-192.png"
+                alt="أيقونة دبارة"
+                className="w-10 h-10 rounded-2xl border border-gold-400/40 object-cover shadow-sm"
+              />
+              <div>
+                <h4 className="text-xs font-extrabold text-white">تثبيت التطبيق</h4>
+                <p className="text-[10px] text-ink-400 mt-0.5">للعب دون إنترنت وبسرعة فائقة</p>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                if (onOpenInstall) onOpenInstall();
+              }}
+              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-gold-400 to-amber-500 hover:from-gold-300 hover:to-gold-400 text-night-900 text-xs font-black shrink-0 transition-transform active:scale-95 shadow-sm flex items-center gap-1"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>تثبيت</span>
+            </button>
+          </div>
+
+          {/* Player identity */}
           <div className="p-4 rounded-2xl bg-night-800 border border-white/5 space-y-2.5">
             <h4 className="text-xs font-bold text-gold-300 flex items-center gap-1.5">
               <UserRound className="w-4 h-4" />
