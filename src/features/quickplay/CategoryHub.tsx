@@ -10,6 +10,10 @@ import { islamicQuestions } from '../../data/questions/islamic';
 import { literatureQuestions } from '../../data/questions/literature';
 import { scienceQuestions } from '../../data/questions/science';
 import type { QuizCategory, TriviaQuestion } from '../../types/quiz';
+import { buildRound, buildPracticeRound } from './roundBuilder';
+
+// Re-exported because callers and tests have always reached for it here.
+export { buildRound };
 import { QuizScreen } from '../quiz/QuizScreen';
 import { PassAndPlayScreen } from '../multiplayer/PassAndPlayScreen';
 import { useGameStore } from '../../store/useGameStore';
@@ -31,38 +35,6 @@ import {
   Feather,
   FlaskConical,
 } from 'lucide-react';
-
-const QUESTIONS_PER_ROUND = 5;
-
-const shuffle = <T,>(list: T[]): T[] => {
-  const out = [...list];
-  for (let i = out.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [out[i], out[j]] = [out[j], out[i]];
-  }
-  return out;
-};
-
-/**
- * Builds a round that prefers questions the player has not seen.
- *
- * Drawing five at random from a bank of sixteen meant heavy repetition after
- * two or three rounds. Unseen questions come first, shuffled; only once a
- * category is exhausted does the round fall back to seen ones — so the bank
- * is worked through before anything comes round again.
- */
-export const buildRound = (
-  questions: TriviaQuestion[],
-  seenIds: string[],
-  size: number = QUESTIONS_PER_ROUND
-): TriviaQuestion[] => {
-  const seen = new Set(seenIds);
-  const fresh = shuffle(questions.filter((q) => !seen.has(q.id)));
-  if (fresh.length >= size) return fresh.slice(0, size);
-  // Top up with already-seen questions rather than serving a short round.
-  const rest = shuffle(questions.filter((q) => seen.has(q.id)));
-  return [...fresh, ...rest].slice(0, Math.min(size, questions.length));
-};
 
 /** Flat completion bonus plus 10 dinars for every question actually answered right. */
 const roundCompletionBonus = (correctCount: number) => 25 + correctCount * 10;
@@ -200,7 +172,7 @@ export const CategoryHub: React.FC = () => {
 
     setIsPracticeRound(true);
     setActiveCategory(null);
-    setRoundQuestions(shuffle(pool).slice(0, QUESTIONS_PER_ROUND));
+    setRoundQuestions(buildPracticeRound(pool));
     setCurrentQuestionIdx(0);
     setRoundScore(0);
     setIsRoundFinished(false);

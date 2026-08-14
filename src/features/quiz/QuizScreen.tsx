@@ -10,6 +10,7 @@ import confetti from 'canvas-confetti';
 import { reportLink } from '../../data/credits';
 import {
   Flag,
+  BookOpen,
   Sparkles,
   Clock,
   HelpCircle, 
@@ -166,6 +167,17 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
     setShowFactModal(true);
   };
 
+  /**
+   * Whether the player earned the answer, as opposed to skipping to it.
+   *
+   * The fun fact is a reward for getting there, so a wrong answer is told what
+   * the right one was and nothing more — the fact is still waiting the next
+   * time the question comes round.
+   */
+  const answeredCorrectly =
+    selectedOption !== null &&
+    shuffledOptions[selectedOption]?.originalIndex === question.correctIndex;
+
   const handleFactContinue = () => {
     setShowFactModal(false);
     const isPlayerCorrect =
@@ -321,23 +333,54 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
               exit={{ scale: 0.9, opacity: 0 }}
               className="w-full max-w-md bg-gradient-to-b from-night-700 to-night-900 border border-gold-400/40 rounded-3xl p-5 shadow-2xl text-center"
             >
-              <div className="w-12 h-12 rounded-2xl bg-gold-400/20 border border-gold-400/50 flex items-center justify-center mx-auto mb-3 text-gold-300">
-                <Lightbulb className="w-6 h-6" />
+              <div
+                className={`w-12 h-12 rounded-2xl border flex items-center justify-center mx-auto mb-3 ${
+                  answeredCorrectly
+                    ? 'bg-gold-400/20 border-gold-400/50 text-gold-300'
+                    : 'bg-sea-500/15 border-sea-500/40 text-sea-300'
+                }`}
+              >
+                {answeredCorrectly ? <Lightbulb className="w-6 h-6" /> : <BookOpen className="w-6 h-6" />}
               </div>
 
-              <span className="text-xs font-black px-3 py-1 rounded-full bg-gold-400/20 text-gold-300 border border-gold-400/30">
-                💡 معلومة ع الماشي
-              </span>
+              {answeredCorrectly ? (
+                <>
+                  <span className="text-xs font-black px-3 py-1 rounded-full bg-gold-400/20 text-gold-300 border border-gold-400/30">
+                    💡 معلومة ع الماشي
+                  </span>
 
-              <p className="text-sm text-ink-100 leading-relaxed my-4 text-right bg-night-850/70 p-4 rounded-2xl border border-white/5">
-                {question.funFact}
-              </p>
+                  <p className="text-sm text-ink-100 leading-relaxed my-4 text-right bg-night-850/70 p-4 rounded-2xl border border-white/5">
+                    {question.funFact}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <span className="text-xs font-black px-3 py-1 rounded-full bg-sea-500/15 text-sea-300 border border-sea-500/30">
+                    الإجابة الصحيحة
+                  </span>
+
+                  <p className="text-base font-extrabold text-ink-100 leading-relaxed my-4 bg-night-850/70 p-4 rounded-2xl border border-white/5">
+                    {question.options[question.correctIndex]}
+                  </p>
+
+                  {/* The fact is the prize for getting there, so it is held back
+                      rather than handed over — and it gives the question
+                      something left to offer when it comes round again. */}
+                  <p className="text-[11px] text-ink-400 -mt-2 mb-3">
+                    المعلومة تنتظرك حين تصيبها 💡
+                  </p>
+                </>
+              )}
 
               <button
                 onClick={handleFactContinue}
-                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-gold-400 to-flame text-night-900 font-black text-sm shadow-lg transition-transform active:scale-95"
+                className={`w-full py-3.5 rounded-2xl font-black text-sm shadow-lg transition-transform active:scale-95 ${
+                  answeredCorrectly
+                    ? 'bg-gradient-to-r from-gold-400 to-flame text-night-900'
+                    : 'bg-night-700 border border-white/15 text-ink-100'
+                }`}
               >
-                استمر في الرحلة 🧭
+                {answeredCorrectly ? 'استمر في الرحلة 🧭' : 'التالي'}
               </button>
 
               {/* The moment a player knows an answer is wrong is the moment they
