@@ -84,6 +84,9 @@ Built and verified today:
   different questions in every city, where it used to give one.
 - **Content integrity check** — `npm run questions:check` gates the build, so a
   bank that breaks the authoring rules or a dangling stage reference cannot ship.
+  It also catches one question giving away another's answer, across questions,
+  fun facts, hints, crossword clues and speed-blitz statements. That backlog went
+  111 pairs to zero, so the rule now has no exceptions at all.
 - **Local two-player duel** on one device (pass and play).
 - **Meta** — Libyan-dinar economy sized so the balance is worth watching: a
   perfect round pays about 120 against lifelines at 45 to 120, and the shop sells

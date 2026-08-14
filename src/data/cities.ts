@@ -108,7 +108,7 @@ export const initialCities: CityNode[] = [
     requiredStarsToUnlock: 8,
     stages: [
       { id: 'gharyan_1', stageNumber: 1, title: 'الدور الجوفية وعمارة الجبل', type: 'multiple_choice', questionId: 'geo_gry_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
-      { id: 'gharyan_2', stageNumber: 2, title: 'رتب الحروف: حرفة الطين', type: 'letter_scramble', puzzleId: 'scramble_gry_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'gharyan_2', stageNumber: 2, title: 'رتب الحروف: أواني البيت الليبي', type: 'letter_scramble', puzzleId: 'scramble_gry_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
       { id: 'gharyan_3', stageNumber: 3, title: 'أفران غريان وصناعتها', type: 'multiple_choice', questionId: 'geo_gry_02', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
     ],
   },
@@ -151,7 +151,7 @@ export const initialCities: CityNode[] = [
     requiredStarsToUnlock: 9,
     stages: [
       { id: 'misrata_1', stageNumber: 1, title: 'رأس الرمل وموانئ قصر أحمد', type: 'multiple_choice', questionId: 'hist_mis_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
-      { id: 'misrata_2', stageNumber: 2, title: 'رتب الحروف: رياضة وكورة مصراتة', type: 'letter_scramble', puzzleId: 'scramble_mis_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
+      { id: 'misrata_2', stageNumber: 2, title: 'رتب الحروف: نسيج مصراتة', type: 'letter_scramble', puzzleId: 'scramble_mis_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
       { id: 'misrata_3', stageNumber: 3, title: 'حلويات مصراتة والكعك المالح', type: 'multiple_choice', questionId: 'food_mis_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
       { id: 'misrata_4', stageNumber: 4, title: 'سباق سرعة: الساحل الأوسط', type: 'speed_blitz', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
     ],
@@ -174,7 +174,7 @@ export const initialCities: CityNode[] = [
     stages: [
       { id: 'sirte_1', stageNumber: 1, title: 'موقع سرت بين الإقليمين', type: 'multiple_choice', questionId: 'geo_srt_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
       { id: 'sirte_2', stageNumber: 2, title: 'معركة القرضابية', type: 'multiple_choice', questionId: 'hist_qardabiya_01', starsEarned: 0, isUnlocked: false, rewardDinars: 20 },
-      { id: 'sirte_3', stageNumber: 3, title: 'رتب الحروف: انحناءة الساحل', type: 'letter_scramble', puzzleId: 'scramble_srt_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
+      { id: 'sirte_3', stageNumber: 3, title: 'رتب الحروف: موانئ النفط', type: 'letter_scramble', puzzleId: 'scramble_srt_01', starsEarned: 0, isUnlocked: false, rewardDinars: 15 },
     ],
   },
   {

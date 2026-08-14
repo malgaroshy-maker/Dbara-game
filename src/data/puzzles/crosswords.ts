@@ -24,12 +24,12 @@ export const miniCrosswords: MiniCrosswordPuzzle[] = [
       [null, null, 'ا', null],
     ],
     clues: [
-      { number: 1, direction: 'across', clue: 'اسم قلعة طرابلس التاريخية الشهيرة', answer: 'سراي', row: 0, col: 0 },
+      { number: 1, direction: 'across', clue: 'حصن يطل على البحر عند مدخل المدينة القديمة', answer: 'سراي', row: 0, col: 0 },
       { number: 2, direction: 'across', clue: 'سائل ذهبي يُعصر من ثمر الشجرة المباركة', answer: 'زيت', row: 2, col: 1 },
       { number: 1, direction: 'down', clue: 'مكان البيع والشراء في المدينة القديمة', answer: 'سوق', row: 0, col: 0 },
-      { number: 3, direction: 'down', clue: 'الاسم الفينيقي القديم لمدينة طرابلس', answer: 'اويا', row: 0, col: 2 },
+      { number: 3, direction: 'down', clue: 'أقدم أسماء العاصمة، ومنه بقيت الحكاية', answer: 'اويا', row: 0, col: 2 },
     ],
-    funFact: 'تتميز المدينة القديمة في طرابلس بالسرايا الحمراء وأسواق الصاغة وباب الحرية ومعالم تاريخية تمتد لآلاف السنين.',
+    funFact: 'المدينة القديمة في العاصمة تجمع أسواقها وأقواسها وقلعتها في مساحة تُقطع مشياً.',
     rewardDinars: 50,
   },
   {
@@ -43,12 +43,12 @@ export const miniCrosswords: MiniCrosswordPuzzle[] = [
       [null, null, null, null],
     ],
     clues: [
-      { number: 1, direction: 'across', clue: 'نادي كروي بنغازي عريق يلقب بالفحامة', answer: 'نصر', row: 0, col: 0 },
+      { number: 1, direction: 'across', clue: 'ضد الهزيمة، وغاية كل منافس', answer: 'نصر', row: 0, col: 0 },
       { number: 2, direction: 'across', clue: 'سفر وسياحة لاستكشاف المعالم والمدن', answer: 'رحلة', row: 2, col: 0 },
       { number: 1, direction: 'down', clue: 'الضياء والسطوع (عكس الظلام)', answer: 'نور', row: 0, col: 0 },
       { number: 3, direction: 'down', clue: 'حبيبات ذهبية تنتشر على شواطئ وصحراء ليبيا', answer: 'رمل', row: 0, col: 2 },
     ],
-    funFact: 'تعد بنغازي عاصمة الثقافة والأدب وتضم ساحة الشجرة والبلدية التاريخية وبحيرات الكيش و23 يوليو.',
+    funFact: 'لمدينة بنغازي تاريخ كروي عريق، وجماهيرها من أكثر جماهير البلاد حماسة.',
     rewardDinars: 50,
   },
   {
@@ -67,7 +67,7 @@ export const miniCrosswords: MiniCrosswordPuzzle[] = [
       { number: 1, direction: 'down', clue: 'آلة موسيقية وترية شرقية أصيلة', answer: 'عود', row: 0, col: 0 },
       { number: 3, direction: 'down', clue: 'أشجار الواحات المباركة التي تنتج التمور', answer: 'نخل', row: 0, col: 2 },
     ],
-    funFact: 'تعتبر مدينة غدامس لؤلؤة الصحراء بعين مائها ونظام توزيع السواقي الهندسي الفريد.',
+    funFact: 'قامت المدينة القديمة حول نبع وُزّعت حصصه بنظام زمني دقيق.',
     rewardDinars: 50,
   },
   {
@@ -124,7 +124,7 @@ export const miniCrosswords: MiniCrosswordPuzzle[] = [
       { number: 1, direction: 'down', clue: 'أول ضوء النهار، وأول الصلوات الخمس', answer: 'فجر', row: 0, col: 0 },
       { number: 3, direction: 'down', clue: 'سفن الصحراء التي حملت قوافل التجارة', answer: 'ابل', row: 0, col: 2 },
     ],
-    funFact: 'كانت مرزق وجرما محطتي القوافل الكبرى في فزان، ومنهما كانت تنطلق الدروب نحو وسط أفريقيا.',
+    funFact: 'كانت جرما وما حولها محطات القوافل الكبرى في فزان، ومنها تنطلق الدروب نحو وسط أفريقيا.',
     rewardDinars: 50,
   },
   {
@@ -143,7 +143,7 @@ export const miniCrosswords: MiniCrosswordPuzzle[] = [
       { number: 1, direction: 'down', clue: 'فاكهة صيفية تُجفف وتُخزن للشتاء', answer: 'تين', row: 0, col: 0 },
       { number: 3, direction: 'down', clue: 'ما تقيسه الساعة، وأثمن ما يملكه الإنسان', answer: 'وقت', row: 0, col: 2 },
     ],
-    funFact: 'النخلة عماد اقتصاد الواحات: من ثمرها الغذاء، ومن سعفها السلال والحصر، ومن جذعها سقوف البيوت.',
+    funFact: 'واحات الشرق الليبي من أقدم مراكز زراعة النخيل في شمال أفريقيا.',
     rewardDinars: 50,
   },
   {
@@ -162,7 +162,7 @@ export const miniCrosswords: MiniCrosswordPuzzle[] = [
       { number: 1, direction: 'down', clue: 'يُحرق فيه الطين ويُخبز فيه العيش', answer: 'فرن', row: 0, col: 0 },
       { number: 3, direction: 'down', clue: 'أدوات الخياطة الدقيقة، مفردها إبرة', answer: 'ابر', row: 0, col: 2 },
     ],
-    funFact: 'ما زالت ورش الفخار في غريان تشكّل الجرار والأواني على الدولاب وتحرقها في أفران حجرية متوارثة.',
+    funFact: 'ورش المدينة ما زالت تعمل بالطرق المتوارثة، وأفرانها لا تكاد تنطفئ.',
     rewardDinars: 50,
   },
   {
@@ -181,7 +181,7 @@ export const miniCrosswords: MiniCrosswordPuzzle[] = [
       { number: 1, direction: 'down', clue: 'مسالك تصل بين المدن، مفردها طريق', answer: 'طرق', row: 0, col: 0 },
       { number: 3, direction: 'down', clue: 'هواء متحرك قد يحمل معه رمال الصحراء', answer: 'ريح', row: 0, col: 2 },
     ],
-    funFact: 'جعل مرفأ طبرق الطبيعي العميق منها هدفاً استراتيجياً في الحرب العالمية الثانية، وما زالت مقابرها العسكرية شاهدة.',
+    funFact: 'مدينة الشرق الأقصى على الساحل، ومرفؤها من أعمق مرافئ جنوب المتوسط.',
     rewardDinars: 50,
   },
   {
@@ -200,7 +200,7 @@ export const miniCrosswords: MiniCrosswordPuzzle[] = [
       { number: 1, direction: 'down', clue: 'خُلق الضيافة الذي يفاخر به أهل ليبيا', answer: 'كرم', row: 0, col: 0 },
       { number: 3, direction: 'down', clue: 'فنون القول من شعر ونثر', answer: 'ادب', row: 0, col: 2 },
     ],
-    funFact: 'من أعلام الأدب الليبي إبراهيم الكوني في أدب الصحراء، وأحمد رفيق المهدوي في الشعر، وخليفة التليسي في الترجمة والنقد.',
+    funFact: 'الرواية الليبية بلغت العالمية على يد كاتب جعل من الصحراء بطلاً لا خلفية.',
     rewardDinars: 50,
   },
 
@@ -318,7 +318,7 @@ export const miniCrosswords: MiniCrosswordPuzzle[] = [
       { number: 1, direction: 'down', clue: 'قضاء وفصل بين الناس', answer: 'حكم', row: 0, col: 0 },
       { number: 3, direction: 'down', clue: 'يُكتب عليه، ومنه ما يكسو الشجر', answer: 'ورق', row: 0, col: 2 },
     ],
-    funFact: 'العربية من أكثر لغات العالم انتشاراً، وهي لغة رسمية في أكثر من عشرين دولة ومن لغات الأمم المتحدة الست.',
+    funFact: 'من أكثر لغات العالم انتشاراً، وهي رسمية في أكثر من عشرين دولة ومن لغات الأمم المتحدة الست.',
     rewardDinars: 50,
   },
   {
@@ -337,7 +337,7 @@ export const miniCrosswords: MiniCrosswordPuzzle[] = [
       { number: 1, direction: 'down', clue: 'ماء ينزل من السحاب', answer: 'مطر', row: 0, col: 0 },
       { number: 3, direction: 'down', clue: 'راية الدولة، ويُطلق أيضاً على المعرفة', answer: 'علم', row: 0, col: 2 },
     ],
-    funFact: 'ملعب 11 يونيو في طرابلس من أكبر ملاعب ليبيا، واحتضن مباريات كأس الأمم الأفريقية 1982 بما فيها النهائي.',
+    funFact: 'أكبر ملاعب العاصمة، واحتضن نهائي البطولة الأفريقية التي استضافتها البلاد.',
     rewardDinars: 50,
   },
   {
@@ -356,7 +356,7 @@ export const miniCrosswords: MiniCrosswordPuzzle[] = [
       { number: 1, direction: 'down', clue: 'أهل البلد وسكانه', answer: 'شعب', row: 0, col: 0 },
       { number: 3, direction: 'down', clue: 'الابن الصغير', answer: 'ولد', row: 0, col: 2 },
     ],
-    funFact: 'السنة الهجرية قمرية ومدتها نحو 354 يوماً، فتتقدم شهورها على السنة الميلادية أحد عشر يوماً كل عام.',
+    funFact: 'السنة الهجرية قمرية ومدتها نحو 354 يوماً، فتتقدم شهورها على السنة الميلادية كل عام.',
     rewardDinars: 50,
   },
 ];
