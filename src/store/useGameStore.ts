@@ -25,7 +25,16 @@ interface GameState {
   toggleSound: () => void;
   toggleMusic: () => void;
   toggleHaptics: () => void;
-  recordQuestionAnswer: (isCorrect: boolean) => void;
+  /**
+   * `questionId` is optional so callers that have no single question to name
+   * (the speed round) still record the tally.
+   */
+  recordQuestionAnswer: (isCorrect: boolean, questionId?: string) => void;
+  /** Ids the player has been shown, so a round can prefer fresh questions. */
+  seenQuestionIds: string[];
+  /** Ids answered wrong and not yet re-answered correctly. */
+  missedQuestionIds: string[];
+  clearQuestionHistory: () => void;
   recordSpeedScore: (score: number) => void;
   unlockBadge: (badgeId: string) => void;
   checkBadgeUnlocks: (totalStars: number) => string[];
@@ -101,6 +110,8 @@ export const useGameStore = create<GameState>()(
       activeCategory: null,
       dailyChallengeCompletedDate: null,
       hasOnboarded: false,
+      seenQuestionIds: [],
+      missedQuestionIds: [],
 
       setMode: (mode) => {
         sfx.playTap();
@@ -186,15 +197,32 @@ export const useGameStore = create<GameState>()(
         }));
       },
 
-      recordQuestionAnswer: (isCorrect) => {
-        set((state) => ({
-          stats: {
+      recordQuestionAnswer: (isCorrect, questionId) => {
+        set((state) => {
+          const stats = {
             ...state.stats,
             questionsAnswered: state.stats.questionsAnswered + 1,
             correctAnswers: isCorrect ? state.stats.correctAnswers + 1 : state.stats.correctAnswers,
-          },
-        }));
+          };
+          if (!questionId) return { stats };
+
+          const seen = state.seenQuestionIds.includes(questionId)
+            ? state.seenQuestionIds
+            : [...state.seenQuestionIds, questionId];
+
+          // A question leaves the missed list only by being answered right,
+          // so practice actually clears it rather than merely re-showing it.
+          const missed = isCorrect
+            ? state.missedQuestionIds.filter((id) => id !== questionId)
+            : state.missedQuestionIds.includes(questionId)
+              ? state.missedQuestionIds
+              : [...state.missedQuestionIds, questionId];
+
+          return { stats, seenQuestionIds: seen, missedQuestionIds: missed };
+        });
       },
+
+      clearQuestionHistory: () => set({ seenQuestionIds: [], missedQuestionIds: [] }),
 
       recordSpeedScore: (score) => {
         set((state) => ({
@@ -326,7 +354,9 @@ export const useGameStore = create<GameState>()(
           stats: initialStats,
           unlockedBadges: ['welcome_badge'],
           dailyChallengeCompletedDate: null,
-      hasOnboarded: false,
+          hasOnboarded: false,
+          seenQuestionIds: [],
+          missedQuestionIds: [],
         });
       },
     }),
@@ -342,6 +372,9 @@ export const useGameStore = create<GameState>()(
         unlockedBadges: state.unlockedBadges,
         dailyChallengeCompletedDate: state.dailyChallengeCompletedDate,
         hasOnboarded: state.hasOnboarded,
+        // Shaped to sync to a server later without a rebuild, per PRODUCT.md.
+        seenQuestionIds: state.seenQuestionIds,
+        missedQuestionIds: state.missedQuestionIds,
       }),
       onRehydrateStorage: () => (state) => {
         // The sound engine is a plain singleton; without this the saved mute and

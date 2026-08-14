@@ -64,10 +64,10 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
   const handleTimeOut = useCallback(() => {
     setIsAnswered(true);
     sfx.playWrong();
-    recordQuestionAnswer(false);
+    recordQuestionAnswer(false, question.id);
     onResolved?.({ isCorrect: false, stars: 0 });
     setShowFactModal(true);
-  }, [recordQuestionAnswer, onResolved]);
+  }, [recordQuestionAnswer, onResolved, question.id]);
 
   const handleTick = useCallback((secondsLeft: number) => {
     if (secondsLeft <= 4) sfx.playTick();
@@ -86,7 +86,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
     setIsAnswered(true);
 
     const isCorrect = shuffledOptions[visualIndex].originalIndex === question.correctIndex;
-    recordQuestionAnswer(isCorrect);
+    recordQuestionAnswer(isCorrect, question.id);
 
     if (isCorrect) {
       sfx.playCorrect();

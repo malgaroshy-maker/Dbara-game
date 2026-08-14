@@ -34,6 +34,36 @@ import {
 
 const QUESTIONS_PER_ROUND = 5;
 
+const shuffle = <T,>(list: T[]): T[] => {
+  const out = [...list];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+};
+
+/**
+ * Builds a round that prefers questions the player has not seen.
+ *
+ * Drawing five at random from a bank of sixteen meant heavy repetition after
+ * two or three rounds. Unseen questions come first, shuffled; only once a
+ * category is exhausted does the round fall back to seen ones — so the bank
+ * is worked through before anything comes round again.
+ */
+export const buildRound = (
+  questions: TriviaQuestion[],
+  seenIds: string[],
+  size: number = QUESTIONS_PER_ROUND
+): TriviaQuestion[] => {
+  const seen = new Set(seenIds);
+  const fresh = shuffle(questions.filter((q) => !seen.has(q.id)));
+  if (fresh.length >= size) return fresh.slice(0, size);
+  // Top up with already-seen questions rather than serving a short round.
+  const rest = shuffle(questions.filter((q) => seen.has(q.id)));
+  return [...fresh, ...rest].slice(0, Math.min(size, questions.length));
+};
+
 /** Flat completion bonus plus 10 dinars for every question actually answered right. */
 const roundCompletionBonus = (correctCount: number) => 25 + correctCount * 10;
 
@@ -133,9 +163,12 @@ const categories: CategoryConfig[] = [
 ];
 
 export const CategoryHub: React.FC = () => {
-  const { addDinars } = useGameStore();
+  const { addDinars, seenQuestionIds, missedQuestionIds } = useGameStore();
 
   const [activeCategory, setActiveCategory] = useState<QuizCategory | null>(null);
+  // A practice round is not a category, so it needs its own flag for the title
+  // and for the replay button at the end of the round.
+  const [isPracticeRound, setIsPracticeRound] = useState<boolean>(false);
   const [isPassAndPlayActive, setIsPassAndPlayActive] = useState<boolean>(false);
   const [roundQuestions, setRoundQuestions] = useState<TriviaQuestion[]>([]);
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState<number>(0);
@@ -146,16 +179,28 @@ export const CategoryHub: React.FC = () => {
     const cat = categories.find((c) => c.id === catId);
     if (!cat || cat.questions.length === 0) return;
 
-    // Pick unique shuffled questions for this round
-    const shuffled = [...cat.questions];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-
-    const selected = shuffled.slice(0, Math.min(QUESTIONS_PER_ROUND, shuffled.length));
+    const selected = buildRound(cat.questions, seenQuestionIds);
+    setIsPracticeRound(false);
     setActiveCategory(catId);
     setRoundQuestions(selected);
+    setCurrentQuestionIdx(0);
+    setRoundScore(0);
+    setIsRoundFinished(false);
+  };
+
+  /**
+   * A round built only from questions answered wrong and not yet put right.
+   * Answering one correctly removes it from the list in the store, so the
+   * practice pool shrinks as the player actually learns them.
+   */
+  const handleStartPractice = () => {
+    const missed = new Set(missedQuestionIds);
+    const pool = categories.flatMap((c) => c.questions).filter((q) => missed.has(q.id));
+    if (pool.length === 0) return;
+
+    setIsPracticeRound(true);
+    setActiveCategory(null);
+    setRoundQuestions(shuffle(pool).slice(0, QUESTIONS_PER_ROUND));
     setCurrentQuestionIdx(0);
     setRoundScore(0);
     setIsRoundFinished(false);
@@ -185,14 +230,18 @@ export const CategoryHub: React.FC = () => {
 
   const handleExitRound = () => {
     setActiveCategory(null);
+    setIsPracticeRound(false);
     setRoundQuestions([]);
     setCurrentQuestionIdx(0);
     setIsRoundFinished(false);
   };
 
-  if (activeCategory && roundQuestions.length > 0) {
+  if ((activeCategory || isPracticeRound) && roundQuestions.length > 0) {
+    const roundTitle = isPracticeRound
+      ? 'تدرّب على أخطائك'
+      : categories.find((c) => c.id === activeCategory)?.title ?? 'لعب حر';
+
     if (isRoundFinished) {
-      const currentCatObj = categories.find((c) => c.id === activeCategory);
       return (
         <div className="flex flex-col items-center justify-center p-4 max-w-sm mx-auto text-center pt-8">
           <motion.div
@@ -207,7 +256,7 @@ export const CategoryHub: React.FC = () => {
             <h3 className="text-xl font-black text-white">اكتملت الجولة الثقافية! 🎉</h3>
             <p className="text-xs text-ink-400 mt-1">
               أجبت بشكل صحيح على {roundScore} من {roundQuestions.length} في مجال:{' '}
-              {currentCatObj?.title}
+              {roundTitle}
             </p>
 
             <div className="flex items-center justify-center gap-1.5 my-4">
@@ -229,11 +278,13 @@ export const CategoryHub: React.FC = () => {
 
             <div className="flex flex-col gap-2">
               <button
-                onClick={() => handleStartCategory(activeCategory)}
+                onClick={() =>
+                  isPracticeRound ? handleStartPractice() : handleStartCategory(activeCategory!)
+                }
                 className="w-full py-3 rounded-2xl bg-night-700 border border-white/10 hover:border-white/20 text-white font-bold text-xs flex items-center justify-center gap-1.5"
               >
                 <RotateCcw className="w-4 h-4" />
-                <span>جولة جديدة في نفس المجال</span>
+                <span>{isPracticeRound ? 'جولة تدريب أخرى' : 'جولة جديدة في نفس المجال'}</span>
               </button>
 
               <button
@@ -253,7 +304,10 @@ export const CategoryHub: React.FC = () => {
       <div className="flex flex-col gap-2">
         {/* Round Progress Tracker */}
         <div className="max-w-lg mx-auto w-full px-3 pt-1 flex items-center justify-between text-xs font-bold text-ink-400">
-          <span>جولة اللعب السريع ({currentQuestionIdx + 1} من {roundQuestions.length})</span>
+          <span>
+            {isPracticeRound ? 'جولة تدريب' : 'جولة اللعب السريع'} ({currentQuestionIdx + 1} من{' '}
+            {roundQuestions.length})
+          </span>
           <div className="w-32 bg-white/10 h-1.5 rounded-full overflow-hidden">
             <div
               className="bg-gold-400 h-full transition-all duration-300"
@@ -269,7 +323,7 @@ export const CategoryHub: React.FC = () => {
           stage={{
             id: `quick_stage_${currentQuestionIdx}`,
             stageNumber: currentQuestionIdx + 1,
-            title: categories.find((c) => c.id === activeCategory)?.title || 'لعب حر',
+            title: roundTitle,
             type: 'multiple_choice',
             starsEarned: 0,
             isUnlocked: true,
@@ -301,6 +355,34 @@ export const CategoryHub: React.FC = () => {
           اختر مجالك المفضل للعب الفردي أو نافس صديقك في التحدي الثنائي
         </p>
       </div>
+
+      {/* Practice banner — only present when there is something to practise,
+          so it never advertises an empty round. */}
+      {missedQuestionIds.length > 0 && (
+        <motion.button
+          type="button"
+          whileHover={{ scale: 1.01 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => {
+            sfx.playTap();
+            handleStartPractice();
+          }}
+          className="w-full text-right glass-panel p-4 rounded-3xl cursor-pointer border-2 border-rose/50 bg-gradient-to-r from-rose/15 via-night-800 to-flame/15 flex items-center justify-between gap-3"
+        >
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose to-flame text-night-900 flex items-center justify-center shrink-0 shadow-lg">
+              <RotateCcw className="w-6 h-6 stroke-[2.5]" />
+            </div>
+            <div>
+              <h3 className="text-sm font-black text-white">تدرّب على أخطائك</h3>
+              <p className="text-[11px] text-ink-300 mt-0.5">
+                {missedQuestionIds.length} سؤالاً أخطأت فيه — أجب صح ليخرج من القائمة
+              </p>
+            </div>
+          </div>
+          <Play className="w-5 h-5 text-rose fill-current shrink-0" />
+        </motion.button>
+      )}
 
       {/* 2-Player Pass & Play Featured Banner.
           A real <button>: as a clickable <div> it was unreachable by keyboard
