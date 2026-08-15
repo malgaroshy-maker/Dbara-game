@@ -146,9 +146,11 @@ Absences that future work must not paper over:
 
 - **No real players, testimonials, download numbers, reviews or press.** None may
   be invented or implied.
-- **The leaderboard rivals are fabricated placeholder names.** They stand in for a
-  feature that needs the planned server. Until it exists, the leaderboard must not
-  present invented people as real competitors.
+- **There is no cross-player leaderboard, and the standing screen must not
+  imply one.** It once listed seven invented rivals with invented scores; those
+  are gone, and it now shows only the player's own record against a rank ladder.
+  Real ranking needs the planned server, and until that exists nothing here may
+  present invented people as competitors.
 - **No external review of the Libyan content** has happened by a person. Machine
   fact-check passes brought every hard and expert question to a named source,
   but their verdicts were unreliable enough that only quoted, re-checked findings

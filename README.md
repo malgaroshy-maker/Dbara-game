@@ -162,4 +162,7 @@ node scripts/apply-scrambles.mjs f.json    # يضيف ألغاز حروف ويش
 - 📋 [وثيقة متطلبات المنتج (PRD)](file:///c:/Users/masal/Documents/opencode/trivia-game/prd.md)
 - 🎨 [نظام التصميم Impeccable Neo-Heritage](file:///c:/Users/masal/Documents/opencode/trivia-game/design.md)
 - 🏗️ [الخطة المعمارية والتقنية](file:///c:/Users/masal/Documents/opencode/trivia-game/plan.md)
-- 🗺️ [خارطة طريق التطوير](file:///c:/Users/masal/Documents/opencode/trivia-game/roadmap.md)
+- 🗺️ [خارطة طريق التطوير](file:///c:/Users/masal/Documents/opencode/trivia-game/roadmap.md) — ما أُنجز
+- 👉 [الخطوات التالية](./next-steps.md) — ما يستحق أن يلي، ومعه القرارات الموقوفة عليك
+- 🧭 [خطة التحسين](./improvement-plan.md) — التحليل الذي وُلدت منه أكثر البنود
+- 🚀 [خطة الاستضافة والنشر](./HOSTING.md)
