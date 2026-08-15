@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { ShareResultModal } from '../../components/ShareResultModal';
 import { RewardCelebration } from '../../components/RewardCelebration';
+import { ReportModal } from '../../components/ReportModal';
 import type { DifficultyLevel } from '../../types/quiz';
 
 interface DifficultyConfig {
@@ -104,6 +105,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
   const [earnedStars, setEarnedStars] = useState<number>(0);
   const [isVictoryModal, setIsVictoryModal] = useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
+  const [isReportModalOpen, setIsReportModalOpen] = useState<boolean>(false);
   const [isHintShown, setIsHintShown] = useState<boolean>(false);
 
   // Dynamically shuffle options on question load (Fisher-Yates Shuffle)
@@ -520,15 +522,17 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
                   have just read it, so the report carries this question's id and
                   they never have to describe which one they meant. */}
               {canReport && (
-                <a
-                  href={reportLink(question.id)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-flex items-center justify-center gap-1 text-[11px] text-ink-400 hover:text-gold-300 transition-colors"
+                <button
+                  type="button"
+                  onClick={() => {
+                    sfx.playTap();
+                    setIsReportModalOpen(true);
+                  }}
+                  className="mt-3 inline-flex items-center justify-center gap-1.5 text-[11px] text-ink-400 hover:text-gold-300 transition-colors"
                 >
-                  <Flag className="w-3 h-3" />
+                  <Flag className="w-3.5 h-3.5 text-gold-400/80" />
                   <span>تشك في هذه المعلومة؟ بلّغنا</span>
-                </a>
+                </button>
               )}
             </motion.div>
           </div>
@@ -619,6 +623,16 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
         show={isVictoryModal && earnedStars > 0}
         stars={earnedStars}
         dinars={wasSkipped ? 0 : stage.rewardDinars}
+      />
+
+      {/* In-App Report Modal for Question Feedback */}
+      <ReportModal
+        isOpen={isReportModalOpen}
+        onClose={() => setIsReportModalOpen(false)}
+        questionId={question.id}
+        questionText={question.question}
+        category={question.category}
+        source={question.source}
       />
     </div>
   );

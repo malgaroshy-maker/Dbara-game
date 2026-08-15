@@ -170,18 +170,22 @@ test.describe('Dbara Trivia Game E2E Suite', () => {
     await page.getByRole('button', { name: /أويا/ }).click();
 
     // Fun fact card / next question modal should appear
-    const reportLink = page.getByRole('link', { name: 'تشك في هذه المعلومة؟ بلّغنا' });
-    await expect(reportLink).toBeVisible();
+    const reportBtn = page.getByRole('button', { name: 'تشك في هذه المعلومة؟ بلّغنا' });
+    await expect(reportBtn).toBeVisible();
 
-    // The channel itself is a build-time setting (see src/data/credits.ts), so
-    // asserting on wa.me would only be testing which env this build used. What
-    // has to hold either way is that the link is a real https destination and
-    // that it carries the question id — a report that does not name the
-    // question is the report that costs an hour to act on.
-    const href = await reportLink.getAttribute('href');
-    expect(href).toMatch(/^https:\/\//);
-    const subject = new URL(href!).search;
-    expect(subject).toMatch(/(?:hist|geo|dia|spo|food|gen|isl|lit|sci)[a-z_]*_?\w+/);
+    // Clicking report button opens the in-app ReportModal
+    await reportBtn.click();
+    const reportDialog = page.getByRole('dialog', { name: 'التبليغ عن خطأ أو ملاحظة' });
+    await expect(reportDialog).toBeVisible();
+    await expect(reportDialog.getByText(/معرّف السؤال/)).toBeVisible();
+
+    // Verify copy details button exists
+    const copyBtn = reportDialog.getByRole('button', { name: /نسخ تفاصيل السؤال/ });
+    await expect(copyBtn).toBeVisible();
+
+    // Close report modal
+    await reportDialog.getByRole('button', { name: 'إغلاق النافذة' }).click();
+    await expect(reportDialog).not.toBeVisible();
 
     // Click continue to proceed
     const continueBtn = page.getByRole('button', { name: /استمر في الرحلة/ });

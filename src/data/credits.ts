@@ -19,43 +19,51 @@ export const AUTHOR = {
 } as const;
 
 /**
- * A form or page that collects reports — the safe channel, because it exposes
- * a form and not a person. `{subject}` anywhere in the URL is replaced by the
- * thing being reported, so a prefilled-field form link works:
- *
- *   VITE_REPORT_URL=https://example.com/form?entry.123={subject}
+ * Default Tally form for Dbara question & game feedback.
+ * Can be overridden at build time via VITE_REPORT_URL.
  */
-const REPORT_URL = import.meta.env.VITE_REPORT_URL?.trim();
+export const DEFAULT_REPORT_URL = 'https://tally.so/r/3yV5yP';
 
-/**
- * A WhatsApp number in the international form `wa.me` expects: no plus sign, no
- * spaces. Publishes a personal phone number to every visitor, so it is the
- * fallback rather than the default, and is set per-build, never committed.
- */
+const CONFIGURED_REPORT_URL = import.meta.env.VITE_REPORT_URL?.trim();
 const REPORT_WHATSAPP = import.meta.env.VITE_REPORT_WHATSAPP?.replace(/\D/g, '');
 
-/** Whether any report channel is configured. The UI hides the link when not. */
-export const canReport = Boolean(REPORT_URL || REPORT_WHATSAPP);
+/** Whether reporting channel is enabled. In-app modal is always available. */
+export const canReport = true;
 
 /**
- * A link that reports a problem, or `undefined` when no channel is configured.
- *
- * `subject` should name the thing being reported — a question id above all.
- * A report that says "one of the food questions was wrong" costs an hour of
- * searching; one that says `food_trad_09` costs a minute.
+ * Returns a configured report URL with interpolated parameters.
  */
-export const reportLink = (subject?: string): string | undefined => {
-  if (REPORT_URL) {
-    return REPORT_URL.includes('{subject}')
-      ? REPORT_URL.replace('{subject}', encodeURIComponent(subject ?? ''))
-      : REPORT_URL;
+export const getReportUrl = (subject?: string, text?: string): string => {
+  if (REPORT_WHATSAPP && !CONFIGURED_REPORT_URL) {
+    const body = [
+      'السلام عليكم، عندي ملاحظة على لعبة دبارة:',
+      subject ? `\nالموضع: ${subject}` : '',
+      text ? `\nالنص: ${text}` : '',
+      '\nالملاحظة: ',
+    ].join('');
+    return `https://wa.me/${REPORT_WHATSAPP}?text=${encodeURIComponent(body)}`;
   }
-  if (!REPORT_WHATSAPP) return undefined;
 
-  const body = [
-    'السلام عليكم، عندي ملاحظة على لعبة دبارة:',
-    subject ? `\nالموضع: ${subject}` : '',
-    '\nالملاحظة: ',
-  ].join('');
-  return `https://wa.me/${REPORT_WHATSAPP}?text=${encodeURIComponent(body)}`;
+  const base = CONFIGURED_REPORT_URL || DEFAULT_REPORT_URL;
+  let url = base;
+
+  if (url.includes('{subject}')) {
+    url = url.replace('{subject}', encodeURIComponent(subject ?? ''));
+  } else if (subject && !url.includes('question_id=')) {
+    url += (url.includes('?') ? '&' : '?') + `question_id=${encodeURIComponent(subject)}`;
+  }
+
+  if (url.includes('{text}')) {
+    url = url.replace('{text}', encodeURIComponent(text ?? ''));
+  }
+
+  return url;
 };
+
+/**
+ * Backward-compatible helper for legacy direct links.
+ */
+export const reportLink = (subject?: string): string => {
+  return getReportUrl(subject);
+};
+

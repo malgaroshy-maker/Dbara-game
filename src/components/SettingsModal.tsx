@@ -5,7 +5,8 @@ import { useGameStore } from '../store/useGameStore';
 import { useMapStore, mergeCitiesWithInitial } from '../store/useMapStore';
 import { sfx } from '../audio/soundEffects';
 import { X, Volume2, VolumeX, Download, Upload, RotateCcw, BarChart2, ShieldCheck, Vibrate, UserRound, MessageCircle } from 'lucide-react';
-import { AUTHOR, canReport, reportLink } from '../data/credits';
+import { AUTHOR, canReport } from '../data/credits';
+import { ReportModal } from './ReportModal';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -22,6 +23,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
   const [importStatus, setImportStatus] = useState<string | null>(null);
   const [exportCopied, setExportCopied] = useState<boolean>(false);
   const [showConfirmReset, setShowConfirmReset] = useState<boolean>(false);
+  const [isReportOpen, setIsReportOpen] = useState<boolean>(false);
   const [nameDraft, setNameDraft] = useState<string>(profile.name);
   const [nameSaved, setNameSaved] = useState<boolean>(false);
 
@@ -277,16 +279,17 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
           {/* Report a mistake, and who made this */}
           <div className="pt-2 space-y-2">
             {canReport && (
-              <a
-                href={reportLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => sfx.playTap()}
-                className="w-full py-2.5 rounded-xl bg-oasis-500/10 hover:bg-oasis-500/20 text-oasis-500 text-xs font-bold flex items-center justify-center gap-1.5 border border-oasis-500/25"
+              <button
+                type="button"
+                onClick={() => {
+                  sfx.playTap();
+                  setIsReportOpen(true);
+                }}
+                className="w-full py-2.5 rounded-xl bg-oasis-500/10 hover:bg-oasis-500/20 text-oasis-500 text-xs font-bold flex items-center justify-center gap-1.5 border border-oasis-500/25 transition-colors"
               >
                 <MessageCircle className="w-3.5 h-3.5" />
                 <span>بلّغ عن خطأ أو اقترح سؤالاً</span>
-              </a>
+              </button>
             )}
             <p className="text-[10px] text-ink-400 text-center leading-relaxed">
               من إعداد وجمع {AUTHOR.arabicName}
@@ -329,6 +332,15 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
           </div>
         </motion.div>
       </div>
+
+      {/* In-App Report Modal */}
+      <ReportModal
+        isOpen={isReportOpen}
+        onClose={() => setIsReportOpen(false)}
+        questionId="game_feedback"
+        questionText="اقتراح سؤال أو ملاحظة عامة على اللعبة"
+        category="عام"
+      />
     </AnimatePresence>
   );
 };
