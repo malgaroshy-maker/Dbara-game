@@ -16,17 +16,24 @@ export interface ExplorerRank {
 }
 
 /**
+ * Total stars obtainable across all map stages in Libya (95 stages × 3 stars = 285).
+ * Kept in sync with `src/data/cities.ts` by the automated guard in `scripts/questions-check.mjs`.
+ */
+export const TOTAL_MAP_STARS = 285;
+
+/**
  * Thresholds are scaled to the size of the actual game, not guessed. The map
- * holds 231 stars, which alone is worth 8,085 points, so an early draft topping
- * out at 2,000 crowned a player who had opened barely a third of Libya.
+ * holds 285 stars across 95 stages, which alone is worth 9,975 points.
+ * Reaching the summit ("شيخ الدبارة") requires ~87-90% comprehensive mastery
+ * across stars, correct trivia answers, and streak consistency.
  */
 export const explorerRanks: ExplorerRank[] = [
   { id: 'novice', title: 'مستكشف مبتدئ', minScore: 0, icon: '🧭' },
-  { id: 'guide', title: 'دليل الدروب', minScore: 400, icon: '🗺️' },
-  { id: 'traveller', title: 'رحّالة المدن', minScore: 1200, icon: '🐪' },
-  { id: 'keeper', title: 'حافظ التراث', minScore: 2500, icon: '🏛️' },
-  { id: 'sage', title: 'جهبذ الأقاليم', minScore: 4500, icon: '⭐' },
-  { id: 'master', title: 'شيخ الدبارة', minScore: 7000, icon: '👑' },
+  { id: 'guide', title: 'دليل الدروب', minScore: 500, icon: '🗺️' },
+  { id: 'traveller', title: 'رحّالة المدن', minScore: 1500, icon: '🐪' },
+  { id: 'keeper', title: 'حافظ التراث', minScore: 3200, icon: '🏛️' },
+  { id: 'sage', title: 'جهبذ الأقاليم', minScore: 5800, icon: '⭐' },
+  { id: 'master', title: 'شيخ الدبارة', minScore: 9000, icon: '👑' },
 ];
 
 /**

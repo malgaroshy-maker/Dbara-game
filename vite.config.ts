@@ -67,7 +67,15 @@ export default defineConfig({
         // `react-dom/client`, which the name-keyed form does not match, so
         // react-dom was silently ending up in the entry chunk.
         manualChunks(id) {
-          if (!id.includes('node_modules')) return undefined;
+          if (!id.includes('node_modules')) {
+            if (id.includes('/src/data/questions/') || id.includes('\\src\\data\\questions\\')) {
+              return 'questions-bank';
+            }
+            if (id.includes('/src/data/puzzles/') || id.includes('\\src\\data\\puzzles\\')) {
+              return 'puzzles-bank';
+            }
+            return undefined;
+          }
           if (/[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/.test(id)) return 'vendor';
           if (id.includes('framer-motion') || id.includes('motion-dom') || id.includes('motion-utils'))
             return 'motion';

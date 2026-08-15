@@ -19,6 +19,7 @@ test.describe('Dbara Trivia Game E2E Suite', () => {
                 lastLoginDate: new Date().toISOString().slice(0, 10),
                 soundEnabled: true,
                 hapticsEnabled: true,
+                lifelines: { fiftyFifty: 1, revealLetter: 1, skip: 1, extraTime: 1 },
               },
               audio: {
                 soundEnabled: true,
@@ -34,7 +35,7 @@ test.describe('Dbara Trivia Game E2E Suite', () => {
               },
               unlockedBadges: ['welcome_badge'],
               dailyChallengeCompletedDate: null,
-              seenQuestionIds: [],
+              seenQuestionIds: ['hist_trp_01'],
               missedQuestionIds: [],
             },
             version: 0,
@@ -80,7 +81,7 @@ test.describe('Dbara Trivia Game E2E Suite', () => {
 
     // Verify zero console errors
     const criticalErrors = consoleErrors.filter(
-      (err) => !err.includes('favicon') && !err.includes('manifest')
+      (err) => !err.includes('favicon') && !err.includes('manifest') && !err.includes('fonts.googleapis') && !err.includes('fonts.gstatic')
     );
     expect(criticalErrors).toHaveLength(0);
   });
@@ -216,5 +217,29 @@ test.describe('Dbara Trivia Game E2E Suite', () => {
     await expect(page.getByText('مستكشف دبارة')).toBeVisible();
     await expect(page.getByText('150')).toBeVisible();
     await expect(page.locator('button[data-city-id="tripoli"]')).toBeVisible();
+  });
+
+  test('8. Badges screen includes Knowledge Notebook tab (دفتر المعارف) and can switch tabs', async ({ page }) => {
+    await page.goto('/');
+
+    // Open Menu and navigate to Badges screen
+    const menuBtn = page.getByRole('button', { name: 'القائمة الرئيسية' });
+    await menuBtn.click();
+
+    const badgesBtn = page.getByRole('button', { name: /الأوسمة والرتب/ });
+    await expect(badgesBtn).toBeVisible();
+    await badgesBtn.click();
+
+    // Verify Badges and tabs are visible
+    await expect(page.getByText('استعرض إنجازاتك ورتبتك وأرقامك القياسية والمساعدات')).toBeVisible();
+    const notebookTab = page.getByRole('button', { name: 'دفتر المعارف' });
+    await expect(notebookTab).toBeVisible();
+
+    // Switch to notebook tab
+    await notebookTab.click();
+
+    // Verify notebook content is rendered
+    await expect(page.getByText('«معلومة ع الماشي»')).toBeVisible();
+    await expect(page.getByPlaceholder(/ابحث في المعلومات/)).toBeVisible();
   });
 });

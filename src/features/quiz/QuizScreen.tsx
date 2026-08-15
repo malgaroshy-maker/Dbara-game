@@ -22,14 +22,59 @@ import {
   Trophy, 
   ArrowRight,
   Star,
-  Share2
+  Share2,
+  Coins
 } from 'lucide-react';
 import { ShareResultModal } from '../../components/ShareResultModal';
+import { RewardCelebration } from '../../components/RewardCelebration';
+import type { DifficultyLevel } from '../../types/quiz';
+
+interface DifficultyConfig {
+  label: string;
+  badgeStyle: string;
+  initialSeconds: number;
+  star3MinTime: number;
+  star2MinTime: number;
+}
+
+export const DIFFICULTY_SETTINGS: Record<DifficultyLevel, DifficultyConfig> = {
+  easy: {
+    label: 'سهل',
+    badgeStyle: 'bg-oasis-500/15 text-oasis-300 border-oasis-500/30',
+    initialSeconds: 20,
+    star3MinTime: 15,
+    star2MinTime: 9,
+  },
+  medium: {
+    label: 'متوسط',
+    badgeStyle: 'bg-gold-400/15 text-gold-300 border-gold-400/30',
+    initialSeconds: 25,
+    star3MinTime: 19,
+    star2MinTime: 12,
+  },
+  hard: {
+    label: 'صعب',
+    badgeStyle: 'bg-flame/15 text-flame border-flame/30',
+    initialSeconds: 30,
+    star3MinTime: 22,
+    star2MinTime: 14,
+  },
+  expert: {
+    label: 'خبير',
+    badgeStyle: 'bg-orchid/15 text-orchid-300 border-orchid/30',
+    initialSeconds: 35,
+    star3MinTime: 25,
+    star2MinTime: 16,
+  },
+};
+
+import { questionForStage } from '../map/stageQuestion';
 
 interface QuizScreenProps {
   stage: Stage;
   cityId: string;
-  question: TriviaQuestion;
+  question?: TriviaQuestion;
+  seenIds?: string[];
   onFinish: () => void;
   /** Reports how the question went, once, so round hosts can tally a score. */
   onResolved?: (result: { isCorrect: boolean; stars: number }) => void;
@@ -38,10 +83,16 @@ interface QuizScreenProps {
 export const QuizScreen: React.FC<QuizScreenProps> = ({
   stage,
   cityId,
-  question,
+  question: propQuestion,
+  seenIds,
   onFinish,
   onResolved,
 }) => {
+  const question = useMemo(() => {
+    if (propQuestion) return propQuestion;
+    return questionForStage(stage.questionId, cityId, seenIds ?? []);
+  }, [propQuestion, stage.questionId, cityId, seenIds]);
+
   const { profile, useLifeline, spendDinars, addDinars, recordQuestionAnswer } = useGameStore();
   const { completeStage } = useMapStore();
 
@@ -65,6 +116,11 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
     return opts;
   }, [question]);
 
+  const difficultyConfig = useMemo(
+    () => DIFFICULTY_SETTINGS[question.difficulty] ?? DIFFICULTY_SETTINGS.medium,
+    [question.difficulty]
+  );
+
   const handleTimeOut = useCallback(() => {
     setIsAnswered(true);
     sfx.playWrong();
@@ -78,7 +134,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
   }, []);
 
   const { timeLeft, addTime } = useCountdown({
-    initialSeconds: 25,
+    initialSeconds: difficultyConfig.initialSeconds,
     running: !isAnswered,
     onExpire: handleTimeOut,
     onTick: handleTick,
@@ -94,13 +150,10 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
 
     if (isCorrect) {
       sfx.playCorrect();
-      // Calculate stars based on speed
-      // Three stars means answering quickly, not merely answering. The old
-      // thresholds handed three stars to anyone who replied within ten seconds
-      // of a twenty-five second timer, which was almost everyone.
+      // Calculate stars based on speed proportionally to total difficulty time
       let stars = 1;
-      if (timeLeft >= 19) stars = 3;
-      else if (timeLeft >= 12) stars = 2;
+      if (timeLeft >= difficultyConfig.star3MinTime) stars = 3;
+      else if (timeLeft >= difficultyConfig.star2MinTime) stars = 2;
 
       setEarnedStars(stars);
       addDinars(stage.rewardDinars);
@@ -117,7 +170,16 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
       setEarnedStars(0);
     }
 
-    onResolved?.({ isCorrect, stars: isCorrect ? (timeLeft >= 19 ? 3 : timeLeft >= 12 ? 2 : 1) : 0 });
+    onResolved?.({
+      isCorrect,
+      stars: isCorrect
+        ? timeLeft >= difficultyConfig.star3MinTime
+          ? 3
+          : timeLeft >= difficultyConfig.star2MinTime
+          ? 2
+          : 1
+        : 0,
+    });
     setShowFactModal(true);
   };
 
@@ -253,9 +315,25 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
         {/* Subtle Gold Corner Accents */}
         <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-gold-400/20 to-transparent pointer-events-none rounded-tr-3xl" />
 
-        <div className="flex items-center gap-1.5 text-xs text-gold-400 font-bold mb-2">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>سؤال التحدي الثقافي:</span>
+        <div className="flex items-center justify-between gap-2 mb-3">
+          <div className="flex items-center gap-1.5 text-xs text-gold-400 font-bold">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>سؤال التحدي الثقافي:</span>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            {/* Difficulty Badge */}
+            <span
+              className={`px-2.5 py-0.5 rounded-full text-[11px] font-black border ${difficultyConfig.badgeStyle}`}
+            >
+              مستوى {difficultyConfig.label}
+            </span>
+            {/* Reward Dinars */}
+            <span className="flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-black bg-gold-400/10 text-gold-300 border border-gold-400/20">
+              <Coins className="w-3 h-3 text-gold-400" />
+              <span>+{question.rewardDinars} د.ل</span>
+            </span>
+          </div>
         </div>
 
         {/* h3 under the stage's h2: the question sits inside the stage, and
@@ -297,7 +375,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
                  the single word "أحرب القرم". The badge is decorative; the
                  label restates it with the separator the layout implies. */
               aria-label={`${optionLabels[visualIdx]} — ${opt.text}`}
-              className={`w-full p-4 rounded-2xl flex items-center justify-between text-right transition-all font-bold ${optionStyle}`}
+              className={`w-full p-4 rounded-2xl flex items-center justify-between text-right transition-all font-bold tactile-button ${optionStyle}`}
             >
               <div className="flex items-center gap-3">
                 <span
@@ -534,6 +612,13 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
           streakDays: profile.streakDays,
         }}
         contextType={cityId === 'daily' ? 'daily' : 'quiz'}
+      />
+
+      {/* Dynamic Golden Particle & Coin Burst Celebration */}
+      <RewardCelebration
+        show={isVictoryModal && earnedStars > 0}
+        stars={earnedStars}
+        dinars={wasSkipped ? 0 : stage.rewardDinars}
       />
     </div>
   );

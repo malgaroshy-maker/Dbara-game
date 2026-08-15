@@ -8,31 +8,52 @@ import { MapScreen } from './features/map/MapScreen';
 import { usePWAInstall } from './features/pwa/usePWAInstall';
 import { PWAInstallModal } from './features/pwa/PWAInstallModal';
 
-// Question & Puzzle Banks
-import { questionForStage } from './features/map/stageQuestion';
-import { wordScramblePuzzles } from './data/puzzles/wordScramble';
-import { miniCrosswords } from './data/puzzles/crosswords';
-
 // The map is the landing screen and stays in the entry chunk. Everything else
-// is split out so first paint doesn't pay for the crossword keyboard, the
-// duel screen, or the share-card canvas.
-import { CategoryHub } from './features/quickplay/CategoryHub';
-import { DailyChallengeScreen } from './features/daily/DailyChallengeScreen';
-import { BadgesScreen } from './features/badges/BadgesScreen';
-import { QuizScreen } from './features/quiz/QuizScreen';
-import { LetterScramble } from './features/puzzles/LetterScramble';
-import { MiniCrossword } from './features/puzzles/MiniCrossword';
-import { SpeedBlitz } from './features/quiz/SpeedBlitz';
-import { MainMenuScreen } from './features/menu/MainMenuScreen';
-import { OnboardingScreen } from './features/menu/OnboardingScreen';
+// is lazy-loaded so first paint doesn't pay for question banks, puzzle banks,
+// crosswords, duels, or canvas rendering.
+const CategoryHub = lazy(() =>
+  import('./features/quickplay/CategoryHub').then((m) => ({ default: m.CategoryHub }))
+);
+const DailyChallengeScreen = lazy(() =>
+  import('./features/daily/DailyChallengeScreen').then((m) => ({ default: m.DailyChallengeScreen }))
+);
+const BadgesScreen = lazy(() =>
+  import('./features/badges/BadgesScreen').then((m) => ({ default: m.BadgesScreen }))
+);
+const QuizScreen = lazy(() =>
+  import('./features/quiz/QuizScreen').then((m) => ({ default: m.QuizScreen }))
+);
+const LetterScramble = lazy(() =>
+  import('./features/puzzles/LetterScramble').then((m) => ({ default: m.LetterScramble }))
+);
+const MiniCrossword = lazy(() =>
+  import('./features/puzzles/MiniCrossword').then((m) => ({ default: m.MiniCrossword }))
+);
+const SpeedBlitz = lazy(() =>
+  import('./features/quiz/SpeedBlitz').then((m) => ({ default: m.SpeedBlitz }))
+);
+const MainMenuScreen = lazy(() =>
+  import('./features/menu/MainMenuScreen').then((m) => ({ default: m.MainMenuScreen }))
+);
+const OnboardingScreen = lazy(() =>
+  import('./features/menu/OnboardingScreen').then((m) => ({ default: m.OnboardingScreen }))
+);
 
-const scramblesById = new Map(wordScramblePuzzles.map((p) => [p.id, p]));
-const crosswordsById = new Map(miniCrosswords.map((p) => [p.id, p]));
-
-const ScreenFallback: React.FC = () => (
-  <div className="flex items-center justify-center py-24" role="status" aria-live="polite">
-    <div className="w-10 h-10 rounded-full border-2 border-gold-400/30 border-t-gold-400 animate-spin" />
-    <span className="sr-only">جارٍ التحميل…</span>
+export const HeritageLoadingFallback: React.FC<{ label?: string }> = ({ label = 'جارٍ التحضير…' }) => (
+  <div
+    className="flex flex-col items-center justify-center py-20 px-4 text-center animate-fade-in"
+    role="status"
+    aria-live="polite"
+  >
+    <div className="relative w-16 h-16 mb-3 flex items-center justify-center">
+      <div className="absolute inset-0 rounded-full border-2 border-gold-400/20 border-t-gold-400 animate-spin" />
+      <div className="absolute inset-2 rounded-full bg-gold-400/10 blur-sm animate-pulse" />
+      <span className="text-xl select-none" aria-hidden="true">
+        ✨
+      </span>
+    </div>
+    <p className="text-xs font-bold text-gold-300 font-serif tracking-wide">{label}</p>
+    <span className="sr-only">{label}</span>
   </div>
 );
 
@@ -81,27 +102,35 @@ export const App: React.FC = () => {
     const { cityId, stage } = activeStage;
 
     switch (stage.type) {
-      case 'multiple_choice': {
-        const question = questionForStage(stage.questionId, cityId, seenAtStageStart.current);
+      case 'multiple_choice':
         return (
-          <QuizScreen stage={stage} cityId={cityId} question={question} onFinish={clearActiveStage} />
+          <Suspense fallback={<HeritageLoadingFallback label="جارٍ تجهيز السؤال…" />}>
+            <QuizScreen
+              stage={stage}
+              cityId={cityId}
+              seenIds={seenAtStageStart.current}
+              onFinish={clearActiveStage}
+            />
+          </Suspense>
         );
-      }
-      case 'letter_scramble': {
-        const puzzle =
-          (stage.puzzleId && scramblesById.get(stage.puzzleId)) || wordScramblePuzzles[0];
+      case 'letter_scramble':
         return (
-          <LetterScramble stage={stage} cityId={cityId} puzzle={puzzle} onFinish={clearActiveStage} />
+          <Suspense fallback={<HeritageLoadingFallback label="جارٍ ترتيب الحروف…" />}>
+            <LetterScramble stage={stage} cityId={cityId} onFinish={clearActiveStage} />
+          </Suspense>
         );
-      }
-      case 'crossword': {
-        const puzzle = (stage.puzzleId && crosswordsById.get(stage.puzzleId)) || miniCrosswords[0];
+      case 'crossword':
         return (
-          <MiniCrossword stage={stage} cityId={cityId} puzzle={puzzle} onFinish={clearActiveStage} />
+          <Suspense fallback={<HeritageLoadingFallback label="جارٍ بناء الشبكة…" />}>
+            <MiniCrossword stage={stage} cityId={cityId} onFinish={clearActiveStage} />
+          </Suspense>
         );
-      }
       case 'speed_blitz':
-        return <SpeedBlitz stage={stage} cityId={cityId} onFinish={clearActiveStage} />;
+        return (
+          <Suspense fallback={<HeritageLoadingFallback label="جارٍ إعداد السباق…" />}>
+            <SpeedBlitz stage={stage} cityId={cityId} onFinish={clearActiveStage} />;
+          </Suspense>
+        );
       default:
         return null;
     }
@@ -112,11 +141,23 @@ export const App: React.FC = () => {
 
     switch (currentMode) {
       case 'quickplay':
-        return <CategoryHub />;
+        return (
+          <Suspense fallback={<HeritageLoadingFallback label="جارٍ تجهيز الفئات…" />}>
+            <CategoryHub />
+          </Suspense>
+        );
       case 'daily':
-        return <DailyChallengeScreen />;
+        return (
+          <Suspense fallback={<HeritageLoadingFallback label="جارٍ تحميل التحدي اليومي…" />}>
+            <DailyChallengeScreen />
+          </Suspense>
+        );
       case 'badges':
-        return <BadgesScreen />;
+        return (
+          <Suspense fallback={<HeritageLoadingFallback label="جارٍ فتح سجل الأوسمة والمعارف…" />}>
+            <BadgesScreen />
+          </Suspense>
+        );
       case 'map':
       default:
         return <MapScreen onStartStage={startStage} />;
@@ -131,29 +172,33 @@ export const App: React.FC = () => {
   if (!hasOnboarded) {
     const openingStage = cities[0]?.stages[0];
     return (
-      <div className="min-h-screen bg-night-900 text-ink-100 font-sans bg-libyan-pattern selection:bg-gold-400/30">
-        <OnboardingScreen
-          onStart={(identity) => {
-            completeOnboarding(identity);
-            setIsMenuOpen(false);
-            if (openingStage) startStage(cities[0].id, openingStage);
-          }}
-          onSkip={(identity) => completeOnboarding(identity)}
-        />
-      </div>
+      <main className="min-h-screen bg-night-900 text-ink-100 font-sans bg-libyan-pattern selection:bg-gold-400/30">
+        <Suspense fallback={<HeritageLoadingFallback label="أهلاً بك في دبارة…" />}>
+          <OnboardingScreen
+            onStart={(identity) => {
+              completeOnboarding(identity);
+              setIsMenuOpen(false);
+              if (openingStage) startStage(cities[0].id, openingStage);
+            }}
+            onSkip={(identity) => completeOnboarding(identity)}
+          />
+        </Suspense>
+      </main>
     );
   }
 
   if (isMenuOpen) {
     return (
-      <div className="min-h-screen bg-night-900 text-ink-100 font-sans bg-libyan-pattern selection:bg-gold-400/30">
-        <MainMenuScreen
-          onPlay={(mode) => {
-            setMode(mode);
-            setIsMenuOpen(false);
-          }}
-          onOpenSettings={() => setIsSettingsOpen(true)}
-        />
+      <main className="min-h-screen bg-night-900 text-ink-100 font-sans bg-libyan-pattern selection:bg-gold-400/30">
+        <Suspense fallback={<HeritageLoadingFallback label="القائمة الرئيسية…" />}>
+          <MainMenuScreen
+            onPlay={(mode) => {
+              setMode(mode);
+              setIsMenuOpen(false);
+            }}
+            onOpenSettings={() => setIsSettingsOpen(true)}
+          />
+        </Suspense>
         <SettingsModal
           isOpen={isSettingsOpen}
           onClose={() => setIsSettingsOpen(false)}
@@ -167,7 +212,7 @@ export const App: React.FC = () => {
           isInstalled={isInstalled}
           onInstall={triggerInstall}
         />
-      </div>
+      </main>
     );
   }
 

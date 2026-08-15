@@ -26,6 +26,9 @@ export { speedBlitzQuestionsPool } from '../../src/data/questions/speedBlitz';
 export { wordScramblePuzzles } from '../../src/data/puzzles/wordScramble';
 export { miniCrosswords } from '../../src/data/puzzles/crosswords';
 export { getDailyChallenge } from '../../src/data/puzzles/dailyPuzzles';
+export { CROSSWORD_KEYBOARD_LETTERS } from '../../src/data/puzzles/crosswordKeyboard';
+export { TOTAL_MAP_STARS } from '../../src/data/ranks';
+export { initialCities } from '../../src/data/cities';
 `;
 
 mkdirSync(dirname(tmp), { recursive: true });
@@ -90,7 +93,19 @@ const dailySchedule = [];
   }
 }
 
-const payload = { generatedAt: new Date().toISOString(), items, dailySchedule };
+const totalMapStars = m.TOTAL_MAP_STARS;
+const stagesCount = m.initialCities.reduce((acc, c) => acc + c.stages.length, 0);
+const mapStarsCount = stagesCount * 3;
+
+const payload = {
+  generatedAt: new Date().toISOString(),
+  items,
+  dailySchedule,
+  keyboardLetters: m.CROSSWORD_KEYBOARD_LETTERS,
+  totalMapStars,
+  stagesCount,
+  mapStarsCount,
+};
 writeFileSync(join(root, 'scripts', 'questions.json'), JSON.stringify(payload, null, 2), 'utf8');
 
 // Inline the payload so the review page works straight off the filesystem (no fetch).

@@ -431,9 +431,13 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
             strokeLinecap="round"
             // Strokes are counter-scaled too, so a zoomed-in map shows finer
             // roads rather than gold ribbons swamping the coastline.
-            strokeWidth={(route.isUnlocked ? 2.2 : 1.2) * symbolScale}
-            strokeDasharray={route.isUnlocked ? 'none' : `${4.5 * symbolScale}, ${4.5 * symbolScale}`}
-            className={route.isUnlocked ? 'filter drop-shadow-gold-glow-sm' : ''}
+            strokeWidth={(route.isUnlocked ? 2.4 : 1.2) * symbolScale}
+            strokeDasharray={
+              route.isUnlocked
+                ? `${8 * symbolScale}, ${6 * symbolScale}`
+                : `${4.5 * symbolScale}, ${4.5 * symbolScale}`
+            }
+            className={route.isUnlocked ? 'animate-caravan-flow filter drop-shadow-gold-glow-sm' : ''}
           />
         ))}
 
@@ -580,6 +584,14 @@ export const LibyaVectorMap: React.FC<LibyaVectorMapProps> = ({
                     className="transition-all duration-500"
                   />
                 </svg>
+              )}
+
+              {/* Completed City Glowing Beacon Halo */}
+              {isAllStagesCompleted && (
+                <div
+                  className="absolute -inset-1.5 rounded-full border-2 border-gold-400/60 animate-beacon-glow pointer-events-none"
+                  aria-hidden="true"
+                />
               )}
 
               {/* Pin Beacon Icon Button */}

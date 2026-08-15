@@ -7,13 +7,18 @@ import { useMapStore } from '../../store/useMapStore';
 import { sfx } from '../../audio/soundEffects';
 import { useModalA11y } from '../../hooks/useModalA11y';
 import { ShareResultModal } from '../../components/ShareResultModal';
+import { RewardCelebration } from '../../components/RewardCelebration';
 import confetti from 'canvas-confetti';
 import { Sparkles, ArrowRight, RotateCcw, Lightbulb, Trophy, Star, Delete, Share2 } from 'lucide-react';
+
+import { wordScramblePuzzles } from '../../data/puzzles/wordScramble';
+
+const scramblesById = new Map(wordScramblePuzzles.map((p) => [p.id, p]));
 
 interface LetterScrambleProps {
   stage: Stage;
   cityId: string;
-  puzzle: LetterScramblePuzzle;
+  puzzle?: LetterScramblePuzzle;
   onFinish: () => void;
   /** Fired once when the puzzle is solved, so hosts can record completion. */
   onSolved?: () => void;
@@ -22,10 +27,15 @@ interface LetterScrambleProps {
 export const LetterScramble: React.FC<LetterScrambleProps> = ({
   stage,
   cityId,
-  puzzle,
+  puzzle: propPuzzle,
   onFinish,
   onSolved,
 }) => {
+  const puzzle = useMemo(() => {
+    if (propPuzzle) return propPuzzle;
+    return (stage.puzzleId && scramblesById.get(stage.puzzleId)) || wordScramblePuzzles[0];
+  }, [propPuzzle, stage.puzzleId]);
+
   const { addDinars, profile } = useGameStore();
   const { completeStage } = useMapStore();
 
@@ -316,6 +326,12 @@ export const LetterScramble: React.FC<LetterScrambleProps> = ({
         playerTitle={profile.title}
         scoreOrStars={{ stars: 3, dinarsEarned: stage.rewardDinars }}
         contextType="daily"
+      />
+
+      <RewardCelebration
+        show={isCompleted}
+        stars={3}
+        dinars={stage.rewardDinars}
       />
     </div>
   );

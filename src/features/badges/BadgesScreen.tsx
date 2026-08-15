@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { badgesList } from '../../data/badges';
 import { useGameStore } from '../../store/useGameStore';
 import { LeaderboardTab } from './LeaderboardTab';
+import { KnowledgeNotebookTab } from './KnowledgeNotebookTab';
 import { useMapStore } from '../../store/useMapStore';
 import { AVATARS, TITLES, cityUnlockCost } from '../../data/cosmetics';
-import { Trophy, ShoppingBag, CheckCircle2, Coins, HelpCircle, PlusCircle, FastForward, Lightbulb, Shield, Lock, MapPin } from 'lucide-react';
+import { Trophy, ShoppingBag, CheckCircle2, Coins, HelpCircle, PlusCircle, FastForward, Lightbulb, Shield, Lock, MapPin, BookOpen } from 'lucide-react';
 
 export const BadgesScreen: React.FC = () => {
   const {
@@ -20,7 +21,7 @@ export const BadgesScreen: React.FC = () => {
     equipTitle,
   } = useGameStore();
   const { cities, purchaseCityUnlock } = useMapStore();
-  const [tab, setTab] = useState<'badges' | 'shop' | 'leaderboard'>('badges');
+  const [tab, setTab] = useState<'badges' | 'notebook' | 'shop' | 'leaderboard'>('badges');
 
   /** Cities still shut, cheapest first, so the next step is the obvious one. */
   const lockedCities = cities
@@ -34,7 +35,7 @@ export const BadgesScreen: React.FC = () => {
       description: 'استبعاد خيارين خاطئين في أسئلة الاختيار من متعدد',
       cost: 60,
       icon: <HelpCircle className="w-6 h-6 text-gold-300" />,
-      current: profile.lifelines.fiftyFifty,
+      current: profile.lifelines?.fiftyFifty ?? 0,
     },
     {
       id: 'revealLetter',
@@ -42,7 +43,7 @@ export const BadgesScreen: React.FC = () => {
       description: 'كشف حرف في شبكة الكلمات المتقاطعة أو ألغاز الحروف',
       cost: 45,
       icon: <Lightbulb className="w-6 h-6 text-sea-300" />,
-      current: profile.lifelines.revealLetter,
+      current: profile.lifelines?.revealLetter ?? 0,
     },
     {
       id: 'skip',
@@ -50,7 +51,7 @@ export const BadgesScreen: React.FC = () => {
       description: 'تجاوز السؤال الصعب واجتياز المرحلة بنجمة واحدة',
       cost: 120,
       icon: <FastForward className="w-6 h-6 text-oasis-500" />,
-      current: profile.lifelines.skip,
+      current: profile.lifelines?.skip ?? 0,
     },
     {
       id: 'extraTime',
@@ -58,7 +59,7 @@ export const BadgesScreen: React.FC = () => {
       description: 'إضافة 15 ثانية لعداد الوقت في الجولات الصعبة',
       cost: 80,
       icon: <PlusCircle className="w-6 h-6 text-rose" />,
-      current: profile.lifelines.extraTime,
+      current: profile.lifelines?.extraTime ?? 0,
     },
   ];
 
@@ -83,11 +84,11 @@ export const BadgesScreen: React.FC = () => {
         </div>
       </div>
 
-      {/* Switcher 3 Tabs */}
-      <div className="grid grid-cols-3 p-1 rounded-2xl bg-night-800 border border-white/10 text-xs font-bold gap-1">
+      {/* Switcher 4 Tabs */}
+      <div className="grid grid-cols-4 p-1 rounded-2xl bg-night-800 border border-white/10 text-xs font-bold gap-1">
         <button
           onClick={() => setTab('badges')}
-          className={`py-2 rounded-xl transition-all flex items-center justify-center gap-1 text-[11px] font-black ${
+          className={`py-2 rounded-xl transition-all flex items-center justify-center gap-1 text-[10px] sm:text-[11px] font-black ${
             tab === 'badges'
               ? 'bg-gold-400 text-night-900 shadow-md'
               : 'text-ink-400 hover:text-white'
@@ -98,8 +99,20 @@ export const BadgesScreen: React.FC = () => {
         </button>
 
         <button
+          onClick={() => setTab('notebook')}
+          className={`py-2 rounded-xl transition-all flex items-center justify-center gap-1 text-[10px] sm:text-[11px] font-black ${
+            tab === 'notebook'
+              ? 'bg-gold-400 text-night-900 shadow-md'
+              : 'text-ink-400 hover:text-white'
+          }`}
+        >
+          <BookOpen className="w-3.5 h-3.5" />
+          <span>دفتر المعارف</span>
+        </button>
+
+        <button
           onClick={() => setTab('leaderboard')}
-          className={`py-2 rounded-xl transition-all flex items-center justify-center gap-1 text-[11px] font-black ${
+          className={`py-2 rounded-xl transition-all flex items-center justify-center gap-1 text-[10px] sm:text-[11px] font-black ${
             tab === 'leaderboard'
               ? 'bg-gold-400 text-night-900 shadow-md'
               : 'text-ink-400 hover:text-white'
@@ -111,7 +124,7 @@ export const BadgesScreen: React.FC = () => {
 
         <button
           onClick={() => setTab('shop')}
-          className={`py-2 rounded-xl transition-all flex items-center justify-center gap-1 text-[11px] font-black ${
+          className={`py-2 rounded-xl transition-all flex items-center justify-center gap-1 text-[10px] sm:text-[11px] font-black ${
             tab === 'shop'
               ? 'bg-gold-400 text-night-900 shadow-md'
               : 'text-ink-400 hover:text-white'
@@ -121,6 +134,9 @@ export const BadgesScreen: React.FC = () => {
           <span>المتجر</span>
         </button>
       </div>
+
+      {/* Notebook Tab Content */}
+      {tab === 'notebook' && <KnowledgeNotebookTab />}
 
       {/* Leaderboard Tab Content */}
       {tab === 'leaderboard' && <LeaderboardTab />}

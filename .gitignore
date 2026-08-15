@@ -30,6 +30,7 @@ dist-ssr
 scripts/questions.json
 scripts/questions-edited.json
 scripts/questions-review.html
+scripts/lighthouse-report.json
 
 # Playwright Test Artifacts
 test-results/

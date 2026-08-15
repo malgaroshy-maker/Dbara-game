@@ -132,13 +132,12 @@ for (const { data: p } of scrambles) {
 }
 
 // ── crosswords ──────────────────────────────────────────────────────────────
-// The letters the in-game keyboard can actually produce (MiniCrossword.tsx).
+// The letters the in-game keyboard can actually produce (MiniCrossword.tsx / crosswordKeyboard.ts).
 // Note the absence of أ إ آ — a grid needing one is unsolvable.
-const KEYBOARD = new Set([
-  'ض','ص','ث','ق','ف','غ','ع','ه','خ','ح','ج',
-  'ش','س','ي','ب','ل','ا','ت','ن','م','ك','ط',
-  'ئ','ء','ؤ','ر','ى','ة','و','ز','ظ','د','ذ',
-]);
+const KEYBOARD = new Set(bank.keyboardLetters ?? []);
+if (KEYBOARD.size === 0) {
+  errors.push('✗ لوحة مفاتيح الكلمات المتقاطعة فارغة');
+}
 
 const answerSeenIn = new Map();
 
@@ -331,6 +330,13 @@ const scan = (file, re, label) => {
   }
 };
 scan('src/data/cities.ts', /(?:questionId|puzzleId): '([a-z0-9_]+)'/g, 'مراحل الخريطة');
+
+// ── star count calibration guard (ق-1 / ح-2) ───────────────────────────────
+if (bank.mapStarsCount !== bank.totalMapStars) {
+  errors.push(
+    `✗ انحراف معايرة النجوم: الخريطة تحوي ${bank.stagesCount} مرحلة (${bank.mapStarsCount} نجمة) بينما ranks.ts يعاير على ${bank.totalMapStars} نجمة!`
+  );
+}
 
 // ── the generated daily challenge schedule ──────────────────────────────────
 const schedule = bank.dailySchedule ?? [];

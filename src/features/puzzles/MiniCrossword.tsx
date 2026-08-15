@@ -7,13 +7,19 @@ import { useMapStore } from '../../store/useMapStore';
 import { sfx } from '../../audio/soundEffects';
 import { useModalA11y } from '../../hooks/useModalA11y';
 import { ShareResultModal } from '../../components/ShareResultModal';
+import { RewardCelebration } from '../../components/RewardCelebration';
 import confetti from 'canvas-confetti';
 import { ArrowRight, Sparkles, Trophy, Star, Lightbulb, Delete, CheckCircle2, Share2 } from 'lucide-react';
+import { CROSSWORD_KEYBOARD_ROWS } from '../../data/puzzles/crosswordKeyboard';
+
+import { miniCrosswords } from '../../data/puzzles/crosswords';
+
+const crosswordsById = new Map(miniCrosswords.map((p) => [p.id, p]));
 
 interface MiniCrosswordProps {
   stage: Stage;
   cityId: string;
-  puzzle: MiniCrosswordPuzzle;
+  puzzle?: MiniCrosswordPuzzle;
   onFinish: () => void;
   /** Fired once when the grid is solved, so hosts can record completion. */
   onSolved?: () => void;
@@ -22,10 +28,15 @@ interface MiniCrosswordProps {
 export const MiniCrossword: React.FC<MiniCrosswordProps> = ({
   stage,
   cityId,
-  puzzle,
+  puzzle: propPuzzle,
   onFinish,
   onSolved,
 }) => {
+  const puzzle = useMemo(() => {
+    if (propPuzzle) return propPuzzle;
+    return (stage.puzzleId && crosswordsById.get(stage.puzzleId)) || miniCrosswords[0];
+  }, [propPuzzle, stage.puzzleId]);
+
   const { addDinars, useLifeline, spendDinars, profile } = useGameStore();
   const { completeStage } = useMapStore();
 
@@ -199,11 +210,7 @@ export const MiniCrossword: React.FC<MiniCrosswordProps> = ({
     });
   };
 
-  const arabicKeyboard = [
-    ['ض', 'ص', 'ث', 'ق', 'ف', 'غ', 'ع', 'ه', 'خ', 'ح', 'ج'],
-    ['ش', 'س', 'ي', 'ب', 'ل', 'ا', 'ت', 'ن', 'م', 'ك', 'ط'],
-    ['ئ', 'ء', 'ؤ', 'ر', 'لا', 'ى', 'ة', 'و', 'ز', 'ظ', 'د', 'ذ'],
-  ];
+  const arabicKeyboard = CROSSWORD_KEYBOARD_ROWS;
 
   return (
     <div className="flex flex-col gap-3 pb-24 max-w-lg mx-auto w-full px-3 pt-2 select-none">
@@ -435,6 +442,12 @@ export const MiniCrossword: React.FC<MiniCrosswordProps> = ({
         playerTitle={profile.title}
         scoreOrStars={{ stars: 3, dinarsEarned: stage.rewardDinars }}
         contextType="daily"
+      />
+
+      <RewardCelebration
+        show={isCompleted}
+        stars={3}
+        dinars={stage.rewardDinars}
       />
     </div>
   );

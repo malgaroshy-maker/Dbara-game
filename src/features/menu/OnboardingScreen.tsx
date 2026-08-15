@@ -42,7 +42,7 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onStart, onS
     <div className="min-h-screen flex flex-col px-5 py-8 max-w-lg mx-auto w-full select-none">
       {/* Step indicator + escape hatch */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1.5" aria-label={`الخطوة ${step + 1} من 2`}>
+        <div role="group" className="flex items-center gap-1.5" aria-label={`الخطوة ${step + 1} من 2`}>
           {[0, 1].map((i) => (
             <span
               key={i}

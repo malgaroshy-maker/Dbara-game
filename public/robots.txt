@@ -1,0 +1,3 @@
+# Robots.txt for Dbara Trivia Game
+User-agent: *
+Allow: /
