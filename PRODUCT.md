@@ -77,6 +77,12 @@ Built and verified today:
   45-second speed blitz, and a daily challenge **derived from the date** — a
   pure function, so the same day yields the same challenge on every device
   with no server, cycling four modes without repeating until a pool is spent.
+  One puzzle of each kind per week of the year: walking the generator forward
+  900 days, the first repeat of any puzzle falls on day 364. The build fails if
+  that window drops under 300, so it cannot erode unnoticed. Crossword layouts
+  are solved by search in `scripts/crossword-build.mjs` rather than placed by
+  hand — interlocking four words in a 4×4 is where a letter slips out of step
+  and the grid contradicts its own clue.
 - **Question memory** — the game records which questions a player has seen and
   which they got wrong. Rounds prefer unseen questions, and a practice mode
   replays only the missed ones until they are answered correctly. A map stage
@@ -112,10 +118,11 @@ Explicitly undecided:
 - Which of the three audiences is primary.
 - **Who validates Libyan factual content.** No authority is established beyond
   the author's own review. Claims that cannot be confirmed carry a `needsReview`
-  note saying what is doubtful and why — none are outstanding today. 47 of the
-  124 hard and expert questions still cite no source, which is where a wrong
-  answer is most likely to be hiding, and the in-game report link exists to find
-  them.
+  note saying what is doubtful and why — none are outstanding today. Every hard
+  and expert question now cites a source, so the gap is no longer coverage but
+  the kind of claim a citation cannot settle: how a proverb is worded in one
+  region against another, or a club nickname its own supporters would correct.
+  The in-game report link exists to reach the people who know those.
 - When the server arrives, and what it covers first.
 
 ## Brand Commitments
@@ -142,11 +149,25 @@ Absences that future work must not paper over:
 - **The leaderboard rivals are fabricated placeholder names.** They stand in for a
   feature that needs the planned server. Until it exists, the leaderboard must not
   present invented people as real competitors.
-- **No external review of the Libyan content** has happened by a person. A
-  machine fact-check pass covered the hard and expert questions and 73 now carry
-  a source, but its verdicts were unreliable enough that only quoted, re-checked
-  findings were applied. One claim — the description of المثرودة — is still
-  flagged in the data itself as wanting a local reviewer.
+- **No external review of the Libyan content** has happened by a person. Machine
+  fact-check passes brought every hard and expert question to a named source,
+  but their verdicts were unreliable enough that only quoted, re-checked findings
+  were applied — and rightly so. Across those passes one source was fabricated
+  outright (a proverb credited to a heritage blog that is in fact a news weekly
+  carrying neither the proverb nor the quoted text) and one "fun fact" told the
+  player a club's former name using a rival club that was itself a wrong option
+  in that same question.
+
+- **Sources are trusted by class, not individually re-opened.** About six were
+  verified by fetching the page. The rest were accepted because they come from
+  the class where every spot-check held — Arabic Wikipedia — while both
+  fabrications were non-Wikipedia with vague URLs. That is a reasoned bet, not
+  full verification, and should be described as such.
+
+- **Four classical-dictionary citations name the work from knowledge rather than
+  a page opened.** `شاملة` blocks fetching and `almougem` returned only a root
+  URL. The definitions themselves are standard, but the citations are weaker
+  evidence than the others and are the first place to look if one is disputed.
 
 ## Product Principles
 
@@ -166,6 +187,20 @@ Absences that future work must not paper over:
 - Arabic right-to-left is the native direction, not a mirrored afterthought.
 - Thumb-reachable controls; the game is played one-handed on a phone.
 - Every interactive element is a real button with a visible keyboard focus ring.
-- `prefers-reduced-motion` is honoured — the map, celebrations and card entrances
-  all animate.
+- Dialogs hold focus rather than merely claiming to: Tab cycles inside them,
+  Escape closes, and focus returns to whatever opened them. Declaring
+  `aria-modal` confines nothing on its own, which is how four sheets came to let
+  Tab walk out into the map behind them.
+- `prefers-reduced-motion` is honoured in both layers that animate — CSS, and
+  Framer Motion via `MotionConfig`. The CSS rule alone cannot reach Framer, which
+  writes inline styles frame by frame, so for a long time the preference was
+  close to decorative across the fourteen components that animate through it.
+- Page zoom is left enabled. Locking the scale on a screen that is mostly Arabic
+  prose fails the readers who most need to enlarge it, and the map's pinch does
+  not depend on it.
+- Target size follows WCAG 2.2 AA at 24x24 CSS px. Map pins are the deliberate
+  exception the standard allows: their position is the information, and zoom is
+  the mechanism for reaching them.
 - Text meets WCAG AA contrast, including muted captions and locked states.
+- Option buttons name the answer alongside their order letter, so a screen
+  reader does not run the two together into a different word.

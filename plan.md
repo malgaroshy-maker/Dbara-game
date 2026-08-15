@@ -38,12 +38,17 @@ c:/Users/masal/Documents/opencode/trivia-game/
 │   ├── manifest.webmanifest           # بيان التطبيق التقدمي والاختصارات
 │   └── sw.js                          # عامل الخدمة (تخزين مؤقت وتشغيل دون إنترنت)
 ├── scripts/
-│   └── setup-playwright-driver.js     # تهيئة مشغل Playwright للاختبار في المتصفح
+│   ├── setup-playwright-driver.js     # تهيئة مشغل Playwright للاختبار في المتصفح
+│   ├── questions-check.mjs            # بوابة المحتوى، تُشغَّل أول أمر البناء
+│   ├── crossword-build.mjs            # حلّ هندسة شبكات 4×4 بالبحث لا باليد
+│   ├── crossword-words.mjs            # بنك مفردات الشبكات وأدلتها وعناوينها
+│   └── apply-scrambles.mjs            # إضافة ألغاز حروف واشتقاق حروفها المبعثرة
 ├── src/
 │   ├── audio/
 │   │   └── soundEffects.ts            # محرك توليد المؤثرات الصوتية والاهتزاز (Web Audio API)
 │   ├── hooks/
-│   │   └── useCountdown.ts            # محرك المؤقتات الموحد (مبني على وقت نهاية مطلق)
+│   │   ├── useCountdown.ts            # محرك المؤقتات الموحد (مبني على وقت نهاية مطلق)
+│   │   └── useModalA11y.ts            # احتجاز التركيز وEscape وإعادته لمن فتح النافذة
 │   ├── components/
 │   │   ├── HeaderHUD.tsx              # الشريط العلوي (الدنانير، النجوم، الملف، الصوت)
 │   │   ├── BottomNav.tsx              # شريط التنقل السفلي للهاتف
@@ -104,7 +109,9 @@ c:/Users/masal/Documents/opencode/trivia-game/
 │   │   └── puzzle.ts                  # أنواع ألغاز الحروف والكلمات المتقاطعة
 │   ├── App.tsx                        # المكون الرئيسي وموزع الشاشات (تحميل كسول + فهرسة الأسئلة)
 │   ├── index.css                      # نظام الرموز اللونية والفئات الزجاجية
-│   └── main.tsx                       # مدخل التطبيق
+│   ├── vite-env.d.ts                  # أنواع متغيّرات البناء (قناة التبليغ)
+│   └── main.tsx                       # مدخل التطبيق (MotionConfig لتقليل الحركة)
+├── .env.example                       # نموذج ضبط قناة التبليغ — لا أسرار فيه
 ├── design.md                          # وثيقة نظام التصميم (Impeccable System)
 ├── plan.md                            # الخطة التقنية والمعمارية
 ├── prd.md                             # وثيقة متطلبات المنتج
