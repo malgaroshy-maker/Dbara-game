@@ -361,6 +361,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     correctIndex: 2,
     funFact: 'دار غاغارين حول الأرض دورة كاملة في 12 أبريل 1961 واستغرقت رحلته 108 دقائق.',
     hint: 'سوفييتي دار حول الأرض مرة واحدة سنة 1961.',
+    source: 'ويكيبيديا العربية (مقال: يوري جاجارين)',
     rewardDinars: 35,
   },
   {
@@ -384,6 +385,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     correctIndex: 0,
     funFact: 'تداول الليبيون الجنيه الليبي منذ الاستقلال، ثم حل الدينار محله في مطلع سبعينيات القرن الماضي.',
     hint: 'اسم العملة نفسه ما زال مستعملاً في مصر والسودان.',
+    source: 'ويكيبيديا العربية (مقال: دينار ليبي)',
     rewardDinars: 35,
   },
   {
@@ -395,6 +397,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'يُسمى بحر قزوين بحراً لاتساعه وملوحته، لكنه في الحقيقة أكبر بحيرة مغلقة على وجه الأرض.',
     hint: 'يُسمى بحراً وهو بحيرة، وتطل عليه خمس دول.',
+    source: 'ويكيبيديا العربية (مقال: بحر قزوين)',
     rewardDinars: 35,
   },
   {
@@ -406,6 +409,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     correctIndex: 2,
     funFact: 'ممر ضيق يمر منه جزء كبير من تجارة العالم بين قارتين.',
     hint: 'اسمه يعني «بوابة الدموع».',
+    source: 'ويكيبيديا العربية (مقال: مضيق باب المندب)',
     rewardDinars: 35,
   },
   {
@@ -417,6 +421,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: 'وُقّعت معاهدة ماستريخت في هولندا، وأرست أساس العملة الموحدة والمواطنة الأوروبية.',
     hint: 'سُميت باسم مدينة هولندية.',
+    source: 'ويكيبيديا العربية (مقال: معاهدة ماستريخت)',
     rewardDinars: 35,
   },
   {
@@ -428,6 +433,7 @@ export const generalArabQuestions: TriviaQuestion[] = [
     correctIndex: 0,
     funFact: 'تعاقبت على ليبيا عملات عدة في نصف قرن: الليرة العثمانية ثم الإيطالية ثم عملات الإدارة العسكرية، حتى استقر الأمر على الدينار.',
     hint: 'عملة الدولة المستعمِرة نفسها.',
+    source: 'ويكيبيديا العربية (مقال: جنيه ليبي)',
     rewardDinars: 60,
   },
   {

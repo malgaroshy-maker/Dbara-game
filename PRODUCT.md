@@ -53,22 +53,23 @@ not a generic Arabic quiz with a Libyan skin.
 Built and verified today:
 
 - **Map expedition** — 26 Libyan cities at real coordinates across the four
-  regions, 95 stages, unlocked by collecting stars or bought with dinars. The
+  regions, 95 stages, unlocked by collecting stars or bought with dinars. Every
+  city carries three or four questions of its own, so no city repeats itself. The
   map zooms and pans to 4x; symbols hold their size on screen, so zooming in
   lets the declutter ask for less separation and the pins settle back onto their
   true positions — no pin is ever drawn more than 39 km from its city, and at 4x
   none is displaced at all. `npm run map:audit` reports the drift per city.
-- **Question banks** — 356 multiple-choice questions across 9 categories
+- **Question banks** — 393 multiple-choice questions across 9 categories
   (4 Libyan: history, dialect, sport, cuisine; 5 general: geography, Islamic
   civilisation, Arabic language and literature, science, general knowledge),
   plus 50 true/false statements for the speed mode. Difficulty spreads
-  94 easy / 137 medium / 91 hard / 34 expert, and reward follows it six-fold
-  rather than two-fold. 83 questions cite a source — a named work, institution
+  four levels across all nine banks, and reward follows difficulty six-fold
+  rather than two-fold. 166 questions cite a source — a named work, institution
   or Quranic verse rather than a link, so it stays checkable offline.
 - **Round shape** — a five-question round ramps easy, easy, medium, medium,
   hard instead of being drawn at random, so no round opens on an expert
   question. Measured over thousands of sampled rounds by `npm run round:audit`.
-- **Hints** — 123 of the 124 hard and expert questions carry a bought hint that
+- **Hints** — 136 of the 137 hard and expert questions carry a bought hint that
   narrows the thinking without naming the answer; the build fails if one does.
 - **Earned fun facts** — the fun fact appears only on a correct answer. A wrong
   answer is shown the right one and nothing more.

@@ -217,6 +217,7 @@ export const foodTraditionsQuestions: TriviaQuestion[] = [
     correctIndex: 2,
     funFact: 'البراد إناء صغير يُغلى فيه الشاي مراراً حتى يتركز، ويُصب من ارتفاع لتتكون الرغوة المطلوبة.',
     hint: 'يُوضع على الجمر ويُصبّ منه من علوّ.',
+    source: 'ويكيبيديا العربية (مقال: براد مغربي)',
     rewardDinars: 35,
   },
   {

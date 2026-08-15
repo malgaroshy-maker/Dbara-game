@@ -29,3 +29,6 @@ scripts/questions-review.html
 test-results/
 playwright-report/
 blob-report/
+
+# Delegated research scratch: inputs are generated, findings are reviewed then applied by hand.
+agy-work/

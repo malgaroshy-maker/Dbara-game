@@ -202,6 +202,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     correctIndex: 0,
     funFact: '"زعمة" أداة استفهام وتعجب بمعنى "يا ترى"، وتُستخدم للاستفسار والتشكيك في آن واحد.',
     hint: 'أداة استفهام تُبدأ بها الجملة، لا اسم ولا فعل.',
+    source: 'معجم اللهجات المحكية (موقع معجم)',
     rewardDinars: 35,
   },
   {
@@ -303,6 +304,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: '"الدبّوزة" هي القارورة، ويرجّح أنها دخيلة على اللهجة من الإيطالية، شأنها شأن مفردات ساحلية أخرى.',
     hint: 'الكلمة مأخوذة عن الإيطالية، وتُقال لما يُحفظ فيه الماء.',
+    source: 'معجم اللهجات المحكية (موقع معجم)',
     rewardDinars: 35,
   },
   {
@@ -314,6 +316,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     correctIndex: 2,
     funFact: 'الفلوكة قارب خشبي صغير يستعمله الصيادون قرب الشاطئ، وتكثر في موانئ زوارة ومصراتة وطبرق.',
     hint: 'الكلمة من أصل إيطالي، ويستعملها الصيادون كل يوم.',
+    source: 'المعجم الوسيط (مجمع اللغة العربية بالقاهرة، مادة ف ل ك)',
     rewardDinars: 35,
   },
   {
@@ -325,6 +328,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: '"الزنقة" ممر ضيق بين البيوت، وتكثر في نسيج المدن القديمة كالمدينة القديمة بطرابلس.',
     hint: 'تُقال للطريق الضيق بين البيوت في المدينة القديمة.',
+    source: 'لسان العرب لابن منظور (مادة ز ن ق)',
     rewardDinars: 35,
   },
   {
@@ -336,6 +340,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     correctIndex: 0,
     funFact: '"المقشّة" من القش الذي كانت تُصنع منه قديماً، ومنها الفعل "قشّ" أي كنس.',
     hint: 'أداة تُمسك باليد وتُجرّ على الأرض.',
+    source: 'ويكيبيديا العربية (مقال: مكنسة)',
     rewardDinars: 35,
   },
   {
@@ -347,6 +352,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'على الكانون يُغلى الشاي ويُشوى الخبز في ليالي الشتاء، وحوله تلتئم جلسة العائلة.',
     hint: 'يُوقد فيه الفحم للتدفئة ولغلي الشاي.',
+    source: 'ويكيبيديا العربية (مقال: كانون (موقد))',
     rewardDinars: 35,
   },
   {
@@ -358,6 +364,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     correctIndex: 2,
     funFact: '"الشكارة" كيس كبير من الخيش أو البلاستيك يُعبأ فيه الدقيق أو الحبوب أو التمر.',
     hint: 'يُحمل فيه الدقيق أو الحبوب.',
+    source: 'تكملة المعاجم العربية لرينهارت دوزي (مادة شكر)',
     rewardDinars: 35,
   },
   {
@@ -369,6 +376,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: 'الزريبة سياج من الشوك أو الخشب يُحاط به الغنم والماعز ليلاً حمايةً لها.',
     hint: 'مكان مسوّر يُحفظ فيه الغنم.',
+    source: 'ويكيبيديا العربية (مقال: حظيرة)',
     rewardDinars: 35,
   },
   {
@@ -380,6 +388,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     correctIndex: 0,
     funFact: 'يُقدَّم البازين والفتات في طبسي كبير يجتمع حوله الآكلون، وهي عادة راسخة في الضيافة الليبية.',
     hint: 'يُوضع في وسط المائدة ويأكل منه الجميع.',
+    source: 'تكملة المعاجم العربية لرينهارت دوزي (مادة طبس)',
     rewardDinars: 35,
   },
   {
@@ -391,6 +400,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     correctIndex: 1,
     funFact: 'خلافاً للفصحى، يعني "الحوت" في ليبيا والمغرب العربي السمك بأنواعه، ومنه "حوت مشوي".',
     hint: 'الاسم عند أهل الساحل يشمل كل ما يخرج من البحر، لا نوعاً بعينه.',
+    source: 'لسان العرب لابن منظور (مادة ح و ت)',
     rewardDinars: 60,
   },
   {
@@ -402,6 +412,7 @@ export const dialectQuestions: TriviaQuestion[] = [
     correctIndex: 2,
     funFact: '"ديمة" من الدوام، ويقال "ديمة كذا" أي هذا حاله على الدوام.',
     hint: 'ضدها «مرة مرة»، وتُقال لمن لا يتغير حاله.',
+    source: 'معجم اللهجات المحكية (موقع معجم)',
     rewardDinars: 60,
   },
   {
@@ -413,6 +424,20 @@ export const dialectQuestions: TriviaQuestion[] = [
     correctIndex: 3,
     funFact: 'يوضع الكسكاس فوق قدر المرق فيصعد البخار من ثقوبه لينضج الكسكسي دون أن يلامس الماء.',
     hint: 'قطعة من عدة البخار، تُوضع فوق القدر لا فيها.',
+    source: 'ويكيبيديا العربية (مقال: كسكاس)',
     rewardDinars: 60,
+  },
+  {
+    id: 'dia_jal_02',
+    category: 'dialects',
+    cityId: 'jalu_awjila',
+    difficulty: 'hard',
+    question: 'ما اسم اللغة المحلية الفريدة التي حافظ عليها سكان واحة أوجلة عبر القرون إلى جانب العربية؟',
+    options: ['اللغة الأوجلية', 'اللغة التارقية', 'اللغة الغدامسية', 'اللغة السيوية'],
+    correctIndex: 0,
+    funFact: 'من أقدم الألسنة الحية في الواحات الشرقية، واحتفاظها بخصائص صوتية قديمة لفت اهتمام علماء اللسانيات.',
+    hint: 'لغة شرقية مشتقة مباشرة من اسم الواحة التاريخية ذاتها.',
+    rewardDinars: 35,
+    source: 'موسوعة ويكيبيديا العربية (مادة: اللغة الأوجلية)',
   },
 ];
