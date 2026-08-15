@@ -64,7 +64,7 @@ Built and verified today:
   civilisation, Arabic language and literature, science, general knowledge),
   plus 50 true/false statements for the speed mode. Difficulty spreads
   four levels across all nine banks, and reward follows difficulty six-fold
-  rather than two-fold. 166 questions cite a source — a named work, institution
+  rather than two-fold. 167 questions cite a source — a named work, institution
   or Quranic verse rather than a link, so it stays checkable offline.
 - **Round shape** — a five-question round ramps easy, easy, medium, medium,
   hard instead of being drawn at random, so no round opens on an expert
@@ -73,7 +73,7 @@ Built and verified today:
   narrows the thinking without naming the answer; the build fails if one does.
 - **Earned fun facts** — the fun fact appears only on a correct answer. A wrong
   answer is shown the right one and nothing more.
-- **Puzzle modes** — letter scramble (30), 4×4 Arabic mini-crossword (18),
+- **Puzzle modes** — letter scramble (52), 4×4 Arabic mini-crossword (52),
   45-second speed blitz, and a daily challenge **derived from the date** — a
   pure function, so the same day yields the same challenge on every device
   with no server, cycling four modes without repeating until a pool is spent.
