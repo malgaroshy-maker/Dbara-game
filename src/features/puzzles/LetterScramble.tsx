@@ -5,8 +5,10 @@ import type { Stage } from '../../types/map';
 import { useGameStore } from '../../store/useGameStore';
 import { useMapStore } from '../../store/useMapStore';
 import { sfx } from '../../audio/soundEffects';
+import { useModalA11y } from '../../hooks/useModalA11y';
+import { ShareResultModal } from '../../components/ShareResultModal';
 import confetti from 'canvas-confetti';
-import { Sparkles, ArrowRight, RotateCcw, Lightbulb, Trophy, Star, Delete } from 'lucide-react';
+import { Sparkles, ArrowRight, RotateCcw, Lightbulb, Trophy, Star, Delete, Share2 } from 'lucide-react';
 
 interface LetterScrambleProps {
   stage: Stage;
@@ -24,7 +26,7 @@ export const LetterScramble: React.FC<LetterScrambleProps> = ({
   onFinish,
   onSolved,
 }) => {
-  const { addDinars } = useGameStore();
+  const { addDinars, profile } = useGameStore();
   const { completeStage } = useMapStore();
 
   const [selectedLetters, setSelectedLetters] = useState<{ id: number; char: string }[]>([]);
@@ -32,6 +34,10 @@ export const LetterScramble: React.FC<LetterScrambleProps> = ({
   const [showHint, setShowHint] = useState<boolean>(false);
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [isWrongShake, setIsWrongShake] = useState<boolean>(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
+
+  // The victory card is a modal in every respect except that it never said so.
+  const victoryRef = useModalA11y(isCompleted);
 
   // Target answer without spaces for comparison
   const targetAnswer = puzzle.answer.replace(/\s+/g, '');
@@ -245,6 +251,10 @@ export const LetterScramble: React.FC<LetterScrambleProps> = ({
         {isCompleted && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
             <motion.div
+              ref={victoryRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label="حللت اللغز"
               initial={{ scale: 0.85, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               className="w-full max-w-sm bg-gradient-to-b from-night-800 to-night-900 border border-oasis-500/50 rounded-3xl p-6 shadow-2xl text-center"
@@ -277,10 +287,36 @@ export const LetterScramble: React.FC<LetterScrambleProps> = ({
               >
                 متابعة الرحلة 🗺️
               </button>
+
+              {/* A solved word puzzle is the most shareable thing in the game —
+                  short, self-contained, and it gives nothing away to whoever
+                  sees it, since the card carries the result and not the answer. */}
+              <button
+                onClick={() => {
+                  sfx.playTap();
+                  setIsShareModalOpen(true);
+                }}
+                className="w-full mt-2 py-2.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-ink-200 font-bold text-xs flex items-center justify-center gap-1.5"
+              >
+                <Share2 className="w-3.5 h-3.5" />
+                <span>شارك إنجازك</span>
+              </button>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
+
+      <ShareResultModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        title="حللت لغز الحروف"
+        subtitle={stage.title}
+        playerName={profile.name}
+        playerAvatar={profile.avatar}
+        playerTitle={profile.title}
+        scoreOrStars={{ stars: 3, dinarsEarned: stage.rewardDinars }}
+        contextType="daily"
+      />
     </div>
   );
 };
