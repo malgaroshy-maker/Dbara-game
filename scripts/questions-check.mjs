@@ -87,7 +87,14 @@ for (const { data: q, file } of mcq) {
     fail(q.id, 'حقل needsReview فارغ — اكتب سبب المراجعة أو احذف الحقل');
 }
 
-// rule 5 — answer position must not cluster
+// rule 5 — answer position must not cluster.
+//
+// This is data hygiene, not a player-facing guard: every surface that renders
+// options shuffles them per question (QuizScreen and PassAndPlayScreen are the
+// only two readers of `.options`, and both Fisher-Yates them), so no player can
+// learn a slot. The rule stays because a badly clustered bank is a symptom —
+// it usually means options were pasted answer-first — and because the shuffle
+// is a rendering decision that a future screen could forget to make.
 const pos = [0, 0, 0, 0];
 mcq.forEach(({ data: q }) => pos[q.correctIndex]++);
 const worst = Math.max(...pos) / mcq.length;
@@ -377,7 +384,9 @@ if (Object.keys(typeMix).length < 3) errors.push('✗ التحدي اليومي:
 // ── report ──────────────────────────────────────────────────────────────────
 const counts = { 'اختيار من متعدد': mcq.length, 'صح/خطأ': blitz.length, 'ترتيب حروف': scrambles.length, 'متقاطعة': crosswords.length };
 console.log(Object.entries(counts).map(([k, v]) => `${k}: ${v}`).join('  |  '));
-console.log(`موقع الإجابة: ${pos.join(' / ')}`);
+console.log(
+  `موقع الإجابة: ${pos.join(' / ')} — للنظافة فقط، فالخيارات تُخلط عند العرض`
+);
 
 const needingReview = mcq.filter((i) => i.data.needsReview);
 const sourced = mcq.filter((i) => i.data.source).length;

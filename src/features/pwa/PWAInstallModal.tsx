@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useModalA11y } from '../../hooks/useModalA11y';
 import { Download, X, Share, PlusSquare, Zap, WifiOff, CheckCircle2 } from 'lucide-react';
 
 interface PWAInstallModalProps {
@@ -19,6 +20,7 @@ export const PWAInstallModal: React.FC<PWAInstallModalProps> = ({
   isInstalled,
   onInstall,
 }) => {
+  const dialogRef = useModalA11y(isOpen, onClose);
   if (!isOpen) return null;
 
   return (
@@ -28,6 +30,7 @@ export const PWAInstallModal: React.FC<PWAInstallModalProps> = ({
         onClick={onClose}
       >
         <motion.div
+          ref={dialogRef}
           role="dialog"
           aria-modal="true"
           aria-label="تثبيت لعبة دبارة"

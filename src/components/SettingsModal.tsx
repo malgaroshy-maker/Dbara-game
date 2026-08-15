@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useModalA11y } from '../hooks/useModalA11y';
 import { useGameStore } from '../store/useGameStore';
 import { useMapStore, mergeCitiesWithInitial } from '../store/useMapStore';
 import { sfx } from '../audio/soundEffects';
 import { X, Volume2, VolumeX, Download, Upload, RotateCcw, BarChart2, ShieldCheck, Vibrate, UserRound, MessageCircle } from 'lucide-react';
-import { AUTHOR, reportLink } from '../data/credits';
+import { AUTHOR, canReport, reportLink } from '../data/credits';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -24,14 +25,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
   const [nameDraft, setNameDraft] = useState<string>(profile.name);
   const [nameSaved, setNameSaved] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (!isOpen) return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [isOpen, onClose]);
+  // Owns Escape, focus entry, the Tab cycle and focus restoration.
+  const dialogRef = useModalA11y(isOpen, onClose);
 
   if (!isOpen) return null;
 
@@ -101,6 +96,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
         onClick={onClose}
       >
         <motion.div
+          ref={dialogRef}
           role="dialog"
           aria-modal="true"
           aria-label="الإعدادات والإحصائيات"
@@ -280,16 +276,18 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, o
 
           {/* Report a mistake, and who made this */}
           <div className="pt-2 space-y-2">
-            <a
-              href={reportLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => sfx.playTap()}
-              className="w-full py-2.5 rounded-xl bg-oasis-500/10 hover:bg-oasis-500/20 text-oasis-500 text-xs font-bold flex items-center justify-center gap-1.5 border border-oasis-500/25"
-            >
-              <MessageCircle className="w-3.5 h-3.5" />
-              <span>بلّغ عن خطأ أو اقترح سؤالاً</span>
-            </a>
+            {canReport && (
+              <a
+                href={reportLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => sfx.playTap()}
+                className="w-full py-2.5 rounded-xl bg-oasis-500/10 hover:bg-oasis-500/20 text-oasis-500 text-xs font-bold flex items-center justify-center gap-1.5 border border-oasis-500/25"
+              >
+                <MessageCircle className="w-3.5 h-3.5" />
+                <span>بلّغ عن خطأ أو اقترح سؤالاً</span>
+              </a>
+            )}
             <p className="text-[10px] text-ink-400 text-center leading-relaxed">
               من إعداد وجمع {AUTHOR.arabicName}
               <br />

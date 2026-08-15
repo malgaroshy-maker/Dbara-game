@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <!-- Zoom is deliberately left enabled. A player who needs larger text needs
+         it most on a screen that is mostly Arabic prose, and locking the scale
+         is a WCAG 1.4.4 failure. The map's own pinch-to-zoom does not depend on
+         this: it claims two-finger gestures itself in useMapViewport. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0B0F19" />
     <meta name="description" content="دبارة - لعبة المسابقات والألغاز الليبية التفاعلية واستكشاف خريطة المدن والتراث" />
     <title>دبارة | لغز ومعرفة ليبية</title>

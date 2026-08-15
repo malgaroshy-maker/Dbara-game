@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useModalA11y } from '../../hooks/useModalA11y';
 import type { CityNode, Stage } from '../../types/map';
 import { Star, Lock, Play, X, BookOpen, Compass, CheckCircle2 } from 'lucide-react';
 import { useMapStore } from '../../store/useMapStore';
@@ -12,6 +13,9 @@ interface CityDetailModalProps {
 
 export const CityDetailModal: React.FC<CityDetailModalProps> = ({ city, onClose, onStartStage }) => {
   const { getTotalStars } = useMapStore();
+  // Called before the early return — hooks cannot sit behind a condition, and
+  // the sheet is only rendered when a city is selected anyway.
+  const dialogRef = useModalA11y(Boolean(city), onClose);
   if (!city) return null;
 
   const totalStars = getTotalStars();
@@ -32,6 +36,7 @@ export const CityDetailModal: React.FC<CityDetailModalProps> = ({ city, onClose,
 
         {/* Modal Card */}
         <motion.div
+          ref={dialogRef}
           role="dialog"
           aria-modal="true"
           aria-label={city.arabicName}

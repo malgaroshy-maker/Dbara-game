@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# Build-time contact configuration — see .env.example. Not secret (it ships in
+# the bundle), but a personal number does not belong in git either.
+.env
+.env.*
+!.env.example
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

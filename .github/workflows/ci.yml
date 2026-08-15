@@ -33,6 +33,11 @@ jobs:
         run: npx tsc -b
 
       - name: 4. Production Build & PWA Precaching
+        # A stand-in report channel so the e2e suite can assert the link works.
+        # Deliberately not the real contact: CI output is public, and nothing
+        # personal should be reachable from a build log.
+        env:
+          VITE_REPORT_URL: https://example.invalid/report?q={subject}
         run: npm run build
 
       - name: 5. Install Playwright Browsers

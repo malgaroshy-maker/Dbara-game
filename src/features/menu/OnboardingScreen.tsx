@@ -52,10 +52,13 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onStart, onS
             />
           ))}
         </div>
+        {/* Negative margin keeps the label where it looked right while giving the
+            button a full 44px touch target — the text is small on purpose, the
+            thing you have to hit should not be. */}
         <button
           type="button"
           onClick={() => onSkip(identity)}
-          className="text-xs font-bold text-ink-400 hover:text-white transition-colors"
+          className="-m-3 p-3 min-w-11 min-h-11 text-xs font-bold text-ink-400 hover:text-white transition-colors"
         >
           تخطي
         </button>

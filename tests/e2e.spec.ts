@@ -172,10 +172,15 @@ test.describe('Dbara Trivia Game E2E Suite', () => {
     const reportLink = page.getByRole('link', { name: 'تشك في هذه المعلومة؟ بلّغنا' });
     await expect(reportLink).toBeVisible();
 
-    // Verify report link points to WhatsApp with encoded questionId
+    // The channel itself is a build-time setting (see src/data/credits.ts), so
+    // asserting on wa.me would only be testing which env this build used. What
+    // has to hold either way is that the link is a real https destination and
+    // that it carries the question id — a report that does not name the
+    // question is the report that costs an hour to act on.
     const href = await reportLink.getAttribute('href');
-    expect(href).toContain('wa.me');
-    expect(href).toContain('https');
+    expect(href).toMatch(/^https:\/\//);
+    const subject = new URL(href!).search;
+    expect(subject).toMatch(/(?:hist|geo|dia|spo|food|gen|isl|lit|sci)[a-z_]*_?\w+/);
 
     // Click continue to proceed
     const continueBtn = page.getByRole('button', { name: /استمر في الرحلة/ });

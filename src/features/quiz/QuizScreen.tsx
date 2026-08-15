@@ -7,7 +7,7 @@ import { useMapStore } from '../../store/useMapStore';
 import { useCountdown } from '../../hooks/useCountdown';
 import { sfx } from '../../audio/soundEffects';
 import confetti from 'canvas-confetti';
-import { reportLink } from '../../data/credits';
+import { canReport, reportLink } from '../../data/credits';
 import {
   Flag,
   BookOpen,
@@ -228,7 +228,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
 
         <div className="text-center">
           <span className="text-xs font-semibold text-sea-500">المرحلة {stage.stageNumber}</span>
-          <h3 className="text-sm font-extrabold text-white">{stage.title}</h3>
+          <h2 className="text-sm font-extrabold text-white">{stage.title}</h2>
         </div>
 
         {/* Timer Badge */}
@@ -258,9 +258,11 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
           <span>سؤال التحدي الثقافي:</span>
         </div>
 
-        <h2 className="text-lg sm:text-xl font-extrabold text-ink-100 leading-relaxed text-right">
+        {/* h3 under the stage's h2: the question sits inside the stage, and
+            heading level tracks that nesting rather than the font size. */}
+        <h3 className="text-lg sm:text-xl font-extrabold text-ink-100 leading-relaxed text-right">
           {question.question}
-        </h2>
+        </h3>
       </motion.div>
 
       {/* 4 Shuffled Answer Options */}
@@ -290,10 +292,18 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
               whileTap={!isAnswered && !isDisabled ? { scale: 0.98 } : {}}
               disabled={isAnswered || isDisabled}
               onClick={() => handleSelectOption(visualIdx)}
+              /* Without an explicit label the badge letter runs straight into
+                 the answer for a screen reader — "أ" + "حرب القرم" is read as
+                 the single word "أحرب القرم". The badge is decorative; the
+                 label restates it with the separator the layout implies. */
+              aria-label={`${optionLabels[visualIdx]} — ${opt.text}`}
               className={`w-full p-4 rounded-2xl flex items-center justify-between text-right transition-all font-bold ${optionStyle}`}
             >
               <div className="flex items-center gap-3">
-                <span className="w-7 h-7 rounded-full bg-gold-400/15 text-gold-300 border border-gold-400/30 flex items-center justify-center text-xs font-black shrink-0">
+                <span
+                  aria-hidden="true"
+                  className="w-7 h-7 rounded-full bg-gold-400/15 text-gold-300 border border-gold-400/30 flex items-center justify-center text-xs font-black shrink-0"
+                >
                   {optionLabels[visualIdx]}
                 </span>
                 <span className="text-sm sm:text-base leading-snug">{opt.text}</span>
@@ -431,15 +441,17 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
               {/* The moment a player knows an answer is wrong is the moment they
                   have just read it, so the report carries this question's id and
                   they never have to describe which one they meant. */}
-              <a
-                href={reportLink(question.id)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center justify-center gap-1 text-[11px] text-ink-400 hover:text-gold-300 transition-colors"
-              >
-                <Flag className="w-3 h-3" />
-                <span>تشك في هذه المعلومة؟ بلّغنا</span>
-              </a>
+              {canReport && (
+                <a
+                  href={reportLink(question.id)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-flex items-center justify-center gap-1 text-[11px] text-ink-400 hover:text-gold-300 transition-colors"
+                >
+                  <Flag className="w-3 h-3" />
+                  <span>تشك في هذه المعلومة؟ بلّغنا</span>
+                </a>
+              )}
             </motion.div>
           </div>
         )}

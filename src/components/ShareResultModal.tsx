@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useModalA11y } from '../hooks/useModalA11y';
 import { X, Share2, Download, Copy, Check, Sparkles, Trophy, Flame, Star, Coins } from 'lucide-react';
 import { sfx } from '../audio/soundEffects';
 
@@ -204,15 +205,9 @@ export const ShareResultModal: React.FC<ShareResultModalProps> = ({
     contextType,
   ]);
 
-  // Escape closes the card, matching every other dismissible surface.
-  useEffect(() => {
-    if (!isOpen) return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [isOpen, onClose]);
+  // Escape closes the card, matching every other dismissible surface — and
+  // with it focus entry, the Tab cycle and focus restoration.
+  const dialogRef = useModalA11y(isOpen, onClose);
 
   if (!isOpen) return null;
 
@@ -289,6 +284,7 @@ export const ShareResultModal: React.FC<ShareResultModalProps> = ({
         onClick={onClose}
       >
         <motion.div
+          ref={dialogRef}
           role="dialog"
           aria-modal="true"
           aria-label="مشاركة بطاقة الإنجاز"

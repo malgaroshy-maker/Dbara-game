@@ -65,16 +65,24 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
 
         {/* Currency & Stars HUD Badges */}
         <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
-          {/* Stars */}
-          <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-2xl bg-night-800 border border-gold-400/30 text-xs font-black text-gold-300 shadow-sm">
+          {/* Stars and dinars read as bare numbers otherwise — the icon carries
+              the meaning visually, and a screen reader cannot see the icon. */}
+          <div
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-2xl bg-night-800 border border-gold-400/30 text-xs font-black text-gold-300 shadow-sm"
+            role="status"
+            aria-label={`${totalStars} نجمة`}
+          >
             <Star className="w-3.5 h-3.5 text-gold-400 fill-gold-400" />
-            <span>{totalStars}</span>
+            <span aria-hidden="true">{totalStars}</span>
           </div>
 
-          {/* Dinars */}
-          <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-2xl bg-night-800 border border-gold-400/30 text-xs font-black text-gold-300 shadow-sm">
+          <div
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-2xl bg-night-800 border border-gold-400/30 text-xs font-black text-gold-300 shadow-sm"
+            role="status"
+            aria-label={`${profile.dinars} ديناراً`}
+          >
             <Coins className="w-3.5 h-3.5 text-gold-400" />
-            <span>{profile.dinars}</span>
+            <span aria-hidden="true">{profile.dinars}</span>
           </div>
 
           {/* Quick PWA Install Button (if in browser) */}
@@ -88,9 +96,12 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
             </button>
           )}
 
-          {/* Sound Toggle */}
+          {/* Sound Toggle — the label states what the button does next, not what
+              the icon currently shows, so a screen reader announces the action. */}
           <button
             onClick={toggleSound}
+            aria-label={audio.soundEnabled ? 'إسكات الأصوات' : 'تشغيل الأصوات'}
+            aria-pressed={!audio.soundEnabled}
             className="p-2 rounded-2xl bg-night-800 hover:bg-night-700 border border-white/10 text-ink-400 hover:text-white transition-colors"
           >
             {audio.soundEnabled ? (
@@ -103,6 +114,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
           {/* Settings Trigger */}
           <button
             onClick={onOpenSettings}
+            aria-label="الإعدادات"
             className="p-2 rounded-2xl bg-night-800 hover:bg-night-700 border border-white/10 text-ink-400 hover:text-white transition-colors"
           >
             <Settings className="w-4 h-4" />
