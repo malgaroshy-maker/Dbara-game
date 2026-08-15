@@ -357,13 +357,17 @@ schedule.forEach((c, day) => {
   } else if (c.type === 'scramble') {
     if (!scrambleIds.has(c.scrambleId)) errors.push(`✗ ${where}: لغز غير موجود "${c.scrambleId}"`);
     const prev = seenOn.scramble.get(c.scrambleId);
-    if (prev !== undefined && day - prev < 60)
+    // 300, not 60: both puzzle pools now hold a full year of distinct days
+    // (measured at 364), and the bar exists to stop that quietly eroding when
+    // someone deletes a puzzle. A threshold well under what the content
+    // achieves would let the pool halve before anyone noticed.
+    if (prev !== undefined && day - prev < 300)
       errors.push(`✗ ${where}: تكرار لغز "${c.scrambleId}" بعد ${day - prev} يوماً فقط`);
     seenOn.scramble.set(c.scrambleId, day);
   } else if (c.type === 'crossword') {
     if (!crosswordIds.has(c.crosswordId)) errors.push(`✗ ${where}: شبكة غير موجودة "${c.crosswordId}"`);
     const prev = seenOn.crossword.get(c.crosswordId);
-    if (prev !== undefined && day - prev < 60)
+    if (prev !== undefined && day - prev < 300)
       errors.push(`✗ ${where}: تكرار شبكة "${c.crosswordId}" بعد ${day - prev} يوماً فقط`);
     seenOn.crossword.set(c.crosswordId, day);
   } else if (c.type !== 'blitz') {

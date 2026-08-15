@@ -19,12 +19,13 @@ import { miniCrosswords } from './crosswords';
  *   compare "today's challenge" without a server.
  * - **No repeat until the pool is exhausted.** Each type walks its pool by a
  *   stride coprime with the pool size, which visits every entry exactly once
- *   before revisiting any. Actual windows at today's content sizes:
- *     · معلومة  — 3 days a week over 195 questions ≈ 15 months
- *     · حروف    — 1 day a week over 17 puzzles     ≈ 4 months
- *     · متقاطعة — 1 day a week over 18 grids       ≈ 4 months
+ *   before revisiting any. Measured windows at today's content sizes:
+ *     · معلومة  — 3 days a week over 393 questions; no repeat in 900 days
+ *     · حروف    — 1 day a week over 52 puzzles     = 364 days
+ *     · متقاطعة — 1 day a week over 52 grids       = 364 days
  *     · سرعة    — never literally repeats; the mode samples 10 of 50 statements
- *   Growing a pool widens its window automatically.
+ *   Growing a pool widens its window automatically. `questions:check` fails the
+ *   build if any window falls under 300 days, so the year cannot erode unnoticed.
  * - **Varied within the week.** A fixed weekly pattern rather than a uniform
  *   random type, so a player never gets the same mode four days running.
  */
